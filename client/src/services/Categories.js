@@ -1,7 +1,7 @@
 import Base from './base';
 
 export default class Categories extends Base {
-    
+
     getCategories() {
         return super.get(`categories`).then(res => res.data);
     }
