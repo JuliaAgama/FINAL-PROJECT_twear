@@ -1,7 +1,9 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-const Header = (props) => {
+import HeaderNav from './HeaderNav';
+
+const Header = () => {
 
     const styles = {
         navbarLogo: {
@@ -14,14 +16,14 @@ const Header = (props) => {
         <>
             <header>
                 <div className="container-fluid">
-                    <div className="row">
+                    <div className="row navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                         <Link to={`/`} className="col-2">
                             <div style={styles.navbarLogo}>
-                                <img className="img-fluid" src="/img/twear_logo_grey-on-transparent.png" alt="NOT FOUND"/>
+                                <img className="img-fluid" src="/img/twear_logo_white-on-transparent.png" alt="NOT FOUND"/>
                             </div>
                         </Link>
                         <div className="col-10 text-center">
-                            <p>THIS IS HEADER</p>
+                            <HeaderNav/>
                         </div>
                     </div>
                 </div>

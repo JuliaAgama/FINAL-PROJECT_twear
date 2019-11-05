@@ -8,6 +8,9 @@ import NotFound from './components/NotFound';
 import Layout from './components/common/layouts/LayoutMain';
 import HomePage from './components/HomePage';
 import CatGalleryPage from './components/CatGalleryPage';
+import AdminPage from './components/AdminPage';
+import AdminCategories from './components/AdminPage/AdminCategories';
+import EditNewCategory from './components/AdminPage/AdminCategories/EditNewCategory';
 
 
 const categoriesTree = [
@@ -62,15 +65,20 @@ export const Router = () => (
             <main className='content'>
                 <Switch>
                     <Route exact
-                            path="/"
-                            component={props => <Layout {...props}><HomePage/></Layout>}/>
-
+                        path="/"
+                        component={props => <Layout {...props}><HomePage/></Layout>}/>
                     <Route exact
-                            path="/:gender?"
-                            component={props => <Layout {...props}><CatGalleryPage categoriesTree={categoriesTree}/></Layout>}/>
-                    {/* <Route exact
-                            path="/:gender?/:categoryName?"
-                            component={props => <Layout {...props}><CatGalleryPage {...props}/></Layout>}/> */}
+                        path="/gender/:gender?"
+                        component={props => <Layout {...props}><CatGalleryPage categoriesTree={categoriesTree}/></Layout>}/>
+                    <Route exact
+                        path="/admin"
+                        component={props => <Layout {...props}><AdminPage/></Layout>}/>
+                    <Route exact
+                        path="/admin/categories"
+                        component={props => <Layout {...props}><AdminCategories/></Layout>}/>
+                    <Route exact
+                        path="/admin/categories/:categoryName?"
+                        component={props => <Layout {...props}><EditNewCategory {...props}/></Layout>}/>
 
                     <Route path="*" component={NotFound}/>
                 </Switch>

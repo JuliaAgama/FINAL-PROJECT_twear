@@ -7,13 +7,13 @@ const HomePage = () => {
         <>
             <section className="home-page">
                 <div className="row">
-                    <Link to={`/women`} className ="col p-5 border border-secondary text-center">
+                    <Link to={`/gender/women`} className ="col p-5 border border-secondary text-center">
                         <div >For Her</div>
                     </Link>
-                    <Link to={`/all`} className ="col p-5 border border-secondary text-center">
+                    <Link to={`/gender/all`} className ="col p-5 border border-secondary text-center">
                         <div>ALL</div>
                     </Link>
-                    <Link to={`/men`} className ="col p-5 border border-secondary text-center">
+                    <Link to={`/gender/men`} className ="col p-5 border border-secondary text-center">
                         <div>For Him</div>
                     </Link>
                 </div>

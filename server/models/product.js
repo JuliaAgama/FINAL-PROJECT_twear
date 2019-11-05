@@ -2,69 +2,69 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema(
-  {
+    {
     itemNo: {
-      type: String,
-      required: true
-    },
-    enabled: {
-      type: Boolean,
-      required: true,
-      default: true
-    },
-    name: {
-      type: String,
-      required: true
-    },
-    currentPrice: {
-      type: Number,
-      required: true
-    },
-    previousPrice: {
-      type: Number
-    },
-    categories: {
-      type: String,
-      required: true
-    },
-    imageUrls: [
-      {
         type: String,
         required: true
-      }
+    },
+    enabled: {
+        type: Boolean,
+        required: true,
+        default: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    currentPrice: {
+        type: Number,
+        required: true
+    },
+    previousPrice: {
+        type: Number
+    },
+    categories: {
+        type: String,
+        required: true
+    },
+    imageUrls: [
+        {
+        type: String,
+        required: true
+        }
     ],
     quantity: {
-      type: Number,
-      required: true,
-      default: 0
+        type: Number,
+        required: true,
+        default: 0
     },
     color: {
-      type: String
+        type: String
     },
     sizes: {
-      type: String
+        type: String
     },
     productUrl: {
-      type: String
+        type: String
     },
     brand: {
-      type: String
+        type: String
     },
     manufacturer: {
-      type: String
+        type: String
     },
     manufacturerCountry: {
-      type: String
+        type: String
     },
     seller: {
-      type: String
+        type: String
     },
     date: {
-      type: Date,
-      default: Date.now
+        type: Date,
+        default: Date.now
     }
-  },
-  { strict: false }
+    },
+    { strict: false }
 );
 
 ProductSchema.index({ "$**": "text" });
