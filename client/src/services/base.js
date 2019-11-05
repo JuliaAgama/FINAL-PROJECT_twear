@@ -9,7 +9,6 @@ export default class Base {
     getUrl(path) {
         return `${this.url}/${path}`;
     }
-
     get(url) {
         return axios
             .get(this.getUrl(url));
