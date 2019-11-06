@@ -6,7 +6,8 @@ const getConfigs = require("../config/getConfigs");
 
 module.exports = async passport => {
   const opts = {};
-  const configs = await getConfigs();
+  // const configs = await getConfigs();
+  const configs = { development: { auth: { secretOrKey: "somesecret" } } };
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
   opts.secretOrKey =
     process.env.NODE_ENV === "production"
