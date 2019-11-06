@@ -1,11 +1,15 @@
 import React from 'react';
+import { CssBaseline } from '@material-ui/core';
+
 import {Switch, Route} from 'react-router-dom';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
 import NotFound from './components/NotFound';
 
-import Layout from './components/common/layouts/LayoutMain';
+import LayoutMain from './components/common/layouts/LayoutMain';
+import LayoutAdmin from './components/common/layouts/LayoutAdmin';
+
 import HomePage from './components/HomePage';
 import CatGalleryPage from './components/CatGalleryPage';
 import AdminPage from './components/AdminPage';
@@ -60,25 +64,27 @@ const categoriesTree = [
 export const Router = () => (
 
     <React.Fragment>
+        <CssBaseline />
         <div className="container-fluid">
             <Header/>
             <main className='content'>
                 <Switch>
                     <Route exact
                         path="/"
-                        component={props => <Layout {...props}><HomePage/></Layout>}/>
+                        component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
                     <Route exact
                         path="/gender/:gender?"
-                        component={props => <Layout {...props}><CatGalleryPage categoriesTree={categoriesTree}/></Layout>}/>
+                        component={props => <LayoutMain {...props}><CatGalleryPage categoriesTree={categoriesTree}/></LayoutMain>}/>
+
                     <Route exact
                         path="/admin"
-                        component={props => <Layout {...props}><AdminPage/></Layout>}/>
+                        component={props => <LayoutAdmin {...props}><AdminPage/></LayoutAdmin>}/>
                     <Route exact
                         path="/admin/categories"
-                        component={props => <Layout {...props}><AdminCategories/></Layout>}/>
+                        component={props => <LayoutAdmin {...props}><AdminCategories/></LayoutAdmin>}/>
                     <Route exact
                         path="/admin/categories/:categoryName?"
-                        component={props => <Layout {...props}><EditNewCategory {...props}/></Layout>}/>
+                        component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
 
                     <Route path="*" component={NotFound}/>
                 </Switch>

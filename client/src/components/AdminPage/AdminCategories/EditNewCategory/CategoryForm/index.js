@@ -9,6 +9,7 @@ export default props => {
     let [exists, setExists] = useState(undefined);
     let [displayTops, setDisplayTops] = useState(undefined);
     let [checkedTop, setCheckedTop] = useState(null);
+    let [checked, setChecked] = useState(false);
 
     useEffect(()=> {
         if(categoryName !== 'newTopCategory' && categoryName !== 'newCategory') {
@@ -28,9 +29,16 @@ export default props => {
         if (cats.filter((el) => el.title === categoryName).length >0) {
             let topCatToChecked = topCats.filter((el) => el._id === cats.filter((el) => el.title === categoryName)[0].topCatId)[0].title;
             console.log(topCatToChecked);
-            setCheckedTop(topCatToChecked)
+            setCheckedTop(topCatToChecked);
         }
     }, [categoryName, cats, topCats])
+
+    // do this in child component: 
+    // useEffect(() => {
+    //     if (checkedTop === topCatTitle) {
+    //         setCheckedTop(true);
+    //     }
+    // })
 // check defaultChecked (doesn't work properly)
 
     return (
@@ -67,7 +75,8 @@ export default props => {
                                                 name="topCategories"
                                                 id={topCat.title}
                                                 value={topCat.title}
-                                                defaultChecked={topCat.title === checkedTop ? 'true' : 'false'}
+                                                checked={topCat.title === checkedTop ? 'true' : 'false'}
+                                                //onChange=
                                             />
                                             <label className="form-check-label text-capitalize" htmlFor={topCat.title}>
                                                 {topCat.title}
