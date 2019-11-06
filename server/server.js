@@ -9,6 +9,7 @@ const globalConfigs = require("./routes/globalConfigs");
 const customers = require("./routes/customers");
 const catalog = require("./routes/catalog");
 const products = require("./routes/products");
+const genders = require("./routes/genders");
 const colors = require("./routes/colors");
 const sizes = require("./routes/sizes");
 const filters = require("./routes/filters");
@@ -51,6 +52,7 @@ app.use("/configs", globalConfigs);
 app.use("/customers", customers);
 app.use("/catalog", catalog);
 app.use("/products", products);
+app.use("/genders", genders);
 app.use("/colors", colors);
 app.use("/sizes", sizes);
 app.use("/filters", filters);
@@ -79,4 +81,4 @@ if (process.env.NODE_ENV === "production") {
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, () => console.log(`Server running on port ${port}`, process.env.NODE_ENV));

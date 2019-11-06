@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const GendersSchema = new Schema(
+const GenderSchema = new Schema(
     {
         title: {
             type: String,
@@ -15,4 +15,4 @@ const GendersSchema = new Schema(
     { strict: false }
 );
 
-module.exports = Genders = mongoose.model("genders", GendersSchema);
+module.exports = Gender = mongoose.model("genders", GenderSchema);
