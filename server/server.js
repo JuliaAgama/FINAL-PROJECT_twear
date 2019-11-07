@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
+const cors = require('cors');
 require("dotenv").config();
 
 const globalConfigs = require("./routes/globalConfigs");
@@ -42,6 +43,7 @@ mongoose
   .catch(err => console.log(err));
 
 // Passport middleware
+app.use(cors());
 app.use(passport.initialize());
 
 // Passport Config

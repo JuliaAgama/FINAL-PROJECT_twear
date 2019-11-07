@@ -1,7 +1,15 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
+import GendersApi from '../../services/Genders';
 
 const HomePage = () => {
+
+/// to check that server requests work:
+    useEffect(()=> {
+        (new GendersApi())
+        .getGenders()
+        .then(res => {console.log(res)})
+    },[]);
 
     return (
         <>
