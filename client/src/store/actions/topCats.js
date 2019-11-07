@@ -1,31 +1,69 @@
-// import * as PRODUCTS from "../constants/products";
-// import ProductAPI from "../../services/ProductApi";
+import * as TOPCATS from '../constants/topCats';
+import TopCatsApi from '../../services/TopCategories';
 
-// export function getProductsByCategory(id) {
-//     return function (dispatch) {
-//         dispatch({
-//             type: PRODUCTS.PRODUCT_REQUEST_SENT
-//         });
-//         (new ProductAPI()).getProductsByCategories(id).then(res => {
-//             console.log(res);
-//             return dispatch({
-//                 type: PRODUCTS.FETCH_PRODUCTS_BY_CATEGORY,
-//                 data: res
-//             });
-//         });
-//     };
-// };
 
-// export function getProductById(id) {
-//     return function (dispatch) {
-//         dispatch({
-//             type: PRODUCTS.PRODUCT_REQUEST_SENT
-//         });
-//         (new ProductAPI()).getProductById(id).then(res => {
-//             return dispatch({
-//                 type: PRODUCTS.FETCH_PRODUCT_BY_ID,
-//                 data: res.data
-//             });
-//         });
-//     };
-// };
+export function topCatsSendRequest() {
+    return {
+        type: TOPCATS.TOPCATS_SEND_REQUEST
+    };
+};
+
+export function getAllTopCats() {
+    return function (dispatch) {
+        dispatch(topCatsSendRequest());
+        (new TopCatsApi()).getTopCategories().then(res => {
+            return dispatch({
+                type: TOPCATS.TOPCATS_GET_ALL_TOPCATS,
+                data: res
+            });
+        });
+    };
+};
+
+export function getTopCatById(id) {
+    return function (dispatch) {
+        dispatch(topCatsSendRequest());
+        (new TopCatsApi()).getTopCatById(id).then(res => {
+            return dispatch({
+                type: TOPCATS.TOPCATS_GET_TOPCAT_BY_ID,
+                data: res.data
+            });
+        });
+    };
+};
+
+export function addTopCat(topCat){
+    return function (dispatch) {
+        dispatch(topCatsSendRequest());
+        (new TopCatsApi()).addTopCategory(topCat).then(res => {
+            return dispatch({
+                type: TOPCATS.TOPCATS_ADD_TOPCAT,
+                data: res,
+            });
+        })
+    };
+};
+
+export function updateTopCat (topCat){
+    return function (dispatch) {
+        dispatch(topCatsSendRequest());
+        (new TopCatsApi()).updateTopCategory(topCat).then(res => {
+            return dispatch({
+                type: TOPCATS.TOPCATS_UPDATE_TOPCAT_BY_ID,
+                data: res,
+            });
+        })
+    };
+};
+
+export function deleteTopCat(topCat){
+    return function (dispatch) {
+        dispatch(topCatsSendRequest());
+        (new TopCatsApi()).deleteTopCategory(topCat).then(res => {
+            return dispatch({
+                type: TOPCATS.TOPCATS_DELETE_TOPCAT_BY_ID,
+                data: res,
+            });
+        })
+    };
+};
