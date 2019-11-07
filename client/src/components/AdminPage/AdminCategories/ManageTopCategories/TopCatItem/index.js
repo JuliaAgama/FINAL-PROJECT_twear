@@ -1,9 +1,53 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from "react-router-dom";
+
+
+import Grid from '@material-ui/core/Grid';
+
+import Fab from '@material-ui/core/Fab';
+
+// import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
+
+import Link from '@material-ui/core/Link';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import { makeStyles } from '@material-ui/core/styles';
 
 import ManageCategories from '../../ManageCategories';
 
+const useStyles = makeStyles((theme) => {
+
+    return ({
+        root: {
+            flexGrow: 1,
+            alignItems: 'center',
+            textTransform: 'capitalize',
+            justifyContent: 'space-between',
+            paddingRight: theme.spacing(5)
+        },
+        imageBox: {
+            height: theme.spacing(10),
+            overflow: 'hidden'
+        },
+        image: {
+            width: '80%',
+            objectFit: 'cover',
+        },
+        fab: {
+            margin: theme.spacing(2),
+            textAlign: 'center',
+        },
+        whiteText: {
+            color: '#fff',
+        }
+    });
+});
+
 export default props => {
+
+    const classes = useStyles();
 
     const {item} = props;
 
@@ -20,42 +64,54 @@ export default props => {
 
     return (
         <>
-            <li className="list-group-item">
-                <div className="row justify-between align-center">
-                    <div className="col-6">
-                        <img
-                            width={50}
-                            height={50}
-                            src={item.img}
-                            alt="NOT FOUND"
-                        />
-                        <span> {item.title} </span>
-                    </div>
-                    <div className="col-2">
-                        <Link to={`/admin/categories/${item.title}`}>
-                            <button className="btn btn-sm btn-primary">
-                                <i className="fas fa-pencil-alt"></i>
-                            </button> Edit
-                        </Link>
-                    </div>
-                    <div className="col-2">
-                        <button
-                            className="btn btn-sm btn-danger"
-                            onClick={() => onDelete()}
+        <Divider />
+        <ListItem>
+            <Grid container className={classes.root}>
+                <Grid item xs={6} md={8}>
+                    <Grid container className={classes.root}>
+                        <Grid item xs={3}className={classes.imageBox}>
+                            <img
+                                className={classes.image}
+                                src={item.img}
+                                alt="NOT FOUND"
+                            />
+                        </Grid>
+                        <Grid item xs={9}> {item.title} </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={2} md={1}>
+                    <Link href="/admin/categories/${item.title}">
+                        <Fab
+                            className={classes.fab}
+                            color="primary"
+                            aria-label="edit"
                         >
-                            <i className="fa fa-trash"></i>
-                        </button> Delete
-                    </div>
-                    <div className="col-2">
-                        <button
-                            className="btn btn-sm btn-info"
-                            onClick={() => toggleCategories()}
-                        >
-                            <i className="fas fa-angle-double-right text-white"></i>
-                        </button> Dive into
-                    </div>
-                </div>
-            </li>
+                            <EditIcon/>
+                        </Fab>
+                    </Link>
+                </Grid>
+                <Grid item xs={2} md={1}>
+                    <Fab
+                        className={classes.fab}
+                        color="default"
+                        aria-label="delete"
+                        onClick={onDelete}
+                    >
+                        <DeleteIcon className={classes.whiteText}/>
+                    </Fab>
+                </Grid>
+                <Grid item xs={2} md={1}>
+                    <Fab
+                        className={classes.fab}
+                        color="secondary"
+                        aria-label="Dive"
+                        onClick={toggleCategories}
+                    >
+                        <ArrowDropDownCircleIcon />
+                    </Fab>
+                </Grid>
+            </Grid>
+        </ListItem>
 
             <div className={className}>
                 <div className="bg-info ml-5">

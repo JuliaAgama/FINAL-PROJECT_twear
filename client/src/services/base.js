@@ -3,7 +3,7 @@ import axios from 'axios';
 export default class Base {
     constructor() {
          this.url = 'http://localhost:3002/api'; // localhost
-    //    this.url = 'https://node-server-fe9.herokuapp.com/api'; // heroku
+    //    this.url = 'https://https://twear.herokuapp.com/api'; // heroku
     }
 
     getUrl(path) {

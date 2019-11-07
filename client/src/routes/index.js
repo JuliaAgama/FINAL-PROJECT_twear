@@ -2,19 +2,22 @@ import React from 'react';
 import { CssBaseline } from '@material-ui/core';
 
 import {Switch, Route} from 'react-router-dom';
+import PrivateAdminRoute from './PrivateAdmin';
 
-import Header from './components/Header';
-import Footer from './components/Footer';
-import NotFound from './components/NotFound';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import NotFound from '../components/NotFound';
 
-import LayoutMain from './components/common/layouts/LayoutMain';
-import LayoutAdmin from './components/common/layouts/LayoutAdmin';
+import LayoutMain from '../components/common/layouts/LayoutMain';
+import LayoutAdmin from '../components/common/layouts/LayoutAdmin';
 
-import HomePage from './components/HomePage';
-import CatGalleryPage from './components/CatGalleryPage';
-import AdminPage from './components/AdminPage';
-import AdminCategories from './components/AdminPage/AdminCategories';
-import EditNewCategory from './components/AdminPage/AdminCategories/EditNewCategory';
+import HomePage from '../components/HomePage';
+import CatGalleryPage from '../components/CatGalleryPage';
+
+import AdminLoginPage from '../components/AdminLoginPage';
+import AdminPage from '../components/AdminPage';
+import AdminCategories from '../components/AdminPage/AdminCategories';
+import EditNewCategory from '../components/AdminPage/AdminCategories/EditNewCategory';
 
 
 const categoriesTree = [
@@ -66,30 +69,34 @@ export const Router = () => (
     <React.Fragment>
         <CssBaseline />
         <div className="container-fluid">
-            <Header/>
-            <main className='content'>
-                <Switch>
-                    <Route exact
-                        path="/"
-                        component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
-                    <Route exact
-                        path="/gender/:gender?"
-                        component={props => <LayoutMain {...props}><CatGalleryPage categoriesTree={categoriesTree}/></LayoutMain>}/>
+            <Switch>
+                <Route exact
+                    path="/"
+                    component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
+                <Route exact
+                    path="/gender/:gender?"
+                    component={props => <LayoutMain {...props}><CatGalleryPage categoriesTree={categoriesTree}/></LayoutMain>}/>
 
-                    <Route exact
-                        path="/admin"
-                        component={props => <LayoutAdmin {...props}><AdminPage/></LayoutAdmin>}/>
-                    <Route exact
-                        path="/admin/categories"
-                        component={props => <LayoutAdmin {...props}><AdminCategories/></LayoutAdmin>}/>
-                    <Route exact
-                        path="/admin/categories/:categoryName?"
-                        component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
 
-                    <Route path="*" component={NotFound}/>
-                </Switch>
-            </main>
-            <Footer/>
+                <Route exact
+                    path="/admin/login"
+                    component={AdminLoginPage}/>
+
+                <Route exact
+                //<PrivateAdminRoute exact
+                    path="/admin"
+                    component={props => <LayoutAdmin {...props}><AdminPage/></LayoutAdmin>}/>
+                <Route exact
+                //<PrivateAdminRoute exact
+                    path="/admin/categories"
+                    component={props => <LayoutAdmin {...props}><AdminCategories/></LayoutAdmin>}/>
+                <Route exact
+                //<PrivateAdminRoute exact
+                    path="/admin/categories/:categoryName?"
+                    component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
+
+                <Route path="*" component={NotFound}/>
+            </Switch>
         </div>
     </React.Fragment>
 );

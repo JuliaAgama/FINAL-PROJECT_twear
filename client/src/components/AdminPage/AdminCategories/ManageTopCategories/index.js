@@ -1,10 +1,41 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
+import Link from '@material-ui/core/Link';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import { makeStyles } from '@material-ui/core/styles';
 
 import TopCatItem from './TopCatItem';
 
+const useStyles = makeStyles((theme) => {
+
+    return ({
+        root: {
+            width: '100%',
+            backgroundColor: theme.palette.background.paper,
+        },
+        center: {
+            textAlign: 'center',
+            margin: '0 auto'
+        },
+        fab: {
+            margin: theme.spacing(1),
+            textAlign: 'center',
+        },
+        extendedIcon: {
+            marginRight: theme.spacing(1),
+        },
+    });
+});
+
 
 export default props => {
+
+    const classes = useStyles();
 
     const items = [
         {
@@ -25,31 +56,31 @@ export default props => {
     ];
 
     return (
-        <div className="position-relative">
-            <ul className="list-group m-3">
-                {items
-                        .map(item =>
-                            <TopCatItem
-                                item={item}
-                                key={item._id}
-                            />
-                        )
-                }
-                <li className="list-group-item">
-                    <div className="row">
-                        <div className="col-3">
-                            <Link to={`/admin`}>
-                                <button className="btn btn-secondary text-uppercase">Back</button>
-                            </Link>
-                        </div>
-                        <div className="col-9">
-                        <Link to={`/admin/categories/newTopCategory`}>
-                            <button className="btn btn-success text-uppercase">ADD MORE TOP CATEGORIES</button>
-                        </Link>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
+        <List className={classes.root}>
+            {items
+                    .map(item =>
+                        <TopCatItem
+                            item={item}
+                            key={item._id}
+                        />
+                    )
+            }
+            <Divider />
+            <ListItem>
+                <Link href="/admin/categories/newTopCategory" className={classes.center}>
+                    <Fab variant="extended" aria-label="add" color="secondary" className={classes.fab}>
+                        <AddIcon className={classes.extendedIcon} aria-label="add"></AddIcon>
+                        <span> CREATE NEW TOP CATEGORY </span>
+                    </Fab>
+                </Link>
+            </ListItem>
+        </List>
     )
 };
+
+
+
+            // <Link href={`/admin`}>
+            //     <Button className="btn btn-lg btn-block btn-secondary text-uppercase">Back
+            //     </Button>
+            // </Link>

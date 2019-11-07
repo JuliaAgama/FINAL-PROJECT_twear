@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
-import {Router} from './routes';
+import {Router} from './routes/';
 import './index.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 
