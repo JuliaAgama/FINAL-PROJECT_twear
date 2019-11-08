@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
@@ -73,7 +73,7 @@ export default props => {
 
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <div className={classes.expanded}>
-                    <ManageCategories topCategoryId={item._id}/>
+                    <ManageCategories topCatId={item._id}/>
                     <Box textAlign='right'>
                         <IconButton
                             className={classes.expandOpen}

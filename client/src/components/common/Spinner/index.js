@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const ColorCircularProgress = withStyles({
@@ -9,6 +9,14 @@ const ColorCircularProgress = withStyles({
     },
 })(CircularProgress);
 
+const useStyles = makeStyles(theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    margin: {
+        margin: theme.spacing(1),
+    },
+}));
 
 export default () => {
     const classes = useStyles();

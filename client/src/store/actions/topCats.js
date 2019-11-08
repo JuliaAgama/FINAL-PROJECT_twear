@@ -32,10 +32,10 @@ export function getTopCatById(id) {
     };
 };
 
-export function addTopCat(topCat){
+export function addTopCat(item){
     return function (dispatch) {
         dispatch(topCatsSendRequest());
-        (new TopCatsApi()).addTopCategory(topCat).then(res => {
+        (new TopCatsApi()).addTopCategory(item).then(res => {
             return dispatch({
                 type: TOPCATS.TOPCATS_ADD_TOPCAT,
                 data: res,
@@ -44,10 +44,10 @@ export function addTopCat(topCat){
     };
 };
 
-export function updateTopCat (topCat){
+export function updateTopCat (item){
     return function (dispatch) {
         dispatch(topCatsSendRequest());
-        (new TopCatsApi()).updateTopCategory(topCat).then(res => {
+        (new TopCatsApi()).updateTopCategory(item).then(res => {
             return dispatch({
                 type: TOPCATS.TOPCATS_UPDATE_TOPCAT_BY_ID,
                 data: res,
@@ -56,10 +56,10 @@ export function updateTopCat (topCat){
     };
 };
 
-export function deleteTopCat(topCat){
+export function deleteTopCat(item){
     return function (dispatch) {
         dispatch(topCatsSendRequest());
-        (new TopCatsApi()).deleteTopCategory(topCat).then(res => {
+        (new TopCatsApi()).deleteTopCategory(item).then(res => {
             return dispatch({
                 type: TOPCATS.TOPCATS_DELETE_TOPCAT_BY_ID,
                 data: res,
