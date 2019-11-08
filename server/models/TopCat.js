@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const GenderSchema = new Schema(
+const TopCatSchema = new Schema(
     {
         title: {
+            type: String,
+            required: true
+        },
+        img: {
             type: String,
             required: true
         },
@@ -15,4 +19,4 @@ const GenderSchema = new Schema(
     { strict: false }
 );
 
-module.exports = Gender = mongoose.model("genders", GenderSchema, "genders");
+module.exports = TopCat = mongoose.model("topCats", TopCatSchema, "topCats");

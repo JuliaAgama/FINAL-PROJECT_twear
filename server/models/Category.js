@@ -7,11 +7,15 @@ const CatalogSchema = new Schema(
       type: String,
       required: true
     },
-    name: {
+    title: {
       type: String,
       required: true
     },
-    parentId: {
+    topCatId: {
+      type: String,
+      required: true
+    },
+    img: {
       type: String,
       required: true
     },
@@ -23,4 +27,4 @@ const CatalogSchema = new Schema(
   { strict: false }
 );
 
-module.exports = Catalog = mongoose.model("catalogs", CatalogSchema);
+module.exports = Catalog = mongoose.model("categories", CatalogSchema, "categories");

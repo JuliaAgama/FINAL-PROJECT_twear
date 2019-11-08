@@ -8,9 +8,10 @@ require("dotenv").config();
 
 const globalConfigs = require("./routes/globalConfigs");
 const customers = require("./routes/customers");
-const catalog = require("./routes/catalog");
+const categories = require("./routes/categories");
 const products = require("./routes/products");
 const genders = require("./routes/genders");
+const topCats = require("./routes/topCats");
 const colors = require("./routes/colors");
 const sizes = require("./routes/sizes");
 const filters = require("./routes/filters");
@@ -52,9 +53,10 @@ require("./config/passport")(passport);
 // Use Routes
 app.use("/configs", globalConfigs);
 app.use("/customers", customers);
-app.use("/catalog", catalog);
+app.use("/categories", categories);
 app.use("/products", products);
 app.use("/genders", genders);
+app.use("/top-categories", topCats);
 app.use("/colors", colors);
 app.use("/sizes", sizes);
 app.use("/filters", filters);

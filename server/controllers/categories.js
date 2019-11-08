@@ -1,15 +1,15 @@
-const Catalog = require("../models/Catalog");
+const Category = require("../models/Category");
 const queryCreator = require("../commonHelpers/queryCreator");
 const _ = require("lodash");
 
 exports.addCategory = (req, res, next) => {
-  Catalog.findOne({ id: req.body.id }).then(category => {
+  Category.findOne({ id: req.body.id }).then(category => {
     if (category) {
       return res
         .status(400)
         .json({ message: `Category with id "${category.id}" already exists` });
     } else {
-      const newCategory = new Catalog(queryCreator(req.body));
+      const newCategory = new Category(queryCreator(req.body));
 
       newCategory
         .save()
@@ -24,7 +24,7 @@ exports.addCategory = (req, res, next) => {
 };
 
 exports.updateCategory = (req, res, next) => {
-  Catalog.findOne({ id: req.params.id })
+  Category.findOne({ id: req.params.id })
     .then(category => {
       if (!category) {
         return res.status(400).json({
@@ -34,7 +34,7 @@ exports.updateCategory = (req, res, next) => {
         const initialQuery = _.cloneDeep(req.body);
         const updatedCategory = queryCreator(initialQuery);
 
-        Catalog.findOneAndUpdate(
+        Category.findOneAndUpdate(
           { id: req.params.id },
           { $set: updatedCategory },
           { new: true }
@@ -55,15 +55,15 @@ exports.updateCategory = (req, res, next) => {
 };
 
 exports.deleteCategory = (req, res, next) => {
-  Catalog.findOne({ id: req.params.id }).then(async category => {
+  Category.findOne({ id: req.params.id }).then(async category => {
     if (!category) {
       return res.status(400).json({
         message: `Category with id "${req.params.id}" is not found.`
       });
     } else {
-      const categoryToDelete = await Catalog.findOne({ id: req.params.id });
+      const categoryToDelete = await Category.findOne({ id: req.params.id });
 
-      Catalog.deleteOne({ id: req.params.id })
+      Category.deleteOne({ id: req.params.id })
         .then(deletedCount =>
           res.status(200).json({
             message: `Category witn id "${categoryToDelete.id}" is successfully deleted from DB.`,
@@ -80,8 +80,8 @@ exports.deleteCategory = (req, res, next) => {
 };
 
 exports.getCategories = (req, res, next) => {
-  Catalog.find()
-    .then(catalog => res.send(catalog))
+  Category.find()
+    .then(category => res.send(category))
     .catch(err =>
       res.status(400).json({
         message: `Error happened on server: "${err}" `
@@ -90,7 +90,7 @@ exports.getCategories = (req, res, next) => {
 };
 
 exports.getCategory = (req, res, next) => {
-  Catalog.findOne({ id: req.params.id })
+  Category.findOne({ id: req.params.id })
     .then(category => {
       if (!category) {
         return res.status(400).json({

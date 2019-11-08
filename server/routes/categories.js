@@ -9,9 +9,9 @@ const {
   deleteCategory,
   getCategories,
   getCategory
-} = require("../controllers/catalog");
+} = require("../controllers/categories");
 
-// @route   POST /catalog
+// @route   POST /categories
 // @desc    Create new category
 // @access  Private
 router.post(
@@ -20,7 +20,7 @@ router.post(
   addCategory
 );
 
-// @route   PUT /catalog/:id
+// @route   PUT /categories/:id
 // @desc    Update existing category
 // @access  Private
 router.put(
@@ -29,7 +29,7 @@ router.put(
   updateCategory
 );
 
-// @route   DELETE /catalog/:id
+// @route   DELETE /categories/:id
 // @desc    Delete existing category
 // @access  Private
 router.delete(
@@ -38,12 +38,12 @@ router.delete(
   deleteCategory
 );
 
-// @route   GET /catalog
+// @route   GET /categories
 // @desc    GET existing categories
 // @access  Public
 router.get("/", getCategories);
 
-// @route   GET /catalog/:id
+// @route   GET /categories/:id
 // @desc    GET existing categorie
 // @access  Public
 router.get("/:id", getCategory);
