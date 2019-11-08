@@ -1,27 +1,12 @@
-import React, {useState} from 'react';
-
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import React from 'react';
 
 import {Link} from "react-router-dom";
 
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles((theme) => (
-    {
-        root: {
-            padding: '1rem',
-            flexGrow: 1,
-        },
-        paper: {
-            marginTop: '1rem',
-            padding: theme.spacing(2),
-            textAlign: 'center',
-            color: theme.palette.text.secondary,
-            textTransform: 'capitalize'
-        },
-    }
-));
+import useStyles from './useStyles';
+
 
 export default () => {
     const classes = useStyles();

@@ -1,7 +1,19 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+
+import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import useStyles from './useStyles';
+
+import ImgIcon from '../../../../common/images/ImgIcon';
+import OpenEditButton from '../../../../common/buttons/Edit';
+import DeleteButton from '../../../../common/buttons/Delete';
+
 
 export default props => {
+
+    const classes = useStyles();
 
     const {item} = props;
 
@@ -11,37 +23,29 @@ export default props => {
 
     return (
         <>
-            <li className="list-group-item list-group-item-info">
-                <div className="row justify-between align-center">
-                    <div className="col-3">
-                        <img
-                            width={50}
-                            height={50}
-                            src={item.img}
-                            alt="NOT FOUND"
-                        />
-                        <span> {item.title} </span>
-                    </div>
-                    <div className="col-5">
-                        <span>Top Category: {item.topCatId}</span>
-                    </div>
-                    <div className="col-2">
-                        <Link to={`/admin/categories/${item.title}`}>
-                            <button className="btn btn-sm btn-primary">
-                                <i className="fas fa-pencil-alt"></i>
-                            </button> Edit
-                        </Link>
-                    </div>
-                    <div className="col-2">
-                        <button
-                            className="btn btn-sm btn-danger"
-                            onClick={() => onDelete()}
-                        >
-                            <i className="fa fa-trash"></i>
-                        </button> Delete
-                    </div>
-                </div>
-            </li>
+        <Divider />
+        <ListItem>
+            <Grid container className={classes.paper}>
+                <Grid item xs={6}>
+                    <Grid container className={classes.paper}>
+                        <Grid item xs={4} >
+                            <ImgIcon src={item.img}/>
+                        </Grid>
+                        <Grid item xs={7}> {item.title} </Grid>
+                        <Grid item xs={1}></Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={1}></Grid>
+                <Grid item xs={1}>
+                    <Link href="/admin/categories/${item.title}">
+                        <OpenEditButton/>
+                    </Link>
+                </Grid>
+                <Grid item xs={1}>
+                    <DeleteButton onDelete={onDelete}/>
+                </Grid>
+            </Grid>
+        </ListItem>
         </>
     )
 };

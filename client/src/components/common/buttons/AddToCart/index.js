@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const AddToCart = (props) => {
+export default props => {
 
     const handleClick = () => {
     };
@@ -15,5 +15,3 @@ const AddToCart = (props) => {
         </button>
     )
 };
-
-export default AddToCart;

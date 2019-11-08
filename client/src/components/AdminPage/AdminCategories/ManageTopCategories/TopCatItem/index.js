@@ -1,129 +1,92 @@
-import React, {useState, useEffect} from 'react';
-
+import React, {useState} from 'react';
 
 import Grid from '@material-ui/core/Grid';
-
-import Fab from '@material-ui/core/Fab';
-
-// import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
-
 import Link from '@material-ui/core/Link';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
+import useStyles from './useStyles';
 
 import ManageCategories from '../../ManageCategories';
+import ImgIcon from '../../../../common/images/ImgIcon';
+import OpenEditButton from '../../../../common/buttons/Edit';
+import DeleteButton from '../../../../common/buttons/Delete';
 
-const useStyles = makeStyles((theme) => {
+import clsx from 'clsx';
+import IconButton from '@material-ui/core/IconButton';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
+import Box from '@material-ui/core/Box';
 
-    return ({
-        root: {
-            flexGrow: 1,
-            alignItems: 'center',
-            textTransform: 'capitalize',
-            justifyContent: 'space-between',
-            paddingRight: theme.spacing(5)
-        },
-        imageBox: {
-            height: theme.spacing(10),
-            overflow: 'hidden'
-        },
-        image: {
-            width: '80%',
-            objectFit: 'cover',
-        },
-        fab: {
-            margin: theme.spacing(2),
-            textAlign: 'center',
-        },
-        whiteText: {
-            color: '#fff',
-        }
-    });
-});
 
 export default props => {
-
     const classes = useStyles();
 
     const {item} = props;
 
-    let [className, setClassName] = useState('d-none');
-
-    const toggleCategories =() => {
-        className === 'd-none' ? setClassName('d-block') : setClassName('d-none');
+    const [expanded, setExpanded] = useState(false);
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
     };
 
     const onDelete = () => {
         console.log('BETTER NOT DELETE TOP CATEGORY!!!!')
     };
 
-
     return (
         <>
-        <Divider />
-        <ListItem>
-            <Grid container className={classes.root}>
-                <Grid item xs={6} md={8}>
-                    <Grid container className={classes.root}>
-                        <Grid item xs={3}className={classes.imageBox}>
-                            <img
-                                className={classes.image}
-                                src={item.img}
-                                alt="NOT FOUND"
-                            />
+            <Divider />
+            <ListItem>
+                <Grid container className={classes.paper}>
+                    <Grid item xs={6}>
+                        <Grid container className={classes.paper}>
+                            <Grid item xs={4} >
+                                <ImgIcon src={item.img}/>
+                            </Grid>
+                            <Grid item xs={7}> {item.title} </Grid>
+                            <Grid item xs={1}>
+                                <IconButton
+                                    className={clsx(classes.expand, {
+                                        [classes.expandOpen]: expanded,
+                                    })}
+                                    onClick={handleExpandClick}
+                                    aria-expanded={expanded}
+                                    color="secondary"
+                                    aria-label="expandDown"
+                                    >
+                                    <ExpandMoreIcon />
+                                </IconButton>
+                            </Grid>
+                            <Grid item xs={1}></Grid>
                         </Grid>
-                        <Grid item xs={9}> {item.title} </Grid>
+                    </Grid>
+                    <Grid item xs={2}></Grid>
+                    <Grid item xs={1}>
+                        <Link href="/admin/categories/${item.title}">
+                            <OpenEditButton/>
+                        </Link>
+                    </Grid>
+                    <Grid item xs={1}>
+                        <DeleteButton onDelete={onDelete}/>
                     </Grid>
                 </Grid>
-                <Grid item xs={2} md={1}>
-                    <Link href="/admin/categories/${item.title}">
-                        <Fab
-                            className={classes.fab}
-                            color="primary"
-                            aria-label="edit"
-                        >
-                            <EditIcon/>
-                        </Fab>
-                    </Link>
-                </Grid>
-                <Grid item xs={2} md={1}>
-                    <Fab
-                        className={classes.fab}
-                        color="default"
-                        aria-label="delete"
-                        onClick={onDelete}
-                    >
-                        <DeleteIcon className={classes.whiteText}/>
-                    </Fab>
-                </Grid>
-                <Grid item xs={2} md={1}>
-                    <Fab
-                        className={classes.fab}
-                        color="secondary"
-                        aria-label="Dive"
-                        onClick={toggleCategories}
-                    >
-                        <ArrowDropDownCircleIcon />
-                    </Fab>
-                </Grid>
-            </Grid>
-        </ListItem>
+            </ListItem>
 
-            <div className={className}>
-                <div className="bg-info ml-5">
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <div className={classes.expanded}>
                     <ManageCategories topCategoryId={item._id}/>
-                    <button
-                        className="btn btn-block btn-secondary text-uppercase"
-                        onClick={()=> toggleCategories()}
-                    >
-                        Close
-                    </button>
+                    <Box textAlign='right'>
+                        <IconButton
+                            className={classes.expandOpen}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            color="secondary"
+                            aria-label="expandDown"
+                            >
+                            <ExpandMoreIcon />
+                        </IconButton>
+                    </Box>
                 </div>
-            </div>
+            </Collapse>
         </>
     )
 };

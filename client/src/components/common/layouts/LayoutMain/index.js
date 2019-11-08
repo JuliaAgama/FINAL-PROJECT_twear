@@ -3,7 +3,7 @@ import SearchBox from '../../SearchBox';
 import Header from '../../../Header';
 import Footer from '../../../Footer';
 
-const LayoutMain = (props) => {
+export default props => {
 
     return (
         <>
@@ -15,6 +15,4 @@ const LayoutMain = (props) => {
         <Footer/>>
         </>
     );
-}
-
-export default LayoutMain;
+};

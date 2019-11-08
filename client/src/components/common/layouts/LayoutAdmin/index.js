@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import useStyles from './useStyles';
 
 import AdminSideBar from '../../../AdminPage/AdminSideBar';
 
@@ -11,24 +11,6 @@ const manageList = [
     {title: 'categories', url: 'categories'},
     {title: 'options sets (colors, sizes)', url: 'options'}];
 
-
-const useStyles = makeStyles((theme) => {
-    return ({
-        root: {
-            height: '100vh',
-        },
-        paper: {
-            margin: theme.spacing(1),
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-        },
-        logo: {
-            width: '8rem',
-            marginTop: '1rem'
-        },
-    });
-});
 
 export default props => {
 
@@ -55,11 +37,13 @@ export default props => {
                     <Link href="/admin" className={classes.logo}>
                         <img className="img-fluid" src="/img/twear_logo_grey-on-transparent.png" alt="NOT FOUND"/>
                     </Link>
+                    <h3>admin panel</h3>
                     <AdminSideBar
                         active={active}
                         items={manageList}
                         //items={props.manageList}
-                        />
+                    />
+                    <p>Go to <a href="/">shop</a>.</p>
                 </div>
             </Grid>
 

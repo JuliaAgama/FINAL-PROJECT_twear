@@ -1,41 +1,27 @@
 import React from 'react';
 
+import { Hidden } from '@material-ui/core';
+import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import useStyles from './useStyles';
 
 import ManageTopCategories from './ManageTopCategories';
 
 
-const useStyles = makeStyles((theme) => {
-
-    return ({
-        root: {
-            height: '100vh',
-        },
-        header: {
-            paddingTop: '1rem',
-            textAlign: 'center',
-            color: theme.palette.secondary.main,
-        },
-        paper: {
-            margin: theme.spacing(3,1),
-        },
-    });
-});
-
-
-export default props => {
+export default withWidth()(props => {
 
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <div className={classes.header}>
-                <h3>CATEGORIES</h3>
+                <Hidden smDown>
+                    <h3>CATEGORIES</h3>
+                </Hidden>
             </div>
             <Grid container className={classes.paper}>
                 <ManageTopCategories/>
             </Grid>
         </div>
     )
-};
+});

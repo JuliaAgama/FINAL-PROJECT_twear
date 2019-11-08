@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchBox = (props) => {
+export default props => {
 
     const filterSearch = () => {
     };
@@ -16,5 +16,3 @@ const SearchBox = (props) => {
         </div>
     )
 };
-
-export default SearchBox;

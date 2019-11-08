@@ -1,10 +1,23 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+
+import Link from '@material-ui/core/Link';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import useStyles from './useStyles';
 
 import CategoryItem from './CategotyItem';
+import AddWideButton from '../../../common/buttons/AddWide';
 
 
 export default props => {
+
+    const {topCategoryId} = props;
+
+    const classes = useStyles();
 
     const items = [
         {
@@ -87,31 +100,29 @@ export default props => {
         }
     ]
 
-    const {topCategoryId} = props;
-
     return (
-        <>
-        <ul className="list-group m-3">
-            {items
-                .map(item => {
-                    if(item.topCatId === topCategoryId) {
-                        return <CategoryItem
-                            item={item}
-                            key={item._id}
-                        />
+        <Box color="primary.main">
+        {/* <Box bgcolor="text.hint" color="background.paper"> */}
+            <List className={classes.root}>
+                {items
+                    .map(item => {
+                        if(item.topCatId === topCategoryId) {
+                            return <CategoryItem
+                                item={item}
+                                key={item._id}
+                            />
+                        }
                     }
+                    )
                 }
-                )
-            }
-            <li className="list-group-item">
-                <Link to={`/admin/categories/newCategory`}>
-                    <button
-                        className="btn btn-block btn-lg btn-success text-uppercase"
-                        >ADD MORE CATEGORIES
-                    </button>
-                </Link>
-            </li>
-        </ul>
-        </>
+                <Divider />
+                <ListItem>
+                    <Link href="/admin/categories/newCategory" className={classes.center}>
+                        <AddWideButton text='ADD MORE CATEGORIES'/>
+                    </Link>
+                </ListItem>
+            </List>
+
+        </Box>
     )
 };

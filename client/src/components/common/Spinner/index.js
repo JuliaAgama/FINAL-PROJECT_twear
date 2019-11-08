@@ -1,12 +1,23 @@
-import React from 'react'
-import {Spinner} from 'react-bootstrap';
+import React from 'react';
 
-const Spinner = () => (
-    <>
-        <div className="spinners-block">
-            <Spinner animation="border" variant="secondary" />
+import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const ColorCircularProgress = withStyles({
+    root: {
+        color: '#00495c',
+    },
+})(CircularProgress);
+
+
+export default () => {
+    const classes = useStyles();
+
+    return (
+        <>
+        <div className={classes.root}>
+            <ColorCircularProgress size={30} thickness={5} />
         </div>
-    </>
-);
-
-export default Spinner;
+        </>
+    )
+};
