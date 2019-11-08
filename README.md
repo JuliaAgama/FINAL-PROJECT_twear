@@ -3,14 +3,24 @@ DAN-IT. Full Stack course. Front End. FINAL PROJECT. E-commerce - MyShop. Julia 
 
 Technology Stack:
 
-Styles: Bootstrap 4;
+React JS: Modules: Redux, ---;
+
+Styles: Material-ui;
+
 HTML views: JSX;
-JS: JQuery;
+
 Node.js. Modules: ----;
+
 Database MongoDB: mlab/MongoDB Cloud;
+
 Cloud storage: Amazon S3;
-Deployment: Heroku server.
+
+Deployment server: Heroku server;
+
+
+
 Contributors: Julia Verchyonova & Oleksandr Shaporda & Oleksandr Savchenko & Oleksandr Shtuka & Dmytro Boriskin & Yuriy Lastivka
+
 
 Tasks & Responsibilities:
 
@@ -18,6 +28,10 @@ Tasks & Responsibilities:
 Julia Verchyonova:
 
 Basic architecture of the project and app, frontend and backend;
+Environment setting;
+Database structure;
+REST APIs
+Admin Panel;
 ...
 ...
 ...
