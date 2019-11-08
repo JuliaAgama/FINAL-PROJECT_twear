@@ -33,13 +33,17 @@ export default props => {
         }
     }, [categoryName, cats, topCats])
 
-    // do this in child component: 
+    // do this in child component:
     // useEffect(() => {
     //     if (checkedTop === topCatTitle) {
     //         setCheckedTop(true);
     //     }
     // })
 // check defaultChecked (doesn't work properly)
+
+    const onChange = () => {
+        console.log('this is onchange function')
+    }
 
     return (
         <>
@@ -75,8 +79,8 @@ export default props => {
                                                 name="topCategories"
                                                 id={topCat.title}
                                                 value={topCat.title}
-                                                checked={topCat.title === checkedTop ? 'true' : 'false'}
-                                                //onChange=
+                                                checked={topCat.title === checkedTop ? true : false}
+                                                onChange={onChange}
                                             />
                                             <label className="form-check-label text-capitalize" htmlFor={topCat.title}>
                                                 {topCat.title}
