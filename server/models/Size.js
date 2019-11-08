@@ -2,17 +2,18 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SizeSchema = new Schema(
-  {
-    name: {
-      type: String,
-      required: true
+    {
+        title: {
+            type: String,
+            required: true
+        },
+        options: [String],
+        date: {
+            type: Date,
+            default: Date.now
+        }
     },
-    date: {
-      type: Date,
-      default: Date.now
-    }
-  },
-  { strict: false }
+    { strict: false }
 );
 
 module.exports = Size = mongoose.model("sizes", SizeSchema);

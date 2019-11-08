@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema(
     {
-    itemNo: {
+    art: {
         type: String,
         required: true
     },
@@ -12,25 +12,32 @@ const ProductSchema = new Schema(
         required: true,
         default: true
     },
-    name: {
+    title: {
         type: String,
         required: true
     },
-    currentPrice: {
+    description: {
+        type: String
+    },
+    price: {
         type: Number,
         required: true
     },
     previousPrice: {
         type: Number
     },
-    categories: {
-        type: String,
-        required: true
-    },
-    imageUrls: [
+    categories: [
         {
-        type: String,
-        required: true
+            type: Schema.Types.ObjectId,
+            ref: 'Category',
+            required: true
+        },
+    ],
+    genders: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Gender',
+            required: true
         }
     ],
     quantity: {
@@ -38,12 +45,14 @@ const ProductSchema = new Schema(
         required: true,
         default: 0
     },
-    color: {
-        type: String
-    },
-    sizes: {
-        type: String
-    },
+    colors: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Color',
+            required: true
+        }
+    ],
+    sizes: [String],
     productUrl: {
         type: String
     },
@@ -59,6 +68,12 @@ const ProductSchema = new Schema(
     seller: {
         type: String
     },
+    imgs: [
+        {
+        type: String,
+        required: true
+        }
+    ],
     date: {
         type: Date,
         default: Date.now
@@ -69,4 +84,4 @@ const ProductSchema = new Schema(
 
 ProductSchema.index({ "$**": "text" });
 
-module.exports = Product = mongoose.model("products", ProductSchema);
+module.exports = Product = mongoose.model("products", ProductSchema, "products");
