@@ -28,26 +28,37 @@ Tasks & Responsibilities:
 Julia Verchyonova:
 
 Basic architecture of the project and app, frontend and backend;
+
 Environment setting;
+
 Database structure;
+
 REST API & Redux setting;
+
 Admin Panel incl. login, catalogue management, styles;
+
 ...
+
 ...
+
 ...
 
 
 Olexandr Savchenko:
 
 AWS S3;
+
 ...
+
 ...
+
 ...
 
 
 Olexandr Shaporda:
 
 Design setter;
+
 ...
 ...
 ...
