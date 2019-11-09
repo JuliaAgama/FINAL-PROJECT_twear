@@ -7,7 +7,7 @@ const SizeSchema = new Schema(
             type: String,
             required: true
         },
-        options: [String],
+        type: [String],
         date: {
             type: Date,
             default: Date.now

@@ -7,12 +7,8 @@ const ColorSchema = new Schema(
             type: String,
             required: true
         },
-        cssValue: {
-            type: String
-        },
-        cssStyles: {
-            type: String
-        },
+        cssValue: String,
+        cssStyles: String,
         date: {
             type: Date,
             default: Date.now
