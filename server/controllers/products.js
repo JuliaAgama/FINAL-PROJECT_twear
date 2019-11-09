@@ -47,10 +47,10 @@ exports.addProduct = (req, res, next) => {
   const newProduct = new Product(updatedProduct);
 
   newProduct
-        .populate("categories.category")
-        .populate("genders.gender")
-        .populate("colors.color")
-        .execPopulate();
+    .populate("categories.category")
+    .populate("genders.gender")
+    .populate("colors.color")
+    .execPopulate();
 
   newProduct
     .save()
@@ -90,6 +90,9 @@ exports.updateProduct = (req, res, next) => {
           { $set: updatedProduct },
           { new: true }
         )
+          .populate("categories.category")
+          .populate("genders.gender")
+          .populate("colors.color")
           .then(product => res.json(product))
           .catch(err =>
             res.status(400).json({
