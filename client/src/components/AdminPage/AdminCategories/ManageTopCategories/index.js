@@ -14,12 +14,15 @@ import Divider from '@material-ui/core/Divider';
 import useStyles from './useStyles';
 
 
-export default () => {
+export default (props) => {
 
     const dispatch = useDispatch();
     const topCatsList = useSelector(state => state.topCats.topCats);
     const topCatsLoaded = useSelector(state => state.topCats.loaded);
     // const topCatsIsAdded = useSelector(state => state.topCats.isAdded);
+    
+    
+    console.log(topCatsList);
 
     useEffect(() => {
         topCatActions.getAllTopCats()(dispatch);
