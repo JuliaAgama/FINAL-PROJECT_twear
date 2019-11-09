@@ -7,11 +7,15 @@ export default class Products extends Base {
         return super.get('products/');
     };
 
-    getProductsByCategory(category) {
-        return super.get(`products/filter`, category).then(res => res.data);
+    getProductsByFilter(filter) {
+        return super.get(`products/filter`, filter).then(res => res.data);
     }
 
-    getProductById(id) {
+    getProductsBySearch(search) {
+        return super.get(`products/search`, search).then(res => res.data);
+    }
+
+    getProductById(id) {n
         return super.get('products/' + id);
     };
 

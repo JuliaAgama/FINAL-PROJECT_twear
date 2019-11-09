@@ -47,6 +47,12 @@ exports.addProduct = (req, res, next) => {
   const newProduct = new Product(updatedProduct);
 
   newProduct
+        .populate("categories.category")
+        .populate("genders.gender")
+        .populate("colors.color")
+        .execPopulate();
+
+  newProduct
     .save()
     .then(product => res.json(product))
     .catch(err =>

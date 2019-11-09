@@ -29,14 +29,14 @@ const ProductSchema = new Schema(
     categories: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Category',
+            ref: 'categories',
             required: true
         },
     ],
     genders: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Gender',
+            ref: 'genders',
             required: true
         }
     ],
@@ -48,7 +48,7 @@ const ProductSchema = new Schema(
     colors: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Color',
+            ref: 'colors',
             required: true
         }
     ],
