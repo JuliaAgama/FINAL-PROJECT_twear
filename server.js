@@ -90,4 +90,7 @@ app.listen(port, () =>
 );
 console.log("Hello This is commit from Sava!!!!!");
 console.log("don't you forget: git pull origin dev");
+<<<<<<< HEAD
 console.log("Second console log!!!");
+=======
+>>>>>>> f7c72fa09d995fb2d0f29a6eed6ea2416956e074
