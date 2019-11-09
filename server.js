@@ -89,4 +89,3 @@ app.listen(port, () =>
   console.log(`Server running on port ${port}`, process.env.NODE_ENV)
 );
 
-console.log("Second console log!!!");
