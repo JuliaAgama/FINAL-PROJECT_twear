@@ -70,9 +70,11 @@ export const Router = () => (
         <CssBaseline />
         <div className="container-fluid">
             <Switch>
+
                 <Route exact
-                    path="/"
-                    component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
+                       path="/"
+                       component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
+
                 <Route exact
                     path="/gender/:gender?"
                     component={props => <LayoutMain {...props}><CatGalleryPage categoriesTree={categoriesTree}/></LayoutMain>}/>

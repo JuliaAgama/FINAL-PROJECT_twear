@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import GendersApi from '../../services/Genders';
+import HeaderMaterialUI from '../HeaderMaterialUI';
 
 const HomePage = () => {
 
@@ -25,6 +26,7 @@ const HomePage = () => {
                         <div>For Him</div>
                     </Link>
                 </div>
+                <HeaderMaterialUI/>
             </section>
         </>
     )

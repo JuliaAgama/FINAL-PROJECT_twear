@@ -6,8 +6,8 @@ export default props => {
     const nav = [
         {id: '1', title: 'Home', url: '/', active: false},
         {id: '3', title: 'Cart', url: '/cart', active: false},
-        {id: '4', title: 'Admin', url: '/admin/login', active: false}
-        // {id: '4', title: 'Admin', url: '/admin', active: false}
+        {id: '4', title: 'Admin', url: '/admin/login', active: false},
+        {id: '5', title: 'Header', url: '/header', active: false}
     ];
 
     return (
