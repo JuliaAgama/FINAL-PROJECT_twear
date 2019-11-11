@@ -31,13 +31,13 @@ export default props => {
                         <Grid item xs={4} >
                             <ImgIcon src={item.img}/>
                         </Grid>
-                        <Grid item xs={7}> {item.title} </Grid>
+                        <Grid item xs={7}> {item.name} </Grid>
                         <Grid item xs={1}></Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={1}></Grid>
                 <Grid item xs={1}>
-                    <Link href="/admin/categories/${item.title}">
+                    <Link href={"/admin/categories/"+item.name}>
                         <OpenEditButton/>
                     </Link>
                 </Grid>

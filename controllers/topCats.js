@@ -3,11 +3,11 @@ const queryCreator = require("../commonHelpers/queryCreator");
 const _ = require("lodash");
 
 exports.addTopCat = (req, res, next) => {
-  TopCat.findOne({ title: req.body.title }).then(topCat => {
+  TopCat.findOne({ name: req.body.name }).then(topCat => {
     if (topCat) {
       return res
         .status(400)
-        .json({ message: `TopCat with title "${topCat.title}" already exists` });
+        .json({ message: `TopCat with name "${topCat.name}" already exists` });
     } else {
       const initialQuery = _.cloneDeep(req.body);
       const newTopCat = new TopCat(queryCreator(initialQuery));

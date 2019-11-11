@@ -12,6 +12,11 @@ exports.addCategory = (req, res, next) => {
       const newCategory = new Category(queryCreator(req.body));
 
       newCategory
+      .populate("topCategory")
+      .populate("genders.gender")
+      .execPopulate();
+
+      newCategory
         .save()
         .then(category => res.json(category))
         .catch(err =>
@@ -39,6 +44,8 @@ exports.updateCategory = (req, res, next) => {
           { $set: updatedCategory },
           { new: true }
         )
+        .populate("topCategory")
+        .populate("genders.gender")
           .then(category => res.json(category))
           .catch(err =>
             res.status(400).json({

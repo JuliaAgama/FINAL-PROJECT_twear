@@ -3,22 +3,25 @@ const Schema = mongoose.Schema;
 
 const CatalogSchema = new Schema(
     {
-        id: {
+        itemNo: {
             type: String,
             required: true
         },
-        title: {
+        name: {
             type: String,
             required: true
         },
         topCategory: {
             type: Schema.Types.ObjectId,
-            ref: 'TopCat'
+            ref: 'topCats'
         },
-        sizesGrid: {
-            type: Schema.Types.ObjectId,
-            ref: 'Size'
-        },
+        genders: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "genders",
+                required: true
+            }
+        ],
         img: {
             type: String,
             required: true
