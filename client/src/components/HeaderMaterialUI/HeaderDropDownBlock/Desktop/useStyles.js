@@ -12,6 +12,10 @@ export default makeStyles(theme => (
             flexWrap: 'wrap',
             padding: '15px 0',
             width: '100%'
-        }
+        },
+        hide: {
+            display: 'none'
+        },
+        leaveMenu: {}
     }
 ));
