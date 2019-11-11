@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const ColorSchema = new Schema(
     {
-        title: {
+        name: {
             type: String,
             required: true
         },

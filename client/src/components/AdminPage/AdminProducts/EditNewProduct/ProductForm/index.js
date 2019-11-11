@@ -52,7 +52,7 @@ export default props => {
 
                 <form className="text-center border border-light p-5" action="#">
 
-                    <input type="text" id="defaultContactFormName" className="form-control mb-4" placeholder="Title"/>
+                    <input type="text" id="defaultContactFormName" className="form-control mb-4" placeholder="Name"/>
 
                     <div className="form-group">
                                 <textarea className="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Description"/>
@@ -82,7 +82,7 @@ export default props => {
             {/* {manageList.map((el,ind) => (
                 <Grid item key={ind} xs={12} lg={4}>
                     <Link to={`/admin/${el.url}`}>
-                        <Paper className={classes.paper}>Manage {el.title}</Paper>
+                        <Paper className={classes.paper}>Manage {el.name}</Paper>
                     </Link>
                 </Grid>
             ))} */}

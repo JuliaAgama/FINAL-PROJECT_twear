@@ -18,7 +18,7 @@ export default props => {
     },[categoryName]);
 
     useEffect(() => {
-        if(categoryName === 'newTopCategory' || (topCats.filter((el) => el.title === categoryName).length >0 && categoryName !== 'newCategory')) {
+        if(categoryName === 'newTopCategory' || (topCats.filter((el) => el.name === categoryName).length >0 && categoryName !== 'newCategory')) {
             setDisplayTops('d-none');
         } else{
             setDisplayTops('d-block');
@@ -26,8 +26,8 @@ export default props => {
     },[categoryName, cats, topCats]);
 
     useEffect(() => {
-        if (cats.filter((el) => el.title === categoryName).length >0) {
-            let topCatToChecked = topCats.filter((el) => el._id === cats.filter((el) => el.title === categoryName)[0].topCatId)[0].title;
+        if (cats.filter((el) => el.name === categoryName).length >0) {
+            let topCatToChecked = topCats.filter((el) => el._id === cats.filter((el) => el.name === categoryName)[0].topCatId)[0].name;
             console.log(topCatToChecked);
             setCheckedTop(topCatToChecked);
         }
@@ -35,7 +35,7 @@ export default props => {
 
     // do this in child component:
     // useEffect(() => {
-    //     if (checkedTop === topCatTitle) {
+    //     if (checkedTop === topCatName) {
     //         setCheckedTop(true);
     //     }
     // })
@@ -77,13 +77,13 @@ export default props => {
                                                 className="form-check-input"
                                                 type="radio"
                                                 name="topCategories"
-                                                id={topCat.title}
-                                                value={topCat.title}
-                                                checked={topCat.title === checkedTop ? true : false}
+                                                id={topCat.name}
+                                                value={topCat.name}
+                                                checked={topCat.name === checkedTop ? true : false}
                                                 onChange={onChange}
                                             />
-                                            <label className="form-check-label text-capitalize" htmlFor={topCat.title}>
-                                                {topCat.title}
+                                            <label className="form-check-label text-capitalize" htmlFor={topCat.name}>
+                                                {topCat.name}
                                             </label>
                                         </div>
                                     )}
