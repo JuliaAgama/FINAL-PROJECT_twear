@@ -9,7 +9,7 @@ export default makeStyles(theme => (
         brand: {
             border: '1px solid black',
             fontSize: '20px',
-            padding: '12px 0',
+            padding: '13px 0',
         },
 
         search: {

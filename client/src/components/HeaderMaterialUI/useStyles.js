@@ -8,7 +8,7 @@ export default makeStyles(theme => (
         mainContainer: {
             textAlign: 'center',
             fontWeight: '700',
-            fontSize: '14px',
+            fontSize: '16px',
             marginTop: '40px'
         },
         bottomBlock: {

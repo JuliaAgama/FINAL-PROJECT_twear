@@ -8,6 +8,7 @@ import HeaderTopBlockDesktop from "./HeaderTopBlock/Desktop";
 import HeaderTopBlockMobile from "./HeaderTopBlock/Mobile";
 import HeaderBottomBlockMobile from "./HeaderBottomBlock/Mobile";
 import HeaderBottomBlockDesktop from "./HeaderBottomBlock/Desktop";
+import HeaderDropDownBlock from "./HeaderDropDownBlock/Desktop";
 
 
 
@@ -36,6 +37,7 @@ function HeaderMaterialUI() {
                         <Grid container item xs={12} spacing={0} className={classes.bottomBlock}>
                             <HeaderBottomBlockDesktop />
                         </Grid>
+                        <HeaderDropDownBlock />
                     </Hidden>
                     <Hidden mdUp>
                         <Grid container item xs={12} spacing={0}>
