@@ -11,10 +11,10 @@ import useStyles from './useStyles';
 export default () => {
     const classes = useStyles();
     const manageList = [
-        {title: 'products', url: 'products'},
-        {title: 'categories', url: 'categories'},
-        {title: 'options sets (colors, sizes)', url: 'options'},
-        {title: 'shop info, settings & other', url: 'settings'}
+        {name: 'products', url: 'products'},
+        {name: 'categories', url: 'categories'},
+        {name: 'options sets (colors, sizes)', url: 'options'},
+        {name: 'shop info, settings & other', url: 'settings'}
     ];
 
     return(
@@ -23,7 +23,7 @@ export default () => {
             {manageList.map((el,ind) => (
                 <Grid item key={ind} xs={12}>
                     <Link to={`/admin/${el.url}`}>
-                        <Paper className={classes.paper}>Manage {el.title}</Paper>
+                        <Paper className={classes.paper}>Manage {el.name}</Paper>
                     </Link>
                 </Grid>
             ))}

@@ -3,16 +3,12 @@ const Schema = mongoose.Schema;
 
 const ColorSchema = new Schema(
     {
-        title: {
+        name: {
             type: String,
             required: true
         },
-        cssValue: {
-            type: String
-        },
-        cssStyles: {
-            type: String
-        },
+        cssValue: String,
+        cssStyles: String,
         date: {
             type: Date,
             default: Date.now

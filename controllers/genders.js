@@ -3,11 +3,11 @@ const queryCreator = require("../commonHelpers/queryCreator");
 const _ = require("lodash");
 
 exports.addGender = (req, res, next) => {
-  Gender.findOne({ title: req.body.title }).then(gender => {
+  Gender.findOne({ name: req.body.name }).then(gender => {
     if (gender) {
       return res
         .status(400)
-        .json({ message: `Gender with title "${gender.title}" already exists` });
+        .json({ message: `Gender with name "${gender.name}" already exists` });
     } else {
       const initialQuery = _.cloneDeep(req.body);
       const newGender = new Gender(queryCreator(initialQuery));

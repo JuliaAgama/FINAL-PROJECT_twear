@@ -7,9 +7,9 @@ import useStyles from './useStyles';
 import AdminSideBar from '../../../AdminPage/AdminSideBar';
 
 const manageList = [
-    {title: 'products', url: 'products'},
-    {title: 'categories', url: 'categories'},
-    {title: 'options sets (colors, sizes)', url: 'options'}];
+    {name: 'products', url: 'products'},
+    {name: 'categories', url: 'categories'},
+    {name: 'options sets (colors, sizes)', url: 'options'}];
 
 
 export default props => {

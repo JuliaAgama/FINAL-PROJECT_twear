@@ -50,6 +50,7 @@ exports.addProduct = (req, res, next) => {
     .populate("categories.category")
     .populate("genders.gender")
     .populate("colors.color")
+    .populate("sizes.size")
     .execPopulate();
 
   newProduct
@@ -93,6 +94,7 @@ exports.updateProduct = (req, res, next) => {
           .populate("categories.category")
           .populate("genders.gender")
           .populate("colors.color")
+          .populate("sizes.size")
           .then(product => res.json(product))
           .catch(err =>
             res.status(400).json({

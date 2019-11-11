@@ -2,103 +2,83 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema(
-  {
-    art: {
-      type: String,
-      required: true
-    },
-    enabled: {
-      type: Boolean,
-      required: true,
-      default: true
-    },
-    title: {
-      type: String,
-      required: true
-    },
-    description: {
-      type: String
-    },
-    price: {
-      type: Number,
-      required: true
-    },
-    previousPrice: {
-      type: Number
-    },
-    categories: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "categories",
-        required: true
-      }
-    ],
-    genders: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "genders",
-        required: true
-      }
-    ],
-    quantity: {
-      type: Number,
-      required: true,
-      default: 0
-    },
-    colors: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "colors",
-        required: true
-      }
-    ],
-    sizes: [
-      {
-        size: {
-          type: Schema.Types.ObjectId,
-          ref: "sizes",
-          required: true
+    {
+        art: {
+            type: String,
+            required: true
         },
-        quantity: {
-          type: Number,
-          required: true,
-          default: 0
+        enabled: {
+            type: Boolean,
+            required: true,
+            default: true
+        },
+        title: {
+            type: String,
+            required: true
+        },
+        description: String,
+        price: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        previousPrice: Number,
+        categories: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "categories",
+                required: true
+            }
+        ],
+        genders: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "genders",
+                required: true
+            }
+        ],
+        colors: [
+            {
+                color: {
+                    type: Schema.Types.ObjectId,
+                    ref: "colors",
+                    required: true
+                },
+                sizes: [
+                    {
+                        size: {
+                            type: Schema.Types.ObjectId,
+                            ref: "sizes",
+                            required: true
+                        },
+                        quantity: {
+                            type: Number,
+                            required: true,
+                            default: 0
+                        }
+                    }
+                ],
+                imgsColor: [String]
+            },
+        ],
+        imgsProduct: [String],
+        productUrl: String,
+        brand: String,
+        manufacturer: String,
+        manufacturerCountry: String,
+        seller: String,
+        date: {
+        type: Date,
+        default: Date.now
         }
-      }
-    ],
-    productUrl: {
-      type: String
     },
-    brand: {
-      type: String
-    },
-    manufacturer: {
-      type: String
-    },
-    manufacturerCountry: {
-      type: String
-    },
-    seller: {
-      type: String
-    },
-    imgs: [
-      {
-        type: String,
-        required: true
-      }
-    ],
-    date: {
-      type: Date,
-      default: Date.now
-    }
-  },
-  { strict: false }
+    { strict: false }
 );
 
 ProductSchema.index({ "$**": "text" });
 
 module.exports = Product = mongoose.model(
-  "products",
-  ProductSchema,
-  "products"
+    "products",
+    ProductSchema,
+    "products"
 );
