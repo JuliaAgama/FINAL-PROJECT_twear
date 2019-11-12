@@ -16,7 +16,7 @@ export default withWidth()(props => {
     return (
         <div className={classes.root}>
             <div className={classes.header}>
-                <Hidden smDown>
+                <Hidden >
                     <h3>CATEGORIES</h3>
                 </Hidden>
             </div>

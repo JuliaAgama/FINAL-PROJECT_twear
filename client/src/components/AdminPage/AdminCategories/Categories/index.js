@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as categoriesActions from '../../../../store/actions/categories';
 
 import Spinner from '../../../common/Spinner';
-import CategoryItem from './CategotyItem';
+import CategoryItem from './CategoryItem';
 import AddWideButton from '../../../common/buttons/AddWide';
 
 import Link from '@material-ui/core/Link';
@@ -54,7 +54,7 @@ export default props => {
                         }
                         <Divider />
                         <ListItem>
-                            <Link href="/admin/categories/newCategory" className={classes.center}>
+                            <Link href={`/admin/categories/newCategory-${topCatId}`} className={classes.center}>
                                 <AddWideButton text='ADD MORE CATEGORIES'/>
                             </Link>
                         </ListItem>

@@ -1,9 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
 import Grid from '@material-ui/core/Grid';
-// import Link from '@material-ui/core/Link';
-
-import Divider from '@material-ui/core/Divider';
 import useStyles from './useStyles';
 
 import TextField from '@material-ui/core/TextField';
@@ -15,103 +12,95 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import FormHelperText from '@material-ui/core/FormHelperText';
-
 
 export default props => {
     const classes = useStyles();
 
-
-    const{categoryName, topCatName, topCatsBase, catsBase, gendersBase, exists, displayAdditional} = props;
+    const{categoryName, topCatName, topCatsBase, catsBase, gendersBase, inTopCat, displayAdditional, onSubmitHandler} = props;
     const specialCategory = 'looks';
-    console.log(props);
 
-    let [item, setItem] = useState(null);
+    let [formData, setFormData] = useState(
+        {
+            name: '',
+            img: '',
+            date: Date.now()
+        }
+    );
 
-        useEffect(()=> {
-            if(categoryName) {
-                setItem(catsBase.filter(el => el.name === categoryName)[0]);
-            } else if(topCatName) {
-                setItem(topCatsBase.filter(el => el.name === topCatName)[0]);
-            }
-        },[props])
-
-
-        // logics to select topCat for category form:
-        let [selectedTop, setSelectedTop] = useState('');
-        // logics to select Gender for category form:
-        let [selectedGenders, setSelectedGenders] = useState([]);
-
-        useEffect(()=> {
-            if(item && categoryName) {
-                setSelectedTop(item.topCategory);
-                setSelectedGenders(item.genders);
-            }
-        },[item])
-
-        const onChangeTopCat = event => {
-            setSelectedTop(event.target.value);
-        };
-
-        const onSelectGender = event => {
-            let id = event.target.id;
-            setSelectedGenders(selectedGenders.includes(id) ? selectedGenders.filter(el => el !== id) : [...selectedGenders, id])
-        };
-            // console.log('HELLLLOOOOO', item);
-            // console.log('yyyyyyyaaaaaaa', selectedTop);
-
-            // state = {
-            //     title : '',
-            //     description : '',
-            // };
-        
-            // onSubmit = (e) => {
-            //     e.preventDefault();
-            //     this.props.onSubmit(this.state);
-            // };
-        
-        const onSubmit = event => {
-            event.preventDefault();
-            console.log(selectedGenders);
-            console.log(selectedTop);
-            console.log(event.target.value);
-
-            if(categoryName) {
-                setItem({
-                    itemNo: '',
-                    name: '',
-                    topCategory: '', //_id
-                    genders: [], //_id
-                    img: ''
+    let item;
+    useEffect(()=> {
+        if(categoryName) {
+            if(categoryName.includes('newCategory')) {
+                setFormData({
+                    topCategory: inTopCat
                 })
-
-            } else if(topCatName) {
-                setItem({
-                    name: '',
-                    img: ''
-                })
+            } else {
+                item = catsBase.filter(el => el.name === categoryName)[0];
+                if (item) {
+                    setFormData({
+                        _id: item._id,
+                        itemNo: item.itemNo || 0,
+                        name: item.name || '',
+                        topCategory: item.topCategory,
+                        genders: [...item.genders],
+                        img: item.img || '',
+                        date: item.date || Date.now()
+                    })
+                }
+            }
+        } else if (topCatName) {
+            item = topCatsBase.filter(el => el.name === topCatName)[0];
+            if (item) {
+                setFormData({
+                    _id: item._id,
+                    name: item.name || '',
+                    img: item.img || '',
+                    date: item.date || Date.now()
+                });
             }
         }
+    },[props]);
+
+    const onChange = event => {
+        if (event.target.name === 'genders') {
+            event.target.checked ?
+
+            setFormData({
+                ...formData,
+                genders: formData.genders ? [...formData.genders.filter(el => el !== event.target.value), event.target.value] : [event.target.value]
+            }) :
+            setFormData({
+                ...formData,
+                genders: [...formData.genders.filter(el => el !== event.target.value)]
+            })
+        } else {
+            setFormData({
+                ...formData,
+                [event.target.name]: event.target.value
+            });
+        }
+    };
+
+    const onSubmit = event => {
+        event.preventDefault();
+        onSubmitHandler(formData);
+    };
 
     return (
         <>
-            <h1> This is form for {(topCatName || categoryName).toUpperCase()}</h1>
+            <h1> This is form for {(topCatName || categoryName.slice(0,categoryName.indexOf('-'))).toUpperCase()}</h1>
             <div className={classes.wrapper}>
-
-                {/* <form className="text-center border border-light p-5"> */}
-                <form
-                    noValidate
-                    autoComplete="off"
-                    onSubmit={onSubmit}
-                >
-
+                <form autoComplete="off" onSubmit={onSubmit}>
                     <Grid container className={classes.paper}>
                         <Grid item xs={4} className={classes[displayAdditional]}>
                             <TextField
                                 required
                                 id="outlined-required"
                                 label="itemNo"
-                                defaultValue={item ? item : ''}
+                                name='itemNo'
+                                onChange={onChange}
+                                onFocus={onChange}
+                                defaultValue={formData.itemNo ? formData.itemNo : `${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
                                 className={classes.textField}
                                 margin="normal"
                                 variant="outlined"
@@ -122,7 +111,9 @@ export default props => {
                                 required
                                 id="outlined-required"
                                 label="Category"
-                                defaultValue={topCatName !== 'newTopCategory'&& categoryName !== 'newCategory' ? topCatName || categoryName : ''}
+                                name='name'
+                                onChange={onChange}
+                                defaultValue={topCatName === 'newTopCategory' || (categoryName && categoryName.includes('newCategory')) ? '' : topCatName || categoryName}
                                 className={classes.textField}
                                 margin="normal"
                                 variant="outlined"
@@ -135,22 +126,18 @@ export default props => {
                             <Grid item xs={6}>
                                 <FormControl component="fieldset" className={classes.formControl}>
                                     <FormLabel component="legend">In Top Category:</FormLabel>
-                                    <RadioGroup
-                                        aria-label="topCats"
-                                        name="topCats"
-                                        value={selectedTop}
-                                        onChange={onChangeTopCat}
-                                        >
+                                    <RadioGroup aria-label="topCats" name="topCategory">
                                     {topCatsBase
                                         .filter(el => el.name !== specialCategory)
                                         .map(topCat =>
                                             <FormControlLabel
                                                 key={topCat._id}
-                                                name={topCat.name}
                                                 id={topCat._id}
                                                 value={topCat._id}
                                                 control={<Radio />}
                                                 label={topCat.name}
+                                                checked={formData.topCategory && formData.topCategory === topCat._id ? true : false}
+                                                onChange={onChange}
                                             />
                                         )}
                                     </RadioGroup>
@@ -160,17 +147,16 @@ export default props => {
                                 <FormControl component="fieldset" className={classes.formControl}>
                                     <FormLabel component="legend">Select Genders</FormLabel>
                                     <FormGroup>
-                                        {gendersBase
-                                        .map(gender =>
+                                        {gendersBase.map(gender =>
                                             <FormControlLabel
                                                 key={gender._id}
                                                 control={
                                                     <Checkbox
-                                                        name={gender.name}
+                                                        name='genders'
                                                         id={gender._id}
                                                         value={gender._id}
-                                                        checked={selectedGenders.includes(gender._id) ? true : false}
-                                                        onChange={onSelectGender}
+                                                        checked={formData.genders && formData.genders.includes(gender._id) ? true : false}
+                                                        onChange={onChange}
                                                     />}
                                                 label={gender.name}
                                             />
@@ -181,7 +167,39 @@ export default props => {
                         </Grid>
                     </div>
 
-                                    {/* {topCatsBase
+                    <Grid container className={classes.paper}>
+                        <Grid item xs={12}>
+                            <div className="input-group mb-3">
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="inputGroupFileAddon01">Upload photo</span>
+                                </div>
+                                <div className="custom-file">
+                                    <input
+                                        type="file"
+                                        id="inputGroupFile01"
+                                        name="img"
+                                        value=""
+                                        onChange={onChange}
+                                        className="custom-file-input"
+                                        aria-describedby="inputGroupFileAddon01"
+                                    />
+                                    <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <button className="btn btn-info btn-block" type="submit">Save category</button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </div>
+        </>
+    )
+}
+
+
+                                    {/* following is for product form:
+                                    {topCatsBase
                                     .filter(el => el.name === specialCategory)
                                     .map(topCat =>
                                         <div className="form-check"
@@ -201,27 +219,3 @@ export default props => {
                                             </label>
                                         </div>
                                     )} */}
-
-                    <Grid container className={classes.paper}>
-                        <Grid item xs={12}>
-                            <div className="input-group mb-3">
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text" id="inputGroupFileAddon01">Upload photo</span>
-                                </div>
-                                <div className="custom-file">
-                                    <input type="file" className="custom-file-input" id="inputGroupFile01"
-                                            aria-describedby="inputGroupFileAddon01" />
-                                        <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
-                                </div>
-                            </div>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <button className="btn btn-info btn-block" type="submit">Save category
-                            </button>
-                        </Grid>
-                    </Grid>
-                </form>
-            </div>
-        </>
-    )
-}
