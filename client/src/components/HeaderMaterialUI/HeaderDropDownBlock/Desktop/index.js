@@ -18,11 +18,11 @@ export default function HeaderDropDownBlock() {
     const dispatch = useDispatch();
     const hideMenu = () => {
         dispatch(hideCategoriesMenuAction());
-    }
+    };
 
     const handleClickAway = (event) =>{
         if (show && !(event.target.innerText === 'Men' || event.target.innerText === 'Women')) hideMenu();
-    }
+    };
 
     let items = [];
 

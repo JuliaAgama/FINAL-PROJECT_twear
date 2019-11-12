@@ -38,7 +38,7 @@ export default makeStyles(theme => (
             borderLeft: '1px solid black',
         },
         hide: {
-
+            display: 'none'
         }
     }
 ));
