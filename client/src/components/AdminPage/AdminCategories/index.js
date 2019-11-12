@@ -5,7 +5,7 @@ import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
 
-import ManageTopCategories from './ManageTopCategories';
+import ManageTopCategories from './TopCats';
 
 
 export default withWidth()(props => {

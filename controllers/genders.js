@@ -88,3 +88,21 @@ exports.getGenders = (req, res, next) => {
       })
     );
 };
+
+exports.getGender = (req, res, next) => {
+  Gender.findOne({ id: req.params.id })
+    .then(gender => {
+      if (!gender) {
+        return res.status(400).json({
+          message: `Gender with id "${req.params.id}" is not found.`
+        });
+      } else {
+        res.status(200).json(gender);
+      }
+    })
+    .catch(err =>
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      })
+    );
+};
