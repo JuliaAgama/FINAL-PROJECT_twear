@@ -11,13 +11,12 @@ export default makeStyles(theme => (
             fontSize: '20px',
             padding: '13px 0',
         },
-
-        search: {
+        searchIcon: {
             borderBottom: '1px solid black',
             borderTop: '1px solid black',
             borderLeft: '1px solid black',
-            // padding: '14px 0 14px 18px',
-            // textAlign: 'left',
+            padding: '15px 0 15px 18px',
+            textAlign: 'left',
         },
         bag: {
             borderBottom: '1px solid black',
@@ -26,6 +25,20 @@ export default makeStyles(theme => (
         },
         img: {
             width: '100px'
+        },
+        input: {
+            width: '85%'
+        },
+        icon: {
+            cursor:'pointer'
+        },
+        searchTitle: {
+            borderBottom: '1px solid black',
+            borderTop: '1px solid black',
+            borderLeft: '1px solid black',
+        },
+        hide: {
+
         }
     }
 ));

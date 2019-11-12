@@ -2,6 +2,8 @@ import useStyles from "./useStyles";
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import InputBase from "@material-ui/core/InputBase";
+import SearchIcon from '@material-ui/icons/Search';
 
 
 export default function HeaderTopBlockDesktop() {
@@ -11,9 +13,10 @@ export default function HeaderTopBlockDesktop() {
     return (
         <React.Fragment>
             <Grid item xs={3}>
-                <Box className={`${classes.box} ${classes.search}`}>Search
-                    {/*<SearchIcon/>*/}
-                    {/*<InputBase />*/}
+                <Box className={`${classes.box} ${classes.searchTitle}`}>
+                    <span>Search</span>
+                    {/*<SearchIcon className={classes.icon}/>*/}
+                    {/*<InputBase className={classes.input} />*/}
                 </Box>
             </Grid>
             <Grid item xs={6}>

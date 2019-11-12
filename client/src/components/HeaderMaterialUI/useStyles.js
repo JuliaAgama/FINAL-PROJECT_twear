@@ -6,6 +6,7 @@ export default makeStyles(theme => (
             height: '100vh',
         },
         mainContainer: {
+            gridGap: '1px',
             textAlign: 'center',
             fontWeight: '700',
             fontSize: '16px',

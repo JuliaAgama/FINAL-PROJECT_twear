@@ -1,5 +1,5 @@
 import useStyles from "./useStyles";
-import React, {useRef, useEffect} from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Item from "./Item";
 import {Container} from "@material-ui/core";
@@ -40,10 +40,9 @@ export default function HeaderDropDownBlock() {
                   spacing={0}
                   className={show ? classes.border : classes.hide}>
                 <ClickAwayListener onClickAway={handleClickAway}>
-                <Container maxWidth={false}
-                           className={classes.container}>
-                    {items}
-                </Container>
+                    <Container maxWidth={false} className={classes.container}>
+                        {items}
+                    </Container>
                 </ClickAwayListener>
             </Grid>
         </React.Fragment>
