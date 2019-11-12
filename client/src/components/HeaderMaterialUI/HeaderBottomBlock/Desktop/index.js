@@ -5,6 +5,7 @@ import Box from "@material-ui/core/Box";
 
 import { useDispatch } from 'react-redux';
 import { showCategoriesMenuAction, hideCategoriesMenuAction } from '../../../../store/actions/categoriesMenu';
+import SimpleMenu from "../../SimpleMenu";
 
 export default function HeaderBottomBlockDesktop() {
 
@@ -41,6 +42,7 @@ export default function HeaderBottomBlockDesktop() {
                 >
                     Women
                 </Box>
+                {/*<SimpleMenu/>*/}
             </Grid>
             <Grid item xs={3}>
                 <Box

@@ -7,18 +7,10 @@ import {useSelector} from "react-redux";
 
 import { useDispatch } from 'react-redux';
 import {hideCategoriesMenuAction} from '../../../../store/actions/categoriesMenu';
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 
 export default function HeaderDropDownBlock() {
-
-    let categoriesContainer = useRef();
-
-    useEffect(() => {categoriesContainer.current.focus()});
-
-    const clickHandler = (event) => {
-       event.currentTarget.focus();
-    };
-
 
     const {menCategories, womenCategories}  = useSelector(state => state.categories);
     const {isMen, show}  = useSelector(state => state.categoriesMenu);
@@ -26,6 +18,10 @@ export default function HeaderDropDownBlock() {
     const dispatch = useDispatch();
     const hideMenu = () => {
         dispatch(hideCategoriesMenuAction());
+    }
+
+    const handleClickAway = (event) =>{
+        if (show && !(event.target.innerText === 'Men' || event.target.innerText === 'Women')) hideMenu();
     }
 
     let items = [];
@@ -43,14 +39,12 @@ export default function HeaderDropDownBlock() {
                   item xs={12}
                   spacing={0}
                   className={show ? classes.border : classes.hide}>
-                <Container tabIndex="-1"
-                           ref={categoriesContainer}
-                           maxWidth={false}
-                           className={classes.container}
-                           onClick={clickHandler}
-                           onBlur={hideMenu}>
+                <ClickAwayListener onClickAway={handleClickAway}>
+                <Container maxWidth={false}
+                           className={classes.container}>
                     {items}
                 </Container>
+                </ClickAwayListener>
             </Grid>
         </React.Fragment>
     );
