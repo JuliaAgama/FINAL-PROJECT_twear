@@ -38,11 +38,11 @@ export default props => {
                 <Grid item xs={1}></Grid>
                 <Grid item xs={1}>
                     <Link href={"/admin/categories/"+item.name}>
-                        <OpenEditButton/>
+                        <OpenEditButton size="small"/>
                     </Link>
                 </Grid>
                 <Grid item xs={1}>
-                    <DeleteButton onDelete={onDelete}/>
+                    <DeleteButton size="small" onDelete={onDelete}/>
                 </Grid>
             </Grid>
         </ListItem>

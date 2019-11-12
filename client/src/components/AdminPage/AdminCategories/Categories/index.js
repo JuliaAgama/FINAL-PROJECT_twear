@@ -24,6 +24,7 @@ export default props => {
     const categoriesList = useSelector(state => state.categories.categories);
     const categoriesLoaded = useSelector(state => state.categories.loaded);
     // const categoriesIsAdded = useSelector(state => state.categories.isAdded);
+    console.log(categoriesList)
 
     useEffect(() => {
         categoriesActions.getAllCategories()(dispatch);
@@ -42,7 +43,7 @@ export default props => {
                     <List className={classes.root}>
                         {categoriesList
                             .map(item => {
-                                if(item.topCatId === topCatId) {
+                                if(item.topCategory === topCatId) {
                                     return <CategoryItem
                                         item={item}
                                         key={item._id}

@@ -17,7 +17,7 @@ import CatGalleryPage from '../components/CatGalleryPage';
 import AdminLoginPage from '../components/AdminLoginPage';
 import AdminPage from '../components/AdminPage';
 import AdminCategories from '../components/AdminPage/AdminCategories';
-import EditNewCategory from '../components/AdminPage/AdminCategories/EditNewCategory';
+import EditNewCategory from '../components/AdminPage/AdminCategories/EditNew';
 
 
 const categoriesTree = [
@@ -93,6 +93,10 @@ export const Router = () => (
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/:categoryName?"
+                    component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
+                <Route exact
+                //<PrivateAdminRoute exact
+                    path="/admin/categories/top/:topCatName?"
                     component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
 
                 <Route path="*" component={NotFound}/>

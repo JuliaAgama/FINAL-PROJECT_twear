@@ -20,8 +20,8 @@ export default (props) => {
     const topCatsList = useSelector(state => state.topCats.topCats);
     const topCatsLoaded = useSelector(state => state.topCats.loaded);
     // const topCatsIsAdded = useSelector(state => state.topCats.isAdded);
-    
-    
+
+
     console.log(topCatsList);
 
     useEffect(() => {
@@ -47,7 +47,7 @@ export default (props) => {
                     }
                     <Divider />
                     <ListItem>
-                        <Link href="/admin/categories/newTopCategory" className={classes.center}>
+                        <Link href="/admin/categories/top/newTopCategory" className={classes.center}>
                             <AddWideButton text='CREATE NEW TOP CATEGORY'/>
                         </Link>
                     </ListItem>

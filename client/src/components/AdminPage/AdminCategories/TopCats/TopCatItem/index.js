@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import useStyles from './useStyles';
 
-import ManageCategories from '../../ManageCategories';
+import ManageCategories from '../../Categories';
 import ImgIcon from '../../../../common/images/ImgIcon';
 import OpenEditButton from '../../../../common/buttons/Edit';
 import DeleteButton from '../../../../common/buttons/Delete';
@@ -61,7 +61,7 @@ export default props => {
                     </Grid>
                     <Grid item xs={2}></Grid>
                     <Grid item xs={1}>
-                        <Link href={"/admin/categories/"+item.name}>
+                        <Link href={"/admin/categories/top/"+item.name}>
                             <OpenEditButton/>
                         </Link>
                     </Grid>
