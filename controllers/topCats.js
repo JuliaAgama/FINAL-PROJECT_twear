@@ -6,8 +6,8 @@ exports.addTopCat = (req, res, next) => {
   TopCat.findOne({ name: req.body.name }).then(topCat => {
     if (topCat) {
       return res
-        .status(400)
-        .json({ message: `TopCat with name "${topCat.name}" already exists` });
+      .status(400)
+      .json({ message: `TopCat with name "${topCat.name}" already exists` });
     } else {
       const initialQuery = _.cloneDeep(req.body);
       const newTopCat = new TopCat(queryCreator(initialQuery));

@@ -7,7 +7,7 @@ export default class TopCategories extends Base {
     };
 
     addTopCategory(topCategory) {
-        return super.post(`top-categories`, topCategory).then(res => res.data);
+        return super.post(`top-categories`, topCategory).then(res => res.data)
     };
 
     deleteTopCategory(id){

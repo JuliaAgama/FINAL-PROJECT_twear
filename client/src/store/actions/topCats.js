@@ -36,6 +36,7 @@ export function addTopCat(item){
     return function (dispatch) {
         dispatch(topCatsSendRequest());
         (new TopCatsApi()).addTopCategory(item).then(res => {
+            // console.log(res);
             return dispatch({
                 type: TOPCATS.TOPCATS_ADD_TOPCAT,
                 data: res,
