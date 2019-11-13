@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import GendersApi from '../../services/Genders';
 import HeaderMaterialUI from '../HeaderMaterialUI';
+import HeaderV2 from '../HeaderV2';
 
 const HomePage = () => {
 
@@ -26,7 +27,8 @@ const HomePage = () => {
                         <div>For Him</div>
                     </Link>
                 </div>
-                <HeaderMaterialUI/>
+                {/*<HeaderMaterialUI/>*/}
+                <HeaderV2/>
             </section>
         </>
     )
