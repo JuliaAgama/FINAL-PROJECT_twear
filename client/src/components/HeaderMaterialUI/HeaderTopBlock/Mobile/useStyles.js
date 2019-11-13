@@ -27,6 +27,9 @@ export default makeStyles(theme => (
         },
         img: {
             width: '80px'
+        },
+        hide: {
+            display: 'none'
         }
     }
 ));
