@@ -3,6 +3,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import {Button, Container} from "@material-ui/core";
 import {useSelector} from "react-redux";
+import CategoriesContainer from "./CategoriesContainer";
 // import {useSelector} from "react-redux";
 
 // import { useDispatch } from 'react-redux';
@@ -21,6 +22,7 @@ export default function DropDownMobile() {
                      <Container maxWidth={false} className={show ? classes.container : classes.hide}>
                          <Button className={classes.btn}>Women</Button>
                          <Button className={classes.btn}>Men</Button>
+                         <CategoriesContainer/>
                          <Button className={classes.btn}>Currency</Button>
                          <Button className={classes.btn}>Login</Button>
                      </Container>

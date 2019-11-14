@@ -9,6 +9,10 @@ export default makeStyles(theme => (
         link: {
             minWidth: '25%',
             color: 'rgba(0, 0, 0, 0.87)',
+        },
+        mobileLink: {
+            minWidth: '50%',
+            color: 'rgba(0, 0, 0, 0.87)',
         }
     }
 ));
