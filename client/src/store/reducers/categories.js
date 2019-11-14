@@ -39,7 +39,7 @@ export default function (state = initState, action) {
             };
 
             case CATEGORIES.CATEGORIES_UPDATE_CATEGORY_BY_ID:
-            let updatedCategories = state.CATEGORIES.map(el => {
+            let updatedCategories = state.categories.map(el => {
                 if(el._id === action.data._id){
                     return action.data
                 }

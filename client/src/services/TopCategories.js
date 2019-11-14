@@ -6,6 +6,10 @@ export default class TopCategories extends Base {
         return super.get(`top-categories`).then(res => res.data);
     };
 
+    getCaTopCatById(id) {
+        return super.get(`top-categories/${id}`).then(res => res.data);
+    };
+
     addTopCategory(topCategory) {
         return super.post(`top-categories`, topCategory).then(res => res.data)
     };

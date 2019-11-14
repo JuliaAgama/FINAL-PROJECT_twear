@@ -3,11 +3,11 @@ const queryCreator = require("../commonHelpers/queryCreator");
 const _ = require("lodash");
 
 exports.addTopCat = (req, res, next) => {
-  TopCat.findOne({ name: req.body.name }).then(topCat => {
+  TopCat.findOne({_id: req.body.id }).then(topCat => {
     if (topCat) {
       return res
       .status(400)
-      .json({ message: `TopCat with name "${topCat.name}" already exists` });
+      .json({ message: `TopCat with _id "${topCat._id}" already exists` });
     } else {
       const initialQuery = _.cloneDeep(req.body);
       const newTopCat = new TopCat(queryCreator(initialQuery));
@@ -82,6 +82,24 @@ exports.deleteTopCat = (req, res, next) => {
 exports.getTopCats = (req, res, next) => {
   TopCat.find()
     .then(topCats => res.json(topCats))
+    .catch(err =>
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      })
+    );
+};
+
+exports.getTopCat = (req, res, next) => {
+  TopCat.findOne({_id: req.params.id })
+    .then(topCat => {
+      if (!topCat) {
+        return res.status(400).json({
+          message: `Top Category with id "${req.params.id}" is not found.`
+        });
+      } else {
+        res.status(200).json(topCat);
+      }
+    })
     .catch(err =>
       res.status(400).json({
         message: `Error happened on server: "${err}" `

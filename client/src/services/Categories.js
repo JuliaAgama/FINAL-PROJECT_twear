@@ -6,6 +6,10 @@ export default class Categories extends Base {
         return super.get(`categories`).then(res => res.data);
     };
 
+    getCategoryById(id) {
+        return super.get(`categories/${id}`).then(res => res.data);
+    };
+
     addCategory(category) {
         return super.post(`categories`, category).then(res => res.data);
     };

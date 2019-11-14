@@ -16,63 +16,50 @@ import Checkbox from '@material-ui/core/Checkbox';
 export default props => {
     const classes = useStyles();
 
-    const{categoryName, topCatName, topCatsBase, catsBase, gendersBase, inTopCat, displayAdditional, onSubmitHandler} = props;
+    const{categoryName, topCatName, item, topCatsBase, gendersBase, displayAdditional, onSubmitHandler} = props;
+    console.log(item);
     const specialCategory = 'looks';
 
-    let [formData, setFormData] = useState(
-        {
-            name: '',
-            img: '',
-            date: Date.now()
-        }
-    );
+    let [formData, setFormData] = useState({});
 
-    let item;
     useEffect(()=> {
         if(categoryName) {
-            if(categoryName.includes('newCategory')) {
+            let newInTopCat = categoryName && categoryName.includes('newCategory') ?
+                categoryName.slice(categoryName.indexOf('-')+1) :
+                undefined;
+            item ?
                 setFormData({
-                    topCategory: inTopCat
-                })
-            } else {
-                item = catsBase.filter(el => el.name === categoryName)[0];
-                if (item) {
-                    setFormData({
-                        _id: item._id,
-                        itemNo: item.itemNo || 0,
-                        name: item.name || '',
-                        topCategory: item.topCategory,
-                        genders: [...item.genders],
-                        img: item.img || '',
-                        date: item.date || Date.now()
-                    })
-                }
-            }
-        } else if (topCatName) {
-            item = topCatsBase.filter(el => el.name === topCatName)[0];
-            if (item) {
+                    _id: item._id || '',
+                    itemNo: item.itemNo || 0,
+                    name: item.name || '',
+                    topCategory: item.topCategory,
+                    genders: [...item.genders],
+                    img: item.img || '',
+                    date: item.date || Date.now()
+                }) :
+                setFormData({topCategory: newInTopCat})
+
+        } else if (topCatName && item) {
                 setFormData({
-                    _id: item._id,
+                    _id: item._id || '',
                     name: item.name || '',
                     img: item.img || '',
                     date: item.date || Date.now()
                 });
-            }
         }
-    },[props]);
+    },[categoryName, topCatName, item]);
 
     const onChange = event => {
         if (event.target.name === 'genders') {
             event.target.checked ?
-
-            setFormData({
-                ...formData,
-                genders: formData.genders ? [...formData.genders.filter(el => el !== event.target.value), event.target.value] : [event.target.value]
-            }) :
-            setFormData({
-                ...formData,
-                genders: [...formData.genders.filter(el => el !== event.target.value)]
-            })
+                setFormData({
+                    ...formData,
+                    genders: formData.genders ? [...formData.genders.filter(el => el !== event.target.value), event.target.value] : [event.target.value]
+                }) :
+                setFormData({
+                    ...formData,
+                    genders: [...formData.genders.filter(el => el !== event.target.value)]
+                })
         } else {
             setFormData({
                 ...formData,
@@ -86,6 +73,7 @@ export default props => {
         onSubmitHandler(formData);
     };
 
+    console.log(formData);
     return (
         <>
             <h1> This is form for {(topCatName || categoryName.slice(0,categoryName.indexOf('-'))).toUpperCase()}</h1>
@@ -98,9 +86,9 @@ export default props => {
                                 id="outlined-required"
                                 label="itemNo"
                                 name='itemNo'
+                                value={formData.itemNo ? formData.itemNo : `${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
                                 onChange={onChange}
                                 onFocus={onChange}
-                                defaultValue={formData.itemNo ? formData.itemNo : `${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
                                 className={classes.textField}
                                 margin="normal"
                                 variant="outlined"
