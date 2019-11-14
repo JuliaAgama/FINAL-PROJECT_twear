@@ -6,7 +6,8 @@ import useStyles from './useStyles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Desktop from './Desktop'
 import Mobile from './Mobile'
-import HeaderDropDownBlock from "./DropDownBlock/Desktop";
+import DropDownDesktop from "./DropDownDesktop/Desktop";
+import DropDownMobile from "./DropDownMobile";
 
 
 
@@ -32,11 +33,12 @@ function HeaderMaterialUI() {
                         <Grid container item xs={12} spacing={0}>
                             <Desktop/>
                         </Grid>
-                        <HeaderDropDownBlock/>
+                        <DropDownDesktop/>
                     </Hidden>
                     <Hidden mdUp>
                         <Grid container item xs={12} spacing={0}>
                             <Mobile/>
+                            <DropDownMobile/>
                         </Grid>
                     </Hidden>
                 </Grid>

@@ -8,7 +8,7 @@ import HeaderTopBlockDesktop from "./HeaderTopBlock/Desktop";
 import HeaderTopBlockMobile from "./HeaderTopBlock/Mobile";
 import HeaderBottomBlockMobile from "./HeaderBottomBlock/Mobile";
 import HeaderBottomBlockDesktop from "./HeaderBottomBlock/Desktop";
-import HeaderDropDownBlock from "./HeaderDropDownBlock/Desktop";
+import HeaderDropDownBlock from "./HeaderDropDownDesktop/Desktop";
 
 
 

@@ -44,6 +44,9 @@ export default makeStyles(theme => (
         },
         input: {
             paddingLeft: '10px'
+        },
+        hide: {
+            display: 'none'
         }
     }
 ));
