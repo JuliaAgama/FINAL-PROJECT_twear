@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 
 import CatGalleryItem from './CatGalleryItem';
 
-const CatGalleryPage = (props) => {
+export default props => {
 
     const [filteredCategories, setFilteredCategories] = useState([]);
 
@@ -14,7 +14,7 @@ const CatGalleryPage = (props) => {
         const filteredCategories = categoriesTree.filter(item => item.gender === urlGender)[0].categories;
         console.log(filteredCategories);
         setFilteredCategories(filteredCategories);
-    })
+    },[categoriesTree, urlGender])
 
     return (
         <>
@@ -31,6 +31,4 @@ const CatGalleryPage = (props) => {
             </section>
         </>
     )
-}
-
-export default CatGalleryPage;
+};

@@ -36,6 +36,7 @@ export function addCategory(item){
     return function (dispatch) {
         dispatch(categoriesSendRequest());
         (new CategoriesApi()).addCategory(item).then(res => {
+            console.log(res);
             return dispatch({
                 type: CATEGORIES.CATEGORIES_ADD_CATEGORY,
                 data: res,
@@ -48,6 +49,7 @@ export function updateCategory (item){
     return function (dispatch) {
         dispatch(categoriesSendRequest());
         (new CategoriesApi()).updateCategory(item).then(res => {
+            console.log(res);
             return dispatch({
                 type: CATEGORIES.CATEGORIES_UPDATE_CATEGORY_BY_ID,
                 data: res,

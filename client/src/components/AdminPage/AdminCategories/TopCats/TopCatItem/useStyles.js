@@ -5,7 +5,7 @@ export default makeStyles(theme => (
         paper: {
             flexGrow: 1,
             alignItems: 'center',
-            textTransform: 'capitalize',
+            // textTransform: 'capitalize',
             justifyContent: 'space-between',
             paddingRight: theme.spacing(5)
         },

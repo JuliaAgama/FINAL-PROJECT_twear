@@ -10,7 +10,6 @@ import ManageTopCategories from './TopCats';
 
 export default withWidth()(props => {
 
-    console.log('adminCategories props: ', props)
     const classes = useStyles();
 
     return (
