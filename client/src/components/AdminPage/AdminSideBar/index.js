@@ -18,16 +18,18 @@ export default () => {
     ];
 
     return(
-        <>
-        <Grid container className={classes.root}>
-            {manageList.map((el,ind) => (
-                <Grid item key={ind} xs={12}>
-                    <Link to={`/admin/${el.url}`}>
-                        <Paper className={classes.paper}>Manage {el.name}</Paper>
-                    </Link>
-                </Grid>
-            ))}
-        </Grid>
-        </>
+        <div className={classes.root}>
+            <Grid container className={classes.listing}>
+                {manageList.map((el,ind) => (
+                    <Grid item key={ind} xs={12}>
+                        <Link to={`/admin/${el.url}`}>
+                            <Paper className={classes.paper}>Manage {el.name}</Paper>
+                        </Link>
+                    </Grid>
+                ))}
+            </Grid>
+
+            <p>Go to <a href="/">shop</a>.</p>
+        </div>
     )
 };

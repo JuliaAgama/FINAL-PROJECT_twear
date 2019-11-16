@@ -37,7 +37,6 @@ export default props => {
                         active={active}
                         items={manageList}
                     />
-                    <p>Go to <a href="/">shop</a>.</p>
                 </div>
             </Grid>
 
