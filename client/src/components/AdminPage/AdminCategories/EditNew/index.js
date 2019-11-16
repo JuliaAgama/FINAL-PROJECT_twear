@@ -47,23 +47,22 @@ export default props => {
     const timeout = 2000;
 
     const onSubmitHandler = formData => {
+
         // for category:
         if (categoryName) {
             categoryName.includes('newCategory') ?
-                // add new category:
                 categoriesActions.addCategory(formData)(dispatch) :
-                // update existing category:
                 categoriesActions.updateCategory(formData)(dispatch);
-                ref.current(`Category ${formData.name.toUpperCase()} is added!`);
+                ref.current(`Category ${formData.name.toUpperCase()} has been added!`);
+
         // for top category:
         } else if (topCatName) {
             topCatName === 'newTopCategory' ?
-                // add new TOP category:
                 topCatsActions.addTopCat(formData)(dispatch) :
-                // update existing TOP category:
                 topCatsActions.updateTopCat(formData)(dispatch);
-                ref.current(`Top category ${formData.name.toUpperCase()} is added!`);
+                ref.current(`Top category ${formData.name.toUpperCase()} has been added!`);
         }
+
         setTimeout(() => {
             window.location.assign(`/admin/categories`);
             // window.reload(true)

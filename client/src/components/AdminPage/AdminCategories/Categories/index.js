@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import * as categoriesActions from '../../../../store/actions/categories';
@@ -6,6 +6,7 @@ import * as categoriesActions from '../../../../store/actions/categories';
 import Spinner from '../../../common/Spinner';
 import CategoryItem from './CategoryItem';
 import AddWideButton from '../../../common/buttons/AddWide';
+import Notification from '../../../common/messages/Notification';
 
 import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
@@ -27,6 +28,16 @@ export default props => {
         categoriesActions.getAllCategories()(dispatch);
     }, [dispatch]);
 
+    const ref = useRef(null);
+    const timeout = 2000;
+
+    const handleNotification = (itemName) => {
+        ref.current(`Category ${itemName.toUpperCase()} has been deleted from database!`);
+        setTimeout(() => {
+            window.location.reload(true)
+        }, timeout)
+    };
+
     const classes = useStyles();
 
     return (
@@ -39,20 +50,21 @@ export default props => {
                     <List className={classes.root}>
                         {categoriesList
                             .map(item => item.topCategory === topCatId ?
-                                <CategoryItem item={item} key={item._id}/> :
+                                <CategoryItem item={item} key={item._id} handleNotification={handleNotification}/> :
                                 <div key={Math.random()}></div>
                             )
                         }
                         <Divider />
                         <ListItem>
                             <Link href={`/admin/categories/newCategory-${topCatId}`} className={classes.center}>
-                                <AddWideButton text='ADD MORE CATEGORIES'/>
+                                <AddWideButton text='ADD MORE CATEGORIES' color='primary'/>
                             </Link>
                         </ListItem>
                     </List>
                 </Box>
                 )
         }
+        <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     )
 };

@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const CatalogSchema = new Schema(
     {
         itemNo: {
-            type: String,
-            required: true
+            type: String
         },
         name: {
             type: String,

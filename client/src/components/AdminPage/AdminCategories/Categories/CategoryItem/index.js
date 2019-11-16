@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import * as categoriesActions from '../../../../../store/actions/categories';
 
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
@@ -10,36 +12,33 @@ import ImgIcon from '../../../../common/images/ImgIcon';
 import OpenEditButton from '../../../../common/buttons/Edit';
 import DeleteButton from '../../../../common/buttons/Delete';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
-import Notification from '../../../../common/messages/Notification';
 
 
 export default props => {
 
     const classes = useStyles();
+    const dispatch = useDispatch();
 
-    const {item} = props;
+    const {item, handleNotification} = props;
+    const itemName=item.name;
 
     const [openConfirm, setOpenConfirm] = useState(false);
-
-    const onDelete = () => {
-        setOpenConfirm(true);
-    };
+    const onDelete = () => setOpenConfirm(true);
 
     const modalText = {
-        title: `Are you sure to DELETE ${item.name.toUpperCase()}?`,
-        description: `If you confirm deletion of ${item.name.toUpperCase()} category from database it will affect the total catalogue and cannot be undone`,
+        title: `Are you sure to DELETE ${itemName.toUpperCase()}?`,
+        description: `If you confirm deletion of ${itemName.toUpperCase()} category from database it will affect the total catalogue and cannot be undone`,
         button: 'DELETE, I am SURE'
     };
 
-    const ref = useRef(null);
-    const timeout = 2000;
-    const deleteItem = () => {
+    const deleteItem = (event) => {
+        event.preventDefault();
         setOpenConfirm(false);
-        ref.current(`Category ${item.name.toUpperCase()} is deleted from database!`);
+        categoriesActions.deleteCategory(item)(dispatch);
+        handleNotification(itemName);
     };
-    const closeModal = () => {
-        setOpenConfirm(false);
-    };
+
+    const closeModal = () => setOpenConfirm(false);
 
     return (
         <>
@@ -67,7 +66,6 @@ export default props => {
             </Grid>
         </ListItem>
         <ConfirmModal modalText={modalText} openConfirm={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
-            <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     )
 };

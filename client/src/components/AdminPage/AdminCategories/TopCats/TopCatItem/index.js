@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as topCatsActions from '../../../../../store/actions/topCats';
 
@@ -13,7 +13,6 @@ import ImgIcon from '../../../../common/images/ImgIcon';
 import OpenEditButton from '../../../../common/buttons/Edit';
 import DeleteButton from '../../../../common/buttons/Delete';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
-import Notification from '../../../../common/messages/Notification';
 
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
@@ -26,7 +25,7 @@ export default props => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const {item} = props;
+    const {item, handleNotification} = props;
     const itemName=item.name;
 
     const [expanded, setExpanded] = useState(false);
@@ -37,28 +36,18 @@ export default props => {
 
     const modalText = {
         title: `Are you sure to DELETE ${itemName.toUpperCase()}?`,
-        description: `If you confirm deletion of ${item.name.toUpperCase()} top category from database it will affect the total catalogue and cannot be undone`,
+        description: `If you confirm deletion of ${itemName.toUpperCase()} top category from database it will affect the total catalogue and cannot be undone`,
         button: 'DELETE, I am sure'
     };
 
-    const ref = useRef(null);
-    const timeout = 2000;
-
-    const deleteItem = () => {
+    const deleteItem = (event) => {
+        event.preventDefault();
         setOpenConfirm(false);
-        // ref.current(`Top category ${itemName.toUpperCase()} is deleted from database!`);
-        ref.current(`Top category is deleted from database!`);
-        // разобраться ПОЧЕМУ "ПЕРЕРЕНДИНГ" СТРАНИЦЫ ИДЕТ, ЕСЛИ ВЫЗЫВАТЬ УДАЛЕНИЕ (при этом на экране удаленный остается)..... НЕ ОТОБРАЖАЕТСЯ НОТИФИКЕЙШЕН...
         topCatsActions.deleteTopCat(item)(dispatch);
-        setTimeout(() => {
-            // window.location.assign(`/admin/categories`);
-            window.location.reload(true)
-        }, timeout)
+        handleNotification(itemName);
     };
 
-    const closeModal = () => {
-        setOpenConfirm(false);
-    };
+    const closeModal = () => setOpenConfirm(false);
 
     return (
         <>
@@ -116,7 +105,6 @@ export default props => {
                 </div>
             </Collapse>
             <ConfirmModal modalText={modalText} openConfirm={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
-            <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     )
 };

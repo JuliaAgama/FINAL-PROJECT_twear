@@ -8,7 +8,10 @@ export default makeStyles(theme => (
         },
         center: {
             textAlign: 'center',
-            margin: '0 auto'
-        }
+            margin: '0 auto',
+            "&:hover": {
+                textDecoration: 'none !important'
+            },
+        },
     }
 ));

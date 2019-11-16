@@ -82,11 +82,11 @@ export default props => {
                     <Grid container className={classes.paper}>
                         <Grid item xs={4} className={classes[displayAdditional]}>
                             <TextField
-                                required
                                 id="outlined-required"
                                 label="itemNo"
                                 name='itemNo'
-                                value={formData.itemNo ? formData.itemNo : `${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
+                                placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
+                                value={formData.itemNo ? formData.itemNo : ''}
                                 onChange={onChange}
                                 onFocus={onChange}
                                 className={classes.textField}
@@ -100,6 +100,7 @@ export default props => {
                                 id="outlined-required"
                                 label="Category"
                                 name='name'
+                                autoFocus
                                 onChange={onChange}
                                 defaultValue={topCatName === 'newTopCategory' || (categoryName && categoryName.includes('newCategory')) ? '' : topCatName || categoryName}
                                 className={classes.textField}
