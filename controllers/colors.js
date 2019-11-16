@@ -7,7 +7,7 @@ exports.addColor = (req, res, next) => {
     if (color) {
       return res
         .status(400)
-        .json({ message: `Color with name "${color.name}" already exists` });
+        .json({ message: `Color  with name "${color.name}" already exists` });
     } else {
       const initialQuery = _.cloneDeep(req.body);
       const newColor = new Color(queryCreator(initialQuery));
@@ -67,7 +67,7 @@ exports.deleteColor = (req, res, next) => {
       Color.deleteOne({ _id: req.params.id })
         .then(deletedCount =>
           res.status(200).json({
-            message: `Color witn name "${colorToDelete.name}" is successfully deletes from DB `
+            message: `Color "${colorToDelete.name.toUpperCase()}"  witn id "${colorToDelete._id}" is successfully deletes from DB `
           })
         )
         .catch(err =>

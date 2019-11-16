@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import * as categoriesActions from '../../../../store/actions/categories';
 
 import Spinner from '../../../common/Spinner';
-import CategoryItem from './CategotyItem';
+import CategoryItem from './CategoryItem';
 import AddWideButton from '../../../common/buttons/AddWide';
+import Notification from '../../../common/messages/Notification';
 
 import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
@@ -15,7 +16,6 @@ import Box from '@material-ui/core/Box';
 import useStyles from './useStyles';
 
 
-
 export default props => {
 
     const {topCatId} = props;
@@ -23,12 +23,20 @@ export default props => {
     const dispatch = useDispatch();
     const categoriesList = useSelector(state => state.categories.categories);
     const categoriesLoaded = useSelector(state => state.categories.loaded);
-    // const categoriesIsAdded = useSelector(state => state.categories.isAdded);
 
     useEffect(() => {
         categoriesActions.getAllCategories()(dispatch);
     }, [dispatch]);
 
+    const ref = useRef(null);
+    const timeout = 2000;
+
+    const handleNotification = (itemName) => {
+        ref.current(`Category ${itemName.toUpperCase()} has been deleted from database!`);
+        setTimeout(() => {
+            window.location.reload(true)
+        }, timeout)
+    };
 
     const classes = useStyles();
 
@@ -41,28 +49,22 @@ export default props => {
                 <Box color="primary.main">
                     <List className={classes.root}>
                         {categoriesList
-                            .map(item => {
-                                if(item.topCatId === topCatId) {
-                                    return <CategoryItem
-                                        item={item}
-                                        key={item._id}
-                                    />
-                                }
-                            }
+                            .map(item => item.topCategory === topCatId ?
+                                <CategoryItem item={item} key={item._id} handleNotification={handleNotification}/> :
+                                <div key={Math.random()}></div>
                             )
                         }
                         <Divider />
                         <ListItem>
-                            <Link href="/admin/categories/newCategory" className={classes.center}>
-                                <AddWideButton text='ADD MORE CATEGORIES'/>
+                            <Link href={`/admin/categories/newCategory-${topCatId}`} className={classes.center}>
+                                <AddWideButton text='ADD MORE CATEGORIES' color='primary'/>
                             </Link>
                         </ListItem>
                     </List>
-
                 </Box>
-
                 )
         }
+        <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     )
 };

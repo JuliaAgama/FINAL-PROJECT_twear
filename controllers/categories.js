@@ -3,11 +3,11 @@ const queryCreator = require("../commonHelpers/queryCreator");
 const _ = require("lodash");
 
 exports.addCategory = (req, res, next) => {
-  Category.findOne({ id: req.body.id }).then(category => {
+  Category.findOne({ _id: req.body.id }).then(category => {
     if (category) {
       return res
         .status(400)
-        .json({ message: `Category with id "${category.id}" already exists` });
+        .json({ message: `Category with _id "${category._id}" already exists` });
     } else {
       const newCategory = new Category(queryCreator(req.body));
 
@@ -29,18 +29,18 @@ exports.addCategory = (req, res, next) => {
 };
 
 exports.updateCategory = (req, res, next) => {
-  Category.findOne({ id: req.params.id })
+  Category.findOne({ _id: req.params.id })
     .then(category => {
       if (!category) {
         return res.status(400).json({
-          message: `Category with id "${req.params.id}" is not found.`
+          message: `Category with _id "${req.params.id}" is not found.`
         });
       } else {
         const initialQuery = _.cloneDeep(req.body);
         const updatedCategory = queryCreator(initialQuery);
 
         Category.findOneAndUpdate(
-          { id: req.params.id },
+          { _id: req.params.id },
           { $set: updatedCategory },
           { new: true }
         )
@@ -62,7 +62,7 @@ exports.updateCategory = (req, res, next) => {
 };
 
 exports.deleteCategory = (req, res, next) => {
-  Category.findOne({ id: req.params.id }).then(async category => {
+  Category.findOne({_id: req.params.id }).then(async category => {
     if (!category) {
       return res.status(400).json({
         message: `Category with id "${req.params.id}" is not found.`
@@ -70,10 +70,10 @@ exports.deleteCategory = (req, res, next) => {
     } else {
       const categoryToDelete = await Category.findOne({ id: req.params.id });
 
-      Category.deleteOne({ id: req.params.id })
+      Category.deleteOne({_id: req.params.id })
         .then(deletedCount =>
           res.status(200).json({
-            message: `Category witn id "${categoryToDelete.id}" is successfully deleted from DB.`,
+            message: `Category "${categoryToDelete.name.toUpperCase()}" witn id "${categoryToDelete.id}" is successfully deleted from DB.`,
             deletedCategoryInfo: categoryToDelete
           })
         )
@@ -97,7 +97,7 @@ exports.getCategories = (req, res, next) => {
 };
 
 exports.getCategory = (req, res, next) => {
-  Category.findOne({ id: req.params.id })
+  Category.findOne({_id: req.params.id })
     .then(category => {
       if (!category) {
         return res.status(400).json({

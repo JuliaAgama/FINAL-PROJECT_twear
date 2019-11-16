@@ -9,6 +9,7 @@ export default props => {
     const classes = useStyles();
     return (
         <Fab
+            size={props.size || "medium"}
             className={classes.fab}
             color="default"
             aria-label="delete"

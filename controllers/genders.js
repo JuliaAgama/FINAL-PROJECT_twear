@@ -67,7 +67,7 @@ exports.deleteGender = (req, res, next) => {
       Gender.deleteOne({ _id: req.params.id })
         .then(deletedGender =>
           res.status(200).json({
-            message: `Gender witn name "${genderToDelete.name}" is successfully deletes from DB `
+            message: `Gender witn name "${genderToDelete.name}" is successfully deleted from DB `
           })
         )
         .catch(err =>
@@ -82,6 +82,24 @@ exports.deleteGender = (req, res, next) => {
 exports.getGenders = (req, res, next) => {
   Gender.find()
     .then(genders => res.json(genders))
+    .catch(err =>
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      })
+    );
+};
+
+exports.getGender = (req, res, next) => {
+  Gender.findOne({ id: req.params.id })
+    .then(gender => {
+      if (!gender) {
+        return res.status(400).json({
+          message: `Gender with id "${req.params.id}" is not found.`
+        });
+      } else {
+        res.status(200).json(gender);
+      }
+    })
     .catch(err =>
       res.status(400).json({
         message: `Error happened on server: "${err}" `

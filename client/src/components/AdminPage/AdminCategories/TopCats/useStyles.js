@@ -4,10 +4,14 @@ export default makeStyles(theme => (
     {
         root: {
             width: '100%',
+            backgroundColor: theme.palette.background.paper,
         },
         center: {
             textAlign: 'center',
-            margin: '0 auto'
-        }
+            margin: '0 auto',
+            "&:hover": {
+                textDecoration: 'none !important'
+            },
+        },
     }
 ));

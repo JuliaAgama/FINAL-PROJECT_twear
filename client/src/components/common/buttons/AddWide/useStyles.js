@@ -2,12 +2,18 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => (
     {
-        fab: {
+        fab:{
             margin: theme.spacing(1),
             textAlign: 'center',
         },
         widedIcon: {
             marginRight: theme.spacing(1),
+    },
+        text: {
+            textAlign: 'center',
+            "&:hover": {
+                textDecoration: 'none !important'
+            }
         }
     }
 ));
