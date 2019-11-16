@@ -67,7 +67,7 @@ exports.deleteTopCat = (req, res, next) => {
       TopCat.deleteOne({ _id: req.params.id })
         .then(deletedTopCat =>
           res.status(200).json({
-            message: `TopCat witn name "${topCatToDelete.name}" is successfully deletes from DB `
+            message: `TopCat "${topCatToDelete.name.toUpperCase()}" with id "${topCatToDelete.id}" is successfully deleted from DB `
           })
         )
         .catch(err =>
@@ -93,9 +93,8 @@ exports.getTopCat = (req, res, next) => {
   TopCat.findOne({_id: req.params.id })
     .then(topCat => {
       if (!topCat) {
-        return res.status(400).json({
-          message: `Top Category with id "${req.params.id}" is not found.`
-        });
+        return res.status(400)
+        .json({message: `Top Category with id "${req.params.id}" is not found.`});
       } else {
         res.status(200).json(topCat);
       }

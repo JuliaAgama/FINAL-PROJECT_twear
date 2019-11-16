@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import * as topCatsActions from '../../../../../store/actions/topCats';
 
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
@@ -10,6 +12,8 @@ import ManageCategories from '../../Categories';
 import ImgIcon from '../../../../common/images/ImgIcon';
 import OpenEditButton from '../../../../common/buttons/Edit';
 import DeleteButton from '../../../../common/buttons/Delete';
+import ConfirmModal from '../../../../common/messages/ConfirmModal';
+import Notification from '../../../../common/messages/Notification';
 
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
@@ -20,16 +24,40 @@ import Box from '@material-ui/core/Box';
 
 export default props => {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const {item} = props;
+    const itemName=item.name;
 
     const [expanded, setExpanded] = useState(false);
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
+    const handleExpandClick = () => setExpanded(!expanded);
+
+    const [openConfirm, setOpenConfirm] = useState(false);
+    const onDelete = () => setOpenConfirm(true);
+
+    const modalText = {
+        title: `Are you sure to DELETE ${itemName.toUpperCase()}?`,
+        description: `If you confirm deletion of ${item.name.toUpperCase()} top category from database it will affect the total catalogue and cannot be undone`,
+        button: 'DELETE, I am sure'
     };
 
-    const onDelete = () => {
-        console.log('BETTER NOT DELETE TOP CATEGORY!!!!')
+    const ref = useRef(null);
+    const timeout = 2000;
+
+    const deleteItem = () => {
+        setOpenConfirm(false);
+        // ref.current(`Top category ${itemName.toUpperCase()} is deleted from database!`);
+        ref.current(`Top category is deleted from database!`);
+        // разобраться ПОЧЕМУ "ПЕРЕРЕНДИНГ" СТРАНИЦЫ ИДЕТ, ЕСЛИ ВЫЗЫВАТЬ УДАЛЕНИЕ (при этом на экране удаленный остается)..... НЕ ОТОБРАЖАЕТСЯ НОТИФИКЕЙШЕН...
+        topCatsActions.deleteTopCat(item)(dispatch);
+        setTimeout(() => {
+            // window.location.assign(`/admin/categories`);
+            window.location.reload(true)
+        }, timeout)
+    };
+
+    const closeModal = () => {
+        setOpenConfirm(false);
     };
 
     return (
@@ -87,6 +115,8 @@ export default props => {
                     </Box>
                 </div>
             </Collapse>
+            <ConfirmModal modalText={modalText} openConfirm={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
+            <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     )
 };

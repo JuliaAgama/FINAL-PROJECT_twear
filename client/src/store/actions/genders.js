@@ -8,6 +8,12 @@ export function gendersSendRequest() {
     };
 };
 
+export function genderItemSendRequest() {
+    return {
+        type: GENDERS.GENDER_SEND_REQUEST
+    };
+};
+
 export function getAllGenders() {
     return function (dispatch) {
         dispatch(gendersSendRequest());
@@ -20,13 +26,12 @@ export function getAllGenders() {
     };
 };
 
-export function getGenderById(id) {
+export function getGenderItem(id) {
     return function (dispatch) {
-        dispatch(gendersSendRequest());
+        dispatch(genderItemSendRequest());
         (new GendersApi()).getGenderById(id).then(res => {
             return dispatch({
-                type: GENDERS.GENDERS_GET_GENDER_BY_ID,
-                data: res.data
+                type: GENDERS.GENDER_GET_GENDER_ITEM
             });
         });
     };
@@ -49,7 +54,7 @@ export function updateGender (item){
         dispatch(gendersSendRequest());
         (new GendersApi()).updateGender(item).then(res => {
             return dispatch({
-                type: GENDERS.GENDERS_UPDATE_GENDER_BY_ID,
+                type: GENDERS.GENDERS_UPDATE_GENDER,
                 data: res,
             });
         })
@@ -61,7 +66,7 @@ export function deleteGender(item){
         dispatch(gendersSendRequest());
         (new GendersApi()).deleteGender(item).then(res => {
             return dispatch({
-                type: GENDERS.GENDERS_DELETE_GENDER_BY_ID,
+                type: GENDERS.GENDERS_DELETE_GENDER,
                 data: res,
             });
         })

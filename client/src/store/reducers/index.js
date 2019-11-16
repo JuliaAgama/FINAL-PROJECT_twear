@@ -1,13 +1,17 @@
 import { combineReducers } from 'redux';
 
 import topCats from './topCats';
+import topCatItem from './topCatItem';
 import categories from './categories';
+import categoryItem from './categoryItem';
 import genders from './genders';
-// import reducer2 from './reducer2';
+import genderItem from './genderItem';
 
 export default combineReducers({
     topCats,
+    topCatItem,
     categories,
-    genders
-    // reducer2
+    categoryItem,
+    genders,
+    genderItem
 });

@@ -18,14 +18,9 @@ export default props => {
 
     let [active, setActive] = useState(false);
 
-    // const onClick = (ind) => {
-    //     setActive(true);
-    // }
-
     useEffect((prevActive)=> {
         if (prevActive !== active) {
             setActive(true);
-            // console.log('' );
         }
     },[active]);
 
@@ -41,7 +36,6 @@ export default props => {
                     <AdminSideBar
                         active={active}
                         items={manageList}
-                        //items={props.manageList}
                     />
                     <p>Go to <a href="/">shop</a>.</p>
                 </div>

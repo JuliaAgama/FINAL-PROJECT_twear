@@ -17,7 +17,9 @@ import Divider from '@material-ui/core/Divider';
 
 export default () => {
 
+    const classes = useStyles();
     const dispatch = useDispatch();
+
     const topCatsList = useSelector(state => state.topCats.topCats);
     const topCatsLoaded = useSelector(state => state.topCats.loaded);
 
@@ -25,7 +27,6 @@ export default () => {
         topCatActions.getAllTopCats()(dispatch);
     }, [dispatch]);
 
-    const classes = useStyles();
 
     return (
         <>

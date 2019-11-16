@@ -2,8 +2,7 @@ import * as CATEGORIES from '../constants/categories';
 
 const initState = {
     categories: [],
-    loaded: false,
-    isAdded: false
+    loaded: false
 };
 
 
@@ -33,12 +32,11 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     categories : [...state.categories, ...[action.data]],
-                    loaded : true,
-                    isAdded: true
+                    loaded : true
                 }
             };
 
-            case CATEGORIES.CATEGORIES_UPDATE_CATEGORY_BY_ID:
+            case CATEGORIES.CATEGORIES_UPDATE_CATEGORY:
             let updatedCategories = state.categories.map(el => {
                 if(el._id === action.data._id){
                     return action.data
@@ -53,7 +51,7 @@ export default function (state = initState, action) {
                 }
             };
 
-            case CATEGORIES.CATEGORIES_DELETE_CATEGORY_BY_ID:
+            case CATEGORIES.CATEGORIES_DELETE_CATEGORY:
             let updated = state.categories.filter(el => {
                 return el._id !== action.data._id
             });
