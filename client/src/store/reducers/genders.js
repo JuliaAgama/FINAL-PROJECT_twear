@@ -2,10 +2,8 @@ import * as GENDERS from '../constants/genders';
 
 const initState = {
     genders: [],
-    loaded: false,
-    isAdded: false
+    loaded: false
 };
-
 
 export default function (state = initState, action) {
 
@@ -33,12 +31,11 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     genders : [...state.genders, ...[action.data]],
-                    loaded : true,
-                    isAdded: true
+                    loaded : true
                 }
             };
 
-            case GENDERS.GENDERS_UPDATE_GENDER_BY_ID:
+            case GENDERS.GENDERS_UPDATE_GENDER:
             let updatedGenders = state.GENDERS.map(el => {
                 if(el._id === action.data._id){
                     return action.data
@@ -53,7 +50,7 @@ export default function (state = initState, action) {
                 }
             };
 
-            case GENDERS.GENDERS_DELETE_GENDER_BY_ID:
+            case GENDERS.GENDERS_DELETE_GENDER:
             let updated = state.genders.filter(el => {
                 return el._id !== action.data._id
             });

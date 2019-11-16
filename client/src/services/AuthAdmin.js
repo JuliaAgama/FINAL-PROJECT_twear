@@ -21,4 +21,4 @@ export default class AuthAdmin extends Base{
     logOut() {
         sessionStorage.removeItem('token');
     }
-}
+};

@@ -73,7 +73,7 @@ exports.deleteCategory = (req, res, next) => {
       Category.deleteOne({_id: req.params.id })
         .then(deletedCount =>
           res.status(200).json({
-            message: `Category witn id "${categoryToDelete.id}" is successfully deleted from DB.`,
+            message: `Category "${categoryToDelete.name.toUpperCase()}" witn id "${categoryToDelete.id}" is successfully deleted from DB.`,
             deletedCategoryInfo: categoryToDelete
           })
         )

@@ -67,7 +67,7 @@ exports.deleteGender = (req, res, next) => {
       Gender.deleteOne({ _id: req.params.id })
         .then(deletedGender =>
           res.status(200).json({
-            message: `Gender witn name "${genderToDelete.name}" is successfully deletes from DB `
+            message: `Gender witn name "${genderToDelete.name}" is successfully deleted from DB `
           })
         )
         .catch(err =>

@@ -1,8 +1,9 @@
 export const COLORS_SEND_REQUEST = 'colors_send_request';
+export const COLOR_SEND_REQUEST = 'color_send_request';
 
 export const COLORS_GET_ALL_COLORS = 'colors_get_all_colors';
 export const COLORS_ADD_COLOR = 'colors_add_color';
+export const COLORS_UPDATE_COLOR = 'colors_update_color';
+export const COLORS_DELETE_COLOR = 'colors_delete_color';
 
-export const COLORS_GET_COLOR_BY_ID = 'colors_get_color_by_id';
-export const COLORS_UPDATE_COLOR_BY_ID = 'colors_update_color_by_id';
-export const COLORS_DELETE_COLOR_BY_ID = 'colors_delete_color_by_id';
+export const COLOR_GET_COLOR_ITEM = 'color_get_color_item';

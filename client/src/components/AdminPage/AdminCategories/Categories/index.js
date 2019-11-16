@@ -15,7 +15,6 @@ import Box from '@material-ui/core/Box';
 import useStyles from './useStyles';
 
 
-
 export default props => {
 
     const {topCatId} = props;
@@ -23,13 +22,10 @@ export default props => {
     const dispatch = useDispatch();
     const categoriesList = useSelector(state => state.categories.categories);
     const categoriesLoaded = useSelector(state => state.categories.loaded);
-    // const categoriesIsAdded = useSelector(state => state.categories.isAdded);
-    console.log(categoriesList)
 
     useEffect(() => {
         categoriesActions.getAllCategories()(dispatch);
     }, [dispatch]);
-
 
     const classes = useStyles();
 
@@ -42,14 +38,9 @@ export default props => {
                 <Box color="primary.main">
                     <List className={classes.root}>
                         {categoriesList
-                            .map(item => {
-                                if(item.topCategory === topCatId) {
-                                    return <CategoryItem
-                                        item={item}
-                                        key={item._id}
-                                    />
-                                }
-                            }
+                            .map(item => item.topCategory === topCatId ?
+                                <CategoryItem item={item} key={item._id}/> :
+                                <div key={Math.random()}></div>
                             )
                         }
                         <Divider />
@@ -59,9 +50,7 @@ export default props => {
                             </Link>
                         </ListItem>
                     </List>
-
                 </Box>
-
                 )
         }
         </>

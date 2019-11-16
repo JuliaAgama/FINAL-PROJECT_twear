@@ -44,7 +44,7 @@ export default props => {
     }, [dispatch]);
 
     const ref = useRef(null);
-    const timeout = 4000;
+    const timeout = 2000;
 
     const onSubmitHandler = formData => {
         // for category:
