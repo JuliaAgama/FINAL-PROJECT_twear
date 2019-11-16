@@ -57,7 +57,7 @@ export default props => {
                         <Divider />
                         <ListItem>
                             <Link href={`/admin/categories/newCategory-${topCatId}`} className={classes.center}>
-                                <AddWideButton text='ADD MORE CATEGORIES' color='primary'/>
+                                <AddWideButton text='ADD MORE' color='primary'/>
                             </Link>
                         </ListItem>
                     </List>
