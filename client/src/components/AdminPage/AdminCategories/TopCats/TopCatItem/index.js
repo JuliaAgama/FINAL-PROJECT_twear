@@ -51,60 +51,58 @@ export default props => {
 
     return (
         <>
-            <Divider />
-            <ListItem>
-                <Grid container className={classes.paper}>
-                    <Grid item xs={6}>
-                        <Grid container className={classes.paper}>
-                            <Grid item xs={4} >
-                                <ImgIcon src={item.img}/>
-                            </Grid>
-                            <Grid item xs={7}> {item.name} </Grid>
-                            <Grid item xs={1}>
-                                <IconButton
-                                    className={clsx(classes.expand, {
-                                        [classes.expandOpen]: expanded,
-                                    })}
-                                    onClick={handleExpandClick}
-                                    aria-expanded={expanded}
-                                    color="secondary"
-                                    aria-label="expandDown"
-                                    >
-                                    <ExpandMoreIcon />
-                                </IconButton>
-                            </Grid>
-                            <Grid item xs={1}></Grid>
+        <Divider />
+        <ListItem>
+            <Grid container className={classes.paper}>
+                <Grid item xs={6}>
+                    <Grid container className={classes.paper}>
+                        <Grid item xs={4} >
+                            <ImgIcon src={item.img}/>
                         </Grid>
-                    </Grid>
-                    <Grid item xs={2}></Grid>
-                    <Grid item xs={1}>
-                        <Link href={"/admin/categories/top/"+item.name}>
-                            <OpenEditButton/>
-                        </Link>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <DeleteButton onDelete={onDelete}/>
+                        <Grid item xs={7}> {item.name} </Grid>
+                        <Grid item xs={1}>
+                            <IconButton
+                                className={clsx(classes.expand, {[classes.expandOpen]: expanded})}
+                                onClick={handleExpandClick}
+                                aria-expanded={expanded}
+                                color="secondary"
+                                aria-label="expandDown"
+                            >
+                                <ExpandMoreIcon />
+                            </IconButton>
+                        </Grid>
+                        <Grid item xs={1}></Grid>
                     </Grid>
                 </Grid>
-            </ListItem>
+                <Grid item xs={2}></Grid>
+                <Grid item xs={1}>
+                    <Link href={"/admin/categories/top/"+item.name}>
+                        <OpenEditButton/>
+                    </Link>
+                </Grid>
+                <Grid item xs={1}>
+                    <DeleteButton onDelete={onDelete}/>
+                </Grid>
+            </Grid>
+        </ListItem>
 
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <div className={classes.expanded}>
-                    <ManageCategories topCatId={item._id}/>
-                    <Box textAlign='right'>
-                        <IconButton
-                            className={classes.expandOpen}
-                            onClick={handleExpandClick}
-                            aria-expanded={expanded}
-                            color="secondary"
-                            aria-label="expandDown"
-                            >
-                            <ExpandMoreIcon />
-                        </IconButton>
-                    </Box>
-                </div>
-            </Collapse>
-            <ConfirmModal modalText={modalText} openConfirm={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <div className={classes.expanded}>
+                <ManageCategories topCatId={item._id}/>
+                <Box textAlign='right'>
+                    <IconButton
+                        className={classes.expandOpen}
+                        onClick={handleExpandClick}
+                        aria-expanded={expanded}
+                        color="secondary"
+                        aria-label="expandDown"
+                    >
+                        <ExpandMoreIcon />
+                    </IconButton>
+                </Box>
+            </div>
+        </Collapse>
+        <ConfirmModal modalText={modalText} openConfirm={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
         </>
     )
 };

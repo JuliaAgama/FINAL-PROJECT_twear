@@ -18,6 +18,7 @@ import AdminLoginPage from '../components/AdminLoginPage';
 import AdminPage from '../components/AdminPage';
 import AdminCategories from '../components/AdminPage/AdminCategories';
 import EditNewCategory from '../components/AdminPage/AdminCategories/EditNew';
+import AdminOptions from '../components/AdminPage/AdminOptions';
 
 
 export const Router = () => (
@@ -58,6 +59,10 @@ export const Router = () => (
                 //<PrivateAdminRoute exact
                     path="/admin/categories/top/:topCatName?"
                     component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
+                <Route exact
+                //<PrivateAdminRoute exact
+                    path="/admin/options"
+                    component={props => <LayoutAdmin {...props}><AdminOptions/></LayoutAdmin>}/>
 
                 <Route path="*" component={NotFound}/>
             </Switch>

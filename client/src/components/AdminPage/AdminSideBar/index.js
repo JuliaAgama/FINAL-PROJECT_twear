@@ -13,8 +13,8 @@ export default () => {
     const manageList = [
         {name: 'products', url: 'products'},
         {name: 'categories', url: 'categories'},
-        {name: 'options sets (colors, sizes)', url: 'options'},
-        {name: 'shop info, settings & other', url: 'settings'}
+        {name: 'colors & sizes', url: 'options'},
+        {name: 'info & settings', url: 'settings'}
     ];
 
     return(
