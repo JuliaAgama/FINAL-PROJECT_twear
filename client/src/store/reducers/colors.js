@@ -36,7 +36,7 @@ export default function (state = initState, action) {
             };
 
             case COLORS.COLORS_UPDATE_COLOR:
-            let updatedColors = state.COLORS.map(el => {
+            let updatedColors = state.colors.map(el => {
                 if(el._id === action.data._id){
                     return action.data
                 }

@@ -30,6 +30,16 @@ export default makeStyles(theme => (
                 backgroundColor: green[500],
             },
         },
+        fabGreenFilled: {
+            margin: theme.spacing(2),
+            textAlign: 'center',
+            color: theme.palette.common.white,
+            backgroundColor: green[600],
+            '&:hover': {
+                color: green[600],
+                backgroundColor: theme.palette.common.white,
+            },
+        },
         fabPink: {
             margin: theme.spacing(2),
             textAlign: 'center',

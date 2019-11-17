@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Fab from '@material-ui/core/Fab';
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
+// import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import PublishIcon from '@material-ui/icons/Publish';
 import useStyles from './useStyles';
 
 
@@ -15,7 +16,8 @@ export default props => {
             aria-label="add"
             onClick={props.onClick}
         >
-            <SaveAltIcon/>
+            <PublishIcon/>
+            {/* <SaveAltIcon/> */}
         </Fab>
     )
 };
