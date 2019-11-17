@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as colorsActions from '../../../../../store/actions/colors';
@@ -9,6 +9,7 @@ import useStyles from './useStyles';
 
 import SaveButton from '../../../../common/buttons/Save';
 import DeleteButton from '../../../../common/buttons/Delete';
+import Notification from '../../../../common/messages/Notification';
 
 
 export default props => {
@@ -24,6 +25,11 @@ export default props => {
         setFormData(item);
     },[item]);
 
+
+    const ref = useRef(null);
+    const timeout = 2000;
+
+
     const onChange = event => {
         if (event.target.name === 'cssValue') {
             setColor(event.target.value);
@@ -37,12 +43,13 @@ export default props => {
     const saveColor = event => {
         event.preventDefault();
         colorsActions.updateColor(formData)(dispatch);
+        ref.current(`Color ${formData.name.toUpperCase()} has been saved!`);
     };
 
     const deleteColor = event => {
         event.preventDefault();
         colorsActions.deleteColor(formData)(dispatch);
-        // reRender(item._id);
+        reRender(item._id);
 
         console.log('delete color');
     };
@@ -94,6 +101,8 @@ export default props => {
                 </Grid>
             </form>
         </Grid>
+
+        <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     )
 }

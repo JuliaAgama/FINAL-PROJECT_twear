@@ -1,5 +1,5 @@
 // import React from 'react';
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as colorsActions from '../../../../store/actions/colors';
@@ -7,6 +7,7 @@ import * as colorsActions from '../../../../store/actions/colors';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
 
+import Notification from '../../../common/messages/Notification';
 import AddButton from '../../../common/buttons/Add';
 import Spinner from '../../../common/Spinner';
 
@@ -18,8 +19,9 @@ export default props => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
+    // const colorsList = useSelector(state => state.colors.colors);
     const colorsRecieved = useSelector(state => state.colors.colors);
-    const [colorsList, setColorsList] = useState(colorsRecieved);
+    const [colorsList, setColorsList] = useState([]);
     // const [listUpdated, setListUpdated] = useState(colorsList);
     const colorsLoaded = useSelector(state => state.colors.loaded);
 
@@ -27,7 +29,17 @@ export default props => {
         colorsActions.getAllColors()(dispatch);
     }, [dispatch]);
 
-    //const reRender = id => setColorsList(colorsList.filter(el => el._id !== id));
+    useEffect(() => {
+        setColorsList(colorsRecieved);
+    }, [colorsRecieved]);
+
+
+    const ref = useRef(null);
+    const timeout = 2000;
+
+
+    // const reRender = id => setColorsList(colorsList.filter(el => el._id !== id));
+    const reRender = id => {console.log(id); setColorsList(colorsList.filter(el => el._id !== id))};
 
     const addItem = event => {
         event.preventDefault();
@@ -48,7 +60,7 @@ export default props => {
                                 <ColorItem
                                     item={item}
                                     key={item._id}
-                                    //reRender={reRender}
+                                    reRender={reRender}
                                 />
                                 )
                         }
@@ -67,7 +79,9 @@ export default props => {
                 </div>
             ) :
             <Spinner/>
+
         }
+            <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     )
 };
