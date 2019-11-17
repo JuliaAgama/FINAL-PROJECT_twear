@@ -7,7 +7,8 @@ const {
   addColor,
   updateColor,
   deleteColor,
-  getColors
+  getColors,
+  getColor
 } = require("../controllers/colors");
 
 // @route   POST /colors
@@ -15,7 +16,7 @@ const {
 // @access  Private
 router.post(
   "/",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   addColor
 );
 
@@ -24,7 +25,7 @@ router.post(
 // @access  Private
 router.put(
   "/:id",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   updateColor
 );
 
@@ -33,7 +34,7 @@ router.put(
 // @access  Private
 router.delete(
   "/:id",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   deleteColor
 );
 
@@ -41,5 +42,10 @@ router.delete(
 // @desc    GET existing colors
 // @access  Public
 router.get("/", getColors);
+
+// @route   GET /colors/:id
+// @desc    GET existing color
+// @access  Public
+router.get("/:id", getColor);
 
 module.exports = router;

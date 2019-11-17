@@ -1,5 +1,9 @@
 export const SIZES_SEND_REQUEST = 'sizes_send_request';
 export const SIZE_SEND_REQUEST = 'size_send_request';
+export const SIZES_RESPONSE_SUCCEEDED = "SIZES_RESPONSE_SUCCEEDED";
+export const SIZE_RESPONSE_SUCCEEDED = "SIZE_RESPONSE_SUCCEEDED";
+export const SIZES_RESPONSE_FAILED = "SIZES_RESPONSE_FAILED";
+export const SIZE_RESPONSE_FAILED = "SIZE_RESPONSE_FAILED";
 
 export const SIZES_GET_ALL_SIZES = 'sizes_get_all_sizes';
 export const SIZES_ADD_SIZE = 'sizes_add_size';
