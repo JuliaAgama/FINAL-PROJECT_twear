@@ -65,7 +65,7 @@ export default props => {
                 </Grid>
             </Grid>
         </ListItem>
-        <ConfirmModal modalText={modalText} openConfirm={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
+        <ConfirmModal modalText={modalText} openModal={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
         </>
     )
 };

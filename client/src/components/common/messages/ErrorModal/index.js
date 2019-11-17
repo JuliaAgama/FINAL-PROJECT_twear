@@ -12,7 +12,7 @@ const getModalStyle = () => {
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
     };
-}
+};
 
 export default props => {
     const classes = useStyles();
