@@ -7,7 +7,7 @@ import * as colorsActions from '../../../../store/actions/colors';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
 
-// import TextField from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Radio from '@material-ui/core/Radio';
@@ -31,18 +31,14 @@ export default props => {
 
     console.log(colorsBase);
 
-    // const{categoryName, topCatName, item, topCatsBase, gendersBase, displayAdditional, onSubmitHandler} = props;
-    // console.log(item);
-    // const specialCategory = 'looks';
+    let [formData, setFormData] = useState({});
+    const [color, setColor] = useState('#333333');
+    const handleColorChange = event => {
+        setColor(event.target.value);
+    };
 
-    // let [formData, setFormData] = useState({});
 
     // useEffect(()=> {
-    //     if(categoryName) {
-    //         let newInTopCat = categoryName && categoryName.includes('newCategory') ?
-    //             categoryName.slice(categoryName.indexOf('-')+1) :
-    //             undefined;
-    //         item ?
     //             setFormData({
     //                 _id: item._id || '',
     //                 itemNo: item.itemNo || 0,
@@ -51,37 +47,16 @@ export default props => {
     //                 genders: [...item.genders],
     //                 img: item.img || '',
     //                 date: item.date || Date.now()
-    //             }) :
-    //             setFormData({topCategory: newInTopCat})
-
-    //     } else if (topCatName && item) {
-    //             setFormData({
-    //                 _id: item._id || '',
-    //                 name: item.name || '',
-    //                 img: item.img || '',
-    //                 date: item.date || Date.now()
     //             });
     //     }
-    // },[categoryName, topCatName, item]);
+    // },[item]);
 
-    // const onChange = event => {
-    //     if (event.target.name === 'genders') {
-    //         event.target.checked ?
-    //             setFormData({
-    //                 ...formData,
-    //                 genders: formData.genders ? [...formData.genders.filter(el => el !== event.target.value), event.target.value] : [event.target.value]
-    //             }) :
-    //             setFormData({
-    //                 ...formData,
-    //                 genders: [...formData.genders.filter(el => el !== event.target.value)]
-    //             })
-    //     } else {
-    //         setFormData({
-    //             ...formData,
-    //             [event.target.name]: event.target.value
-    //         });
-    //     }
-    // };
+    const onChange = event => {
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.value
+        });
+    };
 
     // const onSubmit = event => {
     //     event.preventDefault();
@@ -96,45 +71,41 @@ export default props => {
                     autoComplete="off"
                     //onSubmit={onSubmit}
                 >
-                    <Grid container className={classes.paper}>
-                        <Grid item className={classes.justify}>
-                            {/* <TextField
-                                required
-                                id="outlined-required"
-                                label="Category"
-                                name='name'
-                                autoFocus
-                                onChange={onChange}
-                                defaultValue={topCatName === 'newTopCategory' || (categoryName && categoryName.includes('newCategory')) ? '' : topCatName || categoryName}
-                                className={classes.textField}
-                                margin="normal"
-                                variant="outlined"
-                            /> */}
-                        </Grid>
-                    </Grid>
-
-                    <FormControl component="fieldset" className={classes.formControl}>
-                        <FormLabel component="legend">Manage Colors</FormLabel>
-                        <FormGroup>
-                            <Grid container className={classes.paper}>
-                                {colorsBase.map(color =>
-                                    <Grid item xs={6} md={4} lg={3} xl={2} key={color._id}>
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    name='colors'
-                                                    id={color._id}
-                                                    value={color._id}
-                                                    //checked={formData.colors && formData.colors.includes(color._id) ? true : false}
-                                                    //onChange={onChange}
-                                                />}
-                                            label={color.name}
+                <Grid container className={classes.paper}>
+                    {colorsBase.map(color =>
+                        <Grid item xs={6} md={4} lg={3} xl={2} key={color._id}>
+                            <fieldset>
+                                <Grid container className={classes.verticalCenter}>
+                                    <Grid item xs={3}>
+                                        {/* <label htmlFor="color">change </label> */}
+                                        <input
+                                            id={color._id}
+                                            type="color"
+                                            value={color.cssValue}
+                                            onChange={handleColorChange}
                                         />
                                     </Grid>
-                                )}
-                            </Grid>
-                        </FormGroup>
-                    </FormControl>
+                                    <Grid item xs={7}>
+                                        <TextField
+                                            className={classes.textField}
+                                            required
+                                            id={color._id}
+                                            //label="name"
+                                            name={color._id}
+                                            onChange={onChange}
+                                            defaultValue={color.name}
+                                            margin="normal"
+                                        // variant="outlined"
+                                        />
+                                    </Grid>
+                                    <Grid item xs={2}></Grid>
+                                </Grid>
+                            </fieldset>
+
+                        </Grid>
+                    )}
+                </Grid>
+
                     <AddWideButton text='' color='primary'/>
                     <button className="btn btn-info btn-block" type="submit">Save changes</button>
                 </form>

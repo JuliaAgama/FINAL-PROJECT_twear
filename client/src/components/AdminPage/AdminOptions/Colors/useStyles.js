@@ -2,12 +2,15 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => (
     {
+        root: props => ({
+            backgroundColor: props.backgroundColor,
+            color: theme.color,
+        }),
         wrapper: {
             margin: `${theme.spacing(1)} auto`,
         },
         textField: {
-            margin: `${theme.spacing(1)} auto`,
-            width: '100%',
+            marginRight: theme.spacing(2),
             backgroundColor: '#fff',
         },
         justify: {
@@ -17,8 +20,12 @@ export default makeStyles(theme => (
             flexGrow: 1,
             alignItems: 'flex-start',
             textTransform: 'capitalize',
-            justifyContent: 'space-between',
             paddingRight: theme.spacing(3)
+        },
+        verticalCenter: {
+            alignItems: 'center',
+            paddingRight: theme.spacing(3),
+            justifyContent: 'center',
         },
         formControl: {
             margin: theme.spacing(2),
