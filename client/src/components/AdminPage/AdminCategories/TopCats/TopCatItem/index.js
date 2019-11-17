@@ -102,7 +102,7 @@ export default props => {
                 </Box>
             </div>
         </Collapse>
-        <ConfirmModal modalText={modalText} openConfirm={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
+        <ConfirmModal modalText={modalText} openModal={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
         </>
     )
 };
