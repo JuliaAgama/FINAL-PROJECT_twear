@@ -7,16 +7,9 @@ import * as colorsActions from '../../../../store/actions/colors';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
 
-import TextField from '@material-ui/core/TextField';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Radio from '@material-ui/core/Radio';
-// import RadioGroup from '@material-ui/core/RadioGroup';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControl from '@material-ui/core/FormControl';
-import Checkbox from '@material-ui/core/Checkbox';
+import AddButton from '../../../common/buttons/Add';
 
-import AddWideButton from '../../../common/buttons/AddWide';
+import ColorItem from './useStyles';
 
 
 export default props => {
@@ -29,86 +22,68 @@ export default props => {
         colorsActions.getAllColors()(dispatch);
     }, [dispatch]);
 
-    console.log(colorsBase);
-
-    let [formData, setFormData] = useState({});
-    const [color, setColor] = useState('#333333');
-    const handleColorChange = event => {
-        setColor(event.target.value);
-    };
-
-
+    // const [formData, setFormData] = useState([]);
     // useEffect(()=> {
-    //             setFormData({
-    //                 _id: item._id || '',
-    //                 itemNo: item.itemNo || 0,
-    //                 name: item.name || '',
-    //                 topCategory: item.topCategory,
-    //                 genders: [...item.genders],
-    //                 img: item.img || '',
-    //                 date: item.date || Date.now()
-    //             });
-    //     }
-    // },[item]);
+    //     setFormData(colorsBase);
+    // },[colorsBase]);
 
-    const onChange = event => {
-        setFormData({
-            ...formData,
-            [event.target.name]: event.target.value
-        });
+    // const [color, setColor] = useState('#333333');
+    // const onChange = event => {
+    //     if (event.target.name === 'cssValue') {
+    //         setColor(event.target.value);
+    //     };
+    //     let updatedData = formData.map(el => {
+    //         if (el._id !== event.target.id) {
+    //             return el;
+    //         } else {
+    //             let newObj = {};
+    //             for (let key in el) {
+    //                 key === event.target.name ?
+    //                     newObj[key] = event.target.value :
+    //                     newObj[key] = el[key]
+    //                 }
+    //             return newObj;
+    //         }
+    //     });
+    //     // console.log(updatedData);
+    //     setFormData(updatedData)
+    // };
+
+
+
+    const addField = event => {
+        event.preventDefault();
+        console.log('hello');
     };
 
     // const onSubmit = event => {
-    //     event.preventDefault();
-    //     onSubmitHandler(formData);
-    // };
+        //     event.preventDefault();
+        //     onSubmitHandler(formData);
+        // };
 
-    // console.log(formData);
+        // console.log('colorBase recieved from dataBase: ', colorsBase);
+        // console.log('formData current: ', formData);
+
+
     return (
         <>
             <div className={classes.wrapper}>
-                <form
-                    autoComplete="off"
-                    //onSubmit={onSubmit}
-                >
                 <Grid container className={classes.paper}>
-                    {colorsBase.map(color =>
-                        <Grid item xs={6} md={4} lg={3} xl={2} key={color._id}>
-                            <fieldset>
-                                <Grid container className={classes.verticalCenter}>
-                                    <Grid item xs={3}>
-                                        {/* <label htmlFor="color">change </label> */}
-                                        <input
-                                            id={color._id}
-                                            type="color"
-                                            value={color.cssValue}
-                                            onChange={handleColorChange}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={7}>
-                                        <TextField
-                                            className={classes.textField}
-                                            required
-                                            id={color._id}
-                                            //label="name"
-                                            name={color._id}
-                                            onChange={onChange}
-                                            defaultValue={color.name}
-                                            margin="normal"
-                                        // variant="outlined"
-                                        />
-                                    </Grid>
-                                    <Grid item xs={2}></Grid>
-                                </Grid>
-                            </fieldset>
-
-                        </Grid>
+                    {colorsBase.map(item =>
+                        <ColorItem item={item} key={item._id}/>
                     )}
+                    <Grid item xs={6} lg={4} xl={3} className={classes.center}>
+                        <Grid container>
+                            <Grid item xs={3}>
+                                <AddButton
+                                    className='fabPink'
+                                    onClick={addField}
+                                    size="medium"/>
+                            </Grid>
+                            <Grid item xs={9}></Grid>
+                        </Grid>
+                    </Grid>
                 </Grid>
-
-                    <AddWideButton text='' color='primary'/>
-                    <button className="btn btn-info btn-block" type="submit">Save changes</button>
-                </form>
             </div>
         </>
     )

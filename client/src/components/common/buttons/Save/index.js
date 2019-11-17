@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import useStyles from './useStyles';
 
 
@@ -10,12 +10,12 @@ export default props => {
     return (
         <Fab
             size={props.size || "medium"}
-            className={classes[props.className] || classes.fabBlue}
+            className={classes[props.className] || classes.fabGreen}
             color={props.color || "primary"}
-            aria-label="edit"
+            aria-label="add"
             onClick={props.onClick}
         >
-            <EditIcon/>
+            <SaveAltIcon/>
         </Fab>
     )
 };
