@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import useStyles from './useStyles';
 import Modal from '@material-ui/core/Modal';
 
-import Grid from '@material-ui/core/Grid';
-
 const rand = () => (0);
 // const rand = () => (Math.round(Math.random() * 20) - 10);
 
@@ -15,7 +13,7 @@ const getModalStyle = () => {
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
     };
-}
+};
 
 export default props => {
     const classes = useStyles();
@@ -39,14 +37,11 @@ export default props => {
                     <div style={modalStyle} className={classes.paper}>
                         <h2 id="simple-modal-title">{modalText.title}</h2>
                         <p id="simple-modal-description">{modalText.description}</p>
-                        <Grid container>
-                            <Grid item xs={6}>
-                                <button type="button" onClick={doFunction}>{modalText.buttonYes}</button>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <button type="button" onClick={handleClose}>{modalText.buttonNo}</button>
-                            </Grid>
-                        </Grid>
+                        <button type="button"
+                            onClick={doFunction}
+                            >
+                            {modalText.button}
+                        </button>
                     </div>
                 </Modal>
             </div>

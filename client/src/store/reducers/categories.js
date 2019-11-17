@@ -2,7 +2,8 @@ import * as CATEGORIES from '../constants/categories';
 
 const initState = {
     categories: [],
-    loaded: false
+    loaded: false,
+    error: null,
 };
 
 
@@ -15,6 +16,14 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     loaded : false
+                }
+            };
+
+        case CATEGORIES.CATEGORIES_RESPONSE_FAILED:
+            return {
+                ...state,
+                ...{
+                    error : action.error
                 }
             };
 

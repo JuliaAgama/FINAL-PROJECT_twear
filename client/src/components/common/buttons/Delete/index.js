@@ -10,12 +10,12 @@ export default props => {
     return (
         <Fab
             size={props.size || "medium"}
-            className={classes.fab}
-            color="default"
+            className={classes[props.className] || classes.fabGrey}
+            color={props.color || "default"}
             aria-label="delete"
-            onClick={props.onDelete}
+            onClick={props.onClick}
         >
-            <DeleteIcon className={classes.whiteText}/>
+            <DeleteIcon/>
         </Fab>
     )
 };

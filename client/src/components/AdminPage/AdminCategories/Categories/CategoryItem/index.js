@@ -23,12 +23,13 @@ export default props => {
     const itemName=item.name;
 
     const [openConfirm, setOpenConfirm] = useState(false);
-    const onDelete = () => setOpenConfirm(true);
+    const openConfirmModal = () => setOpenConfirm(true);
 
     const modalText = {
         title: `Are you sure to DELETE ${itemName.toUpperCase()}?`,
         description: `If you confirm deletion of ${itemName.toUpperCase()} category from database it will affect the total catalogue and cannot be undone`,
-        button: 'DELETE, I am SURE'
+        buttonYes: 'DELETE, I am SURE',
+        buttonNo: "No, don't DELETE"
     };
 
     const deleteItem = (event) => {
@@ -61,11 +62,11 @@ export default props => {
                     </Link>
                 </Grid>
                 <Grid item xs={1}>
-                    <DeleteButton size="small" onDelete={onDelete}/>
+                    <DeleteButton size="small" onClick={openConfirmModal}/>
                 </Grid>
             </Grid>
         </ListItem>
-        <ConfirmModal modalText={modalText} openConfirm={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
+        <ConfirmModal modalText={modalText} openModal={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
         </>
     )
 };

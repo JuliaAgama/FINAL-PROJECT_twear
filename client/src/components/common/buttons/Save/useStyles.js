@@ -1,17 +1,17 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
 import { blue } from '@material-ui/core/colors';
+import { green } from '@material-ui/core/colors';
 import { pink } from '@material-ui/core/colors';
 import { grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
-        fab:{
-            margin: theme.spacing(1),
+        fab: {
+            margin: theme.spacing(2),
             textAlign: 'center',
         },
         fabBlue: {
-            margin: theme.spacing(1),
+            margin: theme.spacing(2),
             textAlign: 'center',
             color: blue[600],
             backgroundColor: 'transparent',
@@ -21,7 +21,7 @@ export default makeStyles(theme => (
             },
         },
         fabGreen: {
-            margin: theme.spacing(1),
+            margin: theme.spacing(2),
             textAlign: 'center',
             color: green[600],
             backgroundColor: 'transparent',
@@ -30,8 +30,18 @@ export default makeStyles(theme => (
                 backgroundColor: green[500],
             },
         },
+        fabGreenFilled: {
+            margin: theme.spacing(2),
+            textAlign: 'center',
+            color: theme.palette.common.white,
+            backgroundColor: green[600],
+            '&:hover': {
+                color: green[600],
+                backgroundColor: theme.palette.common.white,
+            },
+        },
         fabPink: {
-            margin: theme.spacing(1),
+            margin: theme.spacing(2),
             textAlign: 'center',
             color: pink[600],
             backgroundColor: 'transparent',
@@ -41,7 +51,7 @@ export default makeStyles(theme => (
             },
         },
         fabGrey: {
-            margin: theme.spacing(1),
+            margin: theme.spacing(2),
             textAlign: 'center',
             color: grey[600],
             backgroundColor: 'transparent',
@@ -50,14 +60,5 @@ export default makeStyles(theme => (
                 backgroundColor: grey[500],
             },
         },
-        widedIcon: {
-            marginRight: theme.spacing(1),
-    },
-        text: {
-            textAlign: 'center',
-            "&:hover": {
-                textDecoration: 'none !important'
-            }
-        }
     }
 ));

@@ -32,12 +32,13 @@ export default props => {
     const handleExpandClick = () => setExpanded(!expanded);
 
     const [openConfirm, setOpenConfirm] = useState(false);
-    const onDelete = () => setOpenConfirm(true);
+    const openConfirmModal = () => setOpenConfirm(true);
 
     const modalText = {
         title: `Are you sure to DELETE ${itemName.toUpperCase()}?`,
         description: `If you confirm deletion of ${itemName.toUpperCase()} top category from database it will affect the total catalogue and cannot be undone`,
-        button: 'DELETE, I am sure'
+        buttonYes: 'DELETE, I am SURE',
+        buttonNo: "No, don't DELETE"
     };
 
     const deleteItem = (event) => {
@@ -81,7 +82,7 @@ export default props => {
                     </Link>
                 </Grid>
                 <Grid item xs={1}>
-                    <DeleteButton onDelete={onDelete}/>
+                    <DeleteButton onClick={openConfirmModal}/>
                 </Grid>
             </Grid>
         </ListItem>
@@ -102,7 +103,7 @@ export default props => {
                 </Box>
             </div>
         </Collapse>
-        <ConfirmModal modalText={modalText} openConfirm={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
+        <ConfirmModal modalText={modalText} openModal={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
         </>
     )
 };
