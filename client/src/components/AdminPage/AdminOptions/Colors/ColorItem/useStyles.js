@@ -11,14 +11,15 @@ export default makeStyles(theme => (
             paddingBottom: theme.spacing(5)
         },
         textField: {
-            marginRight: theme.spacing(2),
+            // marginRight: theme.spacing(2),
             backgroundColor: '#fff',
         },
         justify: {
             width: '100%'
         },
         colorInput: {
-            marginRight: theme.spacing(1)
+            marginRight: theme.spacing(1),
+            marginLeft: theme.spacing(-2)
         },
         paper: {
             flexGrow: 1,

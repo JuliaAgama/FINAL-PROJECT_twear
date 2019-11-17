@@ -46,13 +46,13 @@ export default () => {
             (
                 <List className={classes.root}>
                     {topCatsList
-                            .map(item =>
-                                <TopCatItem
-                                    item={item}
-                                    key={item._id}
-                                    handleNotification={handleNotification}
-                                />
-                            )
+                        .map(item =>
+                            <TopCatItem
+                                item={item}
+                                key={item._id}
+                                handleNotification={handleNotification}
+                            />
+                        )
                     }
                     <Divider />
                     <ListItem>

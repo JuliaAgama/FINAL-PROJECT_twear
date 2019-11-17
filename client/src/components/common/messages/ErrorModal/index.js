@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import useStyles from './useStyles';
 import Modal from '@material-ui/core/Modal';
 
-const rand = () => (Math.round(Math.random() * 20) - 10);
+const rand = () => (0);
+// const rand = () => (Math.round(Math.random() * 20) - 10);
 
 const getModalStyle = () => {
     const top = 50 + rand();
