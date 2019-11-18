@@ -35,8 +35,8 @@ export default props => {
                     onClose={handleClose}
                 >
                     <div style={modalStyle} className={classes.paper}>
-                        <h2 id="simple-modal-title">{modalText.title}</h2>
-                        <p id="simple-modal-description">{modalText.description}</p>
+                        <h2 id="simple-modal-error">{modalText.title}</h2>
+                        <p id="simple-modal-error-message">{modalText.description}</p>
                         <button type="button"
                             onClick={doFunction}
                             >

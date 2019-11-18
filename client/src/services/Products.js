@@ -14,13 +14,13 @@ export default class Products extends Base {
         // .catch(err => err.response.data);
     }
 
-    getProductsBySearch(search) {
-        return super.get(`products/search`, search)
+    getProductsBySearch(searchValue) {
+        return super.post(`products/search`, {query: searchValue})
         .then(res => res.data)
         // .catch(err => err.response.data);
     }
 
-    getProductById(id) {n
+    getProductById(id) {
         return super.get('products/' + id)
         .then(res => res.data)
         // .catch(err => err.response.data);

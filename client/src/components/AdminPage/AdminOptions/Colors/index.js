@@ -2,7 +2,9 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import ColorsApi from '../../../../services/Colors';
 import * as colorsActions from '../../../../store/actions/colors';
+// import * as productsActions from '../../../../store/actions/products';
 
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
@@ -19,18 +21,13 @@ export default props => {
 
     const dispatch = useDispatch();
     useEffect(() => {
+        // (new ColorsApi()).getColors().then(res => console.log(res));
         colorsActions.getAllColors()(dispatch);
     }, [dispatch]);
+    // }, []);
 
     const colorsList = useSelector(state => state.colors.colors);
     const colorsLoaded = useSelector(state => state.colors.loaded);
-    // может со стейтами нужно попробовать, чтобы перерендивался список...
-    // const colorsRecieved = useSelector(state => state.colors.colors);
-    // const [colorsList, setColorsList] = useState([]);
-
-    // useEffect(() => {
-    //     setColorsList(colorsRecieved);
-    // }, [colorsRecieved]);
 
 //server errors catching:
     const colorsError = useSelector(state => state.colors.error);
@@ -47,6 +44,19 @@ export default props => {
     const reloadPage = () => window.location.reload(true);
     const closeErrorModal = () => setErrorIsOpen(false);
 
+
+    // safe Deletion handling:
+
+    // const searchProductsByColor = (event, colorId) => {
+    //     event.preventDefault();
+    //     productsActions.getProductsBySearch(colorId)(dispatch);
+    //     const productsBySearch = useSelector(state => state.products.products);
+    //     console.log('this color connected to products: ', productsBySearch)
+    // };
+
+
+
+
     // notification after saving or deleting item:
     const ref = useRef(null);
     const timeout = 2000;
@@ -56,7 +66,6 @@ export default props => {
             // window.location.reload(true)
         }, timeout)
     };
-
 
     // const reRender = id => setColorsList(colorsList.filter(el => el._id !== id));
     // const reRender = id => {console.log(id); setColorsList(colorsList.filter(el => el._id !== id))};
@@ -68,7 +77,7 @@ export default props => {
 
     const classes = useStyles();
 
-    console.log('colorList recieved from dataBase: ', colorsList);
+    // console.log('colorList recieved from dataBase: ', colorsList);
 
     return (
         <>
@@ -82,6 +91,7 @@ export default props => {
                                 <ColorItem
                                     item={item}
                                     key={item._id}
+                                    //searchProductsByColor={searchProductsByColor}
                                     handleNotification={handleNotification}
                                     //reRender={reRender}
                                 />
@@ -106,6 +116,8 @@ export default props => {
         }
         <Notification timeout={timeout} children={add => (ref.current = add)} />
         <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={reloadPage} closeFunction={closeErrorModal}/>
+        {/* <WarningModal modalIsOpen={warningIsOpen} modalText={warningModalText} doFunction={doFunction} closeFunction={closeWarningModal}/>
+        <ConfirmModal modalIsOpen={confirmIsOpen} modalText={confirmModalText} doFunction={doFunction} closeFunction={closeConfirmModal}/> */}
         </>
     )
 };

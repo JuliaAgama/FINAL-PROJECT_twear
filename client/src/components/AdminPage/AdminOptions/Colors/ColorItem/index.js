@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as colorsActions from '../../../../../store/actions/colors';
+import * as productsActions from '../../../../../store/actions/products';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -9,14 +10,22 @@ import useStyles from './useStyles';
 
 import SaveButton from '../../../../common/buttons/Save';
 import DeleteButton from '../../../../common/buttons/Delete';
-import Notification from '../../../../common/messages/Notification';
+// import WarningModal from '../../../../common/messages/WarningModal';
+// import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
 
 export default props => {
     const classes = useStyles();
+    const {item, handleNotification} = props;
+
     const dispatch = useDispatch();
 
-    const {item, handleNotification} = props;
+    // useEffect(() => {
+    //     productsActions.getProductsBySearch(item._id)(dispatch);
+    // }, [dispatch]);
+
+    // const productsBySearch = useSelector(state => state.products.products);
+
 
     const [color, setColor] = useState(item.cssValue);
     const [formData, setFormData] = useState({});
@@ -24,11 +33,6 @@ export default props => {
     useEffect(()=> {
         setFormData(item);
     },[item]);
-
-
-    const ref = useRef(null);
-    const timeout = 2000;
-
 
     const onChange = event => {
         if (event.target.name === 'cssValue') {
@@ -44,6 +48,11 @@ export default props => {
         event.preventDefault();
         colorsActions.updateColor(formData)(dispatch);
         handleNotification((formData.name || item.name), 'saved in database');
+    };
+
+    const checkToDelete = event => {
+        event.preventDefault();
+        console.log('checkToDelete');
     };
 
     const deleteColor = event => {
@@ -95,15 +104,13 @@ export default props => {
                     <Grid item xs={2}></Grid>
                     <Grid item xs={1}>
                         <DeleteButton
-                            onClick={deleteColor}
+                            onClick={checkToDelete}
                             size="small"/>
                     </Grid>
                     <Grid item xs={3}></Grid>
                 </Grid>
             </form>
         </Grid>
-
-        <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     )
 }
