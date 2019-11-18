@@ -7,7 +7,7 @@ export default function Item(props) {
     const classes = useStyles();
     return (
         <React.Fragment>
-            <Link to={props.url} className={props.mobile ? classes.mobileLink : classes.link}>
+            <Link name='category' to={props.url} className={props.mobile ? classes.mobileLink : classes.link}>
                 <Box className={classes.box}>{props.title}</Box>
             </Link>
         </React.Fragment>

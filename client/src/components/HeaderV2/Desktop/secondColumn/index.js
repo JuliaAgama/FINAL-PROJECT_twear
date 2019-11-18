@@ -14,7 +14,7 @@ export default function SecondColumn() {
     const dispatch = useDispatch();
     const showMenu = (isMen) => dispatch(showDesktopCategoriesMenuAction(isMen));
 
-    const show = (event) => {
+    const showCategories = (event) => {
         const isMen = event.target.innerText;
         if (isMen === 'Men') {
             showMenu(true);
@@ -32,12 +32,12 @@ export default function SecondColumn() {
                     </Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button className={`${classes.btn} ${classes.btnBorder}`} onClick={show}>
+                    <Button className={`${classes.btn} ${classes.btnBorder}`} onClick={showCategories}>
                         Women
                     </Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button className={classes.btn} onClick={show}>
+                    <Button className={classes.btn} onClick={showCategories}>
                         Men
                     </Button>
                 </Grid>

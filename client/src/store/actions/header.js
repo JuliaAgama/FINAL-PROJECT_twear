@@ -32,3 +32,20 @@ export function hideDesktopCategoriesMenuAction() {
         });
     };
 };
+
+export function showMobileCategoriesMenuAction(isMen) {
+    return function (dispatch) {
+        return dispatch({
+            type: HEADER.HEADER_MOBILE_CATEGORIES_MENU_SHOW,
+            data: isMen
+        });
+    };
+};
+
+export function hideMobileCategoriesMenuAction() {
+    return function (dispatch) {
+        return dispatch({
+            type: HEADER.HEADER_MOBILE_CATEGORIES_MENU_HIDE
+        });
+    };
+};

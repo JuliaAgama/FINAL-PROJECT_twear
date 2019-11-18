@@ -27,6 +27,14 @@ export default makeStyles(theme => (
             fontWeight: '700',
             borderBottom: '1px solid black',
             borderLeft: '1px solid black',
+        },
+        categoriesContainer: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            width: '100%',
+            padding: '0',
+            borderBottom: '1px solid black',
+            borderLeft: '1px solid black',
         }
     }
 ));

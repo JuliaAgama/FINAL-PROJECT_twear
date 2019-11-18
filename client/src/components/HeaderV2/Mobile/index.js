@@ -16,10 +16,10 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 export default function FirstContainer() {
 
     const classes = useStyles();
-    const {show}  = useSelector(state => state.header);
+    const {showMobileMenu}  = useSelector(state => state.header);
     const dispatch = useDispatch();
     const showMenu = () => {
-        if (show){
+        if (showMobileMenu){
             dispatch(hideMobileMenuAction())
         } else {
             dispatch(showMobileMenuAction());
@@ -27,11 +27,15 @@ export default function FirstContainer() {
 
     };
     const handleClickAway = (event) => {
-        if (show && !(event.target.innerText === 'Men' ||
+        if (showMobileMenu && !(event.target.innerText === 'Men' ||
                       event.target.innerText === 'Women' ||
                       event.target.innerText === 'Currency' ||
-                      event.target.innerText === 'Login'))
+                      event.target.innerText === 'Login' ||
+                      (event.target.parentElement &&
+                      event.target.parentElement.name  === 'category'))){
             dispatch(hideMobileMenuAction())
+        }
+
     };
     return (
         <React.Fragment>
@@ -39,8 +43,8 @@ export default function FirstContainer() {
                 <ClickAwayListener onClickAway={handleClickAway}>
                     <Button onClick={showMenu}
                             className={`${classes.btn} ${classes.smallBtn}`}>
-                        <CloseIcon className={show ? '' : classes.hide}/>
-                        <MenuIcon className={show ? classes.hide : ''}/>
+                        <CloseIcon className={showMobileMenu ? '' : classes.hide}/>
+                        <MenuIcon className={showMobileMenu ? classes.hide : ''}/>
                     </Button>
                 </ClickAwayListener>
                 <Button className={`${classes.btn} ${classes.bigBtn}`}><img className={classes.img} src='/img/twear_logo_grey-on-transparent.png' alt='NOT FOUND'/></Button>
