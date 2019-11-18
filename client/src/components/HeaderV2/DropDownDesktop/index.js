@@ -5,9 +5,9 @@ import Item from "../Item";
 import {Container} from "@material-ui/core";
 import {useSelector} from "react-redux";
 
-import { useDispatch } from 'react-redux';
-import {hideDesktopCategoriesMenuAction} from '../../../store/actions/header';
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+// import { useDispatch } from 'react-redux';
+// import {hideDesktopCategoriesMenuAction} from '../../../store/actions/header';
+// import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 
 export default function HeaderDropDownBlock() {
@@ -15,14 +15,14 @@ export default function HeaderDropDownBlock() {
     const {menCategories, womenCategories}  = useSelector(state => state.categories);
     const {isMen, show}  = useSelector(state => state.header);
 
-    const dispatch = useDispatch();
-    const hideMenu = () => {
-        dispatch(hideDesktopCategoriesMenuAction());
-    };
-
-    const handleClickAway = (event) =>{
-        if (show && !(event.target.innerText === 'Men' || event.target.innerText === 'Women')) hideMenu();
-    };
+    // const dispatch = useDispatch();
+    // const hideMenu = () => {
+    //     dispatch(hideDesktopCategoriesMenuAction());
+    // };
+    //
+    // const handleClickAway = (event) =>{
+    //     if (show && !(event.target.innerText === 'Men' || event.target.innerText === 'Women')) hideMenu();
+    // };
 
     let items = [];
 
@@ -39,11 +39,11 @@ export default function HeaderDropDownBlock() {
                   item xs={12}
                   spacing={0}
                   className={show ? classes.border : classes.hide}>
-                <ClickAwayListener onClickAway={handleClickAway}>
+                {/*<ClickAwayListener onClickAway={handleClickAway}>*/}
                     <Container maxWidth={false} className={classes.container}>
                         {items}
                     </Container>
-                </ClickAwayListener>
+                {/*</ClickAwayListener>*/}
             </Grid>
         </React.Fragment>
     );

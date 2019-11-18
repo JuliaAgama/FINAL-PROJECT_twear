@@ -8,6 +8,9 @@ import Desktop from './Desktop'
 import Mobile from './Mobile'
 import DropDownDesktop from "./DropDownDesktop";
 import DropDownMobile from "./DropDownMobile";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import {useDispatch} from "react-redux";
+import {hideDesktopCategoriesMenuAction} from "../../store/actions/header";
 
 
 
@@ -15,6 +18,15 @@ import DropDownMobile from "./DropDownMobile";
 function HeaderMaterialUI() {
 
     const classes = useStyles();
+
+    const dispatch = useDispatch();
+    const hideMenu = () => {
+        dispatch(hideDesktopCategoriesMenuAction());
+    };
+
+    const handleClickAway = () =>{
+        hideMenu();
+    };
 
     const breakpointValues = {
         xs: 0,
@@ -28,6 +40,7 @@ function HeaderMaterialUI() {
 
     return (
         <ThemeProvider theme={theme}>
+            <ClickAwayListener onClickAway={handleClickAway}>
                 <Grid container spacing={0} className={classes.mainContainer}>
                     <Hidden smDown>
                         <Grid container item xs={12} spacing={0}>
@@ -42,6 +55,7 @@ function HeaderMaterialUI() {
                         </Grid>
                     </Hidden>
                 </Grid>
+            </ClickAwayListener>
         </ThemeProvider>
     );
 }
