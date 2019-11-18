@@ -4,7 +4,7 @@ import {Container} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import {useDispatch} from "react-redux";
-import {showCategoriesMenuAction} from "../../../../store/actions/categoriesMenu";
+import {showDesktopCategoriesMenuAction} from "../../../../store/actions/header";
 
 
 export default function SecondColumn() {
@@ -12,7 +12,7 @@ export default function SecondColumn() {
     const classes = useStyles();
 
     const dispatch = useDispatch();
-    const showMenu = (isMen) => dispatch(showCategoriesMenuAction(isMen));
+    const showMenu = (isMen) => dispatch(showDesktopCategoriesMenuAction(isMen));
 
     const show = (event) => {
         const isMen = event.target.innerText;

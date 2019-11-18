@@ -25,6 +25,23 @@ export default function (state = initState, action) {
                 }
             };
 
+        case HEADER.HEADER_DESKTOP_CATEGORIES_MENU_SHOW:
+            return {
+                ...state,
+                ...{
+                    isMen: action.data,
+                    show: true
+                }
+            };
+
+        case HEADER.HEADER_DESKTOP_CATEGORIES_MENU_HIDE:
+            return {
+                ...state,
+                ...{
+                    show: false
+                }
+            };
+
         default:
             return state
     }

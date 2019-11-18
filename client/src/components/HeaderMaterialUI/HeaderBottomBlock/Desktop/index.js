@@ -4,12 +4,12 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 
 import { useDispatch } from 'react-redux';
-import { showCategoriesMenuAction} from '../../../../store/actions/categoriesMenu';
+import { showDesktopCategoriesMenuAction} from '../../../../store/actions/header';
 
 export default function HeaderBottomBlockDesktop() {
 
     const dispatch = useDispatch();
-    const showMenu = (isMen) => dispatch(showCategoriesMenuAction(isMen));
+    const showMenu = (isMen) => dispatch(showDesktopCategoriesMenuAction(isMen));
 
     const show = (event) => {
         const isMen = event.target.innerText;

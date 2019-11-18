@@ -6,7 +6,7 @@ import useStyles from './useStyles';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Desktop from './Desktop'
 import Mobile from './Mobile'
-import DropDownDesktop from "./DropDownDesktop/Desktop";
+import DropDownDesktop from "./DropDownDesktop";
 import DropDownMobile from "./DropDownMobile";
 
 

@@ -2,7 +2,6 @@ import useStyles from "./useStyles";
 import React from "react";
 import {Button, Container} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {hideCategoriesMenuAction} from "../../../../store/actions/categoriesMenu";
 import Item from "../../Item";
 
 

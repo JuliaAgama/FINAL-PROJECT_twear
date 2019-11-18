@@ -6,7 +6,7 @@ import {Container} from "@material-ui/core";
 import {useSelector} from "react-redux";
 
 import { useDispatch } from 'react-redux';
-import {hideCategoriesMenuAction} from '../../../../store/actions/categoriesMenu';
+import {hideDesktopCategoriesMenuAction} from '../../../../store/actions/header';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 
@@ -17,7 +17,7 @@ export default function HeaderDropDownBlock() {
 
     const dispatch = useDispatch();
     const hideMenu = () => {
-        dispatch(hideCategoriesMenuAction());
+        dispatch(hideDesktopCategoriesMenuAction());
     };
 
     const handleClickAway = (event) =>{
