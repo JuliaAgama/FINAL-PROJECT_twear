@@ -22,6 +22,12 @@ export function getAllGenders() {
                 type: GENDERS.GENDERS_GET_ALL_GENDERS,
                 data: res
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: GENDERS.GENDERS_RESPONSE_FAILED,
+                error: err.response.data
+            })
         });
     };
 };
@@ -33,6 +39,12 @@ export function getGenderItem(id) {
             return dispatch({
                 type: GENDERS.GENDER_GET_GENDER_ITEM
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: GENDERS.GENDER_RESPONSE_FAILED,
+                error: err.response.data
+            })
         });
     };
 };
@@ -46,6 +58,12 @@ export function addGender(item){
                 data: res,
             });
         })
+        .catch(err => {
+            return dispatch({
+                type: GENDERS.GENDERS_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        })
     };
 };
 
@@ -58,6 +76,12 @@ export function updateGender (item){
                 data: res,
             });
         })
+        .catch(err => {
+            return dispatch({
+                type: GENDERS.GENDERS_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        })
     };
 };
 
@@ -69,6 +93,12 @@ export function deleteGender(item){
                 type: GENDERS.GENDERS_DELETE_GENDER,
                 data: res,
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: GENDERS.GENDERS_RESPONSE_FAILED,
+                error: err.response.data
+            })
         })
     };
 };

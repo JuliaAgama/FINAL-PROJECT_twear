@@ -22,10 +22,10 @@ export default props => {
     const {item, handleNotification} = props;
     const itemName=item.name;
 
-    const [openConfirm, setOpenConfirm] = useState(false);
-    const openConfirmModal = () => setOpenConfirm(true);
+    const [confirmIsOpen, setConfirmIsOpen] = useState(false);
+    const openConfirmModal = () => setConfirmIsOpen(true);
 
-    const modalText = {
+    const confirmModalText = {
         title: `Are you sure to DELETE ${itemName.toUpperCase()}?`,
         description: `If you confirm deletion of ${itemName.toUpperCase()} category from database it will affect the total catalogue and cannot be undone`,
         buttonYes: 'DELETE, I am SURE',
@@ -34,12 +34,12 @@ export default props => {
 
     const deleteItem = (event) => {
         event.preventDefault();
-        setOpenConfirm(false);
+        setConfirmIsOpen(false);
         categoriesActions.deleteCategory(item)(dispatch);
         handleNotification(itemName);
     };
 
-    const closeModal = () => setOpenConfirm(false);
+    const closeModal = () => setConfirmIsOpen(false);
 
     return (
         <>
@@ -66,7 +66,7 @@ export default props => {
                 </Grid>
             </Grid>
         </ListItem>
-        <ConfirmModal modalText={modalText} openModal={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
+        <ConfirmModal modalText={confirmModalText} modalIsOpen={confirmIsOpen} doFunction={deleteItem} closeFunction={closeModal}/>
         </>
     )
 };

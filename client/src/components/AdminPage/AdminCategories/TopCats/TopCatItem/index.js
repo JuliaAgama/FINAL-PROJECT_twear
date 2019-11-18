@@ -31,8 +31,8 @@ export default props => {
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => setExpanded(!expanded);
 
-    const [openConfirm, setOpenConfirm] = useState(false);
-    const openConfirmModal = () => setOpenConfirm(true);
+    const [setIsOpen, setsetIsOpen] = useState(false);
+    const openConfirmModal = () => setsetIsOpen(true);
 
     const modalText = {
         title: `Are you sure to DELETE ${itemName.toUpperCase()}?`,
@@ -43,12 +43,12 @@ export default props => {
 
     const deleteItem = (event) => {
         event.preventDefault();
-        setOpenConfirm(false);
+        setsetIsOpen(false);
         topCatsActions.deleteTopCat(item)(dispatch);
         handleNotification(itemName);
     };
 
-    const closeModal = () => setOpenConfirm(false);
+    const closeModal = () => setsetIsOpen(false);
 
     return (
         <>
@@ -103,7 +103,7 @@ export default props => {
                 </Box>
             </div>
         </Collapse>
-        <ConfirmModal modalText={modalText} openModal={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
+        <ConfirmModal modalText={modalText} modalIsOpen={setIsOpen} doFunction={deleteItem} closeFunction={closeModal}/>
         </>
     )
 };

@@ -2,7 +2,8 @@ import * as TOPCATS from '../constants/topCats';
 
 const initState = {
     topCats: [],
-    loaded: false
+    loaded: false,
+    error: null
 };
 
 export default function (state = initState, action) {
@@ -16,6 +17,14 @@ export default function (state = initState, action) {
                     loaded : false
                 }
             };
+
+            case TOPCATS.TOPCATS_RESPONSE_FAILED:
+                return {
+                    ...state,
+                    ...{
+                        error : action.error
+                    }
+                };
 
         case TOPCATS.TOPCATS_GET_ALL_TOPCATS:
             return {

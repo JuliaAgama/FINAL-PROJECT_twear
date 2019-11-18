@@ -22,6 +22,12 @@ export function getAllTopCats() {
                 type: TOPCATS.TOPCATS_GET_ALL_TOPCATS,
                 data: res
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: TOPCATS.TOPCATS_RESPONSE_FAILED,
+                error: err.response.data
+            })
         });
     };
 };
@@ -34,6 +40,12 @@ export function getTopCatItem(id) {
                 type: TOPCATS.TOPCAT_GET_TOPCAT_ITEM,
                 data: res
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: TOPCATS.TOPCAT_RESPONSE_FAILED,
+                error: err.response.data
+            })
         });
     };
 };
@@ -47,6 +59,12 @@ export function addTopCat(item){
                 data: res,
             });
         })
+        .catch(err => {
+            return dispatch({
+                type: TOPCATS.TOPCATS_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        })
     };
 };
 
@@ -58,6 +76,12 @@ export function updateTopCat (item){
                 type: TOPCATS.TOPCATS_UPDATE_TOPCAT,
                 data: res,
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: TOPCATS.TOPCATS_RESPONSE_FAILED,
+                error: err.response.data
+            })
         })
     };
 };
@@ -71,6 +95,12 @@ export function deleteTopCat(item){
                 type: TOPCATS.TOPCATS_DELETE_TOPCAT,
                 data: res,
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: TOPCATS.TOPCATS_RESPONSE_FAILED,
+                error: err.response.data
+            })
         })
     };
 };

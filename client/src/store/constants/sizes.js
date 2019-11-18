@@ -1,13 +1,11 @@
-export const SIZES_SEND_REQUEST = 'sizes_send_request';
-export const SIZE_SEND_REQUEST = 'size_send_request';
-export const SIZES_RESPONSE_SUCCEEDED = "SIZES_RESPONSE_SUCCEEDED";
-export const SIZE_RESPONSE_SUCCEEDED = "SIZE_RESPONSE_SUCCEEDED";
+export const SIZES_SEND_REQUEST = 'SIZES_SEND_REQUEST';
+export const SIZE_SEND_REQUEST = 'SIZE_SEND_REQUEST';
 export const SIZES_RESPONSE_FAILED = "SIZES_RESPONSE_FAILED";
 export const SIZE_RESPONSE_FAILED = "SIZE_RESPONSE_FAILED";
 
-export const SIZES_GET_ALL_SIZES = 'sizes_get_all_sizes';
-export const SIZES_ADD_SIZE = 'sizes_add_size';
-export const SIZES_UPDATE_SIZE = 'sizes_update_size';
-export const SIZES_DELETE_SIZE = 'sizes_delete_size';
+export const SIZES_GET_ALL_SIZES = 'SIZES_GET_ALL_SIZES';
+export const SIZES_ADD_SIZE = 'SIZES_ADD_SIZE';
+export const SIZES_UPDATE_SIZE = 'SIZES_UPDATE_SIZE';
+export const SIZES_DELETE_SIZE = 'SIZES_DELETE_SIZE';
 
-export const SIZE_GET_SIZE_ITEM = 'size_get_size_item';
+export const SIZE_GET_SIZE_ITEM = 'SIZE_GET_SIZE_ITEM';
