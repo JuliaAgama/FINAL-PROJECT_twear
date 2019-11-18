@@ -16,7 +16,7 @@ export default props => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const {item, reRender} = props;
+    const {item, handleNotification} = props;
 
     const [color, setColor] = useState(item.cssValue);
     const [formData, setFormData] = useState({});
@@ -43,13 +43,14 @@ export default props => {
     const saveColor = event => {
         event.preventDefault();
         colorsActions.updateColor(formData)(dispatch);
-        ref.current(`Color ${formData.name.toUpperCase()} has been saved!`);
+        handleNotification((formData.name || item.name), 'saved in database');
     };
 
     const deleteColor = event => {
         event.preventDefault();
         colorsActions.deleteColor(formData)(dispatch);
-        reRender(item._id);
+        handleNotification((formData.name || item.name), 'deleted from database');
+        // setFormData(null);
 
         console.log('delete color');
     };

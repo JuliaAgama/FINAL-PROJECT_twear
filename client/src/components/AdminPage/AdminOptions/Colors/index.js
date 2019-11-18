@@ -18,20 +18,19 @@ import ColorItem from './ColorItem';
 export default props => {
 
     const dispatch = useDispatch();
-
-    // const colorsList = useSelector(state => state.colors.colors);
-    const colorsRecieved = useSelector(state => state.colors.colors);
-    const [colorsList, setColorsList] = useState([]);
-    // const [listUpdated, setListUpdated] = useState(colorsList);
-    const colorsLoaded = useSelector(state => state.colors.loaded);
-
     useEffect(() => {
         colorsActions.getAllColors()(dispatch);
     }, [dispatch]);
 
-    useEffect(() => {
-        setColorsList(colorsRecieved);
-    }, [colorsRecieved]);
+    const colorsList = useSelector(state => state.colors.colors);
+    const colorsLoaded = useSelector(state => state.colors.loaded);
+    // может со стейтами нужно попробовать, чтобы перерендивался список...
+    // const colorsRecieved = useSelector(state => state.colors.colors);
+    // const [colorsList, setColorsList] = useState([]);
+
+    // useEffect(() => {
+    //     setColorsList(colorsRecieved);
+    // }, [colorsRecieved]);
 
 //server errors catching:
     const colorsError = useSelector(state => state.colors.error);
@@ -48,13 +47,19 @@ export default props => {
     const reloadPage = () => window.location.reload(true);
     const closeErrorModal = () => setErrorIsOpen(false);
 
-    // notification after deleting item:
+    // notification after saving or deleting item:
     const ref = useRef(null);
     const timeout = 2000;
+    const handleNotification = (itemName, actionDescription) => {
+        ref.current(`Category ${itemName.toUpperCase()} has been ${actionDescription}.`);
+        setTimeout(() => {
+            // window.location.reload(true)
+        }, timeout)
+    };
 
 
     // const reRender = id => setColorsList(colorsList.filter(el => el._id !== id));
-    const reRender = id => {console.log(id); setColorsList(colorsList.filter(el => el._id !== id))};
+    // const reRender = id => {console.log(id); setColorsList(colorsList.filter(el => el._id !== id))};
 
     const addItem = event => {
         event.preventDefault();
@@ -77,7 +82,8 @@ export default props => {
                                 <ColorItem
                                     item={item}
                                     key={item._id}
-                                    reRender={reRender}
+                                    handleNotification={handleNotification}
+                                    //reRender={reRender}
                                 />
                                 )
                         }
