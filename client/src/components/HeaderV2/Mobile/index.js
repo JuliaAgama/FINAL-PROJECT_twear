@@ -9,14 +9,12 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from '@material-ui/icons/Search';
 import {useDispatch, useSelector} from "react-redux";
 import {hideMobileMenuAction, showMobileMenuAction} from "../../../store/actions/header";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-
-
 
 export default function FirstContainer() {
 
     const classes = useStyles();
     const {showMobileMenu}  = useSelector(state => state.header);
+
     const dispatch = useDispatch();
     const showMenu = () => {
         if (showMobileMenu){
@@ -24,29 +22,16 @@ export default function FirstContainer() {
         } else {
             dispatch(showMobileMenuAction());
         }
-
     };
-    const handleClickAway = (event) => {
-        if (showMobileMenu && !(event.target.innerText === 'Men' ||
-                      event.target.innerText === 'Women' ||
-                      event.target.innerText === 'Currency' ||
-                      event.target.innerText === 'Login' ||
-                      (event.target.parentElement &&
-                      event.target.parentElement.name  === 'category'))){
-            dispatch(hideMobileMenuAction())
-        }
 
-    };
     return (
         <React.Fragment>
             <Container maxWidth={false} className={classes.container}>
-                <ClickAwayListener onClickAway={handleClickAway}>
-                    <Button onClick={showMenu}
-                            className={`${classes.btn} ${classes.smallBtn}`}>
-                        <CloseIcon className={showMobileMenu ? '' : classes.hide}/>
-                        <MenuIcon className={showMobileMenu ? classes.hide : ''}/>
-                    </Button>
-                </ClickAwayListener>
+                <Button onClick={showMenu}
+                        className={`${classes.btn} ${classes.smallBtn}`}>
+                    <CloseIcon className={showMobileMenu ? '' : classes.hide}/>
+                    <MenuIcon className={showMobileMenu ? classes.hide : ''}/>
+                </Button>
                 <Button className={`${classes.btn} ${classes.bigBtn}`}><img className={classes.img} src='/img/twear_logo_grey-on-transparent.png' alt='NOT FOUND'/></Button>
                 <Button className={`${classes.btn} ${classes.smallBtn}`}><LocalMallOutlinedIcon/></Button>
                 <Button className={classes.btnSearch}>

@@ -9,8 +9,9 @@ import Mobile from './Mobile'
 import DropDownDesktop from "./DropDownDesktop";
 import DropDownMobile from "./DropDownMobile";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {hideDesktopCategoriesMenuAction} from "../../store/actions/header";
+import {hideMobileMenuAction} from "../../store/actions/header";
 
 
 
@@ -18,14 +19,18 @@ import {hideDesktopCategoriesMenuAction} from "../../store/actions/header";
 function HeaderMaterialUI() {
 
     const classes = useStyles();
+    const {show, showMobileMenu}  = useSelector(state => state.header);
 
     const dispatch = useDispatch();
-    const hideMenu = () => {
-        dispatch(hideDesktopCategoriesMenuAction());
-    };
 
     const handleClickAway = () =>{
-        hideMenu();
+       if(showMobileMenu) {
+           dispatch(hideMobileMenuAction());
+       } else if (show && showMobileMenu) {
+           dispatch(hideMobileMenuAction());
+       } else if (show) {
+           dispatch(hideDesktopCategoriesMenuAction());
+       }
     };
 
     const breakpointValues = {

@@ -1,5 +1,5 @@
 import useStyles from "./useStyles";
-import React from "react";
+import React, {useState} from "react";
 import {Container} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -10,13 +10,15 @@ import {showDesktopCategoriesMenuAction} from "../../../../store/actions/header"
 export default function SecondColumn() {
 
     const classes = useStyles();
+    const [men, setMen] = useState(false);
+    const [women, setWomen] = useState(false);
 
     const dispatch = useDispatch();
     const showMenu = (isMen) => dispatch(showDesktopCategoriesMenuAction(isMen));
 
     const showCategories = (event) => {
-        const isMen = event.target.innerText;
-        if (isMen === 'Men') {
+        const isMen = event.target.id;
+        if (isMen === 'menCategories') {
             showMenu(true);
         } else {
             showMenu(false)
@@ -37,7 +39,7 @@ export default function SecondColumn() {
                     </Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button className={classes.btn} onClick={showCategories}>
+                    <Button id='menCategories' className={classes.btn} onClick={showCategories}>
                         Men
                     </Button>
                 </Grid>

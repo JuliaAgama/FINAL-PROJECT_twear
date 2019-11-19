@@ -22,7 +22,8 @@ export default function (state = initState, action) {
             return {
                 ...state,
                 ...{
-                    showMobileMenu: false
+                    showMobileMenu: false,
+                    show: false
                 }
             };
 
@@ -49,14 +50,6 @@ export default function (state = initState, action) {
                 ...{
                     isMen: action.data,
                     show: true
-                }
-            };
-
-        case HEADER.HEADER_MOBILE_CATEGORIES_MENU_HIDE:
-            return {
-                ...state,
-                ...{
-                    show: false
                 }
             };
 

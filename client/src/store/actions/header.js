@@ -41,11 +41,3 @@ export function showMobileCategoriesMenuAction(isMen) {
         });
     };
 };
-
-export function hideMobileCategoriesMenuAction() {
-    return function (dispatch) {
-        return dispatch({
-            type: HEADER.HEADER_MOBILE_CATEGORIES_MENU_HIDE
-        });
-    };
-};
