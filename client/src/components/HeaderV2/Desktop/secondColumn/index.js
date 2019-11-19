@@ -1,29 +1,15 @@
 import useStyles from "./useStyles";
-import React, {useState} from "react";
+import React from "react";
 import {Container} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import {useDispatch} from "react-redux";
-import {showDesktopCategoriesMenuAction} from "../../../../store/actions/header";
+import {showMenCategoriesAction, showWomenCategoriesAction} from "../../../../store/actions/header";
 
 
 export default function SecondColumn() {
-
     const classes = useStyles();
-    const [men, setMen] = useState(false);
-    const [women, setWomen] = useState(false);
-
     const dispatch = useDispatch();
-    const showMenu = (isMen) => dispatch(showDesktopCategoriesMenuAction(isMen));
-
-    const showCategories = (event) => {
-        const isMen = event.target.id;
-        if (isMen === 'menCategories') {
-            showMenu(true);
-        } else {
-            showMenu(false)
-        }
-    };
 
     return (
         <React.Fragment>
@@ -34,12 +20,12 @@ export default function SecondColumn() {
                     </Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button className={`${classes.btn} ${classes.btnBorder}`} onClick={showCategories}>
+                    <Button className={`${classes.btn} ${classes.btnBorder}`} onClick={() => dispatch(showWomenCategoriesAction())}>
                         Women
                     </Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button id='menCategories' className={classes.btn} onClick={showCategories}>
+                    <Button id='menCategories' className={classes.btn} onClick={() => dispatch(showMenCategoriesAction())}>
                         Men
                     </Button>
                 </Grid>

@@ -2,6 +2,7 @@ import * as HEADER from "../constants/header";
 
 const initState = {
     isMen: false,
+    isWomen: false,
     show: false,
     showMobileMenu: false
 };
@@ -25,13 +26,24 @@ export default function (state = initState, action) {
                     showMobileMenu: false,
                     show: false
                 }
-            };
+            }
 
-        case HEADER.HEADER_DESKTOP_CATEGORIES_MENU_SHOW:
+        case HEADER.HEADER_MEN_CATEGORIES_SHOW:
             return {
                 ...state,
                 ...{
-                    isMen: action.data,
+                    isMen: true,
+                    isWomen: false,
+                    show: true
+                }
+            };
+
+        case HEADER.HEADER_WOMEN_CATEGORIES_SHOW:
+            return {
+                ...state,
+                ...{
+                    isMen: false,
+                    isWomen: true,
                     show: true
                 }
             };
@@ -41,15 +53,6 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     show: false
-                }
-            };
-
-        case HEADER.HEADER_MOBILE_CATEGORIES_MENU_SHOW:
-            return {
-                ...state,
-                ...{
-                    isMen: action.data,
-                    show: true
                 }
             };
 

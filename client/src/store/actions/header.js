@@ -16,15 +16,6 @@ export function hideMobileMenuAction() {
     };
 };
 
-export function showDesktopCategoriesMenuAction(isMen) {
-    return function (dispatch) {
-        return dispatch({
-            type: HEADER.HEADER_DESKTOP_CATEGORIES_MENU_SHOW,
-            data: isMen
-        });
-    };
-};
-
 export function hideDesktopCategoriesMenuAction() {
     return function (dispatch) {
         return dispatch({
@@ -33,11 +24,18 @@ export function hideDesktopCategoriesMenuAction() {
     };
 };
 
-export function showMobileCategoriesMenuAction(isMen) {
+export function showMenCategoriesAction() {
     return function (dispatch) {
         return dispatch({
-            type: HEADER.HEADER_MOBILE_CATEGORIES_MENU_SHOW,
-            data: isMen
+            type: HEADER.HEADER_MEN_CATEGORIES_SHOW
+        });
+    };
+};
+
+export function showWomenCategoriesAction() {
+    return function (dispatch) {
+        return dispatch({
+            type: HEADER.HEADER_WOMEN_CATEGORIES_SHOW
         });
     };
 };
