@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as colorsActions from '../../../../../store/actions/colors';
-import * as productsActions from '../../../../../store/actions/products';
-
 // import ColorsApi from '../../../../../services/Colors';
+import ProductsApi from '../../../../../services/Products';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -13,8 +12,7 @@ import useStyles from './useStyles';
 import SaveButton from '../../../../common/buttons/Save';
 import DeleteButton from '../../../../common/buttons/Delete';
 import WarningModal from '../../../../common/messages/WarningModal';
-
-// import ConfirmModal from '../../../../common/messages/ConfirmModal';
+import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
 
 export default props => {
@@ -25,7 +23,7 @@ export default props => {
     const dispatch = useDispatch();
 
     const [color, setColor] = useState(item.cssValue);
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({_id: '', name: ''});
 
     useEffect(()=> {
         setFormData(item);
@@ -47,57 +45,71 @@ export default props => {
 
     const checkDoubles = () => {
         const colorsListBesidesItem = colorsList.filter(el => el._id !== formData._id);
-        if( colorsListBesidesItem.some((el) => el.name === formData.name)) {
+        if( colorsListBesidesItem.some(el => el.name === formData.name)) {
             setWarningIsOpen(true);
             setWarningText({title: 'Cannot save!', description: `Color with name ${formData.name} already exists!`});
             return true;
         };
-        if( colorsListBesidesItem.some((el) => el.cssValue === formData.cssValue)) {
+        if( colorsListBesidesItem.some(el => el.cssValue === formData.cssValue)) {
             setWarningIsOpen(true);
             setWarningText({title: 'Cannot save!', description: `Color with cssValue ${formData.cssValue} already exists!`});
             return true;
         };
         return false;
     };
-    const closeWarning =() => setWarningIsOpen(false)
 
     const saveColor = event => {
         event.preventDefault();
         if( !checkDoubles()) {
             colorsActions.updateColor(formData)(dispatch);
-            // handleNotification((formData.name || item.name), 'saved in database');
+            handleNotification(formData.name, 'added');
         }
     };
 
-    // useEffect(() => {
-    //     productsActions.getProductsBySearch(item._id)(dispatch);
-    // }, [dispatch]);
+    // handle deleting color:
+    const [productsMatched, setProductsMatched] = useState(null);
+    useEffect(() => {
+        (new ProductsApi()).getProductsBySearch(item._id).then(res => setProductsMatched(res));
+    }, [item]);
 
-    // const productsBySearch = useSelector(state => state.products.products);
-
-
-    const checkToDelete = event => {
-        event.preventDefault();
-        console.log('checkToDelete');
+    const checkMatchingProducts = () => {
+        if(productsMatched && productsMatched[0]) {
+            setWarningIsOpen(true);
+            setWarningText({title: `Cannot delete ${formData.name.toUpperCase()} color!`, description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}"`).join(', ')}!`});
+            return true;
+        };
+        return false;
     };
 
+    const closeWarning =() => setWarningIsOpen(false);
 
-    const deleteColor = event => {
+    const [confirmIsOpen, setConfirmIsOpen] = useState(false);
+
+    const openConfirm = event => {
         event.preventDefault();
+        if (!checkMatchingProducts()) {
+            setConfirmIsOpen(true);
+        }
+    };
+
+    const confirmText = {
+        title: `Are you sure to DELETE ${formData.name.toUpperCase()} color?`,
+        description: `If you confirm deletion of ${formData.name.toUpperCase()} color from database it cannot be undone`,
+        buttonYes: 'DELETE, I am SURE',
+        buttonNo: "No, don't DELETE"
+    };
+
+    const closeConfirm = () => setConfirmIsOpen(false);
+
+    const deleteColor = () => {
         colorsActions.deleteColor(formData)(dispatch);
-        setFormData({...formData, _id: null})
-        handleNotification((formData.name || item.name), 'deleted from database');
-
-        console.log('delete color');
+        setConfirmIsOpen(false);
+        handleNotification(formData.name, 'deleted');
+        // setFormData({...formData, _id: null});
     };
-
-    //     console.log('colorBase recieved from dataBase: ', colorsBase);
-    //     console.log('formData current: ', formData);
-
 
     return (
-        <React.Fragment>
-            {/* {colorItem && ( */}
+        <>
                 <Grid item xs={6} lg={4} xl={3} className={classes.wrapper}>
                     <form autoComplete="off">
                         <Grid container className={classes.verticalCenter}>
@@ -132,16 +144,15 @@ export default props => {
                             <Grid item xs={2}></Grid>
                             <Grid item xs={1}>
                                 <DeleteButton
-                                    onClick={deleteColor}
-                                    //onClick={checkToDelete}
+                                    onClick={openConfirm}
                                     size="small"/>
                             </Grid>
                             <Grid item xs={3}></Grid>
                         </Grid>
                     </form>
                 </Grid>
-            {/* )} */}
             <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
-        </React.Fragment>
+            <ConfirmModal modalIsOpen={confirmIsOpen} modalText={confirmText} doFunction={deleteColor} closeFunction={closeConfirm}/>
+        </>
     )
-}
+};

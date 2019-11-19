@@ -21,10 +21,8 @@ export default props => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        // (new ColorsApi()).getColors().then(res => console.log(res));
         colorsActions.getAllColors()(dispatch);
     }, [dispatch]);
-    // }, []);
 
     const colorsList = useSelector(state => state.colors.colors);
     const colorsLoaded = useSelector(state => state.colors.loaded);
@@ -44,31 +42,15 @@ export default props => {
     const reloadPage = () => window.location.reload(true);
     const closeErrorModal = () => setErrorIsOpen(false);
 
-
-    // safe Deletion handling:
-
-    // const searchProductsByColor = (event, colorId) => {
-    //     event.preventDefault();
-    //     productsActions.getProductsBySearch(colorId)(dispatch);
-    //     const productsBySearch = useSelector(state => state.products.products);
-    //     console.log('this color connected to products: ', productsBySearch)
-    // };
-
-
-
-
     // notification after saving or deleting item:
     const ref = useRef(null);
     const timeout = 2000;
     const handleNotification = (itemName, actionDescription) => {
         ref.current(`Category ${itemName.toUpperCase()} has been ${actionDescription}.`);
-        setTimeout(() => {
+        // setTimeout(() => {
             // window.location.reload(true)
-        }, timeout)
+        // }, timeout)
     };
-
-    // const reRender = id => setColorsList(colorsList.filter(el => el._id !== id));
-    // const reRender = id => {console.log(id); setColorsList(colorsList.filter(el => el._id !== id))};
 
     const addItem = event => {
         event.preventDefault();
@@ -76,8 +58,6 @@ export default props => {
     };
 
     const classes = useStyles();
-
-    // console.log('colorList recieved from dataBase: ', colorsList);
 
     return (
         <>
@@ -91,7 +71,6 @@ export default props => {
                                 <ColorItem
                                     item={item}
                                     key={item._id}
-                                    //searchProductsByColor={searchProductsByColor}
                                     handleNotification={handleNotification}
                                     //reRender={reRender}
                                 />

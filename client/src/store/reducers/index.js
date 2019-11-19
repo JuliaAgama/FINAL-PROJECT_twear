@@ -19,5 +19,7 @@ export default combineReducers({
     genders,
     genderItem,
     colors,
-    colorItem
+    colorItem,
+    products,
+    productItem
 });
