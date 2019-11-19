@@ -17,7 +17,7 @@ const getModalStyle = () => {
 
 export default props => {
     const classes = useStyles();
-    const {modalIsOpen, modalText, doFunction, closeFunction} = props;
+    const {modalIsOpen = false, modalText = {title: '', description: '' }, closeFunction = ()=>{}} = props;
     const [modalStyle] = useState(getModalStyle);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -37,11 +37,6 @@ export default props => {
                     <div style={modalStyle} className={classes.paper}>
                         <h2 id="simple-modal-warning">{modalText.title}</h2>
                         <p id="simple-modal-warning-message">{modalText.description}</p>
-                        <button type="button"
-                            onClick={doFunction}
-                            >
-                            {modalText.button}
-                        </button>
                     </div>
                 </Modal>
             </div>

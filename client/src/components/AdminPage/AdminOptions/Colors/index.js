@@ -116,7 +116,7 @@ export default props => {
         }
         <Notification timeout={timeout} children={add => (ref.current = add)} />
         <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={reloadPage} closeFunction={closeErrorModal}/>
-        {/* <WarningModal modalIsOpen={warningIsOpen} modalText={warningModalText} doFunction={doFunction} closeFunction={closeWarningModal}/>
+        {/* <WarningModal modalIsOpen={warningIsOpen} modalText={warningModalText}/>
         <ConfirmModal modalIsOpen={confirmIsOpen} modalText={confirmModalText} doFunction={doFunction} closeFunction={closeConfirmModal}/> */}
         </>
     )

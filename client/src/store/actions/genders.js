@@ -37,7 +37,8 @@ export function getGenderItem(id) {
         dispatch(genderItemSendRequest());
         (new GendersApi()).getGenderById(id).then(res => {
             return dispatch({
-                type: GENDERS.GENDER_GET_GENDER_ITEM
+                type: GENDERS.GENDER_GET_GENDER_ITEM,
+                data: res
             });
         })
         .catch(err => {

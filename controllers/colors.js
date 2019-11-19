@@ -90,7 +90,7 @@ exports.getColors = (req, res, next) => {
 };
 
 exports.getColor = (req, res, next) => {
-  Color.findOne({ id: req.params.id })
+  Color.findOne({ _id: req.params.id })
     .then(color => {
       if (!color) {
         return res.status(400).json({

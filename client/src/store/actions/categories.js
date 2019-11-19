@@ -39,7 +39,8 @@ export function getCategoryItem(id) {
         (new CategoriesApi()).getCategoryById(id)
         .then(res => {
             return dispatch({
-                type: CATEGORIES.CATEGORY_GET_CATEGORY_ITEM
+                type: CATEGORIES.CATEGORY_GET_CATEGORY_ITEM,
+                data: res
             });
         })
         .catch(err => {

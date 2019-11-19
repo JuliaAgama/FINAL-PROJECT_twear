@@ -19,7 +19,7 @@ const getModalStyle = () => {
 
 export default props => {
     const classes = useStyles();
-    const {modalIsOpen, modalText, doFunction, closeFunction} = props;
+    const {modalIsOpen = false, modalText = {title: '', description: '' }, doFunction = () => {}, closeFunction = ()=>{}} = props;
     const [modalStyle] = useState(getModalStyle);
     const [isOpen, setIsOpen] = useState(false);
 

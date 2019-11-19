@@ -37,7 +37,8 @@ export function getColorItem(id) {
         dispatch(colorItemSendRequest());
         (new ColorsApi()).getColorById(id).then(res => {
             return dispatch({
-                type: COLORS.COLOR_GET_COLOR_ITEM
+                type: COLORS.COLOR_GET_COLOR_ITEM,
+                data: res
             });
         })
         .catch(err => {

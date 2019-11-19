@@ -10,7 +10,7 @@ const {
   addProduct,
   updateProduct,
   getProducts,
-  getProductById,
+  getProduct,
   getProductsFilterParams,
   searchProducts
 } = require("../controllers/products");
@@ -97,6 +97,6 @@ router.post("/search", searchProducts);
 // @route   GET /products/:id
 // @desc    GET existing product by id
 // @access  Public
-router.get("/:itemNo", getProductById);
+router.get("/:id", getProduct);
 
 module.exports = router;

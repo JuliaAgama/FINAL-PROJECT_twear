@@ -55,7 +55,8 @@ export function getProductItem(id) {
         dispatch(productItemSendRequest());
         (new ProductsApi()).getProductById(id).then(res => {
             return dispatch({
-                type: PRODUCTS.PRODUCT_GET_PRODUCT_ITEM
+                type: PRODUCTS.PRODUCT_GET_PRODUCT_ITEM,
+                data: res
             });
         })
         .catch(err => {

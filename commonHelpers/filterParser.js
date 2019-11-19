@@ -5,8 +5,8 @@ module.exports = function filterParser(filtersQueryString) {
 
   if (filtersQueryString.minPrice || filtersQueryString.maxPrice) {
     mongooseQuery.currentPrice = {
-      $gt: Number(filtersQueryString.minPrice),
-      $lt: Number(filtersQueryString.maxPrice)
+      $gte: Number(filtersQueryString.minPrice),
+      $lte: Number(filtersQueryString.maxPrice)
     };
   }
 
