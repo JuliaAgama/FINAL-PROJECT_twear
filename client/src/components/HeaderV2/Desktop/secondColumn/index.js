@@ -20,10 +20,10 @@ export default function SecondColumn() {
                     </Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button className={`${classes.btn} ${classes.btnBorder}`} onClick={() => dispatch(showWomenCategoriesAction())}>
-                        Women
-                    </Button>
-                </Grid>
+                <Button className={`${classes.btn} ${classes.btnBorder}`} onClick={() => dispatch(showWomenCategoriesAction())}>
+                    Women
+                </Button>
+            </Grid>
                 <Grid item xs={6}>
                     <Button id='menCategories' className={classes.btn} onClick={() => dispatch(showMenCategoriesAction())}>
                         Men

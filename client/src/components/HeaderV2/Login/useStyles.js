@@ -9,11 +9,14 @@ export default makeStyles(theme => (
         },
         container: {
             display: 'flex',
-            width: '100%',
-            justifyContent: 'center'
+            width: '50.15%',
+            justifyContent: 'center',
+            border: '1px solid black',
+            borderTop: 'none',
+            paddingBottom: '20px',
         },
         form: {
-            width: '250px'
+            width: '400px',
         },
         hide: {
             display: 'none'
@@ -22,6 +25,13 @@ export default makeStyles(theme => (
             borderRadius: '18px',
             margin: '20px 0',
             outline: 'none!important',
+        },
+        linkPass: {
+            color: 'black',
+            marginRight: '80px',
+        },
+        linkReg: {
+            color: 'black'
         }
     }
 ));

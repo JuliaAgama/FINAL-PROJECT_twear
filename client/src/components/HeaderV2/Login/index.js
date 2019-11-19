@@ -14,13 +14,13 @@ export default function HeaderDropDownBlock() {
             <Grid container item xs={12} >
                 <Container maxWidth={false} className={classes.container}>
                     <form className={classes.form}>
-                        <TextField fullWidth={true} required label="Login"/>
+                        <TextField fullWidth={true} margin="normal" required label="Login"/>
                         <TextField fullWidth={true} margin="normal" label="Password" type="password" required/>
                         <Button fullWidth={true} variant="outlined" className={classes.btn}>Log In</Button>
-                        <Link href="someWhere" className={classes.link}>
+                        <Link href="someWhere" className={classes.linkPass}>
                             Forgot password?
                         </Link>
-                        <Link href="someWhere" className={classes.link}>
+                        <Link href="someWhere" className={classes.linkReg}>
                             Registration
                         </Link>
                     </form>

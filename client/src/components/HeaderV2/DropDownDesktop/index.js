@@ -1,5 +1,5 @@
 import useStyles from "./useStyles";
-import React, {useState} from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import {ItemsList} from "../Item";
 import {Container} from "@material-ui/core";
