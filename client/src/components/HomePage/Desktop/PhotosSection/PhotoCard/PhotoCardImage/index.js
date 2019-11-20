@@ -6,7 +6,7 @@ const PhotoCardImage = () => {
 	const classes = useStyles();
 
 	return(
-		<img src="https://picsum.photos/800/750" />
+		<img src="https://www.lulus.com/images/product/xlarge/3730720_755122.jpg" />
 		// как временная мера
 	)
 

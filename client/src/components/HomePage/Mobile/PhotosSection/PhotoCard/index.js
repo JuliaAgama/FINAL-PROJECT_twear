@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import useStyles from '../../../useStyles';
 
-const PhotoCard = () => {
+const PhotoCard = (props) => {
 
 	const classes = useStyles();
 
