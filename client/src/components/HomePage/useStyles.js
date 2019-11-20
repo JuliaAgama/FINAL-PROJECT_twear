@@ -4,7 +4,7 @@ export default makeStyles(theme => (
 	{	
 		sectionContainer:{
 			padding: '0px',
-			margin: '100px 0px'
+			margin: '100px 0px',
 		},
 
 		sectionGrid:{

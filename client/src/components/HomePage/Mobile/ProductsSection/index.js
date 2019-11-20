@@ -17,12 +17,12 @@ const ProductsSection = () => {
 			<Grid container spacing={0} className={classes.sectionGrid}>
 				<Grid item xs={6}>
 					<Box border={1} borderLeft={0}>
-						asdasd
+						<ProductCard item="yellow dress" />
 					</Box>
 				</Grid>
 				<Grid item xs={6}>
 					<Box border={1} borderLeft={0} borderRight={0}>
-						asdasdasd
+						<ProductCard item="yellow dress" />
 					</Box>
 				</Grid>
 			</Grid>
