@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 
-export default function HeaderDropDownBlock() {
+export default function Registration() {
     const classes = useStyles();
 
     return (
@@ -17,12 +17,14 @@ export default function HeaderDropDownBlock() {
                         <TextField fullWidth={true} margin="normal" required label="Login"/>
                         <TextField fullWidth={true} margin="normal" label="Password" type="password" required/>
                         <Button fullWidth={true} variant="outlined" className={classes.btn}>Log In</Button>
-                        <Link href="someWhere" className={classes.linkPass}>
-                            Forgot password?
-                        </Link>
-                        <Link href="someWhere" className={classes.linkReg}>
-                            Registration
-                        </Link>
+                        <div className={classes.linkContainer}>
+                            <Link href="someWhere" className={classes.link}>
+                                Forgot password?
+                            </Link>
+                            <Link href="someWhere" className={classes.link}>
+                                Registration
+                            </Link>
+                        </div>
                     </form>
                 </Container>
             </Grid>

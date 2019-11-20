@@ -8,12 +8,11 @@ import Desktop from './Desktop'
 import Mobile from './Mobile'
 import DropDownDesktop from "./DropDownDesktop";
 import DropDownMobile from "./DropDownMobile";
-import Login from "./Login";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import {useDispatch, useSelector} from "react-redux";
 import {hideDesktopCategoriesMenuAction} from "../../store/actions/header";
 import {hideMobileMenuAction} from "../../store/actions/header";
-
+import Modal from '../common/Modal'
 
 
 
@@ -53,7 +52,6 @@ function HeaderMaterialUI() {
                             <Desktop/>
                         </Grid>
                         <DropDownDesktop/>
-                        <Login/>
                     </Hidden>
                     <Hidden mdUp>
                         <Grid container item xs={12} spacing={0}>
@@ -61,6 +59,7 @@ function HeaderMaterialUI() {
                             <DropDownMobile/>
                         </Grid>
                     </Hidden>
+                    <Modal/>
                 </Grid>
             </ClickAwayListener>
         </ThemeProvider>

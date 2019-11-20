@@ -59,7 +59,7 @@ const formValidationRules = [
     field: "login",
     method: FormValidator.isEmpty,
     validWhen: false,
-    message: "Login is required."
+    message: "LoginForm is required."
   },
   {
     field: "login",
@@ -73,13 +73,13 @@ const formValidationRules = [
     method: "isLength",
     validWhen: true,
     args: [{ min: 3, max: 10 }],
-    message: "Login must be between 3 and 10 characters"
+    message: "LoginForm must be between 3 and 10 characters"
   },
   {
     field: "loginOrEmail",
     method: FormValidator.isEmpty,
     validWhen: false,
-    message: "Login or Email is required."
+    message: "LoginForm or Email is required."
   },
   {
     field: "password",
