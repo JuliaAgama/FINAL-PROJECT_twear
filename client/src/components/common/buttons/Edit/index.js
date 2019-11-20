@@ -5,15 +5,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import useStyles from './useStyles';
 
 
-export default props => {
+export default () => {
     const classes = useStyles();
     return (
         <Fab
-            size={props.size || "medium"}
-            className={classes[props.className] || classes.fabBlue}
-            color={props.color || "primary"}
+            className={classes.fab}
+            color="primary"
             aria-label="edit"
-            onClick={props.onClick}
         >
             <EditIcon/>
         </Fab>

@@ -7,29 +7,28 @@ const {
   addTopCat,
   updateTopCat,
   deleteTopCat,
-  getTopCats,
-  getTopCat
+  getTopCats
 } = require("../controllers/topCats");
 
-// @route   POST /top-categories
+// @route   POST /topCats
 // @desc    Create new topCat
 // @access  Private
 router.post(
   "/",
-  // passport.authenticate("jwt-admin", { session: false }),
+  passport.authenticate("jwt-admin", { session: false }),
   addTopCat
 );
 
-// @route   PUT /top-categories
+// @route   PUT /topCats
 // @desc    Update existing color
 // @access  Private
 router.put(
   "/:id",
-  // passport.authenticate("jwt-admin", { session: false }),
+  passport.authenticate("jwt-admin", { session: false }),
   updateTopCat
 );
 
-// @route   DELETE /top-categories/:id
+// @route   DELETE /topCats/:id
 // @desc    DELETE existing color
 // @access  Private
 router.delete(
@@ -38,14 +37,9 @@ router.delete(
   deleteTopCat
 );
 
-// @route   GET /top-categories
+// @route   GET /topCats
 // @desc    GET existing topCats
 // @access  Public
 router.get("/", getTopCats);
-
-// @route   GET /top-categories/:id
-// @desc    GET existing categorie
-// @access  Public
-router.get("/:id", getTopCat);
 
 module.exports = router;

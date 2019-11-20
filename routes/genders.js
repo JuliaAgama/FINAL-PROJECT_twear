@@ -7,8 +7,7 @@ const {
   addGender,
   updateGender,
   deleteGender,
-  getGenders,
-  getGender
+  getGenders
 } = require("../controllers/genders");
 
 // @route   POST /genders
@@ -42,10 +41,5 @@ router.delete(
 // @desc    GET existing genders
 // @access  Public
 router.get("/", getGenders);
-
-// @route   GET /genders/:id
-// @desc    GET existing gender
-// @access  Public
-router.get("/:id", getGender);
 
 module.exports = router;

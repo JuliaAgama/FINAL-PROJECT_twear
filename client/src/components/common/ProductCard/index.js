@@ -1,18 +1,14 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import Box from "@material-ui/core/Box";
 
+const ProductCard = () => {
 
-export default props => {
+	return(
+		<Box>
+			INSERT PRODUCT CARD/CARDS HERE
+		</Box>
 
-    return (
-        <>
-            <div
-                className="caterory-gallery-item col-12 col-md-6 col-lg-4 col-xl-3 card-body p-5 border border-secondary text-center"
-            >
-                <Link to={`/products/${props.item.name}`} className ="p-5 text-center d-block">
-                    <p>{props.item.name}</p>
-                </Link>
-            </div>
-        </>
-    )
-};
+	)
+}
+
+export default ProductCard

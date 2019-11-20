@@ -3,7 +3,7 @@ import * as CATEGORIES from '../constants/categories';
 const initState = {
     categories: [],
     loaded: false,
-    error: null,
+    isAdded: false
 };
 
 
@@ -16,14 +16,6 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     loaded : false
-                }
-            };
-
-        case CATEGORIES.CATEGORIES_RESPONSE_FAILED:
-            return {
-                ...state,
-                ...{
-                    error : action.error
                 }
             };
 
@@ -41,12 +33,13 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     categories : [...state.categories, ...[action.data]],
-                    loaded : true
+                    loaded : true,
+                    isAdded: true
                 }
             };
 
-            case CATEGORIES.CATEGORIES_UPDATE_CATEGORY:
-            let updatedCategories = state.categories.map(el => {
+            case CATEGORIES.CATEGORIES_UPDATE_CATEGORY_BY_ID:
+            let updatedCategories = state.CATEGORIES.map(el => {
                 if(el._id === action.data._id){
                     return action.data
                 }
@@ -60,7 +53,7 @@ export default function (state = initState, action) {
                 }
             };
 
-            case CATEGORIES.CATEGORIES_DELETE_CATEGORY:
+            case CATEGORIES.CATEGORIES_DELETE_CATEGORY_BY_ID:
             let updated = state.categories.filter(el => {
                 return el._id !== action.data._id
             });

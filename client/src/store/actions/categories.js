@@ -8,45 +8,26 @@ export function categoriesSendRequest() {
     };
 };
 
-export function categoryItemSendRequest() {
-    return {
-        type: CATEGORIES.CATEGORY_SEND_REQUEST
-    };
-};
-
 export function getAllCategories() {
     return function (dispatch) {
         dispatch(categoriesSendRequest());
-        (new CategoriesApi()).getCategories()
-        .then(res => {
+        (new CategoriesApi()).getCategories().then(res => {
             return dispatch({
                 type: CATEGORIES.CATEGORIES_GET_ALL_CATEGORIES,
                 data: res
             });
-        })
-        .catch(err => {
-            return dispatch({
-                type: CATEGORIES.CATEGORIES_RESPONSE_FAILED,
-                error: err.response.data
-            })
         });
     };
 };
 
-export function getCategoryItem(id) {
+export function getCategoryById(id) {
     return function (dispatch) {
-        dispatch(categoryItemSendRequest());
-        (new CategoriesApi()).getCategoryById(id)
-        .then(res => {
+        dispatch(categoriesSendRequest());
+        (new CategoriesApi()).getCategoryById(id).then(res => {
             return dispatch({
-                type: CATEGORIES.CATEGORY_GET_CATEGORY_ITEM
+                type: CATEGORIES.CATEGORIES_GET_CATEGORY_BY_ID,
+                data: res.data
             });
-        })
-        .catch(err => {
-            return dispatch({
-                type: CATEGORIES.CATEGORY_RESPONSE_FAILED,
-                error: err.response.data
-            })
         });
     };
 };
@@ -54,20 +35,12 @@ export function getCategoryItem(id) {
 export function addCategory(item){
     return function (dispatch) {
         dispatch(categoriesSendRequest());
-        (new CategoriesApi()).addCategory(item)
-        .then(res => {
-            console.log(res);
+        (new CategoriesApi()).addCategory(item).then(res => {
             return dispatch({
                 type: CATEGORIES.CATEGORIES_ADD_CATEGORY,
                 data: res,
             });
         })
-        .catch(err => {
-            return dispatch({
-                type: CATEGORIES.CATEGORIES_RESPONSE_FAILED,
-                error: err.response.data
-            })
-        });
     };
 };
 
@@ -75,18 +48,11 @@ export function updateCategory (item){
     return function (dispatch) {
         dispatch(categoriesSendRequest());
         (new CategoriesApi()).updateCategory(item).then(res => {
-            console.log(res);
             return dispatch({
-                type: CATEGORIES.CATEGORIES_UPDATE_CATEGORY,
+                type: CATEGORIES.CATEGORIES_UPDATE_CATEGORY_BY_ID,
                 data: res,
             });
         })
-        .catch(err => {
-            return dispatch({
-                type: CATEGORIES.CATEGORIES_RESPONSE_FAILED,
-                error: err.response.data
-            })
-        });
     };
 };
 
@@ -95,15 +61,9 @@ export function deleteCategory(item){
         dispatch(categoriesSendRequest());
         (new CategoriesApi()).deleteCategory(item).then(res => {
             return dispatch({
-                type: CATEGORIES.CATEGORIES_DELETE_CATEGORY,
+                type: CATEGORIES.CATEGORIES_DELETE_CATEGORY_BY_ID,
                 data: res,
             });
         })
-        .catch(err => {
-            return dispatch({
-                type: CATEGORIES.CATEGORIES_RESPONSE_FAILED,
-                error: err.response.data
-            })
-        });
     };
 };

@@ -2,8 +2,10 @@ import * as TOPCATS from '../constants/topCats';
 
 const initState = {
     topCats: [],
-    loaded: false
+    loaded: false,
+    isAdded: false
 };
+
 
 export default function (state = initState, action) {
 
@@ -31,11 +33,12 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     topCats : [...state.topCats, ...[action.data]],
-                    loaded : true
+                    loaded : true,
+                    isAdded: true
                 }
             };
 
-            case TOPCATS.TOPCATS_UPDATE_TOPCAT:
+            case TOPCATS.TOPCATS_UPDATE_TOPCAT_BY_ID:
             let updatedTopCats = state.topCats.map(el => {
                 if(el._id === action.data._id){
                     return action.data
@@ -50,7 +53,7 @@ export default function (state = initState, action) {
                 }
             };
 
-            case TOPCATS.TOPCATS_DELETE_TOPCAT:
+            case TOPCATS.TOPCATS_DELETE_TOPCAT_BY_ID:
             let updated = state.topCats.filter(el => {
                 return el._id !== action.data._id
             });

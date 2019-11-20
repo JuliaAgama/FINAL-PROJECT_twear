@@ -7,8 +7,7 @@ export default class AuthAdmin extends Base{
         //         sessionStorage.setItem('token', res.data);
         window.location.replace('/admin');
         //         window.location.href('/admi/n');
-            // })
-            // // .catch(err => err.response.data);
+            // });
     }
 
     getUserInfo(){
@@ -22,4 +21,4 @@ export default class AuthAdmin extends Base{
     logOut() {
         sessionStorage.removeItem('token');
     }
-};
+}

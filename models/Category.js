@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const CatalogSchema = new Schema(
     {
         itemNo: {
-            type: String
+            type: String,
+            required: true
         },
         name: {
             type: String,
@@ -18,15 +19,16 @@ const CatalogSchema = new Schema(
             {
                 type: Schema.Types.ObjectId,
                 ref: "genders",
-                // required: true
+                required: true
             }
         ],
         img: {
             type: String,
+            required: true
         },
         date: {
             type: Date,
-            default: Date.now()
+            default: Date.now
         }
     },
     { strict: false }

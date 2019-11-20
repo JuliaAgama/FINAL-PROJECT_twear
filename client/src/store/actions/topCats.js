@@ -8,12 +8,6 @@ export function topCatsSendRequest() {
     };
 };
 
-export function topCatItemSendRequest() {
-    return {
-        type: TOPCATS.TOPCAT_SEND_REQUEST
-    };
-};
-
 export function getAllTopCats() {
     return function (dispatch) {
         dispatch(topCatsSendRequest());
@@ -26,13 +20,13 @@ export function getAllTopCats() {
     };
 };
 
-export function getTopCatItem(id) {
+export function getTopCatById(id) {
     return function (dispatch) {
-        dispatch(topCatItemSendRequest());
-        (new TopCatsApi()).getTopCategoryById(id).then(res => {
+        dispatch(topCatsSendRequest());
+        (new TopCatsApi()).getTopCatById(id).then(res => {
             return dispatch({
-                type: TOPCATS.TOPCAT_GET_TOPCAT_ITEM,
-                data: res
+                type: TOPCATS.TOPCATS_GET_TOPCAT_BY_ID,
+                data: res.data
             });
         });
     };
@@ -55,7 +49,7 @@ export function updateTopCat (item){
         dispatch(topCatsSendRequest());
         (new TopCatsApi()).updateTopCategory(item).then(res => {
             return dispatch({
-                type: TOPCATS.TOPCATS_UPDATE_TOPCAT,
+                type: TOPCATS.TOPCATS_UPDATE_TOPCAT_BY_ID,
                 data: res,
             });
         })
@@ -63,12 +57,11 @@ export function updateTopCat (item){
 };
 
 export function deleteTopCat(item){
-    console.log(item);
     return function (dispatch) {
         dispatch(topCatsSendRequest());
         (new TopCatsApi()).deleteTopCategory(item).then(res => {
             return dispatch({
-                type: TOPCATS.TOPCATS_DELETE_TOPCAT,
+                type: TOPCATS.TOPCATS_DELETE_TOPCAT_BY_ID,
                 data: res,
             });
         })

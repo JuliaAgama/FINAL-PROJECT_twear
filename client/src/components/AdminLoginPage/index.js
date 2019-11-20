@@ -65,7 +65,7 @@ export default () => {
         <Grid item xs={12} sm={7} md={4} component={Paper} elevation={6} square>
             <div className={classes.paper}>
                 <Link href="/admin" className={classes.logo}>
-                    <img className="img-fluid" src="/img/twear_logo_grey-on-transparent-SQUARE.png" alt="NOT FOUND"/>
+                    <img className="img-fluid" src="/img/twear_logo_grey-on-transparent.png" alt="NOT FOUND"/>
                 </Link>
                 {/* <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />

@@ -67,7 +67,7 @@ exports.deleteSize = (req, res, next) => {
       Size.deleteOne({ _id: req.params.id })
         .then(deletedCount =>
           res.status(200).json({
-            message: `Size witn name "${sizeToDelete.name}" is successfully deleted from DB `
+            message: `Size witn name "${sizeToDelete.name}" is successfully deletes from DB `
           })
         )
         .catch(err =>

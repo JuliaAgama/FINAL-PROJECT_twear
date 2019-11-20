@@ -9,10 +9,11 @@ const TopCatSchema = new Schema(
         },
         img: {
             type: String,
+            required: true
         },
         date: {
             type: Date,
-            default: Date.now()
+            default: Date.now
         }
     },
     { strict: false }

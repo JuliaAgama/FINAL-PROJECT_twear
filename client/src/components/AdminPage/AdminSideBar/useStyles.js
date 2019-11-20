@@ -3,14 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => (
     {
         root: {
-            flexGrow: 1,
-            marginBottom: theme.spacing(4),
-            textAlign: 'center',
-        },
-        listing: {
             padding: theme.spacing(2),
             flexGrow: 1,
-            marginBottom: theme.spacing(5)
+            marginBottom: theme.spacing(4)
         },
         paper: {
             marginTop: theme.spacing(2),
