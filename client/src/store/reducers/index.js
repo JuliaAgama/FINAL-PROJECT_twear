@@ -8,6 +8,10 @@ import genders from './genders';
 import genderItem from './genderItem';
 import colors from './colors';
 import colorItem from './colorItem';
+import sizeTypes from './sizeTypes';
+import sizeTypeItem from './sizeTypeItem';
+import sizes from './sizes';
+import sizeItem from './sizeItem';
 import products from './products';
 import productItem from './productItem';
 
@@ -20,6 +24,10 @@ export default combineReducers({
     genderItem,
     colors,
     colorItem,
+    sizeTypes,
+    sizeTypeItem,
+    sizes,
+    sizeItem,
     products,
-    productItem
+    productItem,
 });

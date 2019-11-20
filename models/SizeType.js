@@ -1,15 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const SizeSchema = new Schema(
+const SizeTypeSchema = new Schema(
     {
         name: {
             type: String,
             required: true
-        },
-        sizeType: {
-            type: Schema.Types.ObjectId,
-            ref: 'sizeTypes'
         },
         date: {
             type: Date,
@@ -19,8 +15,8 @@ const SizeSchema = new Schema(
     { strict: false }
 );
 
-module.exports = Size = mongoose.model(
-    "sizes",
-    SizeSchema,
-    "sizes"
+module.exports = SizeType = mongoose.model(
+    "sizeTypes",
+    SizeTypeSchema,
+    "sizeTypes"
     );

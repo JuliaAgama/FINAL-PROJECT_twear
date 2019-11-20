@@ -1,10 +1,8 @@
-// import React from 'react';
 import React, { useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ColorsApi from '../../../../services/Colors';
-import * as colorsActions from '../../../../store/actions/colors';
-// import * as productsActions from '../../../../store/actions/products';
+import SizeTypesApi from '../../../../services/SizeTypes';
+import * as sizeTypesActions from '../../../../store/actions/sizeTypes';
 
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
@@ -14,25 +12,25 @@ import Notification from '../../../common/messages/Notification';
 import AddButton from '../../../common/buttons/Add';
 import Spinner from '../../../common/Spinner';
 
-import ColorItem from './ColorItem';
+import SizeTypeItem from './SizeTypeItem';
 
 
 export default props => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        colorsActions.getAllColors()(dispatch);
+        sizeTypesActions.getAllSizeTypes()(dispatch);
     }, [dispatch]);
 
-    const colorsList = useSelector(state => state.colors.colors);
-    const colorsLoaded = useSelector(state => state.colors.loaded);
+    const sizeTypesList = useSelector(state => state.sizeTypes.sizeTypes);
+    const sizeTypesLoaded = useSelector(state => state.sizeTypes.loaded);
 
     //server errors catching:
-    const colorsError = useSelector(state => state.colors.error);
+    const sizeTypesError = useSelector(state => state.sizeTypes.error);
     const [errorIsOpen, setErrorIsOpen] = useState(false);
     useEffect(() => {
-        if(colorsError) {setErrorIsOpen(true)}
-    },[colorsError]
+        if(sizeTypesError) {setErrorIsOpen(true)}
+    },[sizeTypesError]
     );
     const errorModalText = {
         title: `NO RESPONSE FROM SERVER`,
@@ -62,13 +60,13 @@ export default props => {
     return (
         <>
         {
-            colorsLoaded ?
+            sizeTypesLoaded ?
             (
                 <div className={classes.wrapper}>
                     <Grid container className={classes.paper}>
-                        {colorsList
+                        {sizeTypesList
                             .map(item =>
-                                <ColorItem
+                                <SizeTypeItem
                                     item={item}
                                     key={item._id}
                                     handleNotification={handleNotification}
