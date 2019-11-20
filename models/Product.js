@@ -25,16 +25,22 @@ const ProductSchema = new Schema(
         previousPrice: Number,
         categories: [
             {
-                type: Schema.Types.ObjectId,
-                ref: "categories",
-                required: true
+                category:
+                    {
+                        type: Schema.Types.ObjectId,
+                        ref: "categories",
+                        required: true
+                    }
             }
         ],
         genders: [
             {
-                type: Schema.Types.ObjectId,
-                ref: "genders",
-                required: true
+                gender:
+                    {
+                        type: Schema.Types.ObjectId,
+                        ref: "genders",
+                        required: true
+                    }
             }
         ],
         colors: [

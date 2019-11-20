@@ -1,7 +1,7 @@
-import * as TOPCATS from '../constants/topCats';
+import * as PRODUCTS from '../constants/products';
 
 const initState = {
-    topCats: [],
+    products: [],
     loaded: false,
     error: null
 };
@@ -10,7 +10,7 @@ export default function (state = initState, action) {
 
     switch (action.type) {
 
-        case TOPCATS.TOPCATS_SEND_REQUEST:
+        case PRODUCTS.PRODUCTS_SEND_REQUEST:
             return {
                 ...state,
                 ...{
@@ -18,7 +18,7 @@ export default function (state = initState, action) {
                 }
             };
 
-            case TOPCATS.TOPCATS_RESPONSE_FAILED:
+            case PRODUCTS.PRODUCTS_RESPONSE_FAILED:
                 return {
                     ...state,
                     ...{
@@ -26,26 +26,35 @@ export default function (state = initState, action) {
                     }
                 };
 
-        case TOPCATS.TOPCATS_GET_ALL_TOPCATS:
+        case PRODUCTS.PRODUCTS_GET_ALL_PRODUCTS:
             return {
                 ...state,
                 ...{
-                    topCats: action.data,
+                    products: action.data,
                     loaded: true
                 }
             };
 
-        case TOPCATS.TOPCATS_ADD_TOPCAT:
+        case PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_SEARCH:
             return {
                 ...state,
                 ...{
-                    topCats : [...state.topCats, ...[action.data]],
+                    products: action.data,
+                    loaded: true
+                }
+            };
+
+        case PRODUCTS.PRODUCTS_ADD_PRODUCT:
+            return {
+                ...state,
+                ...{
+                    products : [...state.products, ...[action.data]],
                     loaded : true
                 }
             };
 
-            case TOPCATS.TOPCATS_UPDATE_TOPCAT:
-            let updatedTopCats = state.topCats.map(el => {
+            case PRODUCTS.PRODUCTS_UPDATE_PRODUCT:
+            let updatedProducts = state.products.map(el => {
                 if(el._id === action.data._id){
                     return action.data
                 }
@@ -54,19 +63,19 @@ export default function (state = initState, action) {
             return{
                 ...state,
                 ...{
-                    topCats : updatedTopCats,
+                    products : updatedProducts,
                     loaded : true
                 }
             };
 
-            case TOPCATS.TOPCATS_DELETE_TOPCAT:
-            let updated = state.topCats.filter(el => {
+            case PRODUCTS.PRODUCTS_DELETE_PRODUCT:
+            let updated = state.products.filter(el => {
                 return el._id !== action.data._id
             });
             return {
                 ...state,
                 ...{
-                    topCats : updated,
+                    products : updated,
                     loaded : true
                 }
             };

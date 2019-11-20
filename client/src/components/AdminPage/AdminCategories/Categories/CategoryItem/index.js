@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import * as categoriesActions from '../../../../../store/actions/categories';
+import ProductsApi from '../../../../../services/Products';
 
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
@@ -12,6 +13,7 @@ import ImgIcon from '../../../../common/images/ImgIcon';
 import OpenEditButton from '../../../../common/buttons/Edit';
 import DeleteButton from '../../../../common/buttons/Delete';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
+import WarningModal from '../../../../common/messages/WarningModal';
 
 
 export default props => {
@@ -22,10 +24,36 @@ export default props => {
     const {item, handleNotification} = props;
     const itemName=item.name;
 
-    const [openConfirm, setOpenConfirm] = useState(false);
-    const openConfirmModal = () => setOpenConfirm(true);
+    // handle deleting category:
+    const [warningIsOpen, setWarningIsOpen] = useState(false);
+    const [warningText, setWarningText] = useState({title: '', description: ''});
+    const [productsMatched, setProductsMatched] = useState(null);
 
-    const modalText = {
+    useEffect(() => {
+        (new ProductsApi()).getProductsByMatch({category: item._id}).then(res => setProductsMatched(res));
+    }, [item]);
+
+    const checkMatchingProducts = () => {
+        if(productsMatched && productsMatched[0]) {
+            setWarningIsOpen(true);
+            setWarningText({title: `Cannot delete ${itemName.toUpperCase()} category!`, description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}"`).join(', ')}!`});
+            return true;
+        };
+        return false;
+    };
+
+    const closeWarning =() => setWarningIsOpen(false);
+
+    const [confirmIsOpen, setConfirmIsOpen] = useState(false);
+
+    const openConfirm = event => {
+        event.preventDefault();
+        if (!checkMatchingProducts()) {
+            setConfirmIsOpen(true);
+        }
+    };
+
+    const confirmText = {
         title: `Are you sure to DELETE ${itemName.toUpperCase()}?`,
         description: `If you confirm deletion of ${itemName.toUpperCase()} category from database it will affect the total catalogue and cannot be undone`,
         buttonYes: 'DELETE, I am SURE',
@@ -34,12 +62,12 @@ export default props => {
 
     const deleteItem = (event) => {
         event.preventDefault();
-        setOpenConfirm(false);
+        setConfirmIsOpen(false);
         categoriesActions.deleteCategory(item)(dispatch);
         handleNotification(itemName);
     };
 
-    const closeModal = () => setOpenConfirm(false);
+    const closeConfirm = () => setConfirmIsOpen(false);
 
     return (
         <>
@@ -62,11 +90,12 @@ export default props => {
                     </Link>
                 </Grid>
                 <Grid item xs={1}>
-                    <DeleteButton size="small" onClick={openConfirmModal}/>
+                    <DeleteButton size="small" onClick={openConfirm}/>
                 </Grid>
             </Grid>
         </ListItem>
-        <ConfirmModal modalText={modalText} openModal={openConfirm} doFunction={deleteItem} closeFunction={closeModal}/>
+        <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
+        <ConfirmModal modalIsOpen={confirmIsOpen} modalText={confirmText} doFunction={deleteItem} closeFunction={closeConfirm}/>
         </>
     )
 };

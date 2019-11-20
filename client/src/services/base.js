@@ -1,13 +1,9 @@
 import axios from 'axios';
 
 export default class Base {
-    constructor() {
-         this.url = 'http://localhost:5000'; // localhost
-    //    this.url = 'https://https://twear.herokuapp.com/api'; // heroku
-    }
 
     getUrl(path) {
-        return `${this.url}/${path}`;
+        return `/${path}`;
     }
     get(url) {
         return axios
@@ -22,4 +18,4 @@ export default class Base {
     delete(url){
         return axios.delete(this.getUrl(url));
     }
-}
+};

@@ -8,6 +8,8 @@ import genders from './genders';
 import genderItem from './genderItem';
 import colors from './colors';
 import colorItem from './colorItem';
+import products from './products';
+import productItem from './productItem';
 
 export default combineReducers({
     topCats,
@@ -17,5 +19,7 @@ export default combineReducers({
     genders,
     genderItem,
     colors,
-    colorItem
+    colorItem,
+    products,
+    productItem
 });

@@ -53,14 +53,14 @@ export default props => {
             categoryName.includes('newCategory') ?
                 categoriesActions.addCategory(formData)(dispatch) :
                 categoriesActions.updateCategory(formData)(dispatch);
-                ref.current(`Category ${formData.name.toUpperCase()} has been added!`);
+                ref.current(`Category ${formData.name.toUpperCase()} has been saved!`);
 
         // for top category:
         } else if (topCatName) {
             topCatName === 'newTopCategory' ?
                 topCatsActions.addTopCat(formData)(dispatch) :
                 topCatsActions.updateTopCat(formData)(dispatch);
-                ref.current(`Top category ${formData.name.toUpperCase()} has been added!`);
+                ref.current(`Top category ${formData.name.toUpperCase()} has been saved!`);
         }
 
         setTimeout(() => {
