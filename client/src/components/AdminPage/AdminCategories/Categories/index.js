@@ -62,7 +62,7 @@ export default props => {
             !categoriesLoaded ?
                 <Spinner/> :
                 (
-                <Box color="primary.main">
+                <Box >
                     <List className={classes.root}>
                         {categoriesList
                             .map(item => item.topCategory === topCatId ?

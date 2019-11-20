@@ -36,6 +36,15 @@ export default function (state = initState, action) {
                 }
             };
 
+            case CATEGORIES.CATEGORIES_GET_CATEGORIES_BY_SEARCH:
+                return {
+                    ...state,
+                    ...{
+                        categories: action.data,
+                        loaded: true
+                    }
+                };
+
         case CATEGORIES.CATEGORIES_ADD_CATEGORY:
             return {
                 ...state,

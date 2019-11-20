@@ -69,7 +69,7 @@ export default props => {
     // handle deleting color:
     const [productsMatched, setProductsMatched] = useState(null);
     useEffect(() => {
-        (new ProductsApi()).getProductsBySearch(item._id).then(res => setProductsMatched(res));
+        (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(res));
     }, [item]);
 
     const checkMatchingProducts = () => {

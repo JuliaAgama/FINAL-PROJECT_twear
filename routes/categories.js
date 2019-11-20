@@ -8,7 +8,9 @@ const {
   updateCategory,
   deleteCategory,
   getCategories,
-  getCategory
+  getCategory,
+  searchCategories,
+  matchCategoriesByObject
 } = require("../controllers/categories");
 
 // @route   POST /categories
@@ -42,6 +44,16 @@ router.delete(
 // @desc    GET existing categories
 // @access  Public
 router.get("/", getCategories);
+
+// @route   POST /categories/search
+// @desc    POST appropriate to search query categories
+// @access  Public
+router.post("/search", searchCategories);
+
+// @route   POST /categories/match
+// @desc    POST appropriate categories that contain matching objects
+// @access  Public
+router.post("/match", matchCategoriesByObject);
 
 // @route   GET /categories/:id
 // @desc    GET existing categorie

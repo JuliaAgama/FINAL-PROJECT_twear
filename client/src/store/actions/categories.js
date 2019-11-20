@@ -33,6 +33,24 @@ export function getAllCategories() {
     };
 };
 
+export function getCategoriesBySearch(searchValue) {
+    return function (dispatch) {
+        dispatch(categoriesSendRequest());
+        (new CategoriesApi()).getCategoriesBySearch(searchValue).then(res => {
+            return dispatch({
+                type: CATEGORIES.CATEGORIES_GET_CATEGORIES_BY_SEARCH,
+                data: res
+            });
+        })
+        .catch(err => {
+            return dispatch({
+                type: CATEGORIES.CATEGORIES_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        });
+    };
+};
+
 export function getCategoryItem(id) {
     return function (dispatch) {
         dispatch(categoryItemSendRequest());
