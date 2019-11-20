@@ -22,6 +22,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-spring": "^8.0.27",
+    "react-ticker": "^1.2.1",
     "redux": "^4.0.4",
     "redux-form": "^8.2.6",
     "redux-logger": "^3.0.6",

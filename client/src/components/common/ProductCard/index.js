@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 
 
-export default props => {
+const ProductCard = (props) => {
 
     return (
         <>
@@ -16,3 +16,5 @@ export default props => {
         </>
     )
 };
+
+export default ProductCard
