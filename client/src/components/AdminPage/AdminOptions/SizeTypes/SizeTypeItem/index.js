@@ -106,7 +106,7 @@ export default props => {
             <Grid item xs={6} className={classes.wrapper}>
                 <form autoComplete="off">
                     <Grid container className={classes.verticalCenter}>
-                        <Grid item xs={5}>
+                        <Grid item xs={6}>
                             <TextField
                                 className={classes.textField}
                                 required
@@ -129,7 +129,7 @@ export default props => {
                                 onClick={openConfirm}
                                 size="medium"/>
                         </Grid>
-                        <Grid item xs={3}></Grid>
+                        <Grid item xs={2}></Grid>
                     </Grid>
                 </form>
                 <Grid container>

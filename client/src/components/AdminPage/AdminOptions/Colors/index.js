@@ -1,10 +1,7 @@
-// import React from 'react';
 import React, { useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ColorsApi from '../../../../services/Colors';
 import * as colorsActions from '../../../../store/actions/colors';
-// import * as productsActions from '../../../../store/actions/products';
 
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
@@ -17,12 +14,16 @@ import Spinner from '../../../common/Spinner';
 import ColorItem from './ColorItem';
 
 
-export default props => {
+export default () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
         colorsActions.getAllColors()(dispatch);
     }, [dispatch]);
+
+    const getUpdatedColorsList = () => {
+        colorsActions.getAllColors()(dispatch);
+    };
 
     const colorsList = useSelector(state => state.colors.colors);
     const colorsLoaded = useSelector(state => state.colors.loaded);
@@ -47,9 +48,6 @@ export default props => {
     const timeout = 2000;
     const handleNotification = (itemName, actionDescription) => {
         ref.current(`Category ${itemName.toUpperCase()} has been ${actionDescription}.`);
-        // setTimeout(() => {
-            // window.location.reload(true)
-        // }, timeout)
     };
 
     const addItem = event => {
@@ -72,7 +70,7 @@ export default props => {
                                     item={item}
                                     key={item._id}
                                     handleNotification={handleNotification}
-                                    //reRender={reRender}
+                                    getUpdatedColorsList={getUpdatedColorsList}
                                 />
                                 )
                         }

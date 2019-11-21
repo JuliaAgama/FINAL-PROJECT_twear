@@ -26,6 +26,10 @@ export default props => {
         categoriesActions.getAllCategories()(dispatch);
     }, [dispatch]);
 
+    const getUpdatedCategoriesList = () => {
+        categoriesActions.getAllCategories()(dispatch);
+    };
+
     const categoriesList = useSelector(state => state.categories.categories);
     const categoriesLoaded = useSelector(state => state.categories.loaded);
 
@@ -49,9 +53,6 @@ export default props => {
     const timeout = 2000;
     const handleNotification = (itemName) => {
         ref.current(`Category ${itemName.toUpperCase()} has been deleted from database!`);
-        setTimeout(() => {
-            window.location.reload(true)
-        }, timeout)
     };
 
     const classes = useStyles();
@@ -66,7 +67,12 @@ export default props => {
                     <List className={classes.root}>
                         {categoriesList
                             .map(item => item.topCategory === topCatId ?
-                                <CategoryItem item={item} key={item._id} handleNotification={handleNotification}/> :
+                                <CategoryItem
+                                    item={item}
+                                    key={item._id}
+                                    handleNotification={handleNotification}
+                                    getUpdatedCategoriesList={getUpdatedCategoriesList}
+                                /> :
                                 <div key={Math.random()}></div>
                             )
                         }

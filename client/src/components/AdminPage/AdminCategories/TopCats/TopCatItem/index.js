@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import * as topCatsActions from '../../../../../store/actions/topCats';
+
+import TopCatsApi from '../../../../../services/TopCats';
 import CategoriesApi from '../../../../../services/Categories';
 
 import Grid from '@material-ui/core/Grid';
@@ -25,9 +25,8 @@ import Box from '@material-ui/core/Box';
 
 export default props => {
     const classes = useStyles();
-    const dispatch = useDispatch();
 
-    const {item, handleNotification} = props;
+    const {item, handleNotification, getUpdatedTopCatsList} = props;
     const itemName=item.name;
 
     const [expanded, setExpanded] = useState(false);
@@ -72,9 +71,11 @@ export default props => {
 
     const deleteItem = (event) => {
         event.preventDefault();
-        setConfirmIsOpen(false);
-        topCatsActions.deleteTopCat(item)(dispatch);
-        handleNotification(itemName);
+        (new TopCatsApi()).deleteTopCategory(item).then(res => {
+            getUpdatedTopCatsList();
+            setConfirmIsOpen(false);
+            handleNotification(itemName);
+        });
     };
 
     const closeConfirm = () => setConfirmIsOpen(false);

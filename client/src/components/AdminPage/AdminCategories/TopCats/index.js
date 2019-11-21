@@ -9,12 +9,11 @@ import AddWideButton from '../../../common/buttons/AddWide';
 import ErrorModal from '../../../common/messages/ErrorModal';
 import Notification from '../../../common/messages/Notification';
 
-import useStyles from './useStyles';
-
 import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
+import useStyles from './useStyles';
 
 
 export default () => {
@@ -23,6 +22,10 @@ export default () => {
     useEffect(() => {
         topCatActions.getAllTopCats()(dispatch);
     }, [dispatch]);
+
+    const getUpdatedTopCatsList = () => {
+        topCatActions.getAllTopCats()(dispatch);
+    };
 
     const topCatsList = useSelector(state => state.topCats.topCats);
     const topCatsLoaded = useSelector(state => state.topCats.loaded);
@@ -47,9 +50,6 @@ export default () => {
     const timeout = 2000;
     const handleNotification = (itemName) => {
         ref.current(`Top category ${itemName.toUpperCase()} has been deleted from database!`);
-        setTimeout(() => {
-            window.location.reload(true)
-        }, timeout)
     };
 
     const classes = useStyles();
@@ -66,6 +66,7 @@ export default () => {
                                 item={item}
                                 key={item._id}
                                 handleNotification={handleNotification}
+                                getUpdatedTopCatsList={getUpdatedTopCatsList}
                             />
                         )
                     }

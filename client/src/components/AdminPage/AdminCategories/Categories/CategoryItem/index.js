@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import * as categoriesActions from '../../../../../store/actions/categories';
+
+import CategoriesApi from '../../../../../services/Categories';
 import ProductsApi from '../../../../../services/Products';
 
 import Grid from '@material-ui/core/Grid';
@@ -19,9 +19,8 @@ import WarningModal from '../../../../common/messages/WarningModal';
 export default props => {
 
     const classes = useStyles();
-    const dispatch = useDispatch();
 
-    const {item, handleNotification} = props;
+    const {item, handleNotification, getUpdatedCategoriesList} = props;
     const itemName=item.name;
 
     // handle deleting category:
@@ -62,9 +61,11 @@ export default props => {
 
     const deleteItem = (event) => {
         event.preventDefault();
-        setConfirmIsOpen(false);
-        categoriesActions.deleteCategory(item)(dispatch);
-        handleNotification(itemName);
+        (new CategoriesApi()).deleteCategory(item).then(res => {
+            setConfirmIsOpen(false);
+            getUpdatedCategoriesList();
+            handleNotification(itemName);
+        })
     };
 
     const closeConfirm = () => setConfirmIsOpen(false);

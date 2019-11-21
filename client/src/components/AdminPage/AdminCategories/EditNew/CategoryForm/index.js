@@ -54,11 +54,11 @@ export default props => {
             event.target.checked ?
                 setFormData({
                     ...formData,
-                    genders: formData.genders ? [...formData.genders.filter(el => el !== event.target.value), event.target.value] : [event.target.value]
+                    genders: formData.genders ? [...formData.genders.filter(el => el.gender !== event.target.value), {gender: event.target.value}] : [{gender: event.target.value}]
                 }) :
                 setFormData({
                     ...formData,
-                    genders: [...formData.genders.filter(el => el !== event.target.value)]
+                    genders: [...formData.genders.filter(el => el.gender !== event.target.value)]
                 })
         } else {
             setFormData({
@@ -73,7 +73,7 @@ export default props => {
         onSubmitHandler(formData);
     };
 
-    console.log(formData);
+    console.log('formData: ', formData);
     return (
         <>
             <h1> This is form for {(topCatName || categoryName.slice(0,categoryName.indexOf('-'))).toUpperCase()}</h1>
@@ -144,7 +144,7 @@ export default props => {
                                                         name='genders'
                                                         id={gender._id}
                                                         value={gender._id}
-                                                        checked={formData.genders && formData.genders.includes(gender._id) ? true : false}
+                                                        checked={formData.genders && formData.genders.includes({gender: gender._id}) ? true : false}
                                                         onChange={onChange}
                                                     />}
                                                 label={gender.name}

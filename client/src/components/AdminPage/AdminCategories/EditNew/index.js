@@ -44,7 +44,7 @@ export default props => {
     }, [dispatch]);
 
     const ref = useRef(null);
-    const timeout = 2000;
+    const timeout = 10000;
 
     const onSubmitHandler = formData => {
 
@@ -65,7 +65,6 @@ export default props => {
 
         setTimeout(() => {
             window.location.assign(`/admin/categories`);
-            // window.reload(true)
         }, timeout)
     };
 

@@ -41,7 +41,7 @@ export default props => {
         const sizesListBesidesItem = sizesList.filter(el => el._id !== formData._id);
         if( sizesListBesidesItem.some(el => el.name === formData.name)) {
             setWarningIsOpen(true);
-            setWarningText({title: 'Cannot save!', description: `Size with name ${formData.name} already exists!`});
+            setWarningText({title: 'Cannot save!', description: `Size ${formData.name} already exists!`});
             return true;
         };
         return false;

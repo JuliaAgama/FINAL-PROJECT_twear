@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import * as colorsActions from '../../../../../store/actions/colors';
-// import ColorsApi from '../../../../../services/Colors';
+import ColorsApi from '../../../../../services/Colors';
 import ProductsApi from '../../../../../services/Products';
 
 import Grid from '@material-ui/core/Grid';
@@ -17,10 +16,8 @@ import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
 export default props => {
     const classes = useStyles();
-    const {item, handleNotification} = props;
+    const {item, handleNotification, getUpdatedColorsList} = props;
     const colorsList = useSelector(state => state.colors.colors)
-
-    const dispatch = useDispatch();
 
     const [color, setColor] = useState(item.cssValue);
     const [formData, setFormData] = useState({_id: '', name: ''});
@@ -61,8 +58,10 @@ export default props => {
     const saveColor = event => {
         event.preventDefault();
         if( !checkDoubles()) {
-            colorsActions.updateColor(formData)(dispatch);
-            handleNotification(formData.name, 'saved');
+            (new ColorsApi()).updateColor(formData).then(res => {
+                handleNotification(formData.name, 'saved');
+                getUpdatedColorsList();
+            })
         }
     };
 
@@ -80,32 +79,29 @@ export default props => {
         };
         return false;
     };
-
     const closeWarning =() => setWarningIsOpen(false);
 
     const [confirmIsOpen, setConfirmIsOpen] = useState(false);
-
     const openConfirm = event => {
         event.preventDefault();
         if (!checkMatchingProducts()) {
             setConfirmIsOpen(true);
         }
     };
-
     const confirmText = {
         title: `Are you sure to DELETE ${formData.name.toUpperCase()} color?`,
         description: `If you confirm deletion of ${formData.name.toUpperCase()} color from database it cannot be undone`,
         buttonYes: 'DELETE, I am SURE',
         buttonNo: "No, don't DELETE"
     };
-
     const closeConfirm = () => setConfirmIsOpen(false);
 
     const deleteColor = () => {
-        colorsActions.deleteColor(formData)(dispatch);
-        setConfirmIsOpen(false);
-        handleNotification(formData.name, 'deleted');
-        // setFormData({...formData, _id: null});
+        (new ColorsApi()).deleteColor(formData).then(res => {
+            setConfirmIsOpen(false);
+            handleNotification(formData.name, 'deleted');
+            getUpdatedColorsList();
+        });
     };
 
     return (

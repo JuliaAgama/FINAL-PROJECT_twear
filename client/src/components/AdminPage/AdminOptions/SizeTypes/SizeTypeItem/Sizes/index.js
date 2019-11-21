@@ -18,6 +18,8 @@ import SizeItem from './SizeItem';
 export default props => {
 
     const {sizeTypeId} = props;
+    // const {rerender, setRerender} = useState(false);
+    // const doRerender = (toggle) => setRerender(toggle);
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -56,6 +58,9 @@ export default props => {
         event.preventDefault();
         console.log('hello');
     };
+    // const removeItem = item => {
+    //     sizesList.filter(el => el._id !== item._id)
+    // }
 
     const classes = useStyles();
 
