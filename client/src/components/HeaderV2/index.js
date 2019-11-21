@@ -12,11 +12,10 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import {useDispatch, useSelector} from "react-redux";
 import {hideDesktopCategoriesMenuAction} from "../../store/actions/header";
 import {hideMobileMenuAction} from "../../store/actions/header";
-import Modal from '../common/Modal'
 
 
 
-function HeaderMaterialUI() {
+function HeaderV2() {
 
     const classes = useStyles();
     const {show, showMobileMenu}  = useSelector(state => state.header);
@@ -59,11 +58,10 @@ function HeaderMaterialUI() {
                             <DropDownMobile/>
                         </Grid>
                     </Hidden>
-                    <Modal/>
                 </Grid>
             </ClickAwayListener>
         </ThemeProvider>
     );
 }
 
-export default withWidth()(HeaderMaterialUI);
+export default withWidth()(HeaderV2);

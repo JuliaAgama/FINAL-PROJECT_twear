@@ -3,7 +3,7 @@ import { CssBaseline } from '@material-ui/core';
 
 import {Switch, Route} from 'react-router-dom';
 
-import HeaderV2 from '../components/HeaderV2';
+import HeaderV3 from '../components/HeaderV3';
 import NotFound from '../components/NotFound';
 import LayoutAdmin from '../components/common/layouts/LayoutAdmin';
 
@@ -20,7 +20,7 @@ export const Router = () => (
             <Switch>
                 <Route exact
                        path="/"
-                       component={HeaderV2}/>
+                       component={HeaderV3}/>
 
                 <Route exact
                     path="/admin/login"
