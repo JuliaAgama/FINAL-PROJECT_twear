@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from '@material-ui/core/Modal';
+// import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import useStyles from "./useStyles";
@@ -7,6 +7,7 @@ import useStyles from "./useStyles";
 import {useDispatch, useSelector} from "react-redux";
 import {closeModalAction} from "../../../store/actions/modal";
 import Registration from "../../RegistrationForm";
+import {Dialog} from "@material-ui/core";
 
 
 export default function TransitionsModal() {
@@ -16,10 +17,12 @@ export default function TransitionsModal() {
 
     return (
         <div>
-            <Modal
+            <Dialog
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 className={classes.modal}
+                scroll='paper'
+                fullWidth={true}
                 open={open}
                 onClose={() => dispatch(closeModalAction())}
                 closeAfterTransition
@@ -34,7 +37,7 @@ export default function TransitionsModal() {
                         <Registration/>
                     </div>
                 </Fade>
-            </Modal>
+            </Dialog>
         </div>
     );
 }

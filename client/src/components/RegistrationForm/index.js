@@ -18,6 +18,8 @@ export default function Registration() {
     const [value, setValue] = useState('female');
     const [phoneNumber, setPhoneNumber] = useState('+380');
     const [checked, setChecked] = useState(false);
+    const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' +
+                         'and for customizing my user experience to my interests or my shopping habits.';
 
     const handleChangeRadio = event => {
         setValue(event.target.value);
@@ -49,7 +51,7 @@ export default function Registration() {
                             <span>Title*</span>
                             <span>* Required fields</span>
                         </div>
-                        <FormControl component="fieldset" className={classes.formControl}>
+                        <FormControl component="fieldset">
                             <RadioGroup aria-label="position" name="position" value={value} onChange={handleChangeRadio} row>
                                 <FormControlLabel
                                     value='female'
@@ -67,17 +69,23 @@ export default function Registration() {
                             </RadioGroup>
                         </FormControl>
                         <Box className={classes.inputContainer}>
-                            <TextField className={classes.inputField} fullWidth={true} required label="First Name"/>
-                            <TextField className={classes.inputField} fullWidth={true} required label="Last Name"/>
+                            <TextField className={classes.inputField} fullWidth={true} margin='normal' required label="First Name"/>
+                            <TextField className={classes.inputField} fullWidth={true} margin='normal' required label="Last Name"/>
                             <TextField className={classes.inputField} fullWidth={true} margin='normal'  label="Login"/>
                             <TextField className={classes.inputField} fullWidth={true} margin='normal' type='email' required label="Email"/>
                             <TextField fullWidth={true} className={classes.inputField} margin='normal' label="Password" type="password" required/>
                             <TextField fullWidth={true} className={classes.inputField} margin='normal' id="date" label="Birthday" required type="date" defaultValue="2000-01-01"/>
                             <PhoneInput containerStyle={{
-                                marginTop: '30px',
-                                marginBottom: '30px',
-                                marginLeft: 'calc(50% - 150px)'
-                            }} defaultCountry={'ua'} value={phoneNumber} onChange={()=> handleOnChangePhoneNumber}/>
+                                            marginTop: '30px',
+                                            marginBottom: '30px',
+                                            marginLeft: 'calc(50% - 125px)',
+                                            width: '250px'
+                                        }}
+                                        inputStyle={{width: '250px'}}
+                                        dropdownStyle={{width: '250px'}}
+                                        defaultCountry={'ua'}
+                                        value={phoneNumber}
+                                        onChange={()=> handleOnChangePhoneNumber}/>
                         </Box>
                         <p className={classes.text}>The data fields with an asterisk (*) must be completed in order to complete your registration
                             and satisfy any request you make. Your personal data may be jointly controlled by
@@ -89,16 +97,13 @@ export default function Registration() {
                             to the processing of your personal data. To exercise your rights, please write to privacy@twear.com.
                             You can also manage your subscriptions via your account.
                         </p>
-                        <Checkbox
-                            defaultChecked
-                            color="default"
-                            checked={checked}
-                            onChange={handleChangeChecked}
+                        <FormControlLabel
                             value={checked}
+                            control={<Checkbox  color="default"/>}
+                            label={checkboxText}
+                            onChange={handleChangeChecked}
+                            className={classes.checkboxText}
                         />
-                        <span>I consent to the processing of my personal data by TWEAR for customer satisfaction purposes
-                            and for customizing my user experience to my interests or my shopping habits.
-                        </span>
                         <Button fullWidth={true} variant="outlined" className={classes.btn}>Registration</Button>
                     </form>
                 </Container>

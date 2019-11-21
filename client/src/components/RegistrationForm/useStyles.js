@@ -4,7 +4,7 @@ export default makeStyles(theme => (
     {
         container: {
             display: 'flex',
-            maxWidth: '1000px',
+            maxWidth: '1200px',
             justifyContent: 'center',
             paddingBottom: '20px',
         },
@@ -40,13 +40,16 @@ export default makeStyles(theme => (
             width: '100%'
         },
         radioBtn: {
-            marginRight: '50px'
+            marginRight: '50px',
+            [theme.breakpoints.down('sm')]: {
+                marginRight: '20px',
+            },
         },
         inputField: {
-            width: '48%'
-        },
-        formControl: {
-            display: 'block'
+            width: '48%',
+            [theme.breakpoints.down('sm')]: {
+                width: '100%',
+            },
         },
         inputContainer: {
             display: 'flex',
@@ -62,6 +65,10 @@ export default makeStyles(theme => (
             paddingTop: '20px',
             textAlign: 'justify',
             borderTop: '2px solid black'
+        },
+        checkboxText: {
+            textAlign: 'justify',
+            fontSize: '14px'
         }
     }
 ));
