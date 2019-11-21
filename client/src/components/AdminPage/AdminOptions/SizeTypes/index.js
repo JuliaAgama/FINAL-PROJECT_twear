@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import SizeTypesApi from '../../../../services/SizeTypes';
+// import SizeTypesApi from '../../../../services/SizeTypes';
 import * as sizeTypesActions from '../../../../store/actions/sizeTypes';
 
 import Grid from '@material-ui/core/Grid';
@@ -9,7 +9,9 @@ import useStyles from './useStyles';
 
 import ErrorModal from '../../../common/messages/ErrorModal';
 import Notification from '../../../common/messages/Notification';
-import AddButton from '../../../common/buttons/Add';
+// import AddButton from '../../../common/buttons/Add';
+
+import AddWideButton from '../../../common/buttons/AddWide';
 import Spinner from '../../../common/Spinner';
 
 import SizeTypeItem from './SizeTypeItem';
@@ -44,7 +46,7 @@ export default props => {
     const ref = useRef(null);
     const timeout = 2000;
     const handleNotification = (itemName, actionDescription) => {
-        ref.current(`Category ${itemName.toUpperCase()} has been ${actionDescription}.`);
+        ref.current(`Size Type ${itemName.toUpperCase()} has been ${actionDescription}.`);
         // setTimeout(() => {
             // window.location.reload(true)
         // }, timeout)
@@ -63,6 +65,11 @@ export default props => {
             sizeTypesLoaded ?
             (
                 <div className={classes.wrapper}>
+                <Grid container>
+                    <Grid item xs={12} className={classes.wrapper}>
+                        <AddWideButton  text='CREATE NEW SIZE TYPE' color='secondary' onClick={addItem}/>
+                    </Grid>
+                </Grid>
                     <Grid container className={classes.paper}>
                         {sizeTypesList
                             .map(item =>
@@ -74,7 +81,7 @@ export default props => {
                                 />
                                 )
                         }
-                        <Grid item xs={6} lg={4} xl={3} className={classes.center}>
+                        {/* <Grid item xs={6} lg={4} xl={3} className={classes.center}>
                             <Grid container>
                                 <Grid item xs={3}>
                                     <AddButton
@@ -84,7 +91,7 @@ export default props => {
                                 </Grid>
                                 <Grid item xs={9}></Grid>
                             </Grid>
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </div>
             ) :

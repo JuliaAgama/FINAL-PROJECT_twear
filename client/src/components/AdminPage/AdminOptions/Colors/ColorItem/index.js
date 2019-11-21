@@ -62,7 +62,7 @@ export default props => {
         event.preventDefault();
         if( !checkDoubles()) {
             colorsActions.updateColor(formData)(dispatch);
-            handleNotification(formData.name, 'added');
+            handleNotification(formData.name, 'saved');
         }
     };
 

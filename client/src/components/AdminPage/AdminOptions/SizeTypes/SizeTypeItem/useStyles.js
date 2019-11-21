@@ -8,11 +8,11 @@ export default makeStyles(theme => (
         }),
         wrapper: {
             margin: `${theme.spacing(1)} auto`,
-            paddingBottom: theme.spacing(5)
+            // paddingBottom: theme.spacing(5)
         },
         textField: {
             // marginRight: theme.spacing(2),
-            backgroundColor: '#fff',
+            backgroundColor: '#ccc'
         },
         justify: {
             width: '100%'

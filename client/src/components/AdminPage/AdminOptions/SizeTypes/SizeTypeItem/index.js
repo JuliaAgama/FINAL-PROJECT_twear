@@ -54,7 +54,7 @@ export default props => {
         event.preventDefault();
         if( !checkDoubles()) {
             sizeTypesActions.updateSizeType(formData)(dispatch);
-            handleNotification(formData.name, 'added');
+            handleNotification(formData.name, 'saved');
         }
     };
 
@@ -103,37 +103,39 @@ export default props => {
 
     return (
         <>
-                {/* <Grid item xs={6} lg={4} xl={3} className={classes.wrapper}> */}
-                <Grid item xs={6} className={classes.wrapper}>
-                    <form autoComplete="off">
-                        <Grid container className={classes.verticalCenter}>
-                            <Grid item xs={5}>
-                                <TextField
-                                    className={classes.textField}
-                                    required
-                                    id={item._id}
-                                    name={'name'}
-                                    onChange={onChange}
-                                    defaultValue={item.name}
-                                    margin="normal"
-                                />
-                            </Grid>
-                            <Grid item xs={1}>
-                                <SaveButton
-                                    onClick={saveSizeType}
-                                    size="small"
-                                    className={formData.name === item.name ? '' : 'fabGreenFilled' }/>
-                            </Grid>
-                            <Grid item xs={2}></Grid>
-                            <Grid item xs={1}>
-                                <DeleteButton
-                                    onClick={openConfirm}
-                                    size="small"/>
-                            </Grid>
-                            <Grid item xs={3}></Grid>
+            <Grid item xs={6} className={classes.wrapper}>
+                <form autoComplete="off">
+                    <Grid container className={classes.verticalCenter}>
+                        <Grid item xs={5}>
+                            <TextField
+                                className={classes.textField}
+                                required
+                                id={item._id}
+                                name={'name'}
+                                onChange={onChange}
+                                defaultValue={item.name}
+                                margin="normal"
+                            />
                         </Grid>
-                    </form>
+                        <Grid item xs={1}>
+                            <SaveButton
+                                onClick={saveSizeType}
+                                size="medium"
+                                className={formData.name === item.name ? '' : 'fabGreenFilled' }/>
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={1}>
+                            <DeleteButton
+                                onClick={openConfirm}
+                                size="medium"/>
+                        </Grid>
+                        <Grid item xs={3}></Grid>
+                    </Grid>
+                </form>
+                <Grid container>
+                    <Sizes handleNotification={handleNotification} sizeTypeId={item._id}/>
                 </Grid>
+            </Grid>
             <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
             <ConfirmModal modalIsOpen={confirmIsOpen} modalText={confirmText} doFunction={deleteSizeType} closeFunction={closeConfirm}/>
         </>
