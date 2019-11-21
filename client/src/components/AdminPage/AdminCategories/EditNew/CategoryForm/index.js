@@ -17,7 +17,6 @@ export default props => {
     const classes = useStyles();
 
     const{categoryName, topCatName, item, topCatsBase, gendersBase, displayAdditional, onSubmitHandler} = props;
-    console.log(item);
     const specialCategory = 'looks';
 
     let [formData, setFormData] = useState({});
@@ -72,12 +71,6 @@ export default props => {
         event.preventDefault();
         onSubmitHandler(formData);
     };
-
-    console.log('formData: ', formData);
-
-    gendersBase.forEach(gender => {
-        formData.genders && formData.genders.includes({gender: gender._id}) ? console.log('formdData.genders: ', formData.genders) : console.log('gender: ', gender._id)
-    })
 
     return (
         <>
@@ -149,7 +142,7 @@ export default props => {
                                                         name='genders'
                                                         id={gender._id}
                                                         value={gender._id}
-                                                        checked={formData.genders && formData.genders.includes({gender: gender._id}) ? true : false}
+                                                        checked={formData.genders && formData.genders.some(el => el.gender === gender._id) ? true : false}
                                                         onChange={onChange}
                                                     />}
                                                 label={gender.name}
