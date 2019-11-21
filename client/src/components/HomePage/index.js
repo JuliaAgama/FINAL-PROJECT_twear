@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
+// import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
+
 const bestProducts = [
     {   _id: '1-120', name: 'short top tile', categories: ['31']},
     {   _id: '2-10', name: 'high-heels shoes', categories: ['42']},

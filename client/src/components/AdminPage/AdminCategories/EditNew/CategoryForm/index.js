@@ -74,6 +74,11 @@ export default props => {
     };
 
     console.log('formData: ', formData);
+
+    gendersBase.forEach(gender => {
+        formData.genders && formData.genders.includes({gender: gender._id}) ? console.log('formdData.genders: ', formData.genders) : console.log('gender: ', gender._id)
+    })
+
     return (
         <>
             <h1> This is form for {(topCatName || categoryName.slice(0,categoryName.indexOf('-'))).toUpperCase()}</h1>

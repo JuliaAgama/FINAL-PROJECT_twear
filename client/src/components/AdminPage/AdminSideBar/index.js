@@ -22,7 +22,7 @@ export default () => {
             <Grid container className={classes.listing}>
                 {manageList.map((el,ind) => (
                     <Grid item key={ind} xs={12}>
-                        <Link to={`/admin/${el.url}`}>
+                        <Link to={`/admin/${el.url}`} className={classes.link}>
                             <Paper className={classes.paper}>Manage {el.name}</Paper>
                         </Link>
                     </Grid>
