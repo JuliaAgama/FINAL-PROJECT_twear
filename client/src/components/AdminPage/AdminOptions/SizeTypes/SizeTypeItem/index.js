@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import * as sizeTypesActions from '../../../../../store/actions/sizeTypes';
-// import SizeTypesApi from '../../../../../services/SizeTypes';
+import SizeTypesApi from '../../../../../services/SizeTypes';
 import SizesApi from '../../../../../services/Sizes';
 
 import Grid from '@material-ui/core/Grid';
@@ -18,10 +17,8 @@ import Sizes from './Sizes';
 
 export default props => {
     const classes = useStyles();
-    const {item, handleNotification} = props;
+    const {item, handleNotification, getUpdatedSizeTypesList} = props;
     const sizeTypesList = useSelector(state => state.sizeTypes.sizeTypes)
-
-    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({_id: '', name: ''});
 
@@ -53,8 +50,10 @@ export default props => {
     const saveSizeType = event => {
         event.preventDefault();
         if( !checkDoubles()) {
-            sizeTypesActions.updateSizeType(formData)(dispatch);
-            handleNotification(formData.name, 'saved');
+            (new SizeTypesApi()).getUpdatedSizeTypesList(formData).then(res => {
+                handleNotification(formData.name, 'saved');
+                getUpdatedSizeTypesList();
+            })
         }
     };
 
@@ -94,10 +93,11 @@ export default props => {
     const closeConfirm = () => setConfirmIsOpen(false);
 
     const deleteSizeType = () => {
-        sizeTypesActions.deleteSizeType(formData)(dispatch);
-        setConfirmIsOpen(false);
-        handleNotification(formData.name, 'deleted');
-        // setFormData({...formData, _id: null});
+        (new SizeTypesApi()).deleteSizeType(formData).then(res => {
+            setConfirmIsOpen(false);
+            handleNotification(formData.name, 'deleted');
+            getUpdatedSizeTypesList();
+        })
     };
 
 

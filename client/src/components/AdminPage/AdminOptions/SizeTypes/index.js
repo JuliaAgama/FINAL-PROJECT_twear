@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import SizeTypesApi from '../../../../services/SizeTypes';
 import * as sizeTypesActions from '../../../../store/actions/sizeTypes';
 
 import Grid from '@material-ui/core/Grid';
@@ -9,20 +8,22 @@ import useStyles from './useStyles';
 
 import ErrorModal from '../../../common/messages/ErrorModal';
 import Notification from '../../../common/messages/Notification';
-// import AddButton from '../../../common/buttons/Add';
-
 import AddWideButton from '../../../common/buttons/AddWide';
 import Spinner from '../../../common/Spinner';
 
 import SizeTypeItem from './SizeTypeItem';
 
 
-export default props => {
+export default () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
         sizeTypesActions.getAllSizeTypes()(dispatch);
     }, [dispatch]);
+
+    const getUpdatedSizeTypesList = () => {
+        sizeTypesActions.getAllSizeTypes()(dispatch);
+    };
 
     const sizeTypesList = useSelector(state => state.sizeTypes.sizeTypes);
     const sizeTypesLoaded = useSelector(state => state.sizeTypes.loaded);
@@ -47,9 +48,6 @@ export default props => {
     const timeout = 2000;
     const handleNotification = (itemName, actionDescription) => {
         ref.current(`Size Type ${itemName.toUpperCase()} has been ${actionDescription}.`);
-        // setTimeout(() => {
-            // window.location.reload(true)
-        // }, timeout)
     };
 
     const addItem = event => {
@@ -77,7 +75,7 @@ export default props => {
                                     item={item}
                                     key={item._id}
                                     handleNotification={handleNotification}
-                                    //reRender={reRender}
+                                    getUpdatedSizeTypesList={getUpdatedSizeTypesList}
                                 />
                                 )
                         }

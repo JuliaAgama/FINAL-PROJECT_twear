@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import SizesApi from '../../../../../../services/Sizes';
 import * as sizesActions from '../../../../../../store/actions/sizes';
 
 import Grid from '@material-ui/core/Grid';
@@ -26,6 +25,10 @@ export default props => {
         sizesActions.getAllSizes()(dispatch);
     }, [dispatch]);
 
+    const getUpdatedSizesList = () => {
+        sizesActions.getAllSizes()(dispatch);
+    };
+
     const sizesList = useSelector(state => state.sizes.sizes);
     const sizesLoaded = useSelector(state => state.sizes.loaded);
 
@@ -49,18 +52,12 @@ export default props => {
     const timeout = 2000;
     const handleNotification = (itemName, actionDescription) => {
         ref.current(`Size ${itemName.toUpperCase()} has been ${actionDescription}.`);
-        // setTimeout(() => {
-            // window.location.reload(true)
-        // }, timeout)
     };
 
     const addItem = event => {
         event.preventDefault();
         console.log('hello');
     };
-    // const removeItem = item => {
-    //     sizesList.filter(el => el._id !== item._id)
-    // }
 
     const classes = useStyles();
 
@@ -77,7 +74,7 @@ export default props => {
                                     item={item}
                                     key={item._id}
                                     handleNotification={handleNotification}
-                                    //reRender={reRender}
+                                    getUpdatedSizesList={getUpdatedSizesList}
                                 /> :
                                 <div key={Math.random()}></div>
                                 )
