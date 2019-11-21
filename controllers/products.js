@@ -194,8 +194,7 @@ exports.searchProducts = async (req, res, next) => {
       const productsMatchCategory = await Product.find({categories: {$elemMatch: req.body}});
       const productsMatchColor = await Product.find({colors: {$elemMatch: req.body}});
       const productsMatchGender = await Product.find({genders: {$elemMatch: req.body}});
-      // const productsMatchSize = await Product.find({"colors.sizes": {$elemMatch: req.body}}); // check with Saribeg how it can work
-      const productsMatchSize = await Product.find({colors: {$elemMatch: {sizes: {$elemMatch: req.body}}}}); // check with Saribeg how it can work
+      const productsMatchSize = await Product.find({'colors.sizes.size': req.body.size});
 
       const products = [...productsMatchCategory, ...productsMatchColor, ...productsMatchGender, ...productsMatchSize];
       res.json(products);
