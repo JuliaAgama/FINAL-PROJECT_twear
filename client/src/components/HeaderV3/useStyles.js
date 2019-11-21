@@ -8,30 +8,30 @@ export default makeStyles(theme => (
             width: '100%',
             padding: '0',
             margin: '0',
-            marginTop: '40px'
+            marginTop: '40px',
         },
-        mainBtn: {
-            padding: '16px 0',
-            borderRadius: '0',
-            outline: 'none!important',
-            textTransform: 'none',
-            fontSize: '16px',
-            fontWeight: '700',
-            border: '1px solid black'
+        container: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            width: '25%',
+            padding: '0',
+            margin: '0',
+            border: '1px solid black',
+            borderBottom: 'none',
         },
-        btn25: {
-            width: '25%'
-        },
-        btn50: {
+        logoContainer: {
             width: '50%',
-            border: 'none',
-            borderTop: '1px solid black',
+            borderRight: 'none',
+            borderLeft: 'none',
         },
-        topBorder: {
-            borderTop: 'none'
+        mainContainerMobile: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            width: '100%',
+            padding: '0',
+            margin: '0',
+            marginTop: '40px',
+            border: '1px solid black',
         },
-        rightBorder: {
-            borderRight: 'none'
-        }
     }
 ));
