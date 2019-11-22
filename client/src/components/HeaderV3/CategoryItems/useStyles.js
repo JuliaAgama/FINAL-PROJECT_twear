@@ -30,7 +30,9 @@ export default makeStyles(theme => (
             position: 'absolute',
             top: '123px',
             [theme.breakpoints.down('sm')]: {
-               position: 'block'
+               position: 'static',
+                borderLeft: 'none',
+                borderRight: 'none',
             },
         },
         hide: {

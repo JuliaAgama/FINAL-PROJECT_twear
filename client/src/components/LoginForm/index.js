@@ -5,9 +5,16 @@ import {Container} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
+import {openRegistrationModalAction} from "../../store/actions/modal";
+import {useDispatch} from "react-redux";
 
 export default function Login() {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const clickHandler = (event) => {
+        event.preventDefault();
+        dispatch(openRegistrationModalAction());
+    }
 
     return (
         <React.Fragment>
@@ -21,7 +28,10 @@ export default function Login() {
                             <Link href="someWhere" className={classes.link}>
                                 Forgot password?
                             </Link>
-                            <Link href="someWhere" className={classes.link}>
+                            <Link href="#"
+                                  className={classes.link}
+                                  onClick={clickHandler}
+                            >
                                 Registration
                             </Link>
                         </div>

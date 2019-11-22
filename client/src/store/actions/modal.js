@@ -1,9 +1,17 @@
 import * as MODAL from "../constants/modal";
 
-export function openModalAction() {
+export function openLoginModalAction() {
     return function (dispatch) {
         return dispatch({
-            type: MODAL.MODAL_OPEN
+            type: MODAL.MODAL_OPEN_LOGIN
+        });
+    };
+};
+
+export function openRegistrationModalAction() {
+    return function (dispatch) {
+        return dispatch({
+            type: MODAL.MODAL_OPEN_REGISTRATION
         });
     };
 };

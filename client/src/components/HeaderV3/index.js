@@ -16,7 +16,7 @@ import CategoriesMenu from "./CategoriesMenu";
 import Login from "./Login";
 import DropDownMenu from "./DropDownMenu";
 import {CategoryItems} from "./CategoryItems";
-
+import Modal from '../common/Modal'
 function HeaderV3() {
 
     const classes = useStyles();
@@ -81,6 +81,7 @@ function HeaderV3() {
                                 </Container>
                             </Container>
                         </Hidden>
+                        <Modal/>
                     </div>
                 </ClickAwayListener>
             </ThemeProvider>
