@@ -2,19 +2,29 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => (
 	{	
+		mainContainer:{
+			[theme.breakpoints.down('sm')]:{
+				padding: '0px',		
+			},
+		},
+
 		sectionContainer:{
 			padding: '0px',
 			margin: '100px 0px',
 		},
 
 		sectionGrid:{
-			marginTop: '40px'
+			marginTop: '40px',	
 		},
 
 		photoCardImage:{
 			height: '100%',
 			width: '100%',
 			padding: '0px',
+		},
+		cardContentImg:{
+			width: '100%',
+			height: '100%',
 		},
 
 		photoCardCaption:{
@@ -49,6 +59,16 @@ export default makeStyles(theme => (
 				display: 'flex',
 				justifyContent: 'center',
 			}
-		}
+		},
+		borderL:{
+			[theme.breakpoints.down('sm')]:{
+				borderLeft: 'none',		
+			},
+		},
+		borderR:{
+			[theme.breakpoints.down('sm')]:{
+				borderRight: 'none',	
+			},	
+		},
     }
 ));

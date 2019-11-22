@@ -2,10 +2,13 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import withWidth from '@material-ui/core/withWidth';
+import Container from "@material-ui/core/Container";
 import useStyles from './useStyles';
+import Paper from '@material-ui/core/Paper';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import Desktop from './Desktop'
-import Mobile from './Mobile'
+import ProductsSection from "./ProductsSection";
+import PhotosSection from "./PhotosSection";
+import SectionTicker from "../common/SectionTicker";
 
 const HomePage = () => {
 
@@ -22,20 +25,11 @@ const HomePage = () => {
     const theme = createMuiTheme({ breakpoints: { values: breakpointValues } });
 
     return (
-        <ThemeProvider theme={theme}>
-                <Grid container spacing={0}>
-                    <Hidden smDown>
-                        <Grid container item xs={12} spacing={0}>
-                            <Desktop/>
-                        </Grid>
-                    </Hidden>
-                    <Hidden mdUp>
-                        <Grid container item xs={12} spacing={0}>
-                            <Mobile/>
-                        </Grid>
-                    </Hidden>
-                </Grid>
-        </ThemeProvider>
+        <Container maxWidth={false} className={classes.mainContainer}>
+            <PhotosSection />
+            <ProductsSection />
+            <SectionTicker />
+        </Container>
     );
 }
 

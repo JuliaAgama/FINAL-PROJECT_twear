@@ -25,7 +25,7 @@ export const Router = () => (
 
     <React.Fragment>
         <CssBaseline />
-        <div className="container-fluid">
+        <div>
             <Switch>
                 <Route exact
                     path="/"
