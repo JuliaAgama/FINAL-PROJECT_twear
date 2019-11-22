@@ -32,7 +32,8 @@ export default makeStyles(theme => (
             padding: '0',
             margin: '0',
             marginTop: '40px',
-            border: '1px solid black',
+            borderTop: '1px solid black',
+            position: 'relative'
         },
         mobileMenuContainer: {
             display: 'flex',
@@ -40,6 +41,13 @@ export default makeStyles(theme => (
             width: '100%',
             padding: '0',
             margin: '0',
+            position: 'absolute',
+            top: '100px',
+            borderRight: '1px solid black',
+            borderLeft: '1px solid black',
+        },
+        hide: {
+            display: 'none'
         }
     }
 ));

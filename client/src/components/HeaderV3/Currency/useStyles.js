@@ -6,6 +6,7 @@ export default makeStyles(theme => (
             width: '100%',
             [theme.breakpoints.down('sm')]: {
                 width: '50%',
+                borderRight: '1px solid black'
             },
             padding: '16px 0',
             borderRadius: '0',
@@ -19,6 +20,7 @@ export default makeStyles(theme => (
             width: '100%',
             [theme.breakpoints.down('sm')]: {
                 width: '50%',
+                borderRight: '1px solid black'
             },
             padding: '10px 0 4px',
             borderRadius: '0',

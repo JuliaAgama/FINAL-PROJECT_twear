@@ -23,7 +23,9 @@ export default makeStyles(theme => (
                 textTransform: 'none',
                 fontSize: '16px',
                 fontWeight: '700',
-                justifyContent: 'start'
+                justifyContent: 'start',
+                border: '1px solid black',
+                borderTop: 'none'
             },
         },
         input: {

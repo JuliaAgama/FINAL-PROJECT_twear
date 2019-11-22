@@ -8,6 +8,7 @@ export default makeStyles(theme => (
                 width: '50px',
                 minWidth: '0',
                 padding: '12px 0',
+                borderRight: '1px solid black'
             },
             padding: '2px 0',
             borderRadius: '0',

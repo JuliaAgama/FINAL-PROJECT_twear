@@ -72,9 +72,10 @@ function HeaderV3() {
                                 <Logo/>
                                 <MiniCart/>
                                 <Search/>
-                                <Container maxWidth={false} className={classes.mobileMenuContainer}>
+                                <Container maxWidth={false} className={showMobileMenu ? classes.mobileMenuContainer : classes.hide}>
                                     <CategoriesMenu title='Women' border={true}/>
                                     <CategoriesMenu title='Men' isMen={true}/>
+                                    <CategoryItems mobile={true}/>
                                     <Currency/>
                                     <Login/>
                                 </Container>

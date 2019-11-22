@@ -28,7 +28,10 @@ export default makeStyles(theme => (
             padding: '15px 0',
             width: '100%',
             position: 'absolute',
-            top: '123px'
+            top: '123px',
+            [theme.breakpoints.down('sm')]: {
+               position: 'block'
+            },
         },
         hide: {
             display: 'none'

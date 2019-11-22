@@ -10,7 +10,10 @@ export default makeStyles(theme => (
             textTransform: 'none',
             fontSize: '16px',
             fontWeight: '700',
-            borderBottom: '1px solid black'
+            borderBottom: '1px solid black',
+            [theme.breakpoints.down('sm')]: {
+                padding: '16px 1px',
+            },
         },
         btnBorder: {
             borderRight: '1px solid black'
