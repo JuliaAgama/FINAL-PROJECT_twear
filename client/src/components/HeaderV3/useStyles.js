@@ -9,6 +9,7 @@ export default makeStyles(theme => (
             padding: '0',
             margin: '0',
             marginTop: '40px',
+            position: 'relative'
         },
         container: {
             display: 'flex',
@@ -33,5 +34,12 @@ export default makeStyles(theme => (
             marginTop: '40px',
             border: '1px solid black',
         },
+        mobileMenuContainer: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            width: '100%',
+            padding: '0',
+            margin: '0',
+        }
     }
 ));

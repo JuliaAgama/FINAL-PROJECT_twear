@@ -4,6 +4,9 @@ export default makeStyles(theme => (
     {
         btn: {
             width: '100%',
+            [theme.breakpoints.down('sm')]: {
+                width: '50%',
+            },
             padding: '16px 0',
             borderRadius: '0',
             outline: 'none!important',
@@ -14,6 +17,9 @@ export default makeStyles(theme => (
         },
         btnWithRadio: {
             width: '100%',
+            [theme.breakpoints.down('sm')]: {
+                width: '50%',
+            },
             padding: '10px 0 4px',
             borderRadius: '0',
             outline: 'none!important',

@@ -15,6 +15,7 @@ import Currency from "./Currency";
 import CategoriesMenu from "./CategoriesMenu";
 import Login from "./Login";
 import DropDownMenu from "./DropDownMenu";
+import {CategoryItems} from "./CategoryItems";
 
 function HeaderV3() {
 
@@ -47,31 +48,38 @@ function HeaderV3() {
             <ThemeProvider theme={theme}>
                 <ClickAwayListener onClickAway={handleClickAway}>
                     <div>
-                    <Hidden smDown>
-                        <Container maxWidth={false} className={classes.mainContainer}>
-                            <Container maxWidth={false} className={classes.container}>
-                                <Search/>
-                                <Currency/>
+                        <Hidden smDown>
+                            <Container maxWidth={false} className={classes.mainContainer}>
+                                <Container maxWidth={false} className={classes.container}>
+                                    <Search/>
+                                    <Currency/>
+                                </Container>
+                                <Container maxWidth={false} className={`${classes.container} ${classes.logoContainer}`}>
+                                    <Logo/>
+                                    <CategoriesMenu title='Women' border={true}/>
+                                    <CategoriesMenu title='Men' isMen={true}/>
+                                </Container>
+                                <Container maxWidth={false} className={classes.container}>
+                                    <MiniCart/>
+                                    <Login/>
+                                </Container>
+                                <CategoryItems/>
                             </Container>
-                            <Container maxWidth={false} className={`${classes.container} ${classes.logoContainer}`}>
+                        </Hidden>
+                        <Hidden mdUp>
+                            <Container maxWidth={false} className={classes.mainContainerMobile}>
+                                <DropDownMenu/>
                                 <Logo/>
-                                <CategoriesMenu title='Women' border={true}/>
-                                <CategoriesMenu title='Men'/>
-                            </Container>
-                            <Container maxWidth={false} className={classes.container}>
                                 <MiniCart/>
-                                <Login/>
+                                <Search/>
+                                <Container maxWidth={false} className={classes.mobileMenuContainer}>
+                                    <CategoriesMenu title='Women' border={true}/>
+                                    <CategoriesMenu title='Men' isMen={true}/>
+                                    <Currency/>
+                                    <Login/>
+                                </Container>
                             </Container>
-                        </Container>
-                    </Hidden>
-                    <Hidden mdUp>
-                        <Container maxWidth={false} className={classes.mainContainerMobile}>
-                            <DropDownMenu/>
-                            <Logo/>
-                            <MiniCart/>
-                            <Search/>
-                        </Container>
-                    </Hidden>
+                        </Hidden>
                     </div>
                 </ClickAwayListener>
             </ThemeProvider>
