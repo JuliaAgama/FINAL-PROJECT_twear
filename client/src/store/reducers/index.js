@@ -3,6 +3,10 @@ import { combineReducers } from 'redux';
 import topCats from './topCats';
 import topCatItem from './topCatItem';
 import categories from './categories';
+import customers from './customer';
+import header from './header';
+import modal from './modal';
+// import reducer2 from './reducer2';
 import categoryItem from './categoryItem';
 import genders from './genders';
 import genderItem from './genderItem';
@@ -17,8 +21,12 @@ import productItem from './productItem';
 
 export default combineReducers({
     topCats,
-    topCatItem,
     categories,
+    customers,
+    header,
+    modal,
+    // reducer2
+    topCatItem,
     categoryItem,
     genders,
     genderItem,
