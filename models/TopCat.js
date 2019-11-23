@@ -3,17 +3,16 @@ const Schema = mongoose.Schema;
 
 const TopCatSchema = new Schema(
     {
-        title: {
+        name: {
             type: String,
             required: true
         },
         img: {
             type: String,
-            required: true
         },
         date: {
             type: Date,
-            default: Date.now
+            default: Date.now()
         }
     },
     { strict: false }

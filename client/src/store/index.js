@@ -10,7 +10,7 @@ export function configureStore(initState) {
     const store = createStore(
         rootReducer,
         initState,
-        // applyMiddleware(logger, thunk),
+        // applyMiddleware(thunk, logger),
         composeWithDevTools(applyMiddleware(thunk, logger))
     );
     return store;

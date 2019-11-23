@@ -7,7 +7,7 @@ exports.addColor = (req, res, next) => {
     if (color) {
       return res
         .status(400)
-        .json({ message: `Color with name "${color.name}" already exists` });
+        .json({ message: `Color  with name "${color.name}" already exists` });
     } else {
       const initialQuery = _.cloneDeep(req.body);
       const newColor = new Color(queryCreator(initialQuery));
@@ -67,7 +67,7 @@ exports.deleteColor = (req, res, next) => {
       Color.deleteOne({ _id: req.params.id })
         .then(deletedCount =>
           res.status(200).json({
-            message: `Color witn name "${colorToDelete.name}" is successfully deletes from DB `
+            message: `Color "${colorToDelete.name.toUpperCase()}"  witn id "${colorToDelete._id}" is successfully deleted from DB `
           })
         )
         .catch(err =>
@@ -82,6 +82,24 @@ exports.deleteColor = (req, res, next) => {
 exports.getColors = (req, res, next) => {
   Color.find()
     .then(colors => res.json(colors))
+    .catch(err =>
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      })
+    );
+};
+
+exports.getColor = (req, res, next) => {
+  Color.findOne({ _id: req.params.id })
+    .then(color => {
+      if (!color) {
+        return res.status(400).json({
+          message: `Color with id "${req.params.id}" is not found.`
+        });
+      } else {
+        res.status(200).json(color);
+      }
+    })
     .catch(err =>
       res.status(400).json({
         message: `Error happened on server: "${err}" `

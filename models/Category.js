@@ -1,34 +1,43 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const CatalogSchema = new Schema(
+const CategorySchema = new Schema(
     {
-        id: {
-            type: String,
-            required: true
+        itemNo: {
+            type: String
         },
-        title: {
+        name: {
             type: String,
             required: true
         },
         topCategory: {
             type: Schema.Types.ObjectId,
-            ref: 'TopCat'
+            ref: 'topCats'
         },
-        sizesGrid: {
-            type: Schema.Types.ObjectId,
-            ref: 'Size'
-        },
+        genders: [
+            {
+                gender:
+                    {
+                        type: Schema.Types.ObjectId,
+                        ref: "genders",
+                        // required: true
+                    }
+            }
+        ],
         img: {
             type: String,
-            required: true
         },
         date: {
             type: Date,
-            default: Date.now
+            default: Date.now()
         }
     },
     { strict: false }
 );
 
-module.exports = Catalog = mongoose.model("categories", CatalogSchema, "categories");
+CategorySchema.index({ "$**": "text" });
+
+module.exports = Category = mongoose.model(
+    "categories",
+    CategorySchema,
+    "categories");

@@ -13,6 +13,10 @@ exports.addSize = (req, res, next) => {
       const newSize = new Size(queryCreator(initialQuery));
 
       newSize
+      .populate("sizeType")
+      .execPopulate();
+
+      newSize
         .save()
         .then(size => res.json(size))
         .catch(err =>
@@ -40,6 +44,7 @@ exports.updateSize = (req, res, next) => {
           { $set: updatedSize },
           { new: true }
         )
+        .populate("sizeType")
           .then(size => res.json(size))
           .catch(err =>
             res.status(400).json({
@@ -67,7 +72,7 @@ exports.deleteSize = (req, res, next) => {
       Size.deleteOne({ _id: req.params.id })
         .then(deletedCount =>
           res.status(200).json({
-            message: `Size witn name "${sizeToDelete.name}" is successfully deletes from DB `
+            message: `Size witn name "${sizeToDelete.name}" is successfully deleted from DB `
           })
         )
         .catch(err =>
@@ -87,4 +92,34 @@ exports.getSizes = (req, res, next) => {
         message: `Error happened on server: "${err}" `
       })
     );
+};
+
+exports.getSize = (req, res, next) => {
+  Size.findOne({_id: req.params.id })
+    .then(size => {
+      if (!size) {
+        return res.status(400).json({
+          message: `Size with id "${req.params.id}" is not found.`
+        });
+      } else {
+        res.status(200).json(size);
+      }
+    })
+    .catch(err =>
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      })
+    );
+};
+
+exports.matchSizesByObject = async (req, res, next) => {
+  try {
+    const sizesMatchTopCat = await Size.find(req.body);
+    const sizes = [...sizesMatchTopCat];
+    res.json(sizes);
+  } catch (err) {
+    res.status(400).json({
+      message: `Error happened on server: "${err}" `
+    });
+  }
 };

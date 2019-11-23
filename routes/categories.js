@@ -8,7 +8,9 @@ const {
   updateCategory,
   deleteCategory,
   getCategories,
-  getCategory
+  getCategory,
+  searchCategories,
+  matchCategoriesByObject
 } = require("../controllers/categories");
 
 // @route   POST /categories
@@ -16,7 +18,7 @@ const {
 // @access  Private
 router.post(
   "/",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   addCategory
 );
 
@@ -25,7 +27,7 @@ router.post(
 // @access  Private
 router.put(
   "/:id",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   updateCategory
 );
 
@@ -34,7 +36,7 @@ router.put(
 // @access  Private
 router.delete(
   "/:id",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   deleteCategory
 );
 
@@ -42,6 +44,16 @@ router.delete(
 // @desc    GET existing categories
 // @access  Public
 router.get("/", getCategories);
+
+// @route   POST /categories/search
+// @desc    POST appropriate to search query categories
+// @access  Public
+router.post("/search", searchCategories);
+
+// @route   POST /categories/match
+// @desc    POST appropriate categories that contain matching objects
+// @access  Public
+router.post("/match", matchCategoriesByObject);
 
 // @route   GET /categories/:id
 // @desc    GET existing categorie

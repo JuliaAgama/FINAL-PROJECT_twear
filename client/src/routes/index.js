@@ -2,15 +2,24 @@ import React from 'react';
 import { CssBaseline } from '@material-ui/core';
 
 import {Switch, Route} from 'react-router-dom';
+// import PrivateAdminRoute from './PrivateAdmin';
 
-import HeaderV3 from '../components/HeaderV3';
 import NotFound from '../components/NotFound';
+
+import LayoutMain from '../components/common/layouts/LayoutMain';
 import LayoutAdmin from '../components/common/layouts/LayoutAdmin';
+
+import HomePage from '../components/HomePage';
+import TopCatPage from '../components/TopCatPage';
+import CategoryPage from '../components/CategoryPage';
+import ProductPage from '../components/ProductPage';
 
 import AdminLoginPage from '../components/AdminLoginPage';
 import AdminPage from '../components/AdminPage';
 import AdminCategories from '../components/AdminPage/AdminCategories';
-import EditNewCategory from '../components/AdminPage/AdminCategories/EditNewCategory';
+import EditNewCategory from '../components/AdminPage/AdminCategories/EditNew';
+import AdminOptions from '../components/AdminPage/AdminOptions';
+
 
 export const Router = () => (
 
@@ -19,13 +28,21 @@ export const Router = () => (
         <div className="container-fluid">
             <Switch>
                 <Route exact
-                       path="/"
-                       component={HeaderV3}/>
+                    path="/"
+                    component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
+                <Route exact
+                    path="/top-categories/:topCat?"
+                    component={props => <LayoutMain {...props}><TopCatPage/></LayoutMain>}/>
+                <Route exact
+                    path="/categories/:category?"
+                    component={props => <LayoutMain {...props}><CategoryPage/></LayoutMain>}/>
+                <Route exact
+                    path="/products/:product?"
+                    component={props => <LayoutMain {...props}><ProductPage/></LayoutMain>}/>
 
                 <Route exact
                     path="/admin/login"
                     component={AdminLoginPage}/>
-
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin"
@@ -38,6 +55,14 @@ export const Router = () => (
                 //<PrivateAdminRoute exact
                     path="/admin/categories/:categoryName?"
                     component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
+                <Route exact
+                //<PrivateAdminRoute exact
+                    path="/admin/categories/top/:topCatName?"
+                    component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
+                <Route exact
+                //<PrivateAdminRoute exact
+                    path="/admin/options"
+                    component={props => <LayoutAdmin {...props}><AdminOptions/></LayoutAdmin>}/>
 
                 <Route path="*" component={NotFound}/>
             </Switch>

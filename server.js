@@ -14,6 +14,7 @@ const genders = require("./routes/genders");
 const topCats = require("./routes/topCats");
 const colors = require("./routes/colors");
 const sizes = require("./routes/sizes");
+const sizeTypes = require("./routes/sizeTypes");
 const filters = require("./routes/filters");
 const subscribers = require("./routes/subscribers");
 const cart = require("./routes/cart");
@@ -39,7 +40,7 @@ const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(db, { useNewUrlParser: true, useFindAndModify: false })
+  .connect(db, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true})
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
@@ -59,6 +60,7 @@ app.use("/genders", genders);
 app.use("/top-categories", topCats);
 app.use("/colors", colors);
 app.use("/sizes", sizes);
+app.use("/size-types", sizeTypes);
 app.use("/filters", filters);
 app.use("/subscribers", subscribers);
 app.use("/cart", cart);

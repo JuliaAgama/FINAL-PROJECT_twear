@@ -1,10 +1,6 @@
 import axios from 'axios';
 
 export default class Base {
-    constructor() {
-        this.url = 'http://localhost:5000'; // localhost
-        //    this.url = 'https://https://twear.herokuapp.com/api'; // heroku
-    }
 
     static getToken(){
         return localStorage.getItem('token');
@@ -20,7 +16,7 @@ export default class Base {
     };
 
     getUrl(path) {
-        return `${this.url}/${path}`;
+        return `/${path}`;
     }
 
     get(url) {
@@ -43,4 +39,4 @@ export default class Base {
         Base.setAuthToken();
         return axios.delete(this.getUrl(url));
     }
-}
+};

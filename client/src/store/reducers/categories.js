@@ -39,7 +39,7 @@ const initState = {
         {id: '17', title: 'AW19 LOOKBOOK', url: '/somewhere'},
     ],
     loaded: false,
-    isAdded: false
+    error: null,
 };
 
 
@@ -55,6 +55,14 @@ export default function (state = initState, action) {
                 }
             };
 
+        case CATEGORIES.CATEGORIES_RESPONSE_FAILED:
+            return {
+                ...state,
+                ...{
+                    error : action.error
+                }
+            };
+
         case CATEGORIES.CATEGORIES_GET_ALL_CATEGORIES:
             return {
                 ...state,
@@ -64,18 +72,26 @@ export default function (state = initState, action) {
                 }
             };
 
+            case CATEGORIES.CATEGORIES_GET_CATEGORIES_BY_SEARCH:
+                return {
+                    ...state,
+                    ...{
+                        categories: action.data,
+                        loaded: true
+                    }
+                };
+
         case CATEGORIES.CATEGORIES_ADD_CATEGORY:
             return {
                 ...state,
                 ...{
                     categories : [...state.categories, ...[action.data]],
-                    loaded : true,
-                    isAdded: true
+                    loaded : true
                 }
             };
 
-            case CATEGORIES.CATEGORIES_UPDATE_CATEGORY_BY_ID:
-            let updatedCategories = state.CATEGORIES.map(el => {
+            case CATEGORIES.CATEGORIES_UPDATE_CATEGORY:
+            let updatedCategories = state.categories.map(el => {
                 if(el._id === action.data._id){
                     return action.data
                 }
@@ -89,7 +105,7 @@ export default function (state = initState, action) {
                 }
             };
 
-            case CATEGORIES.CATEGORIES_DELETE_CATEGORY_BY_ID:
+            case CATEGORIES.CATEGORIES_DELETE_CATEGORY:
             let updated = state.categories.filter(el => {
                 return el._id !== action.data._id
             });

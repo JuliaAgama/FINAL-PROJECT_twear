@@ -5,7 +5,7 @@ import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
 
-import ManageTopCategories from './ManageTopCategories';
+import ManageTopCategories from './TopCats';
 
 
 export default withWidth()(props => {
@@ -15,7 +15,7 @@ export default withWidth()(props => {
     return (
         <div className={classes.root}>
             <div className={classes.header}>
-                <Hidden smDown>
+                <Hidden >
                     <h3>CATEGORIES</h3>
                 </Hidden>
             </div>

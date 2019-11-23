@@ -10,7 +10,13 @@ export default props => {
     const classes = useStyles();
 
     return (
-        <Fab variant="extended" aria-label="add" color="secondary" className={classes.fab}>
+        <Fab
+            className={classes[props.className] || classes.fabPink}
+            color={props.color || "primary"}
+            variant="extended"
+            aria-label="add"
+            onClick={props.onClick}
+        >
             <AddIcon className={classes.wideIcon} aria-label="add"></AddIcon>
             <span> {props.text} </span>
         </Fab>

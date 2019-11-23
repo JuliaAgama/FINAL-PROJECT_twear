@@ -1,8 +1,11 @@
-export const OPTIONS_SEND_REQUEST = 'options_send_request';
+export const OPTIONS_SEND_REQUEST = 'OPTIONS_SEND_REQUEST';
+export const OPTION_SEND_REQUEST = 'OPTION_SEND_REQUEST';
+export const OPTIONS_RESPONSE_FAILED = "OPTIONS_RESPONSE_FAILED";
+export const OPTION_RESPONSE_FAILED = "OPTION_RESPONSE_FAILED";
 
-export const OPTIONS_GET_ALL_OPTIONS = 'options_get_all_options';
-export const OPTIONS_ADD_OPTION = 'options_add_option';
+export const OPTIONS_GET_ALL_OPTIONS = 'OPTIONS_GET_ALL_OPTIONS';
+export const OPTIONS_ADD_OPTION = 'OPTIONS_ADD_OPTION';
+export const OPTIONS_UPDATE_OPTION = 'OPTIONS_UPDATE_OPTION';
+export const OPTIONS_DELETE_OPTION = 'OPTIONS_DELETE_OPTION';
 
-export const OPTIONS_GET_OPTION_BY_ID = 'options_get_option_by_id';
-export const OPTIONS_UPDATE_OPTION_BY_ID = 'options_update_option_by_id';
-export const OPTIONS_DELETE_OPTION_BY_ID = 'options_delete_option_by_id';
+export const OPTION_GET_OPTION_ITEM = 'OPTION_GET_OPTION_ITEM';
