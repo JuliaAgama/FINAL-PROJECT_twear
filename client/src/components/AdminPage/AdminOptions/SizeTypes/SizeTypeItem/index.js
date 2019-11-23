@@ -17,7 +17,7 @@ import Sizes from './Sizes';
 
 export default props => {
     const classes = useStyles();
-    const {item, handleNotification, getUpdatedSizeTypesList} = props;
+    const {item, handleNotification, getSizeTypesList} = props;
     const sizeTypesList = useSelector(state => state.sizeTypes.sizeTypes)
 
     const [formData, setFormData] = useState({_id: '', name: ''});
@@ -50,9 +50,9 @@ export default props => {
     const saveSizeType = event => {
         event.preventDefault();
         if( !checkDoubles()) {
-            (new SizeTypesApi()).getUpdatedSizeTypesList(formData).then(res => {
+            (new SizeTypesApi()).updateSizeType(formData).then(res => {
                 handleNotification(formData.name, 'saved');
-                getUpdatedSizeTypesList();
+                getSizeTypesList();
             })
         }
     };
@@ -96,7 +96,7 @@ export default props => {
         (new SizeTypesApi()).deleteSizeType(formData).then(res => {
             setConfirmIsOpen(false);
             handleNotification(formData.name, 'deleted');
-            getUpdatedSizeTypesList();
+            getSizeTypesList();
         })
     };
 

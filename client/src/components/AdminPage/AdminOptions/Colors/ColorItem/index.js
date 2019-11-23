@@ -16,7 +16,7 @@ import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
 export default props => {
     const classes = useStyles();
-    const {item, handleNotification, getUpdatedColorsList} = props;
+    const {item, handleNotification, getColorsList} = props;
     const colorsList = useSelector(state => state.colors.colors)
 
     const [color, setColor] = useState(item.cssValue);
@@ -60,7 +60,7 @@ export default props => {
         if( !checkDoubles()) {
             (new ColorsApi()).updateColor(formData).then(res => {
                 handleNotification(formData.name, 'saved');
-                getUpdatedColorsList();
+                getColorsList();
             })
         }
     };
@@ -100,7 +100,7 @@ export default props => {
         (new ColorsApi()).deleteColor(formData).then(res => {
             setConfirmIsOpen(false);
             handleNotification(formData.name, 'deleted');
-            getUpdatedColorsList();
+            getColorsList();
         });
     };
 

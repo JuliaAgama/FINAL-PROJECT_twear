@@ -18,10 +18,15 @@ export default () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
+        const abortController = new AbortController();
         colorsActions.getAllColors()(dispatch);
+
+        return function cleanup() {
+            abortController.abort();
+        };
     }, [dispatch]);
 
-    const getUpdatedColorsList = () => {
+    const getColorsList = () => {
         colorsActions.getAllColors()(dispatch);
     };
 
@@ -40,7 +45,6 @@ export default () => {
         description: `Request to server failed`,
         button: 'TRY AGAIN'
     };
-    const reloadPage = () => window.location.reload(true);
     const closeErrorModal = () => setErrorIsOpen(false);
 
     // notification after saving or deleting item:
@@ -70,7 +74,7 @@ export default () => {
                                     item={item}
                                     key={item._id}
                                     handleNotification={handleNotification}
-                                    getUpdatedColorsList={getUpdatedColorsList}
+                                    getColorsList={getColorsList}
                                 />
                                 )
                         }
@@ -92,7 +96,7 @@ export default () => {
 
         }
         <Notification timeout={timeout} children={add => (ref.current = add)} />
-        <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={reloadPage} closeFunction={closeErrorModal}/>
+        <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={getColorsList} closeFunction={closeErrorModal}/>
         </>
     )
 };

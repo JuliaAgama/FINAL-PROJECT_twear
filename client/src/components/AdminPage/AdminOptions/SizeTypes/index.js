@@ -18,10 +18,15 @@ export default () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
+        const abortController = new AbortController();
         sizeTypesActions.getAllSizeTypes()(dispatch);
+
+        return function cleanup() {
+            abortController.abort();
+        };
     }, [dispatch]);
 
-    const getUpdatedSizeTypesList = () => {
+    const getSizeTypesList = () => {
         sizeTypesActions.getAllSizeTypes()(dispatch);
     };
 
@@ -40,7 +45,6 @@ export default () => {
         description: `Request to server failed`,
         button: 'TRY AGAIN'
     };
-    const reloadPage = () => window.location.reload(true);
     const closeErrorModal = () => setErrorIsOpen(false);
 
     // notification after saving or deleting item:
@@ -75,7 +79,7 @@ export default () => {
                                     item={item}
                                     key={item._id}
                                     handleNotification={handleNotification}
-                                    getUpdatedSizeTypesList={getUpdatedSizeTypesList}
+                                    getSizeTypesList={getSizeTypesList}
                                 />
                                 )
                         }
@@ -97,7 +101,7 @@ export default () => {
 
         }
         <Notification timeout={timeout} children={add => (ref.current = add)} />
-        <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={reloadPage} closeFunction={closeErrorModal}/>
+        <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={getSizeTypesList} closeFunction={closeErrorModal}/>
         </>
     )
 };

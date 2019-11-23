@@ -22,10 +22,15 @@ export default props => {
 
     const dispatch = useDispatch();
     useEffect(() => {
+        const abortController = new AbortController();
         sizesActions.getAllSizes()(dispatch);
+
+        return function cleanup() {
+            abortController.abort();
+        };
     }, [dispatch]);
 
-    const getUpdatedSizesList = () => {
+    const getSizesList = () => {
         sizesActions.getAllSizes()(dispatch);
     };
 
@@ -44,7 +49,6 @@ export default props => {
         description: `Request to server failed`,
         button: 'TRY AGAIN'
     };
-    const reloadPage = () => window.location.reload(true);
     const closeErrorModal = () => setErrorIsOpen(false);
 
     // notification after saving or deleting item:
@@ -74,7 +78,7 @@ export default props => {
                                     item={item}
                                     key={item._id}
                                     handleNotification={handleNotification}
-                                    getUpdatedSizesList={getUpdatedSizesList}
+                                    getSizesList={getSizesList}
                                 /> :
                                 <div key={Math.random()}></div>
                                 )
@@ -97,7 +101,7 @@ export default props => {
 
         }
         <Notification timeout={timeout} children={add => (ref.current = add)} />
-        <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={reloadPage} closeFunction={closeErrorModal}/>
+        <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={getSizesList} closeFunction={closeErrorModal}/>
         </>
     )
 };

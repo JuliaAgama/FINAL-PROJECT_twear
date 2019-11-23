@@ -15,7 +15,7 @@ import ConfirmModal from '../../../../../../common/messages/ConfirmModal';
 
 export default props => {
     const classes = useStyles();
-    const {item, handleNotification, getUpdatedSizesList} = props;
+    const {item, handleNotification, getSizesList} = props;
     const sizesList = useSelector(state => state.sizes.sizes);
 
     const [formData, setFormData] = useState({_id: '', name: ''});
@@ -50,7 +50,7 @@ export default props => {
         if( !checkDoubles()) {
             (new SizesApi()).updateSize(formData).then(res => {
                 handleNotification(formData.name, 'saved');
-                getUpdatedSizesList();
+                getSizesList();
             })
         }
     };
@@ -94,7 +94,7 @@ export default props => {
         (new SizesApi()).deleteSize(formData).then(res => {
             setConfirmIsOpen(false);
             handleNotification(formData.name, 'deleted');
-            getUpdatedSizesList();
+            getSizesList();
         })
     };
 
