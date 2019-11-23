@@ -127,14 +127,12 @@ exports.getProducts = (req, res, next) => {
     );
 };
 
-exports.getProductById = (req, res, next) => {
-  Product.findOne({
-    itemNo: req.params.itemNo
-  })
+exports.getProduct = (req, res, next) => {
+  Product.findOne({ _id: req.params.id })
     .then(product => {
       if (!product) {
         res.status(400).json({
-          message: `Product with itemNo ${req.params.itemNo} is not found`
+          message: `Product with id ${req.params.id} is not found`
         });
       } else {
         res.json(product);
@@ -176,11 +174,11 @@ exports.searchProducts = async (req, res, next) => {
 
   //Taking the entered value from client in lower-case and trimed
   let query = req.body.query
-    .toLowerCase()
+  .toLowerCase()
     .trim()
     .replace(/\s\s+/g, " ");
 
-  // Creating the array of key-words from taken string
+    // Creating the array of key-words from taken string
   let queryArr = query.split(" ");
 
   // Finding ALL products, that have at least one match
@@ -190,3 +188,19 @@ exports.searchProducts = async (req, res, next) => {
 
   res.send(matchedProducts);
 };
+
+  exports.matchProductsByObject = async (req, res, next) => {
+    try {
+      const productsMatchCategory = await Product.find({categories: {$elemMatch: req.body}});
+      const productsMatchColor = await Product.find({colors: {$elemMatch: req.body}});
+      const productsMatchGender = await Product.find({genders: {$elemMatch: req.body}});
+      const productsMatchSize = await Product.find({'colors.sizes.size': req.body.size});
+
+      const products = [...productsMatchCategory, ...productsMatchColor, ...productsMatchGender, ...productsMatchSize];
+      res.json(products);
+    } catch (err) {
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      });
+    }
+  };

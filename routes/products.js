@@ -10,9 +10,10 @@ const {
   addProduct,
   updateProduct,
   getProducts,
-  getProductById,
+  getProduct,
   getProductsFilterParams,
-  searchProducts
+  searchProducts,
+  matchProductsByObject
 } = require("../controllers/products");
 
 // Configurations for multer
@@ -94,9 +95,14 @@ router.get("/filter", getProductsFilterParams);
 // @access  Public
 router.post("/search", searchProducts);
 
+// @route   POST /products/match
+// @desc    POST appropriate products that contain matching objects
+// @access  Public
+router.post("/match", matchProductsByObject);
+
 // @route   GET /products/:id
 // @desc    GET existing product by id
 // @access  Public
-router.get("/:itemNo", getProductById);
+router.get("/:id", getProduct);
 
 module.exports = router;

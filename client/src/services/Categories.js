@@ -8,6 +8,18 @@ export default class Categories extends Base {
         // .catch(err => err.response.data);
     }
 
+    getCategoriesBySearch(searchValue) {
+        return super.post(`categories/search`, {query: searchValue})
+        .then(res => res.data)
+        // .catch(err => err.response.data);
+    }
+
+    getCategoriesByMatch(item) {
+        return super.post(`categories/match`, item)
+        .then(res => res.data)
+        // .catch(err => err.response.data);
+    }
+
     getCategoryById(id) {
         return super.get(`categories/${id}`)
         .then(res => res.data)

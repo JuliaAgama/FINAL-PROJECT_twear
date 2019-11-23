@@ -113,3 +113,38 @@ exports.getCategory = (req, res, next) => {
       })
     );
 };
+
+exports.searchCategories = async (req, res, next) => {
+  if (!req.body.query) {
+    res.status(400).json({ message: "Query string is empty" });
+  }
+
+  //Taking the entered value from client in lower-case and trimed
+  let query = req.body.query
+    .toLowerCase()
+    .trim()
+    .replace(/\s\s+/g, " ");
+
+  // Creating the array of key-words from taken string
+  let queryArr = query.split(" ");
+
+  // Finding ALL categories, that have at least one match
+  let matchedCategories = await Category.find({
+    $text: { $search: query }
+  });
+
+  res.send(matchedCategories);
+};
+
+exports.matchCategoriesByObject = async (req, res, next) => {
+  try {
+    const categoriesMatchTopCat = await Category.find(req.body);
+    const categoriesMatchGender = await Category.find({genders: {$elemMatch: req.body}});
+    const categories = [...categoriesMatchTopCat, ...categoriesMatchGender];
+    res.json(categories);
+  } catch (err) {
+    res.status(400).json({
+      message: `Error happened on server: "${err}" `
+    });
+  }
+};

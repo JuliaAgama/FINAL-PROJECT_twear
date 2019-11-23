@@ -2,7 +2,8 @@ import * as COLORS from '../constants/colors';
 
 const initState = {
     colors: [],
-    loaded: false
+    loaded: false,
+    error: null
 };
 
 export default function (state = initState, action) {
@@ -16,6 +17,14 @@ export default function (state = initState, action) {
                     loaded : false
                 }
             };
+
+            case COLORS.COLORS_RESPONSE_FAILED:
+                return {
+                    ...state,
+                    ...{
+                        error : action.error
+                    }
+                };
 
         case COLORS.COLORS_GET_ALL_COLORS:
             return {

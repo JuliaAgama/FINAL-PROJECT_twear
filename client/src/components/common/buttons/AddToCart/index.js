@@ -11,7 +11,7 @@ export default props => {
     const classes = useStyles();
     return (
         <IconButton
-            size={props.size || "large"}
+            size={props.size || "medium"}
             className={classes[props.className] || classes.fabBlue}
             color={props.color || "primary"}
             aria-label="add to shopping cart"

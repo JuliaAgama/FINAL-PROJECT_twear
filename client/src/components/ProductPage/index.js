@@ -95,7 +95,7 @@ export default () => {
                     <div className="product-price">
                         <h3> 2500 uah</h3>
                     </div>
-                    <AddToCartButton/>
+                    <AddToCartButton size='medium' />
 
                 </div>
                 <div className="col-12 col-md-6 col-lg-8">

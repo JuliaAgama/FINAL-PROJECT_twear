@@ -70,8 +70,9 @@ export default () => {
                 {/* <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar> */}
+                
                 <Typography component="h1" variant="h5" className={classes.header}>
-                Sign in to Admin
+                Log in to Admin
                 </Typography>
 
                 <form

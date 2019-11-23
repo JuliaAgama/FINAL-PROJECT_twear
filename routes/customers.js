@@ -17,7 +17,7 @@ const {
 router.post("/", createCustomer);
 
 // @route   POST /customers/login
-// @desc    Login Customer / Returning JWT Token
+// @desc    LoginForm Customer / Returning JWT Token
 // @access  Public
 router.post("/login", loginCustomer);
 

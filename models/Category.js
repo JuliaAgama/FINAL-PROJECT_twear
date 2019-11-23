@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const CatalogSchema = new Schema(
+const CategorySchema = new Schema(
     {
         itemNo: {
             type: String
@@ -16,9 +16,12 @@ const CatalogSchema = new Schema(
         },
         genders: [
             {
-                type: Schema.Types.ObjectId,
-                ref: "genders",
-                // required: true
+                gender:
+                    {
+                        type: Schema.Types.ObjectId,
+                        ref: "genders",
+                        // required: true
+                    }
             }
         ],
         img: {
@@ -32,4 +35,9 @@ const CatalogSchema = new Schema(
     { strict: false }
 );
 
-module.exports = Catalog = mongoose.model("categories", CatalogSchema, "categories");
+CategorySchema.index({ "$**": "text" });
+
+module.exports = Category = mongoose.model(
+    "categories",
+    CategorySchema,
+    "categories");

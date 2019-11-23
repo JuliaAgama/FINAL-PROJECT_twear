@@ -19,11 +19,11 @@ const getModalStyle = () => {
 
 export default props => {
     const classes = useStyles();
-    const {openModal, modalText, doFunction, closeFunction} = props;
+    const {modalIsOpen = false, modalText = {title: '', description: '' }, doFunction = () => {}, closeFunction = ()=>{}} = props;
     const [modalStyle] = useState(getModalStyle);
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
-    useEffect(() => {setOpen(openModal)},[openModal]);
+    useEffect(() => {setIsOpen(modalIsOpen)},[modalIsOpen]);
 
     const handleClose = () => closeFunction();
 
@@ -31,14 +31,14 @@ export default props => {
         <>
             <div>
                 <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    open={open}
+                    aria-labelledby="simple-modal-confirm"
+                    aria-describedby="simple-modal-confirm-message"
+                    open={isOpen}
                     onClose={handleClose}
                 >
                     <div style={modalStyle} className={classes.paper}>
-                        <h2 id="simple-modal-title">{modalText.title}</h2>
-                        <p id="simple-modal-description">{modalText.description}</p>
+                        <h2 id="simple-modal-confirm">{modalText.title}</h2>
+                        <p id="simple-modal-confirm-message">{modalText.description}</p>
                         <Grid container>
                             <Grid item xs={6}>
                                 <button type="button" onClick={doFunction}>{modalText.buttonYes}</button>

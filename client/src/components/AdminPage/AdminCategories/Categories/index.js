@@ -22,37 +22,37 @@ export default props => {
     const {topCatId} = props;
 
     const dispatch = useDispatch();
-    const categoriesList = useSelector(state => state.categories.categories);
-    const categoriesLoaded = useSelector(state => state.categories.loaded);
-    const categoriesError = useSelector(state => state.categories.error);
-
-    const [openError, setOpenError] = useState(false);
-
     useEffect(() => {
         categoriesActions.getAllCategories()(dispatch);
     }, [dispatch]);
 
-    useEffect(() => {
-        if(categoriesError) {setOpenError(true)}
-    },[categoriesError]);
+    const getUpdatedCategoriesList = () => {
+        categoriesActions.getAllCategories()(dispatch);
+    };
 
-    const modalText = {
+    const categoriesList = useSelector(state => state.categories.categories);
+    const categoriesLoaded = useSelector(state => state.categories.loaded);
+
+    //server errors catching:
+    const categoriesError = useSelector(state => state.categories.error);
+    const [errorIsOpen, setErrorIsOpen] = useState(false);
+    useEffect(() => {
+        if(categoriesError) {setErrorIsOpen(true)}
+    },[categoriesError]
+    );
+    const errorModalText = {
         title: `NO RESPONSE FROM SERVER`,
         description: `Request to server failed`,
         button: 'TRY AGAIN'
     };
-
     const reloadPage = () => window.location.reload(true);
-    const closeModal = () => setOpenError(false);
+    const closeErrorModal = () => setErrorIsOpen(false);
 
+    // notification after deleting item:
     const ref = useRef(null);
     const timeout = 2000;
-
     const handleNotification = (itemName) => {
         ref.current(`Category ${itemName.toUpperCase()} has been deleted from database!`);
-        setTimeout(() => {
-            window.location.reload(true)
-        }, timeout)
     };
 
     const classes = useStyles();
@@ -63,11 +63,16 @@ export default props => {
             !categoriesLoaded ?
                 <Spinner/> :
                 (
-                <Box color="primary.main">
+                <Box >
                     <List className={classes.root}>
                         {categoriesList
                             .map(item => item.topCategory === topCatId ?
-                                <CategoryItem item={item} key={item._id} handleNotification={handleNotification}/> :
+                                <CategoryItem
+                                    item={item}
+                                    key={item._id}
+                                    handleNotification={handleNotification}
+                                    getUpdatedCategoriesList={getUpdatedCategoriesList}
+                                /> :
                                 <div key={Math.random()}></div>
                             )
                         }
@@ -82,7 +87,7 @@ export default props => {
                 )
         }
         <Notification timeout={timeout} children={add => (ref.current = add)} />
-        <ErrorModal openModal={openError} modalText={modalText} doFunction={reloadPage} closeFunction={closeModal}/>
+        <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={reloadPage} closeFunction={closeErrorModal}/>
         </>
     )
 };

@@ -7,7 +7,9 @@ const {
   addSize,
   updateSize,
   deleteSize,
-  getSizes
+  getSizes,
+  matchSizesByObject,
+  getSize
 } = require("../controllers/sizes");
 
 // @route   POST /sizes
@@ -33,7 +35,7 @@ router.put(
 // @access  Private
 router.delete(
   "/:id",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   deleteSize
 );
 
@@ -41,5 +43,15 @@ router.delete(
 // @desc    GET existing sizes
 // @access  Public
 router.get("/", getSizes);
+
+// @route   POST /sizes/match
+// @desc    POST appropriate sizes that contain matching objects
+// @access  Public
+router.post("/match", matchSizesByObject);
+
+// @route   GET /sizes/:id
+// @desc    GET existing size
+// @access  Public
+router.get("/:id", getSize);
 
 module.exports = router;

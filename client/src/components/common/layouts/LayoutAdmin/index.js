@@ -27,10 +27,12 @@ export default props => {
     return (
         <>
         <Grid container component="main" className={classes.root}>
-            <Grid item xs={12} md={4} lg={3} component={Paper} elevation={6} square>
+            <Grid item xs={12} md={4} lg={3}>
                 <div className={classes.paper}>
-                    <Link href="/admin" className={classes.logo}>
-                        <img className="img-fluid" src="/img/twear_logo_grey-on-transparent-SQUARE.png" alt="NOT FOUND"/>
+                    <Link href="/admin" >
+                        <div className={classes.logo}>
+                            <img className={classes.image}  src="/img/twear_logo_grey-on-transparent-SQUARE.png" alt="NOT FOUND"/>
+                        </div>
                     </Link>
                     <h3>admin panel</h3>
                     <AdminSideBar
@@ -40,7 +42,7 @@ export default props => {
                 </div>
             </Grid>
 
-            <Grid item xs={12} md={8} lf={9}>
+            <Grid item xs={12} md={8} lg={9}>
                 <div className="main-content">{props.children}</div>
             </Grid>
         </Grid>

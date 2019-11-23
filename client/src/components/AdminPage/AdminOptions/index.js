@@ -16,17 +16,17 @@ import useStyles from './useStyles';
 
 import Notification from '../../common/messages/Notification';
 import Colors from './Colors';
-import Sizes from './Sizes';
+import SizeTypes from './SizeTypes';
 
 
 export default withWidth()(props => {
     const classes = useStyles();
     const optionsList = [
         {name: 'colors'},
-        {name: 'sizes'}
+        {name: 'sizeTypes'}
     ];
 
-    const [expanded, setExpanded] = useState({colors: false, sizes: false});
+    const [expanded, setExpanded] = useState({colors: false, sizeTypes: false});
     const handleExpandClick = itemName => setExpanded({...expanded, [itemName]: (expanded[itemName] === true ? false : true)});
 
     const ref = useRef(null);
@@ -76,8 +76,8 @@ export default withWidth()(props => {
                                     {el.name === 'colors' ?
                                         <Colors handleNotification={handleNotification}/> : <></>
                                     }
-                                    {el.name === 'sizes' ?
-                                        <Sizes handleNotification={handleNotification}/> : <></>
+                                    {el.name === 'sizeTypes' ?
+                                        <SizeTypes handleNotification={handleNotification}/> : <></>
                                     }
                                 </div>
                             </Collapse>

@@ -2,7 +2,8 @@ import * as GENDERS from '../constants/genders';
 
 const initState = {
     genderItem: {},
-    loaded: false
+    loaded: false,
+    error: null
 };
 
 export default function (state = initState, action) {
@@ -16,6 +17,14 @@ export default function (state = initState, action) {
                     loaded : false
                 }
             };
+
+            case GENDERS.GENDER_RESPONSE_FAILED:
+                return {
+                    ...state,
+                    ...{
+                        error : action.error
+                    }
+                };
 
             case GENDERS.GENDER_GET_GENDER_ITEM:
                 return {

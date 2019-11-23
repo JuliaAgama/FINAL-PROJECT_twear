@@ -22,6 +22,12 @@ export function getAllGenders() {
                 type: GENDERS.GENDERS_GET_ALL_GENDERS,
                 data: res
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: GENDERS.GENDERS_RESPONSE_FAILED,
+                error: err.response.data
+            })
         });
     };
 };
@@ -31,8 +37,15 @@ export function getGenderItem(id) {
         dispatch(genderItemSendRequest());
         (new GendersApi()).getGenderById(id).then(res => {
             return dispatch({
-                type: GENDERS.GENDER_GET_GENDER_ITEM
+                type: GENDERS.GENDER_GET_GENDER_ITEM,
+                data: res
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: GENDERS.GENDER_RESPONSE_FAILED,
+                error: err.response.data
+            })
         });
     };
 };
@@ -46,6 +59,12 @@ export function addGender(item){
                 data: res,
             });
         })
+        .catch(err => {
+            return dispatch({
+                type: GENDERS.GENDERS_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        })
     };
 };
 
@@ -58,6 +77,12 @@ export function updateGender (item){
                 data: res,
             });
         })
+        .catch(err => {
+            return dispatch({
+                type: GENDERS.GENDERS_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        })
     };
 };
 
@@ -69,6 +94,12 @@ export function deleteGender(item){
                 type: GENDERS.GENDERS_DELETE_GENDER,
                 data: res,
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: GENDERS.GENDERS_RESPONSE_FAILED,
+                error: err.response.data
+            })
         })
     };
 };

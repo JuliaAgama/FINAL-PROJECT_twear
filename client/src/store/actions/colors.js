@@ -22,6 +22,12 @@ export function getAllColors() {
                 type: COLORS.COLORS_GET_ALL_COLORS,
                 data: res
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: COLORS.COLORS_RESPONSE_FAILED,
+                error: err.response.data
+            })
         });
     };
 };
@@ -31,8 +37,15 @@ export function getColorItem(id) {
         dispatch(colorItemSendRequest());
         (new ColorsApi()).getColorById(id).then(res => {
             return dispatch({
-                type: COLORS.COLOR_GET_COLOR_ITEM
+                type: COLORS.COLOR_GET_COLOR_ITEM,
+                data: res
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: COLORS.COLOR_RESPONSE_FAILED,
+                error: err.response.data
+            })
         });
     };
 };
@@ -46,6 +59,12 @@ export function addColor(item){
                 data: res,
             });
         })
+        .catch(err => {
+            return dispatch({
+                type: COLORS.COLORS_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        })
     };
 };
 
@@ -58,6 +77,12 @@ export function updateColor (item){
                 data: res,
             });
         })
+        .catch(err => {
+            return dispatch({
+                type: COLORS.COLORS_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        })
     };
 };
 
@@ -69,6 +94,12 @@ export function deleteColor(item){
                 type: COLORS.COLORS_DELETE_COLOR,
                 data: res,
             });
+        })
+        .catch(err => {
+            return dispatch({
+                type: COLORS.COLORS_RESPONSE_FAILED,
+                error: err.response.data
+            })
         })
     };
 };

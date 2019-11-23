@@ -7,7 +7,10 @@ const SizeSchema = new Schema(
             type: String,
             required: true
         },
-        type: [String],
+        sizeType: {
+            type: Schema.Types.ObjectId,
+            ref: 'sizeTypes'
+        },
         date: {
             type: Date,
             default: Date.now
@@ -16,4 +19,8 @@ const SizeSchema = new Schema(
     { strict: false }
 );
 
-module.exports = Size = mongoose.model("sizes", SizeSchema);
+module.exports = Size = mongoose.model(
+    "sizes",
+    SizeSchema,
+    "sizes"
+    );
