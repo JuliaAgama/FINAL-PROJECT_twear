@@ -24,10 +24,9 @@ export default combineReducers({
     categories,
     customers,
     header,
-    modal
+    modal,
     // reducer2
     topCatItem,
-    categories,
     categoryItem,
     genders,
     genderItem,

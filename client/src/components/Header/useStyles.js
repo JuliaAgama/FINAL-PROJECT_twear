@@ -8,7 +8,6 @@ export default makeStyles(theme => (
             width: '100%',
             padding: '0',
             margin: '0',
-            marginTop: '40px',
             position: 'relative'
         },
         container: {
@@ -31,7 +30,6 @@ export default makeStyles(theme => (
             width: '100%',
             padding: '0',
             margin: '0',
-            marginTop: '40px',
             borderTop: '1px solid black',
             position: 'relative'
         },
