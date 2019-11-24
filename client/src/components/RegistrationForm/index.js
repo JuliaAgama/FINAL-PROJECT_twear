@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import {useDispatch} from "react-redux";
+import {registrationAction} from "../../store/actions/customer";
 import Grid from "@material-ui/core/Grid";
 import {Container} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -15,23 +17,32 @@ import useStyles from "./useStyles";
 
 export default function Registration() {
     const classes = useStyles();
-    const [value, setValue] = useState('female');
-    const [phoneNumber, setPhoneNumber] = useState('+380');
-    const [checked, setChecked] = useState(false);
+    const dispatch = useDispatch();
+    const [gender, setGender] = useState('female');
+    const [telephone, setTelephone] = useState('+380');
+    const [login, setLogin] = useState('');
+    const [pass, setPass] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [confirm, setConfirm] = useState(false);
+
+    const customer = {
+        login: login,
+        password: pass,
+        gender: gender,
+        telephone: telephone,
+        firstName: firstName,
+        lastName: lastName,
+        email: email
+    };
+
     const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' +
                          'and for customizing my user experience to my interests or my shopping habits.';
 
-    const handleChangeRadio = event => {
-        setValue(event.target.value);
-    };
-
-    const handleOnChangePhoneNumber = event => {
-        setPhoneNumber(event.target.value);
-    };
-
     const handleChangeChecked = () => {
-        setChecked(!checked);
-    }
+        setConfirm(!confirm);
+    };
 
     return (
         <React.Fragment>
@@ -52,7 +63,7 @@ export default function Registration() {
                             <span>* Required fields</span>
                         </div>
                         <FormControl component="fieldset">
-                            <RadioGroup aria-label="position" name="position" value={value} onChange={handleChangeRadio} row>
+                            <RadioGroup aria-label="position" name="position" value={gender} onChange={(event)=> setGender(event.target.value)} row>
                                 <FormControlLabel
                                     value='female'
                                     control={<Radio color="default" />}
@@ -69,11 +80,11 @@ export default function Registration() {
                             </RadioGroup>
                         </FormControl>
                         <Box className={classes.inputContainer}>
-                            <TextField className={classes.inputField} fullWidth={true} margin='normal' required label="First Name"/>
-                            <TextField className={classes.inputField} fullWidth={true} margin='normal' required label="Last Name"/>
-                            <TextField className={classes.inputField} fullWidth={true} margin='normal'  label="Login"/>
-                            <TextField className={classes.inputField} fullWidth={true} margin='normal' type='email' required label="Email"/>
-                            <TextField fullWidth={true} className={classes.inputField} margin='normal' label="Password" type="password" required/>
+                            <TextField onChange={event => setFirstName(event.target.value)} className={classes.inputField} fullWidth={true} margin='normal' required label="First Name"/>
+                            <TextField onChange={event => setLastName(event.target.value)} className={classes.inputField} fullWidth={true} margin='normal' required label="Last Name"/>
+                            <TextField onChange={event => setLogin(event.target.value)} className={classes.inputField} fullWidth={true} margin='normal'  label="Login"/>
+                            <TextField onChange={event => setEmail(event.target.value)} className={classes.inputField} fullWidth={true} margin='normal' type='email' required label="Email"/>
+                            <TextField onChange={event => setPass(event.target.value)} fullWidth={true} className={classes.inputField} margin='normal' label="Password" type="password" required/>
                             <TextField fullWidth={true} className={classes.inputField} margin='normal' id="date" label="Birthday" required type="date" defaultValue="2000-01-01"/>
                             <PhoneInput containerStyle={{
                                             marginTop: '30px',
@@ -84,8 +95,8 @@ export default function Registration() {
                                         inputStyle={{width: '250px'}}
                                         dropdownStyle={{width: '250px'}}
                                         defaultCountry={'ua'}
-                                        value={phoneNumber}
-                                        onChange={()=> handleOnChangePhoneNumber}/>
+                                        value={telephone}
+                                        onChange={(phoneNumber) => setTelephone(phoneNumber)}/>
                         </Box>
                         <p className={classes.text}>The data fields with an asterisk (*) must be completed in order to complete your registration
                             and satisfy any request you make. Your personal data may be jointly controlled by
@@ -98,13 +109,13 @@ export default function Registration() {
                             You can also manage your subscriptions via your account.
                         </p>
                         <FormControlLabel
-                            value={checked}
+                            value={confirm}
                             control={<Checkbox  color="default"/>}
                             label={checkboxText}
                             onChange={handleChangeChecked}
                             className={classes.checkboxText}
                         />
-                        <Button fullWidth={true} variant="outlined" className={classes.btn}>Registration</Button>
+                        <Button onClick={() => dispatch(registrationAction(customer))} fullWidth={true} variant="outlined" className={classes.btn}>Registration</Button>
                     </form>
                 </Container>
             </Grid>
