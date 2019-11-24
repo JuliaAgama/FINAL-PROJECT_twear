@@ -10,6 +10,7 @@
     "@mdi/react": "^1.2.1",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "jss": "^10.0.0",
     "lorem-ipsum": "^2.0.3",
     "node-sass": "^4.13.0",
     "query-string": "^6.8.3",
