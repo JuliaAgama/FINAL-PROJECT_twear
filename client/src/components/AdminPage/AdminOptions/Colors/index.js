@@ -1,58 +1,21 @@
-import React, { useState, useEffect, useRef} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import * as colorsActions from '../../../../store/actions/colors';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
 
-import ErrorModal from '../../../common/messages/ErrorModal';
-import Notification from '../../../common/messages/Notification';
 import AddButton from '../../../common/buttons/Add';
 import Spinner from '../../../common/Spinner';
 
 import ColorItem from './ColorItem';
 
 
-export default () => {
+export default props => {
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        const abortController = new AbortController();
-        colorsActions.getAllColors()(dispatch);
-
-        return function cleanup() {
-            abortController.abort();
-        };
-    }, [dispatch]);
-
-    const getColorsList = () => {
-        colorsActions.getAllColors()(dispatch);
-    };
+    const {handleNotification} = props;
 
     const colorsList = useSelector(state => state.colors.colors);
     const colorsLoaded = useSelector(state => state.colors.loaded);
-
-    //server errors catching:
-    const colorsError = useSelector(state => state.colors.error);
-    const [errorIsOpen, setErrorIsOpen] = useState(false);
-    useEffect(() => {
-        if(colorsError) {setErrorIsOpen(true)}
-    },[colorsError]
-    );
-    const errorModalText = {
-        title: `NO RESPONSE FROM SERVER`,
-        description: `Request to server failed`,
-        button: 'TRY AGAIN'
-    };
-    const closeErrorModal = () => setErrorIsOpen(false);
-
-    // notification after saving or deleting item:
-    const ref = useRef(null);
-    const timeout = 2000;
-    const handleNotification = (itemName, actionDescription) => {
-        ref.current(`Category ${itemName.toUpperCase()} has been ${actionDescription}.`);
-    };
 
     const addItem = event => {
         event.preventDefault();
@@ -74,7 +37,6 @@ export default () => {
                                     item={item}
                                     key={item._id}
                                     handleNotification={handleNotification}
-                                    getColorsList={getColorsList}
                                 />
                                 )
                         }
@@ -93,10 +55,7 @@ export default () => {
                 </div>
             ) :
             <Spinner/>
-
         }
-        <Notification timeout={timeout} children={add => (ref.current = add)} />
-        <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={getColorsList} closeFunction={closeErrorModal}/>
         </>
     )
 };

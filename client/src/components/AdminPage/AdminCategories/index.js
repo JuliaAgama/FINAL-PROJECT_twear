@@ -63,7 +63,7 @@ export default withWidth()(props => {
             <ErrorModal
                 modalIsOpen={errorIsOpen}
                 modalText={errorModalText}
-                doFunction={() => {getTopCatsList(); getCategoriesList()}}
+                doFunction={() => {closeErrorModal(); getTopCatsList(); getCategoriesList()}}
                 closeFunction={closeErrorModal}
             />
         </div>

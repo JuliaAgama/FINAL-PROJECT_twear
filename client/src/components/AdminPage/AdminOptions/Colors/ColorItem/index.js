@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import * as colorsActions from '../../../../../store/actions/colors';
 import ColorsApi from '../../../../../services/Colors';
 import ProductsApi from '../../../../../services/Products';
 
@@ -15,8 +16,10 @@ import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
 
 export default props => {
-    const classes = useStyles();
-    const {item, handleNotification, getColorsList} = props;
+
+    const dispatch = useDispatch();
+
+    const {item, handleNotification} = props;
     const colorsList = useSelector(state => state.colors.colors)
 
     const [color, setColor] = useState(item.cssValue);
@@ -60,7 +63,7 @@ export default props => {
         if( !checkDoubles()) {
             (new ColorsApi()).updateColor(formData).then(res => {
                 handleNotification(formData.name, 'saved');
-                getColorsList();
+                colorsActions.getAllColors()(dispatch);
             })
         }
     };
@@ -100,53 +103,55 @@ export default props => {
         (new ColorsApi()).deleteColor(formData).then(res => {
             setConfirmIsOpen(false);
             handleNotification(formData.name, 'deleted');
-            getColorsList();
+            colorsActions.getAllColors()(dispatch);
         });
     };
 
+    const classes = useStyles();
+
     return (
         <>
-                <Grid item xs={6} lg={4} xl={3} className={classes.wrapper}>
-                    <form autoComplete="off">
-                        <Grid container className={classes.verticalCenter}>
-                            <Grid item xs={1}>
-                                <input
-                                    className={classes.colorInput}
-                                    id={item._id}
-                                    type="color"
-                                    name={'cssValue'}
-                                    value={color}
-                                    onChange={onChange}
-                                />
-                            </Grid>
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={3}>
-                                <TextField
-                                    className={classes.textField}
-                                    required
-                                    id={item._id}
-                                    name={'name'}
-                                    onChange={onChange}
-                                    defaultValue={item.name}
-                                    margin="normal"
-                                />
-                            </Grid>
-                            <Grid item xs={1}>
-                                <SaveButton
-                                    onClick={saveColor}
-                                    size="small"
-                                    className={formData.name === item.name && formData.cssValue === item.cssValue ? '' : 'fabGreenFilled' }/>
-                            </Grid>
-                            <Grid item xs={2}></Grid>
-                            <Grid item xs={1}>
-                                <DeleteButton
-                                    onClick={openConfirm}
-                                    size="small"/>
-                            </Grid>
-                            <Grid item xs={3}></Grid>
+            <Grid item xs={6} lg={4} xl={3} className={classes.wrapper}>
+                <form autoComplete="off">
+                    <Grid container className={classes.verticalCenter}>
+                        <Grid item xs={1}>
+                            <input
+                                className={classes.colorInput}
+                                id={item._id}
+                                type="color"
+                                name={'cssValue'}
+                                value={color}
+                                onChange={onChange}
+                            />
                         </Grid>
-                    </form>
-                </Grid>
+                        <Grid item xs={1}></Grid>
+                        <Grid item xs={3}>
+                            <TextField
+                                className={classes.textField}
+                                required
+                                id={item._id}
+                                name={'name'}
+                                onChange={onChange}
+                                defaultValue={item.name}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item xs={1}>
+                            <SaveButton
+                                onClick={saveColor}
+                                size="small"
+                                className={formData.name === item.name && formData.cssValue === item.cssValue ? '' : 'fabGreenFilled' }/>
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={1}>
+                            <DeleteButton
+                                onClick={openConfirm}
+                                size="small"/>
+                        </Grid>
+                        <Grid item xs={3}></Grid>
+                    </Grid>
+                </form>
+            </Grid>
             <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
             <ConfirmModal modalIsOpen={confirmIsOpen} modalText={confirmText} doFunction={deleteColor} closeFunction={closeConfirm}/>
         </>

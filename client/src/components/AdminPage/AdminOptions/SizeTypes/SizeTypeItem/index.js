@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import * as sizeTypesActions from '../../../../../store/actions/sizeTypes';
 import SizeTypesApi from '../../../../../services/SizeTypes';
 import SizesApi from '../../../../../services/Sizes';
 
@@ -16,9 +17,11 @@ import ConfirmModal from '../../../../common/messages/ConfirmModal';
 import Sizes from './Sizes';
 
 export default props => {
-    const classes = useStyles();
-    const {item, handleNotification, getSizeTypesList} = props;
-    const sizeTypesList = useSelector(state => state.sizeTypes.sizeTypes)
+
+    const dispatch = useDispatch();
+
+    const {item, handleNotification} = props;
+    const sizeTypesList = useSelector(state => state.sizeTypes.sizeTypes);
 
     const [formData, setFormData] = useState({_id: '', name: ''});
 
@@ -52,7 +55,7 @@ export default props => {
         if( !checkDoubles()) {
             (new SizeTypesApi()).updateSizeType(formData).then(res => {
                 handleNotification(formData.name, 'saved');
-                getSizeTypesList();
+                sizeTypesActions.getAllSizeTypes()(dispatch);
             })
         }
     };
@@ -96,10 +99,11 @@ export default props => {
         (new SizeTypesApi()).deleteSizeType(formData).then(res => {
             setConfirmIsOpen(false);
             handleNotification(formData.name, 'deleted');
-            getSizeTypesList();
+            sizeTypesActions.getAllSizeTypes()(dispatch);
         })
     };
 
+    const classes = useStyles();
 
     return (
         <>

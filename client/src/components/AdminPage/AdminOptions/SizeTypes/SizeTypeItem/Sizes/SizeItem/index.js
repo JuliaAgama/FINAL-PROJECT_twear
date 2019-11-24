@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import * as sizesActions from '../../../../../../../store/actions/sizes';
 import SizesApi from '../../../../../../../services/Sizes';
 import ProductsApi from '../../../../../../../services/Products';
 
@@ -13,9 +14,12 @@ import DeleteButton from '../../../../../../common/buttons/Delete';
 import WarningModal from '../../../../../../common/messages/WarningModal';
 import ConfirmModal from '../../../../../../common/messages/ConfirmModal';
 
+
 export default props => {
-    const classes = useStyles();
-    const {item, handleNotification, getSizesList} = props;
+
+    const dispatch = useDispatch();
+
+    const {item, handleNotification} = props;
     const sizesList = useSelector(state => state.sizes.sizes);
 
     const [formData, setFormData] = useState({_id: '', name: ''});
@@ -50,7 +54,7 @@ export default props => {
         if( !checkDoubles()) {
             (new SizesApi()).updateSize(formData).then(res => {
                 handleNotification(formData.name, 'saved');
-                getSizesList();
+                sizesActions.getAllSizes()(dispatch);
             })
         }
     };
@@ -94,10 +98,11 @@ export default props => {
         (new SizesApi()).deleteSize(formData).then(res => {
             setConfirmIsOpen(false);
             handleNotification(formData.name, 'deleted');
-            getSizesList();
+            sizesActions.getAllSizes()(dispatch);
         })
     };
 
+    const classes = useStyles();
 
     return (
         <>
