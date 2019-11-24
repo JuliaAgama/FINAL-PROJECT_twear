@@ -1,8 +1,8 @@
-import useStyles from "./useStyles";
 import React from "react";
 import Button from "@material-ui/core/Button";
 import {openLoginModalAction} from "../../../store/actions/modal";
 import {useDispatch} from "react-redux";
+import useStyles from "./useStyles";
 
 
 export default function Login() {

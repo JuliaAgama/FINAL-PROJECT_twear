@@ -1,9 +1,9 @@
-import useStyles from "./useStyles";
 import React from "react";
 import Box from "@material-ui/core/Box";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {Container} from "@material-ui/core";
+import useStyles from "./useStyles";
 
 export function Item(props) {
     const classes = useStyles();
