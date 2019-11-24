@@ -10,10 +10,7 @@ import ProductsSection from "./ProductsSection";
 import PhotosSection from "./PhotosSection";
 import SectionTicker from "../common/SectionTicker";
 
-<<<<<<< HEAD
 const HomePage = () => {
-=======
-// import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
 
 const bestProducts = [
     {   _id: '1-120', name: 'short top tile', categories: ['31']},
@@ -26,7 +23,6 @@ const bestProducts = [
     {   _id: '1-110', name: 'rainy  coat tile', categories: ['41']},
     {   _id: '1-30', name: 'xxl shirt tile', categories: ['71']}
 ];
->>>>>>> 1fb4d9a36223ad8ecca7a93cbec328afb03763c5
 
     const classes = useStyles();
 
