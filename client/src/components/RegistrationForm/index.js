@@ -1,4 +1,3 @@
-import useStyles from "./useStyles";
 import React, {useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import {Container} from "@material-ui/core";
@@ -12,6 +11,7 @@ import Radio from "@material-ui/core/Radio";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/dist/style.css'
 import Checkbox from "@material-ui/core/Checkbox";
+import useStyles from "./useStyles";
 
 export default function Registration() {
     const classes = useStyles();

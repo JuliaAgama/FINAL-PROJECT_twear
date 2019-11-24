@@ -1,4 +1,3 @@
-import useStyles from "./useStyles";
 import React  from "react";
 import Grid from "@material-ui/core/Grid";
 import {Container} from "@material-ui/core";
@@ -7,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import {openRegistrationModalAction} from "../../store/actions/modal";
 import {useDispatch} from "react-redux";
+import useStyles from "./useStyles";
 
 export default function Login() {
     const classes = useStyles();

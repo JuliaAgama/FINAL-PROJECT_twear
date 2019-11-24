@@ -1,12 +1,12 @@
 import React from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import useStyles from "./useStyles";
 import Login from "../../LoginForm";
 import {useDispatch, useSelector} from "react-redux";
 import {closeModalAction} from "../../../store/actions/modal";
 import Registration from "../../RegistrationForm";
 import {Dialog} from "@material-ui/core";
+import useStyles from "./useStyles";
 
 
 export default function TransitionsModal() {
