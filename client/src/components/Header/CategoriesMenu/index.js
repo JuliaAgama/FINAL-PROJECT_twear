@@ -1,8 +1,8 @@
-import useStyles from "./useStyles";
 import React from "react";
 import Button from "@material-ui/core/Button";
 import {useDispatch} from "react-redux";
 import {showMenCategoriesAction, showWomenCategoriesAction} from "../../../store/actions/header";
+import useStyles from "./useStyles";
 
 export default function CategoriesMenu(props) {
     const classes = useStyles();

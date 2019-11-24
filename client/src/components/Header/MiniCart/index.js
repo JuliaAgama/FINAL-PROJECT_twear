@@ -1,10 +1,10 @@
-import useStyles from "./useStyles";
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Badge from "@material-ui/core/Badge";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
 import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
+import useStyles from "./useStyles";
 
 
 export default function MiniCart() {

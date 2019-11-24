@@ -1,6 +1,5 @@
 import React from 'react';
 import withWidth from '@material-ui/core/withWidth';
-import useStyles from './useStyles';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import {useDispatch, useSelector} from "react-redux";
 import {hideDesktopCategoriesMenuAction} from "../../store/actions/header";
@@ -16,6 +15,7 @@ import Login from "./Login";
 import DropDownMenu from "./DropDownMenu";
 import {CategoryItems} from "./CategoryItems";
 import Modal from '../common/Modal'
+import useStyles from './useStyles';
 
 function Header() {
 
