@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-import { useDispatch, useSelector } from 'react-redux';
-import * as categoriesActions from '../../../../store/actions/categories';
+import React, { useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 import Spinner from '../../../common/Spinner';
 import CategoryItem from './CategoryItem';
 import AddWideButton from '../../../common/buttons/AddWide';
-import ErrorModal from '../../../common/messages/ErrorModal';
 import Notification from '../../../common/messages/Notification';
 
 import Link from '@material-ui/core/Link';
@@ -21,37 +18,14 @@ export default props => {
 
     const {topCatId} = props;
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        categoriesActions.getAllCategories()(dispatch);
-    }, [dispatch]);
-
     const categoriesList = useSelector(state => state.categories.categories);
     const categoriesLoaded = useSelector(state => state.categories.loaded);
-
-    //server errors catching:
-    const categoriesError = useSelector(state => state.categories.error);
-    const [errorIsOpen, setErrorIsOpen] = useState(false);
-    useEffect(() => {
-        if(categoriesError) {setErrorIsOpen(true)}
-    },[categoriesError]
-    );
-    const errorModalText = {
-        title: `NO RESPONSE FROM SERVER`,
-        description: `Request to server failed`,
-        button: 'TRY AGAIN'
-    };
-    const reloadPage = () => window.location.reload(true);
-    const closeErrorModal = () => setErrorIsOpen(false);
 
     // notification after deleting item:
     const ref = useRef(null);
     const timeout = 2000;
     const handleNotification = (itemName) => {
         ref.current(`Category ${itemName.toUpperCase()} has been deleted from database!`);
-        setTimeout(() => {
-            window.location.reload(true)
-        }, timeout)
     };
 
     const classes = useStyles();
@@ -66,7 +40,11 @@ export default props => {
                     <List className={classes.root}>
                         {categoriesList
                             .map(item => item.topCategory === topCatId ?
-                                <CategoryItem item={item} key={item._id} handleNotification={handleNotification}/> :
+                                <CategoryItem
+                                    item={item}
+                                    key={item._id}
+                                    handleNotification={handleNotification}
+                                /> :
                                 <div key={Math.random()}></div>
                             )
                         }
@@ -81,7 +59,6 @@ export default props => {
                 )
         }
         <Notification timeout={timeout} children={add => (ref.current = add)} />
-        <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={reloadPage} closeFunction={closeErrorModal}/>
         </>
     )
 };

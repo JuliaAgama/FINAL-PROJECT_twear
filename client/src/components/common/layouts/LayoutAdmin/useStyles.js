@@ -14,7 +14,10 @@ export default makeStyles(theme => (
         },
         logo: {
             width: '8rem',
-            marginTop: '1rem'
-        }
+            marginTop: '1rem',
+        },
+        image: {
+            maxWidth: '100%',
+        },
     }
 ));

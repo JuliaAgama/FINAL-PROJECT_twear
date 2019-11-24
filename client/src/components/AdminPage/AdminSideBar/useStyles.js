@@ -7,6 +7,9 @@ export default makeStyles(theme => (
             marginBottom: theme.spacing(4),
             textAlign: 'center',
         },
+        link: {
+            textDecoration: 'none',
+        },
         listing: {
             padding: theme.spacing(2),
             flexGrow: 1,

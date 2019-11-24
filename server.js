@@ -14,6 +14,7 @@ const genders = require("./routes/genders");
 const topCats = require("./routes/topCats");
 const colors = require("./routes/colors");
 const sizes = require("./routes/sizes");
+const sizeTypes = require("./routes/sizeTypes");
 const filters = require("./routes/filters");
 const subscribers = require("./routes/subscribers");
 const cart = require("./routes/cart");
@@ -39,7 +40,12 @@ const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(db, { useNewUrlParser: true, useFindAndModify: false })
+  .set("useCreateIndex", true)
+  .connect(db, {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+  })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
@@ -59,6 +65,7 @@ app.use("/genders", genders);
 app.use("/top-categories", topCats);
 app.use("/colors", colors);
 app.use("/sizes", sizes);
+app.use("/size-types", sizeTypes);
 app.use("/filters", filters);
 app.use("/subscribers", subscribers);
 app.use("/cart", cart);
@@ -71,17 +78,18 @@ app.use("/comments", comments);
 app.use("/shipping-methods", shippingMethods);
 app.use("/payment-methods", paymentMethods);
 app.use("/partners", partners);
-app.use("/", mainRoute);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("client/build"));
-
+  
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
-}
+} else {
+  app.use("/", mainRoute);
+};
 
 const port = process.env.PORT || 5000;
 

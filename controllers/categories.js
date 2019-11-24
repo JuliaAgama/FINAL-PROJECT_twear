@@ -64,11 +64,13 @@ exports.updateCategory = (req, res, next) => {
 exports.deleteCategory = (req, res, next) => {
   Category.findOne({_id: req.params.id }).then(async category => {
     if (!category) {
-      return res.status(400).json({
+      return res
+      .status(400)
+      .json({
         message: `Category with id "${req.params.id}" is not found.`
       });
     } else {
-      const categoryToDelete = await Category.findOne({ id: req.params.id });
+      const categoryToDelete = await Category.findOne({_id: req.params.id });
 
       Category.deleteOne({_id: req.params.id })
         .then(deletedCount =>
@@ -148,4 +150,3 @@ exports.matchCategoriesByObject = async (req, res, next) => {
     });
   }
 };
-

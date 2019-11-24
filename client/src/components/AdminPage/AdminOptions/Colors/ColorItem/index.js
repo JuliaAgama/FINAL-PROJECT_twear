@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as colorsActions from '../../../../../store/actions/colors';
-// import ColorsApi from '../../../../../services/Colors';
+import ColorsApi from '../../../../../services/Colors';
 import ProductsApi from '../../../../../services/Products';
 
 import Grid from '@material-ui/core/Grid';
@@ -16,11 +16,11 @@ import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
 
 export default props => {
-    const classes = useStyles();
-    const {item, handleNotification} = props;
-    const colorsList = useSelector(state => state.colors.colors)
 
     const dispatch = useDispatch();
+
+    const {item, handleNotification} = props;
+    const colorsList = useSelector(state => state.colors.colors)
 
     const [color, setColor] = useState(item.cssValue);
     const [formData, setFormData] = useState({_id: '', name: ''});
@@ -61,8 +61,10 @@ export default props => {
     const saveColor = event => {
         event.preventDefault();
         if( !checkDoubles()) {
-            colorsActions.updateColor(formData)(dispatch);
-            handleNotification(formData.name, 'added');
+            (new ColorsApi()).updateColor(formData).then(res => {
+                handleNotification(formData.name, 'saved');
+                colorsActions.getAllColors()(dispatch);
+            })
         }
     };
 
@@ -80,77 +82,76 @@ export default props => {
         };
         return false;
     };
-
     const closeWarning =() => setWarningIsOpen(false);
 
     const [confirmIsOpen, setConfirmIsOpen] = useState(false);
-
     const openConfirm = event => {
         event.preventDefault();
         if (!checkMatchingProducts()) {
             setConfirmIsOpen(true);
         }
     };
-
     const confirmText = {
         title: `Are you sure to DELETE ${formData.name.toUpperCase()} color?`,
         description: `If you confirm deletion of ${formData.name.toUpperCase()} color from database it cannot be undone`,
         buttonYes: 'DELETE, I am SURE',
         buttonNo: "No, don't DELETE"
     };
-
     const closeConfirm = () => setConfirmIsOpen(false);
 
     const deleteColor = () => {
-        colorsActions.deleteColor(formData)(dispatch);
-        setConfirmIsOpen(false);
-        handleNotification(formData.name, 'deleted');
-        // setFormData({...formData, _id: null});
+        (new ColorsApi()).deleteColor(formData).then(res => {
+            setConfirmIsOpen(false);
+            handleNotification(formData.name, 'deleted');
+            colorsActions.getAllColors()(dispatch);
+        });
     };
+
+    const classes = useStyles();
 
     return (
         <>
-                <Grid item xs={6} lg={4} xl={3} className={classes.wrapper}>
-                    <form autoComplete="off">
-                        <Grid container className={classes.verticalCenter}>
-                            <Grid item xs={1}>
-                                <input
-                                    className={classes.colorInput}
-                                    id={item._id}
-                                    type="color"
-                                    name={'cssValue'}
-                                    value={color}
-                                    onChange={onChange}
-                                />
-                            </Grid>
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={3}>
-                                <TextField
-                                    className={classes.textField}
-                                    required
-                                    id={item._id}
-                                    name={'name'}
-                                    onChange={onChange}
-                                    defaultValue={item.name}
-                                    margin="normal"
-                                />
-                            </Grid>
-                            <Grid item xs={1}>
-                                <SaveButton
-                                    onClick={saveColor}
-                                    size="small"
-                                    className={formData.name === item.name && formData.cssValue === item.cssValue ? '' : 'fabGreenFilled' }/>
-                            </Grid>
-                            <Grid item xs={2}></Grid>
-                            <Grid item xs={1}>
-                                <DeleteButton
-                                    onClick={openConfirm}
-                                    size="small"/>
-                            </Grid>
-                            <Grid item xs={3}></Grid>
+            <Grid item xs={6} lg={4} xl={3} className={classes.wrapper}>
+                <form autoComplete="off">
+                    <Grid container className={classes.verticalCenter}>
+                        <Grid item xs={1}>
+                            <input
+                                className={classes.colorInput}
+                                id={item._id}
+                                type="color"
+                                name={'cssValue'}
+                                value={color}
+                                onChange={onChange}
+                            />
                         </Grid>
-                    </form>
-                </Grid>
+                        <Grid item xs={1}></Grid>
+                        <Grid item xs={3}>
+                            <TextField
+                                className={classes.textField}
+                                required
+                                id={item._id}
+                                name={'name'}
+                                onChange={onChange}
+                                defaultValue={item.name}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item xs={1}>
+                            <SaveButton
+                                onClick={saveColor}
+                                size="small"
+                                className={formData.name === item.name && formData.cssValue === item.cssValue ? '' : 'fabGreenFilled' }/>
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={1}>
+                            <DeleteButton
+                                onClick={openConfirm}
+                                size="small"/>
+                        </Grid>
+                        <Grid item xs={3}></Grid>
+                    </Grid>
+                </form>
+            </Grid>
             <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
             <ConfirmModal modalIsOpen={confirmIsOpen} modalText={confirmText} doFunction={deleteColor} closeFunction={closeConfirm}/>
         </>

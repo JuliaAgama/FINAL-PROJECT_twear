@@ -1,5 +1,5 @@
 import * as TOPCATS from '../constants/topCats';
-import TopCatsApi from '../../services/TopCategories';
+import TopCatsApi from '../../services/TopCats';
 
 
 export function topCatsSendRequest() {
