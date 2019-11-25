@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
@@ -17,9 +17,15 @@ export default props => {
     const colorsList = useSelector(state => state.colors.colors);
     const colorsLoaded = useSelector(state => state.colors.loaded);
 
+    const [newColor, setNewColor] = useState(null);
+
+    useEffect(() => {
+        setNewColor(null);
+    }, [colorsList]);
+
     const addItem = event => {
         event.preventDefault();
-        console.log('hello');
+        setNewColor ({name: '', cssValue: '#eeeeee'});
     };
 
     const classes = useStyles();
@@ -27,10 +33,10 @@ export default props => {
     return (
         <>
         {
-            colorsLoaded ?
+            colorsLoaded  ?
             (
                 <div className={classes.wrapper}>
-                    <Grid container className={classes.paper}>
+                    <Grid container className={classes.paper} id='colors-container'>
                         {colorsList
                             .map(item =>
                                 <ColorItem
@@ -40,6 +46,14 @@ export default props => {
                                 />
                                 )
                         }
+                        {newColor ?
+                        (
+                            <ColorItem
+                                    item={newColor}
+                                    key={Math.random()}
+                                    handleNotification={handleNotification}
+                                />
+                        ) :
                         <Grid item xs={6} lg={4} xl={3} className={classes.center}>
                             <Grid container>
                                 <Grid item xs={3}>
@@ -51,6 +65,7 @@ export default props => {
                                 <Grid item xs={9}></Grid>
                             </Grid>
                         </Grid>
+                        }
                     </Grid>
                 </div>
             ) :

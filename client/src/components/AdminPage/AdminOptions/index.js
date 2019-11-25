@@ -59,7 +59,8 @@ export default withWidth()(() => {
 
     useEffect(() => {
         if(colorsError || sizeTypesError || sizesError) {setErrorIsOpen(true)}
-    },[colorsError, sizeTypesError, sizesError]
+    },[]
+    // },[colorsError, sizeTypesError, sizesError]
     );
     const errorModalText = {
         title: `NO RESPONSE FROM SERVER`,
@@ -73,7 +74,7 @@ export default withWidth()(() => {
     const ref = useRef(null);
     const timeout = 2000;
     const handleNotification = (itemName, actionDescription) => {
-        ref.current(`Category ${itemName.toUpperCase()} has been ${actionDescription}.`);
+        ref.current(` ${itemName.toUpperCase()} has been ${actionDescription}.`);
     };
 
     const classes = useStyles();

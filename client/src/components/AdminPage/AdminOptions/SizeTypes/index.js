@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
@@ -16,9 +16,15 @@ export default props => {
     const sizeTypesList = useSelector(state => state.sizeTypes.sizeTypes);
     const sizeTypesLoaded = useSelector(state => state.sizeTypes.loaded);
 
+    const [newSizeType, setNewSizeType] = useState(null);
+
+    useEffect(() => {
+        setNewSizeType(null);
+    }, [sizeTypesList]);
+
     const addItem = event => {
         event.preventDefault();
-        console.log('hello');
+        setNewSizeType ({name: ''});
     };
 
     const classes = useStyles();
@@ -30,9 +36,18 @@ export default props => {
             (
                 <div className={classes.wrapper}>
                 <Grid container>
+                    {newSizeType ?
+                        (
+                            <SizeTypeItem
+                                    item={newSizeType}
+                                    key={Math.random()}
+                                    handleNotification={handleNotification}
+                                />
+                        ) :
                     <Grid item xs={12} className={classes.wrapper}>
-                        <AddWideButton  text='CREATE NEW SIZE TYPE' color='secondary' onClick={addItem}/>
+                        <AddWideButton  text='CREATE NEW SET OF SIZES' color='secondary' onClick={addItem}/>
                     </Grid>
+                    }
                 </Grid>
                     <Grid container className={classes.paper}>
                         {sizeTypesList

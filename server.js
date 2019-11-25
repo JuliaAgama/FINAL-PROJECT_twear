@@ -58,26 +58,26 @@ require("./config/passport")(passport);
 
 // Use Routes
 app.use("/configs", globalConfigs);
-app.use("/customers", customers);
+app.use("/cart", cart);
 app.use("/categories", categories);
-app.use("/products", products);
-app.use("/genders", genders);
-app.use("/top-categories", topCats);
 app.use("/colors", colors);
+app.use("/comments", comments);
+app.use("/customers", customers);
+app.use("/filters", filters);
+app.use("/genders", genders);
+app.use("/links", links);
+app.use("/orders", orders);
+app.use("/pages", pages);
+app.use("/partners", partners);
+app.use("/payment-methods", paymentMethods);
+app.use("/products", products);
+app.use("/shipping-methods", shippingMethods);
 app.use("/sizes", sizes);
 app.use("/size-types", sizeTypes);
-app.use("/filters", filters);
-app.use("/subscribers", subscribers);
-app.use("/cart", cart);
-app.use("/orders", orders);
-app.use("/links", links);
-app.use("/pages", pages);
 app.use("/slides", slides);
+app.use("/subscribers", subscribers);
+app.use("/top-categories", topCats);
 app.use("/wishlist", wishlist);
-app.use("/comments", comments);
-app.use("/shipping-methods", shippingMethods);
-app.use("/payment-methods", paymentMethods);
-app.use("/partners", partners);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
