@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../../../Header';
+import Footer from '../../../Footer';
 import SettingsButton from '../../../common/buttons/Settings';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
@@ -26,6 +27,7 @@ export default props => {
         <ThemeProvider theme={theme}>
             <Container maxWidth={false} className={classes.layoutContainer}>
                 <Header/>
+                <Footer/>
                 <SettingsButton title='Admin Page' size={2} color='red' onClick={redirectToAdmin}/>
             </Container>
         </ThemeProvider>
