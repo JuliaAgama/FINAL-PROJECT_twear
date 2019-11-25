@@ -6,7 +6,8 @@ export default makeStyles(theme => (
             height: '100vh',
         },
         image: {
-            backgroundImage: 'url("/img/background_AdminPage.jpg")',
+            // backgroundImage: 'url("/img/background_AdminPage.jpg")',
+            backgroundImage: 'url("/img/background_AdminLoginPage.jpg")',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'right',

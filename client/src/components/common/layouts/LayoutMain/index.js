@@ -6,12 +6,11 @@ import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
 
-export default props => {
+export default () => {
 
     const redirectToAdmin = () => {
-        window.location.assign(`/admin/login`);
+        window.location.assign(`/admin/`);
     };
-    const classes = useStyles();
 
     const breakpointValues = {
         xs: 0,
@@ -22,6 +21,8 @@ export default props => {
     };
 
     const theme = createMuiTheme({ breakpoints: { values: breakpointValues } });
+
+    const classes = useStyles();
 
     return (
         <ThemeProvider theme={theme}>
