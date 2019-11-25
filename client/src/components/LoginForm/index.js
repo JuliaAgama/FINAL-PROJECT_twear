@@ -25,14 +25,12 @@ export default function Login() {
         password: pass
     };
 
-
-
     return (
         <React.Fragment>
             <Grid container item xs={12} >
                 <Container maxWidth={false} className={classes.container}>
                     <form className={classes.form}>
-                        <TextField onChange={(event) => setLogin(event.target.value)} fullWidth={true} margin="normal" required label="Login"/>
+                        <TextField error={true} helperText="Incorrect entry." onChange={(event) => setLogin(event.target.value)} fullWidth={true} margin="normal" required label="Login"/>
                         <TextField onChange={(event) => setPass(event.target.value)} fullWidth={true} margin="normal" label="Password" type="password" required/>
                         <Button fullWidth={true} onClick={() => dispatch(loginAction(customer))} variant="outlined" className={classes.btn}>Log In</Button>
                         <div className={classes.linkContainer}>
