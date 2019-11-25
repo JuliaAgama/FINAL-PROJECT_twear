@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
+import * as categoriesActions from '../../../../../store/actions/categories';
 import CategoriesApi from '../../../../../services/Categories';
 import ProductsApi from '../../../../../services/Products';
 
@@ -18,9 +20,9 @@ import WarningModal from '../../../../common/messages/WarningModal';
 
 export default props => {
 
-    const classes = useStyles();
+    const dispatch = useDispatch();
 
-    const {item, handleNotification, getUpdatedCategoriesList} = props;
+    const {item, handleNotification} = props;
     const itemName=item.name;
 
     // handle deleting category:
@@ -59,16 +61,18 @@ export default props => {
         buttonNo: "No, don't DELETE"
     };
 
+    const closeConfirm = () => setConfirmIsOpen(false);
+
     const deleteItem = (event) => {
         event.preventDefault();
         (new CategoriesApi()).deleteCategory(item).then(res => {
             setConfirmIsOpen(false);
-            getUpdatedCategoriesList();
+            categoriesActions.getAllCategories()(dispatch);
             handleNotification(itemName);
         })
     };
 
-    const closeConfirm = () => setConfirmIsOpen(false);
+    const classes = useStyles();
 
     return (
         <>

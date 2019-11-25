@@ -36,6 +36,24 @@ export default function (state = initState, action) {
                 }
             };
 
+        case SIZES.SIZES_GET_SIZES_BY_SEARCH:
+            return {
+                ...state,
+                ...{
+                    sizes: action.data,
+                    loaded: true
+                }
+            };
+
+        case SIZES.SIZES_GET_SIZES_BY_PARENT_ID:
+            return {
+                ...state,
+                ...{
+                    sizes: action.data,
+                    loaded: true
+                }
+            };
+
         case SIZES.SIZES_ADD_SIZE:
             return {
                 ...state,

@@ -33,6 +33,42 @@ export function getAllSizes() {
     };
 };
 
+export function getSizesBySearch(searchValue) {
+    return function (dispatch) {
+        dispatch(sizesSendRequest());
+        (new SizesApi()).getSizesBySearch(searchValue).then(res => {
+            return dispatch({
+                type: SIZES.SIZES_GET_SIZES_BY_SEARCH,
+                data: res
+            });
+        })
+        .catch(err => {
+            return dispatch({
+                type: SIZES.SIZES_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        });
+    };
+};
+
+export function getSizesByParentId(topCatId) {
+    return function (dispatch) {
+        dispatch(sizesSendRequest());
+        (new SizesApi()).getSizesByMatch({topCategory: topCatId}).then(res => {
+            return dispatch({
+                type: SIZES.SIZES_GET_SIZES_BY_PARENT_ID,
+                data: res
+            });
+        })
+        .catch(err => {
+            return dispatch({
+                type: SIZES.SIZES_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        });
+    };
+};
+
 export function getSizeItem(id) {
     return function (dispatch) {
         dispatch(sizeItemSendRequest());
@@ -57,7 +93,6 @@ export function addSize(item){
         dispatch(sizesSendRequest());
         (new SizesApi()).addSize(item)
         .then(res => {
-            console.log(res);
             return dispatch({
                 type: SIZES.SIZES_ADD_SIZE,
                 data: res,

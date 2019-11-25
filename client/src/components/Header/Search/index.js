@@ -1,10 +1,10 @@
-import useStyles from "./useStyles";
 import React, {useState} from "react";
 import Button from "@material-ui/core/Button";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from '@material-ui/icons/Search';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Hidden from "@material-ui/core/Hidden";
+import useStyles from "./useStyles";
 
 
 export default function Search() {

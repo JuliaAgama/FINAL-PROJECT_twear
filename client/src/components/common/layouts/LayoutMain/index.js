@@ -3,7 +3,7 @@ import Header from '../../../Header';
 import SettingsButton from '../../../common/buttons/Settings';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
-import useStyles from "../../../Header/useStyles";
+import useStyles from "./useStyles";
 
 export default props => {
 
@@ -24,7 +24,7 @@ export default props => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container maxWidth={false}>
+            <Container maxWidth={false} className={classes.layoutContainer}>
                 <Header/>
                 <SettingsButton title='Admin Page' size={2} color='red' onClick={redirectToAdmin}/>
             </Container>

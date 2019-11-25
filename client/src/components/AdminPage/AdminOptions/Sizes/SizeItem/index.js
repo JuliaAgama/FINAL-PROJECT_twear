@@ -1,21 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import SizesApi from '../../../../../../../services/Sizes';
-import ProductsApi from '../../../../../../../services/Products';
+import * as sizesActions from '../../../../../store/actions/sizes';
+import SizesApi from '../../../../../services/Sizes';
+import ProductsApi from '../../../../../services/Products';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import useStyles from './useStyles';
 
-import SaveButton from '../../../../../../common/buttons/Save';
-import DeleteButton from '../../../../../../common/buttons/Delete';
-import WarningModal from '../../../../../../common/messages/WarningModal';
-import ConfirmModal from '../../../../../../common/messages/ConfirmModal';
+import SaveButton from '../../../../common/buttons/Save';
+import DeleteButton from '../../../../common/buttons/Delete';
+import WarningModal from '../../../../common/messages/WarningModal';
+import ConfirmModal from '../../../../common/messages/ConfirmModal';
+
 
 export default props => {
-    const classes = useStyles();
-    const {item, handleNotification, getUpdatedSizesList} = props;
+
+    const dispatch = useDispatch();
+
+    const {item, handleNotification} = props;
     const sizesList = useSelector(state => state.sizes.sizes);
 
     const [formData, setFormData] = useState({_id: '', name: ''});
@@ -45,12 +49,26 @@ export default props => {
         return false;
     };
 
+    const checkEmptyName = () => {
+        if (formData.name === '' || !formData.name) {
+            setWarningIsOpen(true);
+            setWarningText({title: 'Cannot save!', description: `Size MUST have name!`});
+            return true;
+        };
+        return false;
+    };
+
     const saveSize = event => {
         event.preventDefault();
-        if( !checkDoubles()) {
+        if( !checkEmptyName() && !checkDoubles()) {
+            formData._id ?
             (new SizesApi()).updateSize(formData).then(res => {
                 handleNotification(formData.name, 'saved');
-                getUpdatedSizesList();
+                sizesActions.getAllSizes()(dispatch);
+            }) :
+            (new SizesApi()).addSize(formData).then(res => {
+                handleNotification(formData.name, 'saved');
+                sizesActions.getAllSizes()(dispatch);
             })
         }
     };
@@ -94,10 +112,11 @@ export default props => {
         (new SizesApi()).deleteSize(formData).then(res => {
             setConfirmIsOpen(false);
             handleNotification(formData.name, 'deleted');
-            getUpdatedSizesList();
+            sizesActions.getAllSizes()(dispatch);
         })
     };
 
+    const classes = useStyles();
 
     return (
         <>
@@ -124,9 +143,10 @@ export default props => {
                         </Grid>
                         <Grid item xs={2}></Grid>
                         <Grid item xs={1}>
-                            <DeleteButton
-                                onClick={openConfirm}
-                                size="small"/>
+                            {item._id ?
+                                <DeleteButton  onClick={openConfirm}  size="small"/> :
+                                <></>
+                            }
                         </Grid>
                         <Grid item xs={2}></Grid>
                     </Grid>

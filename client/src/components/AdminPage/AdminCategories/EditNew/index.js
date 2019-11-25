@@ -7,6 +7,7 @@ import * as categoriesActions from '../../../../store/actions/categories';
 import * as gendersActions from '../../../../store/actions/genders';
 
 import CategoryForm from './CategoryForm';
+import WarningModal from '../../../common/messages/WarningModal';
 import Notification from '../../../common/messages/Notification';
 
 
@@ -44,16 +45,27 @@ export default props => {
     }, [dispatch]);
 
     const ref = useRef(null);
-    const timeout = 10000;
+    const timeout = 2000;
+
+    // handle warning:
+    const [warningIsOpen, setWarningIsOpen] = useState(false);
+    const [warningText, setWarningText] = useState({title: '', description: ''});
+    const closeWarning =() => setWarningIsOpen(false);
 
     const onSubmitHandler = formData => {
 
         // for category:
         if (categoryName) {
-            categoryName.includes('newCategory') ?
-                categoriesActions.addCategory(formData)(dispatch) :
-                categoriesActions.updateCategory(formData)(dispatch);
-                ref.current(`Category ${formData.name.toUpperCase()} has been saved!`);
+            if (!formData.genders || formData.genders.length === 0) {
+                setWarningIsOpen(true);
+                setWarningText({title: 'Item cannot be saved', description: 'Choose at least one gender '});
+                return false;
+            } else {
+                categoryName.includes('newCategory') ?
+                    categoriesActions.addCategory(formData)(dispatch) :
+                    categoriesActions.updateCategory(formData)(dispatch);
+                    ref.current(`Category ${formData.name.toUpperCase()} has been saved!`);
+            }
 
         // for top category:
         } else if (topCatName) {
@@ -84,6 +96,7 @@ export default props => {
                 <button className="btn btn-secondary text-uppercase m-5">Back</button>
             </Link>
         </div>
+        <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
         <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     )
