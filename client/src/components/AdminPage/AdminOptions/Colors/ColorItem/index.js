@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// import axios from 'axios';
+
 
 import * as colorsActions from '../../../../../store/actions/colors';
 import ColorsApi from '../../../../../services/Colors';
@@ -26,7 +28,13 @@ export default props => {
     const [formData, setFormData] = useState({_id: '', name: ''});
 
     useEffect(()=> {
-        setFormData(item);
+        // let itemUnmounted = false;
+        // if (!itemUnmounted) {
+            setFormData(item);
+        // };
+        // return () => {
+        //     itemUnmounted = true;
+        // }
     },[item]);
 
     const onChange = event => {
@@ -58,10 +66,24 @@ export default props => {
         return false;
     };
 
+    const checkEmptyName = () => {
+        if (formData.name === '' || !formData.name) {
+            setWarningIsOpen(true);
+            setWarningText({title: 'Cannot save!', description: `Color MUST have name!`});
+            return true;
+        };
+        return false;
+    };
+
     const saveColor = event => {
         event.preventDefault();
-        if( !checkDoubles()) {
+        if( !checkEmptyName() && !checkDoubles()) {
+            formData._id ?
             (new ColorsApi()).updateColor(formData).then(res => {
+                handleNotification(formData.name, 'saved');
+                colorsActions.getAllColors()(dispatch);
+            }) :
+            (new ColorsApi()).addColor(formData).then(res => {
                 handleNotification(formData.name, 'saved');
                 colorsActions.getAllColors()(dispatch);
             })
@@ -70,9 +92,43 @@ export default props => {
 
     // handle deleting color:
     const [productsMatched, setProductsMatched] = useState(null);
+
     useEffect(() => {
-        (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(res));
-    }, [item]);
+        // let itemUnmounted = false;
+        // if (!itemUnmounted) {
+            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(res));
+        // };
+        // return () => {
+        //     itemUnmounted = true;
+        // }
+
+
+
+        // пробовала следующее, не сработало (везде примеры только с гет-запросами, а мне нужен пост-запрос).....
+
+        // const CancelToken = axios.CancelToken;
+        // const source = CancelToken.source();
+
+        // const getProductsByMatch = item => {
+        //     try {
+        //         axios
+        //         .post(`products/match`, item, { cancelToken: source.token })
+        //         .then(res => setProductsMatched(res.data));
+        //     } catch (err) {
+        //         if (axios.isCancel(err)) {
+        //             console.log("cancelled");
+        //             return err.response.data; //?
+        //         } else {
+        //             throw err;
+        //         }
+        //     }
+        // };
+        // getProductsByMatch({color: item._id});
+
+        // return () => {
+        //     source.cancel();
+        // };
+    }, []);
 
     const checkMatchingProducts = () => {
         if(productsMatched && productsMatched[0]) {
@@ -144,9 +200,10 @@ export default props => {
                         </Grid>
                         <Grid item xs={2}></Grid>
                         <Grid item xs={1}>
-                            <DeleteButton
-                                onClick={openConfirm}
-                                size="small"/>
+                            {item._id ?
+                            <DeleteButton  onClick={openConfirm}  size="small"/> :
+                            <></>
+                            }
                         </Grid>
                         <Grid item xs={3}></Grid>
                     </Grid>

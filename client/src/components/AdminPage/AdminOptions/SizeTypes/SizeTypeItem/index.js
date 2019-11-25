@@ -14,7 +14,7 @@ import DeleteButton from '../../../../common/buttons/Delete';
 import WarningModal from '../../../../common/messages/WarningModal';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
-import Sizes from './Sizes';
+import Sizes from '../../Sizes';
 
 export default props => {
 
@@ -44,7 +44,16 @@ export default props => {
         const sizeTypesListBesidesItem = sizeTypesList.filter(el => el._id !== formData._id);
         if( sizeTypesListBesidesItem.some(el => el.name === formData.name)) {
             setWarningIsOpen(true);
-            setWarningText({title: 'Cannot save!', description: `Size Type with name ${formData.name} already exists!`});
+            setWarningText({title: 'Cannot save!', description: `Set of Sizes with name ${formData.name} already exists!`});
+            return true;
+        };
+        return false;
+    };
+
+    const checkEmptyName = () => {
+        if (formData.name === '' || !formData.name) {
+            setWarningIsOpen(true);
+            setWarningText({title: 'Cannot save!', description: `Set of Sizes MUST have name!`});
             return true;
         };
         return false;
@@ -52,8 +61,13 @@ export default props => {
 
     const saveSizeType = event => {
         event.preventDefault();
-        if( !checkDoubles()) {
+        if( !checkEmptyName() && !checkDoubles()) {
+            formData._id ?
             (new SizeTypesApi()).updateSizeType(formData).then(res => {
+                handleNotification(formData.name, 'saved');
+                sizeTypesActions.getAllSizeTypes()(dispatch);
+            }) :
+            (new SizeTypesApi()).addSizeType(formData).then(res => {
                 handleNotification(formData.name, 'saved');
                 sizeTypesActions.getAllSizeTypes()(dispatch);
             })
@@ -69,7 +83,7 @@ export default props => {
     const checkMatchingSizes = () => {
         if(sizesMatched && sizesMatched[0]) {
             setWarningIsOpen(true);
-            setWarningText({title: `Cannot delete ${formData.name.toUpperCase()} sizeType!`, description: `It is used in sizes: ${sizesMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}"`).join(', ')}!`});
+            setWarningText({title: `Cannot delete ${formData.name.toUpperCase()} Set of Sizes!`, description: `It contains sizes: ${sizesMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}"`).join(', ')}!`});
             return true;
         };
         return false;
@@ -87,8 +101,8 @@ export default props => {
     };
 
     const confirmText = {
-        title: `Are you sure to DELETE ${formData.name.toUpperCase()} sizeType?`,
-        description: `If you confirm deletion of ${formData.name.toUpperCase()} sizeType from database it cannot be undone`,
+        title: `Are you sure to DELETE ${formData.name.toUpperCase()} Set of Sizes?`,
+        description: `If you confirm deletion of ${formData.name.toUpperCase()} Set of Sizes from database it cannot be undone`,
         buttonYes: 'DELETE, I am SURE',
         buttonNo: "No, don't DELETE"
     };
@@ -129,9 +143,10 @@ export default props => {
                         </Grid>
                         <Grid item xs={2}></Grid>
                         <Grid item xs={1}>
-                            <DeleteButton
-                                onClick={openConfirm}
-                                size="medium"/>
+                            {item._id ?
+                                <DeleteButton  onClick={openConfirm}  size="medium"/> :
+                                <></>
+                            }
                         </Grid>
                         <Grid item xs={2}></Grid>
                     </Grid>
