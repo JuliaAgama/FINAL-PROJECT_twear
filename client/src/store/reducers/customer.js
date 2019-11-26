@@ -2,12 +2,30 @@ import * as CUSTOMER from '../constants/customer';
 
 const initState = {
     isAuth: false,
-    customer: {}
+    customer: {},
+    loaded: false,
+    error: null
 };
 
 export default function (state = initState, action) {
 
     switch (action.type) {
+
+        case CUSTOMER.CUSTOMER_SEND_REQUEST:
+            return {
+                ...state,
+                ...{
+                    loaded : true
+                }
+            };
+
+        case CUSTOMER.CUSTOMER_RESPONSE_FAILED:
+            return {
+                ...state,
+                ...{
+                    loaded : false
+                }
+            };
 
         case CUSTOMER.CUSTOMER_REGISTRATION:
             return {
@@ -29,7 +47,8 @@ export default function (state = initState, action) {
             return {
                 ...state,
                 ...{
-                    customer: action.data
+                    customer: action.data,
+                    loaded: false
                 }
             };
 

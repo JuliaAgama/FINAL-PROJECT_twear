@@ -1,18 +1,23 @@
-import React, {useState} from "react";
+import React from "react";
 import { Field, reduxForm } from 'redux-form';
 import {renderTextField} from "../common/inputFields";
 import Grid from "@material-ui/core/Grid";
 import {Container} from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import {openRegistrationModalAction} from "../../store/actions/modal";
+import {useDispatch, useSelector} from "react-redux";
+import {required, emptyString, minLength} from '../common/validators';
 import {loginAction} from "../../store/actions/customer";
-import {useDispatch} from "react-redux";
-import validate from '../common/validators';
+import Spinner from '../common/Spinner'
+
 import useStyles from "./useStyles";
 
-const Login = () => {
+const minLength9 = minLength(9);
+
+let Login = (props) => {
+    const {loaded}  = useSelector(state => state.customers);
+    const { handleSubmit, pristine, invalid, submitting } = props;
     const classes = useStyles();
     const dispatch = useDispatch();
     const clickHandler = (event) => {
@@ -20,30 +25,17 @@ const Login = () => {
         dispatch(openRegistrationModalAction());
     };
 
-    const [login, setLogin] = useState('');
-    const [pass, setPass] = useState('');
-
-    const customer = {
-        loginOrEmail: login,
-        password: pass
-    };
+    const submit = (values) => dispatch(loginAction(values));
 
     return (
         <React.Fragment>
             <Grid container item xs={12} >
                 <Container maxWidth={false} className={classes.container}>
-                    <form className={classes.form}>
-                        <Field name="login" component={renderTextField} label="Login" />
-                        {/*<TextField*/}
-                        {/*    error={true}*/}
-                        {/*    helperText="Incorrect entry."*/}
-                        {/*    onChange={(event) => setLogin(event.target.value)}*/}
-                        {/*    fullWidth={true}*/}
-                        {/*    margin="normal"*/}
-                        {/*    required*/}
-                        {/*    label="Login"/>*/}
-                        <TextField onChange={(event) => setPass(event.target.value)} fullWidth={true} margin="normal" label="Password" type="password" required/>
-                        <Button fullWidth={true} onClick={() => dispatch(loginAction(customer))} variant="outlined" className={classes.btn}>Log In</Button>
+                    <form onSubmit={handleSubmit(submit)} className={classes.form}>
+                        <Field name="loginOrEmail" component={renderTextField} type='text' label="Login" validate={[required, emptyString]} />
+                        <Field name="password" component={renderTextField} type='password' label="Password" validate={[required, emptyString, minLength9]} />
+
+                        <Button disabled={pristine || submitting || invalid} fullWidth={true} variant="outlined" type='submit' className={classes.btn}>Log In</Button>
                         <div className={classes.linkContainer}>
                             <Link href="someWhere" className={classes.link}>
                                 Forgot password?
@@ -56,13 +48,17 @@ const Login = () => {
                             </Link>
                         </div>
                     </form>
+                    <Container className={classes.spinnerContainer}>
+                        {loaded ? <Spinner/> : ''}
+                    </Container>
                 </Container>
             </Grid>
         </React.Fragment>
     );
 }
 
+
+
 export default reduxForm({
-    form: 'Login', // a unique identifier for this form
-    validate,
+    form: 'Login'
 })(Login);
