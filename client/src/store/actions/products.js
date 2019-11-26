@@ -17,7 +17,7 @@ export function productItemSendRequest() {
 export function getAllProducts() {
     return function (dispatch) {
         dispatch(productsSendRequest());
-        (new ProductsApi()).getProducts().then(res => {
+        (new ProductsApi()).getAllProducts().then(res => {
             return dispatch({
                 type: PRODUCTS.PRODUCTS_GET_ALL_PRODUCTS,
                 data: res

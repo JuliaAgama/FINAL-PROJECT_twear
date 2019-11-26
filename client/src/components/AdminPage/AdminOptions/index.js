@@ -9,6 +9,8 @@ import clsx from 'clsx';
 import { Hidden } from '@material-ui/core';
 import withWidth from '@material-ui/core/withWidth';
 
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -80,12 +82,9 @@ export default withWidth()(() => {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <div className={classes.header}>
-                <Hidden >
-                    <h3>OPTIONS SETS</h3>
-                </Hidden>
-            </div>
+        <Typography component="div" variant="body1">
+            <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">OPTIONS SETS</Box>
+
             <Grid container className={classes.paper}>
                 <List className={classes.listing}>
                     <Divider />
@@ -132,6 +131,7 @@ export default withWidth()(() => {
                 closeFunction={closeErrorModal}
             />
             <Notification timeout={timeout} children={add => (ref.current = add)} />
-        </div>
+
+        </Typography>
     )
 });

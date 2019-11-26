@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as topCatsActions from '../../../store/actions/topCats';
 import * as categoriesActions from '../../../store/actions/categories';
 
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { Hidden } from '@material-ui/core';
 import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
@@ -51,12 +53,9 @@ export default withWidth()(props => {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <div className={classes.header}>
-                <Hidden >
-                    <h3>CATEGORIES</h3>
-                </Hidden>
-            </div>
+        <Typography component="div" variant="body1">
+            <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">CATEGORIES</Box>
+
             <Grid container className={classes.paper}>
                 <TopCategories/>
             </Grid>
@@ -66,6 +65,6 @@ export default withWidth()(props => {
                 doFunction={() => {closeErrorModal(); getTopCatsList(); getCategoriesList()}}
                 closeFunction={closeErrorModal}
             />
-        </div>
+        </Typography>
     )
 });
