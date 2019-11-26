@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as reduxFormReducer } from 'redux-form';
 
 import topCats from './topCats';
 import topCatItem from './topCatItem';
@@ -38,4 +39,5 @@ export default combineReducers({
     sizeItem,
     products,
     productItem,
+    form: reduxFormReducer
 });
