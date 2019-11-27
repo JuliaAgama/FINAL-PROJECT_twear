@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as topCatsActions from '../../../store/actions/topCats';
@@ -10,16 +10,14 @@ import withWidth from '@material-ui/core/withWidth';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
 
-import Divider from '@material-ui/core/Divider';
 import useStyles from './useStyles';
 
 import RadioHorizontal from '../../common/inputs/RadioHorizontal';
 import Selector from '../../common/inputs/Selector';
+import ProductsList from './ProductsList';
+
 import ErrorModal from '../../common/messages/ErrorModal';
-// import Notification from '../../common/messages/Notification';
 
 export default withWidth()(() => {
 
@@ -35,6 +33,10 @@ export default withWidth()(() => {
 
     const getCategoriesByParentId = (id) => {
         categoriesActions.getCategoriesByParentId(id)(dispatch);
+    };
+
+    const getCategoryItem = (id) => {
+        categoriesActions.getCategoryItem(id)(dispatch);
     };
 
     const getProductsList = () => {
@@ -70,6 +72,14 @@ export default withWidth()(() => {
     };
     const closeErrorModal = () => setErrorIsOpen(false);
 
+
+
+    //on filter:
+
+    const categoriesIds = categoriesList.map(el => el._id);
+
+    const productsDisplay = productsList.filter( item => item.categories.some(category => category.category === categoriesIds.find(el => el === category.category)));
+
     const onChangeTopCat = (id) => {
         id && id !== '' ?
         getCategoriesByParentId(id) :
@@ -77,6 +87,8 @@ export default withWidth()(() => {
     };
 
     const onChangeCategory = (id) => {
+        id && id !== '' ?
+        console.log('hi') :
         console.log(id);
         console.log('category is changed')
     };
@@ -86,29 +98,28 @@ export default withWidth()(() => {
         {name: 'all', _id: 'all'},
         {name: 'yes', _id: 'enabled'},
         {name: 'no', _id: 'disabled'}]
-    const [selectedValue, setSelectedValue] = useState(radioList[0]._id);
-    const onChange = event => {
-    setSelectedValue(event.target.value);
+    const [selectedRadio, setSelectedRadio] = useState(radioList[0]._id);
+    const onChangePublished = event => {
+    setSelectedRadio(event.target.value);
     };
-    const radioCondition = id => selectedValue === id;
+    const radioCondition = id => selectedRadio === id;
 
     const classes = useStyles();
 
     return (
         <Typography component="div" variant="body1">
             <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">PRODUCTS</Box>
-            <Grid container className={classes.paper}>
-                <Grid item xs={12}>
-                    <h3>Filter products</h3>
-                </Grid>
-                    <Grid item xs={6} lg={4}>
+            <Box p={2} textAlign="center" className={classes.paper} >
+                <h3>Filter products:</h3>
+                <Grid container className={classes.paper}>
+                    <Grid item xs={6} lg={4} className={classes.input}>
                         <Selector
                             selectorName='Top Category'
                             selectorArr={topCatsList}
                             onChange={onChangeTopCat}
                         />
                     </Grid>
-                    <Grid item xs={6} lg={4}>
+                    <Grid item xs={6} lg={4} className={classes.input}>
                         <Selector
                             selectorName='Category'
                             selectorArr={categoriesList}
@@ -120,22 +131,20 @@ export default withWidth()(() => {
                             legend="Published:"
                             listArray={radioList}
                             checkedCondition={radioCondition}
-                            onChange={onChange}
+                            onChange={onChangePublished}
                         />
                     </Grid>
-            </Grid>
-            <Grid container className={classes.paper}>
-
-                <p>Products listing: </p>
-                <List className={classes.listing}>
-                    <Divider />
-                    <Divider />
-                </List>
-            </Grid>
+                </Grid>
+            </Box>
+            <Box p={2} textAlign="center" className={classes.paper} >
+                <ProductsList
+                    productsList={productsDisplay}
+                />
+            </Box>
             <ErrorModal
                 modalIsOpen={errorIsOpen}
                 modalText={errorModalText}
-                doFunction={() => {}}
+                doFunction={() => document.location.reload()}
                 closeFunction={closeErrorModal}
             />
         </Typography>

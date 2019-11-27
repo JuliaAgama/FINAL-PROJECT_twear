@@ -17,9 +17,10 @@ import ProductPage from '../components/ProductPage';
 import AdminLoginPage from '../components/AdminLoginPage';
 import AdminPage from '../components/AdminPage';
 import AdminCategories from '../components/AdminPage/AdminCategories';
-import EditNewCategory from '../components/AdminPage/AdminCategories/EditNew';
+import AdminEditNewCategory from '../components/AdminPage/AdminCategories/EditNew';
 import AdminOptions from '../components/AdminPage/AdminOptions';
 import AdminProducts from '../components/AdminPage/AdminProducts';
+import AdminProductReview from '../components/AdminPage/AdminProducts/ProductReview';
 
 
 export const Router = () => (
@@ -55,11 +56,11 @@ export const Router = () => (
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/:categoryName?"
-                    component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminEditNewCategory {...props}/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/top/:topCatName?"
-                    component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminEditNewCategory {...props}/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/options"
@@ -68,6 +69,10 @@ export const Router = () => (
                 //<PrivateAdminRoute exact
                     path="/admin/products"
                     component={props => <LayoutAdmin {...props}><AdminProducts/></LayoutAdmin>}/>
+                <Route exact
+                //<PrivateAdminRoute exact
+                    path="/admin/products/review/:productName?"
+                    component={props => <LayoutAdmin {...props}><AdminProductReview/></LayoutAdmin>}/>
 
                 <Route path="*" component={NotFound}/>
             </Switch>

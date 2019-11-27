@@ -44,6 +44,15 @@ export default function (state = initState, action) {
                 }
             };
 
+            case PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_PARENT_ID:
+                return {
+                    ...state,
+                    ...{
+                        products: action.data,
+                        loaded: true
+                    }
+                };
+
         case PRODUCTS.PRODUCTS_ADD_PRODUCT:
             return {
                 ...state,

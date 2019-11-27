@@ -50,6 +50,24 @@ export function getProductsBySearch(searchValue) {
     };
 };
 
+export function getProductsByParentId(CategoryId) {
+    return function (dispatch) {
+        dispatch(productsSendRequest());
+        (new ProductsApi()).getProductsByMatch({Category: CategoryId}).then(res => {
+            return dispatch({
+                type: PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_PARENT_ID,
+                data: res
+            });
+        })
+        .catch(err => {
+            return dispatch({
+                type: PRODUCTS.PRODUCTS_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        });
+    };
+};
+
 export function getProductItem(id) {
     return function (dispatch) {
         dispatch(productItemSendRequest());

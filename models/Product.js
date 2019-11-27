@@ -67,7 +67,7 @@ const ProductSchema = new Schema(
                 imgsColor: [String]
             },
         ],
-        imgsProduct: [String],
+        imgs: [String],
         productUrl: String,
         brand: String,
         manufacturer: String,

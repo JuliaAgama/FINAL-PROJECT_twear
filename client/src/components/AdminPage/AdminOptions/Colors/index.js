@@ -37,14 +37,13 @@ export default props => {
             (
                 <div className={classes.wrapper}>
                     <Grid container className={classes.paper} id='colors-container'>
-                        {colorsList
-                            .map(item =>
-                                <ColorItem
-                                    item={item}
-                                    key={item._id}
-                                    handleNotification={handleNotification}
-                                />
-                                )
+                        {colorsList.map(item =>
+                            <ColorItem
+                                item={item}
+                                key={item._id}
+                                handleNotification={handleNotification}
+                            />
+                            )
                         }
                         {newColor ?
                         (

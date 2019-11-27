@@ -49,7 +49,6 @@ export default props => {
         }
     },[categoryName, topCatName, item]);
 
-    const radioCondition = id => formData.topCategory && formData.topCategory === id ? true : false;
 
     const onChange = event => {
         if (event.target.name === 'genders') {
@@ -69,6 +68,14 @@ export default props => {
             });
         }
     };
+    // // manage radio:
+    // const [selectedRadio, setSelectedRadio] = useState(formData.topCategory);
+    // const onChangeTopCat = event => {
+    // setSelectedRadio(event.target.value);
+    // };
+    // const radioCondition = id => selectedRadio === id ? true : false;
+
+    // // const radioCondition = id => formData.topCategory && formData.topCategory === id ? true : false;
 
     const onSubmit = event => {
         event.preventDefault();
@@ -118,7 +125,7 @@ export default props => {
                                     legend="In Top Category:"
                                     listArray={topCatsBase}
                                     checkedCondition={radioCondition}
-                                    onChange={onChange}
+                                    onChange={() => {onChange(); onChangeTopCat();}}
                                 /> */}
                                 <FormControl component="fieldset" className={classes.formControl}>
                                     <FormLabel component="legend">In Top Category:</FormLabel>
