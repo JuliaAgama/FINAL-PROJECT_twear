@@ -15,7 +15,7 @@ import useStyles from "./useStyles";
 
 const minLength9 = minLength(9);
 
-let Login = (props) => {
+const Login = (props) => {
     const {loaded}  = useSelector(state => state.customers);
     const { handleSubmit, pristine, invalid, submitting } = props;
     const classes = useStyles();
