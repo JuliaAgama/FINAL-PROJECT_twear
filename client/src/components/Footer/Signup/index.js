@@ -1,6 +1,6 @@
 import React from "react";
 import useStyles from "./useStyles";
-import { Typography, Grid, Input, Button } from "@material-ui/core";
+import { Grid, Input, Button } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
 
 export default function Signup() {
@@ -12,14 +12,13 @@ export default function Signup() {
           <div
             className={classes.signupSize}
           >
-            <Typography>  
               <h4 className={classes.pl10}>Sign up to newsletter</h4>
               <Grid container className={classes.flexMid}>
                 <Input
                   type="email"
                   className={classes.pl10}
                   placeholder={"Enter your email"}
-                  fullWidth={"true"}
+                  fullWidth={true}
                 ></Input>
                 <Button className={classes.border} style={{ margin: "20px" }}>
                   Women
@@ -28,7 +27,6 @@ export default function Signup() {
                   Men
                 </Button>
               </Grid>
-            </Typography>
           </div>
         </Hidden>
         <Hidden mdUp>

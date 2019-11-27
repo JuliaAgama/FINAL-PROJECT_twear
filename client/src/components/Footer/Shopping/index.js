@@ -1,6 +1,6 @@
 import React from "react";
 import useStyles from "./useStyles";
-import { Typography, Link, Grid } from "@material-ui/core";
+import { Link, Grid } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
 
 export default function Shopping() {
@@ -10,7 +10,6 @@ export default function Shopping() {
     <>
       <Hidden smDown>
         <div className={classes.borderBotTop}>
-          <Typography>
             <h4 className={classes.pl10}>Shopping</h4>
             <div>
               <Grid container>
@@ -65,7 +64,6 @@ export default function Shopping() {
                 </Grid>
               </Grid>
             </div>
-          </Typography>
         </div>
       </Hidden>
       <Hidden mdUp>

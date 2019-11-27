@@ -1,6 +1,6 @@
 import React from "react";
 import useStyles from "./useStyles";
-import { Typography, Link, Grid, Box } from "@material-ui/core";
+import { Link, Grid, Box } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
 
 export default function Company() {
@@ -8,7 +8,6 @@ export default function Company() {
 
   return (
     <div className={classes.borderNoTop}>
-      <Typography>
         <Hidden smDown>
           <Grid container className={classes.flexBetween}>
             <div style={{ display: "flex", flex: "1" }}>
@@ -60,7 +59,6 @@ export default function Company() {
             </div>
           </Grid>
         </Hidden>
-      </Typography>
     </div>
   );
 }

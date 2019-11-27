@@ -1,6 +1,6 @@
 import React from "react";
 import useStyles from "./useStyles";
-import { Typography, Link, Grid } from "@material-ui/core";
+import { Link, Grid } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
 
 export default function Company() {
@@ -10,7 +10,6 @@ export default function Company() {
     <>
       <Hidden smDown>
         <div className={classes.border}>
-          <Typography>
             <h4 className={classes.pl10}>Company</h4>
             <div>
               <Grid container>
@@ -61,7 +60,6 @@ export default function Company() {
                 </Grid>
               </Grid>
             </div>
-          </Typography>
         </div>
       </Hidden>
       <Hidden mdUp>
