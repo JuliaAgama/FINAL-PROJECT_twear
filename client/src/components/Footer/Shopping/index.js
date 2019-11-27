@@ -21,44 +21,44 @@ export default function Shopping() {
                   style={{ fontSize: "12px" }}
                 >
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Gift Card
                     </Link>
                   </p>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Terms
                     </Link>
                   </p>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Privacy Policy
                     </Link>
                   </p>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Cookie Policy
                     </Link>
                   </p>
                 </Grid>
                 <Grid item xs={6} style={{ fontSize: "12px" }}>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Delivery
                     </Link>
                   </p>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Payment
                     </Link>
                   </p>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Returns
                     </Link>
                   </p>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Account
                     </Link>
                   </p>
@@ -72,42 +72,42 @@ export default function Shopping() {
         <Grid container className={classes.flexToBot14px}>
           <h4 className={classes.subHeader}>Shopping</h4>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Gift Card
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Terms
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Privacy Policy
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Cookie Policy
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Delivery
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Payment
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Returns
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Account
             </Link>
           </p>

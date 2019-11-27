@@ -2,21 +2,11 @@ import React from "react";
 import useStyles from "./useStyles";
 import { Typography, Grid, Input, Button } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 export default function Signup() {
   const classes = useStyles();
 
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: "#212121"
-      }
-    }
-  });
-
   return (
-    <ThemeProvider theme={theme}>
       <>
         <Hidden smDown>
           <div
@@ -63,6 +53,5 @@ export default function Signup() {
           </div>
         </Hidden>
       </>
-    </ThemeProvider>
   );
 }

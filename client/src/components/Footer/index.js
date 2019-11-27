@@ -6,21 +6,12 @@ import Social from "./Social";
 import Hidden from "@material-ui/core/Hidden";
 import useStyles from "./useStyles";
 import { Grid } from "@material-ui/core";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
+import theme from "../../theme"
 
 const Footer = () => {
   const classes = useStyles();
-
-  const breakpointValues = {
-    xs: 0,
-    sm: 576,
-    md: 768,
-    lg: 992,
-    xl: 1200
-  };
-
-  const theme = createMuiTheme({ breakpoints: { values: breakpointValues } });
 
   return (
     <ThemeProvider theme={theme}>

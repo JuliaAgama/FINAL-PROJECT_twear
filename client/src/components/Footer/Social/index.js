@@ -11,13 +11,11 @@ export default function Company() {
       <Typography>
         <Hidden smDown>
           <Grid container className={classes.flexBetween}>
-            {/* <div style={{ display: "flex", flex: "1", justifyContent: "flex-start" }}> */}
             <div style={{ display: "flex", flex: "1" }}>
               <Link
                 href="#"
                 color={"textPrimary"}
                 style={{padding:10}}  
-                // style={{ position: "absolute", left: "40px", top: "218px" }}
               >
                 Instagram
               </Link>
@@ -25,8 +23,6 @@ export default function Company() {
                 href="#"
                 color={"textPrimary"}
                 style={{padding:10}}
-                // style={{ flex: "1" }}
-                // style={{ position: "absolute", left: "140px", top: "218px" }}
               >
                 Facebook
               </Link>

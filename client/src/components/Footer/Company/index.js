@@ -21,39 +21,40 @@ export default function Company() {
                   style={{ fontSize: "12px" }}
                 >
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link 
+                    href="#">
                       Contact
                     </Link>
                   </p>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Sustainability
                     </Link>
                   </p>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       About
                     </Link>
                   </p>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Careers
                     </Link>
                   </p>
                 </Grid>
                 <Grid item xs={6} style={{ fontSize: "12px" }}>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Stores
                     </Link>
                   </p>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       Press
                     </Link>
                   </p>
                   <p>
-                    <Link color={"textPrimary"} href="#">
+                    <Link href="#">
                       B2B
                     </Link>
                   </p>
@@ -67,37 +68,37 @@ export default function Company() {
         <Grid container className={classes.flexToBot14px}>
           <h4 className={classes.subHeader}>Company</h4>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Contact{" "}
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Sustainability
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               About{" "}
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Careers{" "}
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Stores
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               Press
             </Link>
           </p>
           <p>
-            <Link color={"textPrimary"} href="#">
+            <Link href="#">
               B2B
             </Link>
           </p>
