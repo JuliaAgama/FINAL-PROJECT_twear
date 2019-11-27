@@ -8,7 +8,7 @@ import useStyles from "./useStyles";
 import { Grid } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
-import theme from "../../theme"
+import theme from "../../theme";
 
 const Footer = () => {
   const classes = useStyles();
