@@ -18,7 +18,6 @@ import useStyles from './useStyles';
 
 import RadioHorizontal from '../../common/inputs/RadioHorizontal';
 import Selector from '../../common/inputs/Selector';
-import Switch from '../../common/inputs/Switch';
 import ErrorModal from '../../common/messages/ErrorModal';
 // import Notification from '../../common/messages/Notification';
 
@@ -93,8 +92,6 @@ export default withWidth()(() => {
     };
     const radioCondition = id => selectedValue === id;
 
-    console.log(selectedValue);
-    
     const classes = useStyles();
 
     return (
