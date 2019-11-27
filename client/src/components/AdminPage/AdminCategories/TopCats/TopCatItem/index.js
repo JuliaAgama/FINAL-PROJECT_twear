@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
+import * as topCatsActions from '../../../../../store/actions/topCats';
 import TopCatsApi from '../../../../../services/TopCats';
 import CategoriesApi from '../../../../../services/Categories';
 
@@ -9,24 +11,25 @@ import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import useStyles from './useStyles';
 
-import ManageCategories from '../../Categories';
-import ImgIcon from '../../../../common/images/ImgIcon';
-import OpenEditButton from '../../../../common/buttons/Edit';
-import DeleteButton from '../../../../common/buttons/Delete';
-import ConfirmModal from '../../../../common/messages/ConfirmModal';
-import WarningModal from '../../../../common/messages/WarningModal';
-
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
 import Box from '@material-ui/core/Box';
 
+import Categories from '../../Categories';
+import ImgIcon from '../../../../common/images/ImgIcon';
+import OpenEditButton from '../../../../common/buttons/Edit';
+import DeleteButton from '../../../../common/buttons/Delete';
+import ConfirmModal from '../../../../common/messages/ConfirmModal';
+import WarningModal from '../../../../common/messages/WarningModal';
+
 
 export default props => {
-    const classes = useStyles();
 
-    const {item, handleNotification, getUpdatedTopCatsList} = props;
+    const dispatch = useDispatch();
+
+    const {item, handleNotification} = props;
     const itemName=item.name;
 
     const [expanded, setExpanded] = useState(false);
@@ -52,7 +55,6 @@ export default props => {
 
     const closeWarning =() => setWarningIsOpen(false);
 
-
     const [confirmIsOpen, setConfirmIsOpen] = useState(false);
 
     const openConfirm = event => {
@@ -69,16 +71,18 @@ export default props => {
         buttonNo: "No, don't DELETE"
     };
 
+    const closeConfirm = () => setConfirmIsOpen(false);
+
     const deleteItem = (event) => {
         event.preventDefault();
         (new TopCatsApi()).deleteTopCategory(item).then(res => {
-            getUpdatedTopCatsList();
             setConfirmIsOpen(false);
+            topCatsActions.getAllTopCats()(dispatch);
             handleNotification(itemName);
         });
     };
 
-    const closeConfirm = () => setConfirmIsOpen(false);
+    const classes = useStyles();
 
     return (
         <>
@@ -119,7 +123,7 @@ export default props => {
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>
             <div className={classes.expanded}>
-                <ManageCategories topCatId={item._id}/>
+                <Categories topCatId={item._id}/>
                 <Box textAlign='right'>
                     <IconButton
                         className={classes.expandOpen}

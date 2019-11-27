@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
 

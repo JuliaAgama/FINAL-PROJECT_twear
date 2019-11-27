@@ -6,18 +6,19 @@ import useStyles from './useStyles';
 import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControl from '@material-ui/core/FormControl';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import Checkbox from '@material-ui/core/Checkbox';
+
+import RadioVertical from '../../../../common/inputs/RadioVertical';
 
 
 export default props => {
     const classes = useStyles();
 
     const{categoryName, topCatName, item, topCatsBase, gendersBase, displayAdditional, onSubmitHandler} = props;
-    const specialCategory = 'looks';
 
     let [formData, setFormData] = useState({});
 
@@ -47,6 +48,8 @@ export default props => {
                 });
         }
     },[categoryName, topCatName, item]);
+
+    const radioCondition = id => formData.topCategory && formData.topCategory === id ? true : false;
 
     const onChange = event => {
         if (event.target.name === 'genders') {
@@ -111,22 +114,26 @@ export default props => {
                     <div className={classes[displayAdditional]}>
                         <Grid container className={classes.paper}>
                             <Grid item xs={6}>
+                                {/* <RadioVertical
+                                    legend="In Top Category:"
+                                    listArray={topCatsBase}
+                                    checkedCondition={radioCondition}
+                                    onChange={onChange}
+                                /> */}
                                 <FormControl component="fieldset" className={classes.formControl}>
                                     <FormLabel component="legend">In Top Category:</FormLabel>
                                     <RadioGroup aria-label="topCats" name="topCategory">
-                                    {topCatsBase
-                                        .filter(el => el.name !== specialCategory)
-                                        .map(topCat =>
-                                            <FormControlLabel
-                                                key={topCat._id}
-                                                id={topCat._id}
-                                                value={topCat._id}
-                                                control={<Radio />}
-                                                label={topCat.name}
-                                                checked={formData.topCategory && formData.topCategory === topCat._id ? true : false}
-                                                onChange={onChange}
-                                            />
-                                        )}
+                                    {topCatsBase.map(topCat =>
+                                        <FormControlLabel
+                                            key={topCat._id}
+                                            id={topCat._id}
+                                            value={topCat._id}
+                                            control={<Radio />}
+                                            label={topCat.name}
+                                            checked={formData.topCategory && formData.topCategory === topCat._id ? true : false}
+                                            onChange={onChange}
+                                        />
+                                    )}
                                     </RadioGroup>
                                 </FormControl>
                             </Grid>
@@ -182,27 +189,4 @@ export default props => {
             </div>
         </>
     )
-}
-
-
-                                    {/* following is for product form:
-                                    {topCatsBase
-                                    .filter(el => el.name === specialCategory)
-                                    .map(topCat =>
-                                        <div className="form-check"
-                                            key={topCat._id}
-                                        >
-                                            <input
-                                                className="form-check-input"
-                                                type="checkbox"
-                                                name={topCat.name}
-                                                id={topCat._id}
-                                                value={topCat.name}
-                                                checked={topCat.name === checkedTop ? true : false}
-                                                onChange={onChange}
-                                            />
-                                            <label className="form-check-label" htmlFor={topCat.name}>
-                                            {'include to ' + topCat.name.toUpperCase() + ' collections?'}
-                                            </label>
-                                        </div>
-                                    )} */}
+};

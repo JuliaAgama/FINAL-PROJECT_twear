@@ -7,8 +7,10 @@ export default makeStyles(theme => (
             color: theme.color,
         }),
         wrapper: {
-            margin: `${theme.spacing(1)} auto`,
-            // paddingBottom: theme.spacing(5)
+            margin: `${theme.spacing(2)} auto`,
+            borderTop: `solid 1px #666666`,
+            paddingTop: theme.spacing(1),
+            paddingBottom: theme.spacing(2)
         },
         textField: {
             // marginRight: theme.spacing(2),

@@ -67,7 +67,8 @@ exports.deleteTopCat = (req, res, next) => {
       TopCat.deleteOne({ _id: req.params.id })
         .then(deletedTopCat =>
           res.status(200).json({
-            message: `TopCat "${topCatToDelete.name.toUpperCase()}" with id "${topCatToDelete.id}" is successfully deleted from DB `
+            message: `TopCat "${topCatToDelete.name.toUpperCase()}" with id "${topCatToDelete.id}" is successfully deleted from DB `,
+            deletedTopCatInfo: categortopCatToDeleteyToDelete
           })
         )
         .catch(err =>

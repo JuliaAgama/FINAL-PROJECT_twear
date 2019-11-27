@@ -1,27 +1,70 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
+import * as topCatsActions from '../../../store/actions/topCats';
+import * as categoriesActions from '../../../store/actions/categories';
+
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { Hidden } from '@material-ui/core';
 import withWidth from '@material-ui/core/withWidth';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
 
-import ManageTopCategories from './TopCats';
+import TopCategories from './TopCats';
+import ErrorModal from '../../common/messages/ErrorModal';
 
 
 export default withWidth()(props => {
 
+    const dispatch = useDispatch();
+
+    const getTopCatsList = () => {
+        topCatsActions.getAllTopCats()(dispatch);
+    };
+
+    const getCategoriesList = () => {
+        categoriesActions.getAllCategories()(dispatch);
+    };
+
+    useEffect(() => {
+        getTopCatsList();
+        getCategoriesList();
+    }, []);
+
+    //server errors catching:
+    const topCatsError = useSelector(state => state.topCats.error);
+    const categoriesError = useSelector(state => state.categories.error);
+
+    const [errorIsOpen, setErrorIsOpen] = useState(false);
+
+    useEffect(() => {
+        if(topCatsError || categoriesError) {setErrorIsOpen(true)}
+    },[topCatsError, categoriesError]
+    );
+
+    const errorModalText = {
+        title: `NO RESPONSE FROM SERVER`,
+        description: `Request to server failed`,
+        button: 'TRY AGAIN'
+    };
+    const closeErrorModal = () => setErrorIsOpen(false);
+
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <div className={classes.header}>
-                <Hidden >
-                    <h3>CATEGORIES</h3>
-                </Hidden>
-            </div>
+        <Typography component="div" variant="body1">
+            <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">CATEGORIES</Box>
+
             <Grid container className={classes.paper}>
-                <ManageTopCategories/>
+                <TopCategories/>
             </Grid>
-        </div>
+            <ErrorModal
+                modalIsOpen={errorIsOpen}
+                modalText={errorModalText}
+                doFunction={() => {closeErrorModal(); getTopCatsList(); getCategoriesList()}}
+                closeFunction={closeErrorModal}
+            />
+        </Typography>
     )
 });

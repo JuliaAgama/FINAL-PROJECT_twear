@@ -15,14 +15,14 @@ export default function Company() {
               <Link
                 href="#"
                 color={"textPrimary"}
-                style={{padding:10}}  
+                style={{padding: '10px 25px'}}  
               >
                 Instagram
               </Link>
               <Link
                 href="#"
                 color={"textPrimary"}
-                style={{padding:10}}
+                style={{padding: '10px 5px'}}
               >
                 Facebook
               </Link>
@@ -38,14 +38,12 @@ export default function Company() {
             <div>
               <Link
                 href="#"
-                color={"textPrimary"}
-                style={{ padding: "0 10px", fontSize: 14 }}
+                style={{ padding: "0 30px", fontSize: 14 }}
               >
                 Instagram
               </Link>
               <Link
                 href="#"
-                color={"textPrimary"}
                 style={{ padding: "0 5 px", fontSize: 14 }}
               >
                 Facebook
@@ -55,7 +53,7 @@ export default function Company() {
               <Box
                 fontFamily="Monospace"
                 fontSize="h7.fontSize"
-                style={{ padding: "5px 20px" }}
+                style={{ padding: "10px 20px" }}
               >
                 © 2019 TWEAR
               </Box>

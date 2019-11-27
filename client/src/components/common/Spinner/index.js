@@ -12,9 +12,8 @@ const ColorCircularProgress = withStyles({
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
-    },
-    margin: {
         margin: theme.spacing(1),
+        padding: theme.spacing(1)
     },
 }));
 

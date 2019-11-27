@@ -4,6 +4,7 @@ export default makeStyles(theme => (
     {
         wrapper: {
             margin: `${theme.spacing(1)} auto`,
+            marginBottom: theme.spacing(2)
         },
         textField: {
             margin: `${theme.spacing(1)} auto`,

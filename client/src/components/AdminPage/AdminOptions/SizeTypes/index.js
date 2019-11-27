@@ -1,58 +1,30 @@
-import React, { useState, useEffect, useRef} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import * as sizeTypesActions from '../../../../store/actions/sizeTypes';
+import React, {useState, useEffect} from 'react';
+import { useSelector } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 import useStyles from './useStyles';
 
-import ErrorModal from '../../../common/messages/ErrorModal';
-import Notification from '../../../common/messages/Notification';
 import AddWideButton from '../../../common/buttons/AddWide';
 import Spinner from '../../../common/Spinner';
-
 import SizeTypeItem from './SizeTypeItem';
 
 
-export default () => {
+export default props => {
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        sizeTypesActions.getAllSizeTypes()(dispatch);
-    }, [dispatch]);
-
-    const getUpdatedSizeTypesList = () => {
-        sizeTypesActions.getAllSizeTypes()(dispatch);
-    };
+    const {handleNotification} = props;
 
     const sizeTypesList = useSelector(state => state.sizeTypes.sizeTypes);
     const sizeTypesLoaded = useSelector(state => state.sizeTypes.loaded);
 
-    //server errors catching:
-    const sizeTypesError = useSelector(state => state.sizeTypes.error);
-    const [errorIsOpen, setErrorIsOpen] = useState(false);
-    useEffect(() => {
-        if(sizeTypesError) {setErrorIsOpen(true)}
-    },[sizeTypesError]
-    );
-    const errorModalText = {
-        title: `NO RESPONSE FROM SERVER`,
-        description: `Request to server failed`,
-        button: 'TRY AGAIN'
-    };
-    const reloadPage = () => window.location.reload(true);
-    const closeErrorModal = () => setErrorIsOpen(false);
+    const [newSizeType, setNewSizeType] = useState(null);
 
-    // notification after saving or deleting item:
-    const ref = useRef(null);
-    const timeout = 2000;
-    const handleNotification = (itemName, actionDescription) => {
-        ref.current(`Size Type ${itemName.toUpperCase()} has been ${actionDescription}.`);
-    };
+    useEffect(() => {
+        setNewSizeType(null);
+    }, [sizeTypesList]);
 
     const addItem = event => {
         event.preventDefault();
-        console.log('hello');
+        setNewSizeType ({name: ''});
     };
 
     const classes = useStyles();
@@ -64,9 +36,18 @@ export default () => {
             (
                 <div className={classes.wrapper}>
                 <Grid container>
+                    {newSizeType ?
+                        (
+                            <SizeTypeItem
+                                    item={newSizeType}
+                                    key={Math.random()}
+                                    handleNotification={handleNotification}
+                                />
+                        ) :
                     <Grid item xs={12} className={classes.wrapper}>
-                        <AddWideButton  text='CREATE NEW SIZE TYPE' color='secondary' onClick={addItem}/>
+                        <AddWideButton  text='CREATE NEW SET OF SIZES' color='secondary' onClick={addItem}/>
                     </Grid>
+                    }
                 </Grid>
                     <Grid container className={classes.paper}>
                         {sizeTypesList
@@ -75,29 +56,14 @@ export default () => {
                                     item={item}
                                     key={item._id}
                                     handleNotification={handleNotification}
-                                    getUpdatedSizeTypesList={getUpdatedSizeTypesList}
                                 />
                                 )
                         }
-                        {/* <Grid item xs={6} lg={4} xl={3} className={classes.center}>
-                            <Grid container>
-                                <Grid item xs={3}>
-                                    <AddButton
-                                        className='fabPink'
-                                        onClick={addItem}
-                                        size="medium"/>
-                                </Grid>
-                                <Grid item xs={9}></Grid>
-                            </Grid>
-                        </Grid> */}
                     </Grid>
                 </div>
             ) :
             <Spinner/>
-
         }
-        <Notification timeout={timeout} children={add => (ref.current = add)} />
-        <ErrorModal modalIsOpen={errorIsOpen} modalText={errorModalText} doFunction={reloadPage} closeFunction={closeErrorModal}/>
         </>
     )
 };

@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+// import axios from 'axios';
 
+
+import * as colorsActions from '../../../../../store/actions/colors';
 import ColorsApi from '../../../../../services/Colors';
 import ProductsApi from '../../../../../services/Products';
 
@@ -15,15 +18,23 @@ import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
 
 export default props => {
-    const classes = useStyles();
-    const {item, handleNotification, getUpdatedColorsList} = props;
+
+    const dispatch = useDispatch();
+
+    const {item, handleNotification} = props;
     const colorsList = useSelector(state => state.colors.colors)
 
     const [color, setColor] = useState(item.cssValue);
     const [formData, setFormData] = useState({_id: '', name: ''});
 
     useEffect(()=> {
-        setFormData(item);
+        // let itemUnmounted = false;
+        // if (!itemUnmounted) {
+            setFormData(item);
+        // };
+        // return () => {
+        //     itemUnmounted = true;
+        // }
     },[item]);
 
     const onChange = event => {
@@ -55,21 +66,69 @@ export default props => {
         return false;
     };
 
+    const checkEmptyName = () => {
+        if (formData.name === '' || !formData.name) {
+            setWarningIsOpen(true);
+            setWarningText({title: 'Cannot save!', description: `Color MUST have name!`});
+            return true;
+        };
+        return false;
+    };
+
     const saveColor = event => {
         event.preventDefault();
-        if( !checkDoubles()) {
+        if( !checkEmptyName() && !checkDoubles()) {
+            formData._id ?
             (new ColorsApi()).updateColor(formData).then(res => {
                 handleNotification(formData.name, 'saved');
-                getUpdatedColorsList();
+                colorsActions.getAllColors()(dispatch);
+            }) :
+            (new ColorsApi()).addColor(formData).then(res => {
+                handleNotification(formData.name, 'saved');
+                colorsActions.getAllColors()(dispatch);
             })
         }
     };
 
     // handle deleting color:
     const [productsMatched, setProductsMatched] = useState(null);
+
     useEffect(() => {
-        (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(res));
-    }, [item]);
+        // let itemUnmounted = false;
+        // if (!itemUnmounted) {
+            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(res));
+        // };
+        // return () => {
+        //     itemUnmounted = true;
+        // }
+
+
+
+        // пробовала следующее, не сработало (везде примеры только с гет-запросами, а мне нужен пост-запрос).....
+
+        // const CancelToken = axios.CancelToken;
+        // const source = CancelToken.source();
+
+        // const getProductsByMatch = item => {
+        //     try {
+        //         axios
+        //         .post(`products/match`, item, { cancelToken: source.token })
+        //         .then(res => setProductsMatched(res.data));
+        //     } catch (err) {
+        //         if (axios.isCancel(err)) {
+        //             console.log("cancelled");
+        //             return err.response.data; //?
+        //         } else {
+        //             throw err;
+        //         }
+        //     }
+        // };
+        // getProductsByMatch({color: item._id});
+
+        // return () => {
+        //     source.cancel();
+        // };
+    }, [item._id]);
 
     const checkMatchingProducts = () => {
         if(productsMatched && productsMatched[0]) {
@@ -100,53 +159,56 @@ export default props => {
         (new ColorsApi()).deleteColor(formData).then(res => {
             setConfirmIsOpen(false);
             handleNotification(formData.name, 'deleted');
-            getUpdatedColorsList();
+            colorsActions.getAllColors()(dispatch);
         });
     };
 
+    const classes = useStyles();
+
     return (
         <>
-                <Grid item xs={6} lg={4} xl={3} className={classes.wrapper}>
-                    <form autoComplete="off">
-                        <Grid container className={classes.verticalCenter}>
-                            <Grid item xs={1}>
-                                <input
-                                    className={classes.colorInput}
-                                    id={item._id}
-                                    type="color"
-                                    name={'cssValue'}
-                                    value={color}
-                                    onChange={onChange}
-                                />
-                            </Grid>
-                            <Grid item xs={1}></Grid>
-                            <Grid item xs={3}>
-                                <TextField
-                                    className={classes.textField}
-                                    required
-                                    id={item._id}
-                                    name={'name'}
-                                    onChange={onChange}
-                                    defaultValue={item.name}
-                                    margin="normal"
-                                />
-                            </Grid>
-                            <Grid item xs={1}>
-                                <SaveButton
-                                    onClick={saveColor}
-                                    size="small"
-                                    className={formData.name === item.name && formData.cssValue === item.cssValue ? '' : 'fabGreenFilled' }/>
-                            </Grid>
-                            <Grid item xs={2}></Grid>
-                            <Grid item xs={1}>
-                                <DeleteButton
-                                    onClick={openConfirm}
-                                    size="small"/>
-                            </Grid>
-                            <Grid item xs={3}></Grid>
+            <Grid item xs={6} lg={4} xl={3} className={classes.wrapper}>
+                <form autoComplete="off">
+                    <Grid container className={classes.verticalCenter}>
+                        <Grid item xs={1}>
+                            <input
+                                className={classes.colorInput}
+                                id={item._id}
+                                type="color"
+                                name={'cssValue'}
+                                value={color}
+                                onChange={onChange}
+                            />
                         </Grid>
-                    </form>
-                </Grid>
+                        <Grid item xs={1}></Grid>
+                        <Grid item xs={3}>
+                            <TextField
+                                className={classes.textField}
+                                required
+                                id={item._id}
+                                name={'name'}
+                                onChange={onChange}
+                                defaultValue={item.name}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item xs={1}>
+                            <SaveButton
+                                onClick={saveColor}
+                                size="small"
+                                className={formData.name === item.name && formData.cssValue === item.cssValue ? '' : 'fabGreenFilled' }/>
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={1}>
+                            {item._id ?
+                            <DeleteButton  onClick={openConfirm}  size="small"/> :
+                            <></>
+                            }
+                        </Grid>
+                        <Grid item xs={3}></Grid>
+                    </Grid>
+                </form>
+            </Grid>
             <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
             <ConfirmModal modalIsOpen={confirmIsOpen} modalText={confirmText} doFunction={deleteColor} closeFunction={closeConfirm}/>
         </>

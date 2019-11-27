@@ -40,7 +40,7 @@ export default class Categories extends Base {
 
     deleteCategory(category){
         return super.delete(`categories/${category._id}`, category)
-        .then(res => res.data)
+        .then(res =>res.data)
         // .catch(err => err.response.data);
     }
 }
