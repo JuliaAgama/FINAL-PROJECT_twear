@@ -13,10 +13,6 @@ export default props => {
 
     const {legend, listArray, checkedCondition, onChange } = props;
 
-    const handleChange = () => {
-        onChange();
-    };
-
     const classes = useStyles();
 
     return (
@@ -31,7 +27,7 @@ export default props => {
                     control={<Radio />}
                     label={item.name}
                     checked={checkedCondition(item._id)}
-                    onChange={handleChange}
+                    onChange={onChange}
                 />
             )}
             </RadioGroup>

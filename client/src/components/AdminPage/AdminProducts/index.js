@@ -93,7 +93,8 @@ export default withWidth()(() => {
     };
     const radioCondition = id => selectedValue === id;
 
-
+    console.log(selectedValue);
+    
     const classes = useStyles();
 
     return (
