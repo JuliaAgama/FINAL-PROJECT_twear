@@ -1,9 +1,11 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import Box from "@material-ui/core/Box";
 import Checkbox from "@material-ui/core/Checkbox";
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import PhoneInput from "react-phone-input-2";
 
 export function renderTextField({ input, label, type, meta: { touched, error, invalid }, ...custom }) {
     return     <TextField   error={touched && invalid}
@@ -17,15 +19,20 @@ export function renderTextField({ input, label, type, meta: { touched, error, in
                 />
 }
 
-export function renderRadioGroup({ input, ...rest }){
-    return   <RadioGroup {...input}
-                         {...rest}
-                         value={input.value}
-                         onChange={(event, value) => input.onChange(value)}
-                         aria-label="position"
-                         name="position"
-                         row
-    />
+export function renderRadioGroup({ input, meta: {error}, ...rest }){
+    return(
+            <FormControl error={true} component="fieldset">
+                <RadioGroup {...input}
+                                     {...rest}
+                                     value={input.value}
+                                     onChange={(event, value) => input.onChange(value)}
+                                     aria-label="position"
+                                     name="position"
+                                     row
+                />
+                <FormHelperText>{error}</FormHelperText>
+            </FormControl>
+        )
 }
 
 export function renderDate({ input: {onChange}, label, type, className}) {
@@ -39,12 +46,35 @@ export function renderDate({ input: {onChange}, label, type, className}) {
                        className={className}/>
 }
 
-export function renderCheckbox({ input, label, className }) {
-    return <FormControlLabel
-        control={<Checkbox  color="default"/>}
-        label={label}
-        checked={input.value ? true : false}
-        onChange={input.onChange}
-        className={className}
-    />
+export function renderCheckbox({ input, label, className, meta: {error} }) {
+    return (
+            <FormControl error={true} component="fieldset">
+                <FormControlLabel control={<Checkbox  color="default"/>}
+                                         label={label}
+                                         checked={input.value ? true : false}
+                                         onChange={input.onChange}
+                                         className={className}
+                />
+                <FormHelperText>{error}</FormHelperText>
+            </FormControl>
+    )
+}
+
+export function renderPhoneNumber({ input: { onChange, value }, className, style, meta: {error}}) {
+    return(
+    <FormControl error={true} component="fieldset" className={className}>
+        <PhoneInput containerStyle={{
+                            marginTop: '30px',
+                            marginBottom: '30px',
+                            width: '100%'
+                            }}
+                           inputStyle={{width: '100%'}}
+                           dropdownStyle={{width: '100%'}}
+                           defaultCountry={'ua'}
+                           onChange={onChange}
+                           value={value}
+        />
+        <FormHelperText className={style}>{error}</FormHelperText>
+    </FormControl>
+    )
 }

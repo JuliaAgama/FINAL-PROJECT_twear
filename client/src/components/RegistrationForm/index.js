@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import { Field, reduxForm } from 'redux-form';
-import {renderTextField, renderRadioGroup, renderDate, renderCheckbox} from "../common/inputFields";
-import {required, emptyString, minLength} from '../common/validators';
-import {registrationAction} from "../../store/actions/customer";
+import {renderTextField, renderRadioGroup, renderDate, renderCheckbox, renderPhoneNumber} from "../common/inputFields";
+import {required, emptyString, minLength, email, name, phoneNumber} from '../common/validators';
+import {loginAction, registrationAction} from "../../store/actions/customer";
 import Grid from "@material-ui/core/Grid";
 import {Container} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -11,7 +11,6 @@ import Box from "@material-ui/core/Box";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
-import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/dist/style.css'
 import useStyles from "./useStyles";
 
@@ -20,7 +19,9 @@ const minLength9 = minLength(9);
 const Registration = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const [telephone, setTelephone] = useState('+380');
+    const { handleSubmit, pristine, invalid, submitting } = props;
+    const submit = (values) => console.log(values);
+        // dispatch(loginAction(values));
 
     // const customer = {
     //     login: login,
@@ -39,7 +40,7 @@ const Registration = (props) => {
         <React.Fragment>
             <Grid container item xs={12} >
                 <Container maxWidth={false} className={classes.container}>
-                    <form className={classes.form}>
+                    <form onSubmit={handleSubmit(submit)} className={classes.form}>
                         <Box className={classes.box}>
                             <p>I'M A NEW CUSTOMER</p>
                             <p>Create an account to make purchases and enjoy privileged access to exclusive shopping features such as:</p>
@@ -54,7 +55,7 @@ const Registration = (props) => {
                             <span>* Required fields</span>
                         </div>
                         <FormControl component="fieldset">
-                            <Field name='gender' component={renderRadioGroup}>
+                            <Field name='gender' component={renderRadioGroup} validate={[required]}>
                                     <FormControlLabel
                                         value='female'
                                         control={<Radio color="default" />}
@@ -71,23 +72,13 @@ const Registration = (props) => {
                             </Field>
                         </FormControl>
                         <Box className={classes.inputContainer}>
-                            <Field name="firstName" component={renderTextField} type='text' label="First Name" validate={[required, emptyString]} className={classes.inputField}/>
-                            <Field name="lastName" component={renderTextField} type='text' label="Last Name" validate={[required, emptyString]} className={classes.inputField}/>
+                            <Field name="firstName" component={renderTextField} type='text' label="First Name*" validate={[required, emptyString, name]} className={classes.inputField}/>
+                            <Field name="lastName" component={renderTextField} type='text' label="Last Name*" validate={[required, emptyString, name]} className={classes.inputField}/>
                             <Field name="login" component={renderTextField} type='text' label="Login" validate={[required, emptyString]} className={classes.inputField}/>
-                            <Field name="email" component={renderTextField} type='email' label="Email" validate={[required, emptyString]} className={classes.inputField}/>
-                            <Field name="password" component={renderTextField} type='password' label="Password" validate={[required, emptyString, minLength9]} className={classes.inputField} />
-                            <Field name="birthday" component={renderDate} type='date' label="Birthday" validate={[required, emptyString, minLength9]} className={classes.inputField} />
-                            <PhoneInput containerStyle={{
-                                            marginTop: '30px',
-                                            marginBottom: '30px',
-                                            marginLeft: 'calc(50% - 125px)',
-                                            width: '250px'
-                                        }}
-                                        inputStyle={{width: '250px'}}
-                                        dropdownStyle={{width: '250px'}}
-                                        defaultCountry={'ua'}
-                                        value={telephone}
-                                        onChange={(phoneNumber) => setTelephone(phoneNumber)}/>
+                            <Field name="email" component={renderTextField} type='email' label="Email*" validate={[required, email]} className={classes.inputField}/>
+                            <Field name="password" component={renderTextField} type='password' label="Password*" validate={[required, emptyString, minLength9]} className={classes.inputField} />
+                            {/*<Field name="birthday" component={renderDate} type='date' label="Birthday" className={classes.inputField} />*/}
+                            <Field name="telephone" component={renderPhoneNumber} style={classes.phoneSpan}  validate={[phoneNumber]} className={classes.inputPhone}/>
                         </Box>
                         <p className={classes.text}>The data fields with an asterisk (*) must be completed in order to complete your registration
                             and satisfy any request you make. Your personal data may be jointly controlled by
@@ -99,8 +90,13 @@ const Registration = (props) => {
                             to the processing of your personal data. To exercise your rights, please write to privacy@twear.com.
                             You can also manage your subscriptions via your account.
                         </p>
-                        <Field name='confirm' component={renderCheckbox} className={classes.checkboxText} label={checkboxText} />
-                        <Button onClick={() => dispatch(registrationAction(customer))} fullWidth={true} variant="outlined" className={classes.btn}>Registration</Button>
+                        <Field name='confirm' component={renderCheckbox} className={classes.checkboxText}  validate={[required]} label={checkboxText} />
+                        <Button disabled={pristine || submitting || invalid}
+                                type='submit'
+                            // onClick={() => dispatch(registrationAction(customer))}
+                                fullWidth={true}
+                                variant="outlined"
+                                className={classes.btn}>Registration</Button>
                     </form>
                 </Container>
             </Grid>

@@ -14,4 +14,14 @@ export const email = value =>
         : undefined;
 
 export const minLength = min => value =>
-    value && value.length < min ? `Must be ${min} characters or more` : undefined
+    value && value.length < min ? `Must be ${min} characters or more` : undefined;
+
+
+export const tooOld = value =>
+    value && value > 65 ? 'You might be too old for this' : undefined;
+
+export const name = value =>
+    value && !/^[a-zA-Z'][a-zA-Z-' ]+[a-zA-Z']?$/i.test(value) ? 'Name can\'t contain numbers or consist of one character' : undefined;
+
+export const phoneNumber = value =>
+    value && !/^\+380 \(\d{2}\) \d{3} \d{2} \d{2}$/i.test(value) ? 'Invalid phone number' : undefined;

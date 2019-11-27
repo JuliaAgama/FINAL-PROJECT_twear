@@ -23,7 +23,11 @@ export default makeStyles(theme => (
             outline: 'none!important',
             width: '50%',
             display: 'block',
-            marginLeft: '25%'
+            marginLeft: '25%',
+            [theme.breakpoints.down('sm')]: {
+                width: '100%',
+                marginLeft: '0'
+            },
         },
         link: {
             color: 'black',
@@ -42,7 +46,7 @@ export default makeStyles(theme => (
         radioBtn: {
             marginRight: '50px',
             [theme.breakpoints.down('sm')]: {
-                marginRight: '20px',
+                marginRight: '14px',
             },
         },
         inputField: {
@@ -50,6 +54,13 @@ export default makeStyles(theme => (
             [theme.breakpoints.down('sm')]: {
                 width: '100%',
             },
+        },
+        inputPhone: {
+            width: '48%',
+            [theme.breakpoints.down('sm')]: {
+                width: '100%',
+            },
+            position: 'relative'
         },
         inputContainer: {
             display: 'flex',
@@ -69,6 +80,11 @@ export default makeStyles(theme => (
         checkboxText: {
             textAlign: 'justify',
             fontSize: '14px'
+        },
+        phoneSpan: {
+            position: 'absolute',
+            top: '65px',
+            left: '40px'
         }
     }
 ));
