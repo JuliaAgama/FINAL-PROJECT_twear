@@ -128,7 +128,7 @@ export default props => {
         // return () => {
         //     source.cancel();
         // };
-    }, []);
+    }, [item._id]);
 
     const checkMatchingProducts = () => {
         if(productsMatched && productsMatched[0]) {

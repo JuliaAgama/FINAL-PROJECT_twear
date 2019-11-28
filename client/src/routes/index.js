@@ -19,6 +19,7 @@ import AdminPage from '../components/AdminPage';
 import AdminCategories from '../components/AdminPage/AdminCategories';
 import EditNewCategory from '../components/AdminPage/AdminCategories/EditNew';
 import AdminOptions from '../components/AdminPage/AdminOptions';
+import AdminProducts from '../components/AdminPage/AdminProducts';
 
 
 export const Router = () => (
@@ -63,6 +64,10 @@ export const Router = () => (
                 //<PrivateAdminRoute exact
                     path="/admin/options"
                     component={props => <LayoutAdmin {...props}><AdminOptions/></LayoutAdmin>}/>
+                <Route exact
+                //<PrivateAdminRoute exact
+                    path="/admin/products"
+                    component={props => <LayoutAdmin {...props}><AdminProducts/></LayoutAdmin>}/>
 
                 <Route path="*" component={NotFound}/>
             </Switch>
