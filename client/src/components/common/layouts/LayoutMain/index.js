@@ -4,6 +4,7 @@ import SettingsButton from '../../../common/buttons/Settings';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
+import Grid from "@material-ui/core/Grid";
 
 export default props => {
 
@@ -26,6 +27,7 @@ export default props => {
         <ThemeProvider theme={theme}>
             <Container maxWidth={false} className={classes.layoutContainer}>
                 <Header/>
+                <div>{props.children}</div>
                 <SettingsButton title='Admin Page' size={2} color='red' onClick={redirectToAdmin}/>
             </Container>
         </ThemeProvider>

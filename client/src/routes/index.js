@@ -19,6 +19,9 @@ import AdminPage from '../components/AdminPage';
 import AdminCategories from '../components/AdminPage/AdminCategories';
 import EditNewCategory from '../components/AdminPage/AdminCategories/EditNew';
 import AdminOptions from '../components/AdminPage/AdminOptions';
+import PersonalCabinet from "../components/PersonalCabinet";
+import PrivateRoute from "../components/common/PrivateRoute";
+import AccessDenied from "../components/AccessDenied";
 
 
 export const Router = () => (
@@ -30,6 +33,9 @@ export const Router = () => (
                 <Route exact
                     path="/"
                     component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
+                <Route exact
+                       path="/personalCabinet"
+                       component={props => <LayoutMain {...props}><PersonalCabinet/></LayoutMain>}/>
                 <Route exact
                     path="/top-categories/:topCat?"
                     component={props => <LayoutMain {...props}><TopCatPage/></LayoutMain>}/>
@@ -43,23 +49,28 @@ export const Router = () => (
                 <Route exact
                     path="/admin/login"
                     component={AdminLoginPage}/>
+
                 <Route exact
+                       path="/accessDenied"
+                       component={AccessDenied}/>
+
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin"
                     component={props => <LayoutAdmin {...props}><AdminPage/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories"
                     component={props => <LayoutAdmin {...props}><AdminCategories/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/:categoryName?"
                     component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/top/:topCatName?"
                     component={props => <LayoutAdmin {...props}><EditNewCategory {...props}/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/options"
                     component={props => <LayoutAdmin {...props}><AdminOptions/></LayoutAdmin>}/>

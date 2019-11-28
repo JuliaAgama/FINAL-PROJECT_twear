@@ -128,6 +128,18 @@ export function loginAction(customer){
     };
 }
 
+export function getCustomerAction() {
+    return function (dispatch) {
+        getCustomer().then(res => {
+            return dispatch({
+                type: Customer.CUSTOMER_GET_CUSTOMER,
+                data: res,
+            });
+        });
+    }
+
+}
+
 export function logoutAction() {
     return function (dispatch) {
         localStorage.removeItem("token");
