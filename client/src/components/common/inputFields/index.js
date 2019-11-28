@@ -60,7 +60,7 @@ export function renderCheckbox({ input, label, className, meta: {error} }) {
     )
 }
 
-export function renderPhoneNumber({ input: { onChange, value }, className, style, meta: {error}}) {
+export function renderPhoneNumber({ input: { onChange, value, onBlur }, className, style, meta: {error, invalid, touched }}) {
     return(
     <FormControl error={true} component="fieldset" className={className}>
         <PhoneInput containerStyle={{
@@ -71,8 +71,9 @@ export function renderPhoneNumber({ input: { onChange, value }, className, style
                            inputStyle={{width: '100%'}}
                            dropdownStyle={{width: '100%'}}
                            defaultCountry={'ua'}
-                           onChange={onChange}
+                           onBlur={onBlur}
                            value={value}
+                           isValid={() => {if (!touched) {return true} else if (touched && invalid) {return false} else return true} }
         />
         <FormHelperText className={style}>{error}</FormHelperText>
     </FormControl>

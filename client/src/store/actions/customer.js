@@ -29,13 +29,39 @@ export function customerResponseFailed() {
 
 export function registrationAction(customer){
     return async function (dispatch) {
+
+        dispatch(customerSendRequest());
+
         await newCustomer(customer)
             .then(res => {
                 return dispatch({
                     type: Customer.CUSTOMER_REGISTRATION,
                     data: res
                 });
-            });
+            })
+            .catch((error) => {
+                    if (error.response.data.login) {
+                        dispatch(customerResponseFailed());
+                        throw new SubmissionError({
+                            login: error.response.data.login
+                        });
+                    } else if (error.response.data.email) {
+                        dispatch(customerResponseFailed());
+                        throw new SubmissionError({
+                            email: error.response.data.email
+                        });
+                    } else if (error.request) {
+                        /*
+                         * The request was made but no response was received, `error.request`
+                         * is an instance of XMLHttpRequest in the browser and an instance
+                         * of http.ClientRequest in Node.js
+                         */
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request and triggered an Error
+                        console.log('Error', error.message);
+                    }
+                });
 
         await getToken({loginOrEmail: customer.login, password: customer.password})
             .then(res => {
@@ -48,6 +74,7 @@ export function registrationAction(customer){
                 });
             });
 
+        dispatch(closeModalAction());
     };
 }
 

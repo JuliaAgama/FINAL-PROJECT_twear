@@ -1,8 +1,17 @@
-import React, {useState} from "react";
-import {useDispatch} from "react-redux";
+import React from "react";
+import {useDispatch, useSelector} from "react-redux";
 import { Field, reduxForm } from 'redux-form';
-import {renderTextField, renderRadioGroup, renderDate, renderCheckbox, renderPhoneNumber} from "../common/inputFields";
-import {required, emptyString, minLength, email, name, phoneNumber} from '../common/validators';
+import {renderTextField, renderRadioGroup, renderCheckbox, renderPhoneNumber} from "../common/inputFields";
+import {
+    required,
+    minLength,
+    email,
+    name,
+    phoneNumber,
+    maxLength,
+    login,
+    password
+} from '../common/validators';
 import {loginAction, registrationAction} from "../../store/actions/customer";
 import Grid from "@material-ui/core/Grid";
 import {Container} from "@material-ui/core";
@@ -13,25 +22,21 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import 'react-phone-input-2/dist/style.css'
 import useStyles from "./useStyles";
+import Spinner from "../common/Spinner";
 
-const minLength9 = minLength(9);
+const minLength7 = minLength(7);
+const minLength3 = minLength(3);
+const minLength2 = minLength(2);
+const maxLength25 = maxLength(25);
+const maxLength10 = maxLength(10);
+const maxLength30 = maxLength(30);
 
 const Registration = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { handleSubmit, pristine, invalid, submitting } = props;
-    const submit = (values) => console.log(values);
-        // dispatch(loginAction(values));
-
-    // const customer = {
-    //     login: login,
-    //     password: pass,
-    //     gender: gender,
-    //     telephone: telephone,
-    //     firstName: firstName,
-    //     lastName: lastName,
-    //     email: email
-    // };
+    const {loaded}  = useSelector(state => state.customers);
+    const submit = (values) => dispatch(registrationAction(values));
 
     const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' +
                          'and for customizing my user experience to my interests or my shopping habits.';
@@ -72,12 +77,11 @@ const Registration = (props) => {
                             </Field>
                         </FormControl>
                         <Box className={classes.inputContainer}>
-                            <Field name="firstName" component={renderTextField} type='text' label="First Name*" validate={[required, emptyString, name]} className={classes.inputField}/>
-                            <Field name="lastName" component={renderTextField} type='text' label="Last Name*" validate={[required, emptyString, name]} className={classes.inputField}/>
-                            <Field name="login" component={renderTextField} type='text' label="Login" validate={[required, emptyString]} className={classes.inputField}/>
+                            <Field name="firstName" component={renderTextField} type='text' label="First Name*" validate={[required, name, minLength2, maxLength25]} className={classes.inputField}/>
+                            <Field name="lastName" component={renderTextField} type='text' label="Last Name*" validate={[required, name, minLength2, maxLength25]} className={classes.inputField}/>
+                            <Field name="login" component={renderTextField} type='text' label="Login" validate={[required, login, minLength3, maxLength10]} className={classes.inputField}/>
                             <Field name="email" component={renderTextField} type='email' label="Email*" validate={[required, email]} className={classes.inputField}/>
-                            <Field name="password" component={renderTextField} type='password' label="Password*" validate={[required, emptyString, minLength9]} className={classes.inputField} />
-                            {/*<Field name="birthday" component={renderDate} type='date' label="Birthday" className={classes.inputField} />*/}
+                            <Field name="password" component={renderTextField} type='password' label="Password*" validate={[required, password, minLength7, maxLength30]} className={classes.inputField} />
                             <Field name="telephone" component={renderPhoneNumber} style={classes.phoneSpan}  validate={[phoneNumber]} className={classes.inputPhone}/>
                         </Box>
                         <p className={classes.text}>The data fields with an asterisk (*) must be completed in order to complete your registration
@@ -93,16 +97,18 @@ const Registration = (props) => {
                         <Field name='confirm' component={renderCheckbox} className={classes.checkboxText}  validate={[required]} label={checkboxText} />
                         <Button disabled={pristine || submitting || invalid}
                                 type='submit'
-                            // onClick={() => dispatch(registrationAction(customer))}
                                 fullWidth={true}
                                 variant="outlined"
                                 className={classes.btn}>Registration</Button>
                     </form>
+                    <Container className={classes.spinnerContainer}>
+                        {loaded ? <Spinner/> : ''}
+                    </Container>
                 </Container>
             </Grid>
         </React.Fragment>
     );
-}
+};
 
 export default reduxForm({
     form: 'Registration'

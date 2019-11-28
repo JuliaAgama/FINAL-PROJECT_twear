@@ -7,13 +7,15 @@ import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import {openRegistrationModalAction} from "../../store/actions/modal";
 import {useDispatch, useSelector} from "react-redux";
-import {required, emptyString, minLength} from '../common/validators';
+import {required, minLength, maxLength, emptyString, password} from '../common/validators';
 import {loginAction} from "../../store/actions/customer";
 import Spinner from '../common/Spinner'
 
 import useStyles from "./useStyles";
 
-const minLength9 = minLength(9);
+const minLength7 = minLength(7);
+const minLength3 = minLength(3);
+const maxLength30 = maxLength(30);
 
 const Login = (props) => {
     const {loaded}  = useSelector(state => state.customers);
@@ -32,8 +34,8 @@ const Login = (props) => {
             <Grid container item xs={12} >
                 <Container maxWidth={false} className={classes.container}>
                     <form onSubmit={handleSubmit(submit)} className={classes.form}>
-                        <Field name="loginOrEmail" component={renderTextField} type='text' label="Login" validate={[required, emptyString]} />
-                        <Field name="password" component={renderTextField} type='password' label="Password" validate={[required, emptyString, minLength9]} />
+                        <Field name="loginOrEmail" component={renderTextField} type='text' label="Login" validate={[required, emptyString, minLength3]} />
+                        <Field name="password" component={renderTextField} type='password' label="Password" validate={[required, password, minLength7, maxLength30]} />
 
                         <Button disabled={pristine || submitting || invalid} fullWidth={true} variant="outlined" type='submit' className={classes.btn}>Log In</Button>
                         <div className={classes.linkContainer}>
