@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import useStyles from './useStyles';
+import { Box, Grid, List } from '@material-ui/core';
 
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import List from '@material-ui/core/List';
+import useStyles from './useStyles';
 
 import ProductItem from './ProductItem';
 

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
+import { Switch, FormControl, FormControlLabel} from '@material-ui/core';
 
 
 export default props => {

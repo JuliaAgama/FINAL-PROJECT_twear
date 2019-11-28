@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {Link} from "react-router-dom";
-
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Link, Paper } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -22,7 +19,7 @@ export default () => {
             <Grid container className={classes.listing}>
                 {manageList.map((el,ind) => (
                     <Grid item key={ind} xs={12}>
-                        <Link to={`/admin/${el.url}`} className={classes.link}>
+                        <Link href={`/admin/${el.url}`} className={classes.link}>
                             <Paper className={classes.paper}>Manage {el.name}</Paper>
                         </Link>
                     </Grid>

@@ -17,10 +17,11 @@ import ProductPage from '../components/ProductPage';
 import AdminLoginPage from '../components/AdminLoginPage';
 import AdminPage from '../components/AdminPage';
 import AdminCategories from '../components/AdminPage/AdminCategories';
-import AdminEditNewCategory from '../components/AdminPage/AdminCategories/EditNew';
+import AdminCategoriesEditNew from '../components/AdminPage/AdminCategories/EditNew';
 import AdminOptions from '../components/AdminPage/AdminOptions';
 import AdminProducts from '../components/AdminPage/AdminProducts';
 import AdminProductReview from '../components/AdminPage/AdminProducts/ProductReview';
+import AdminProductsEditNew from '../components/AdminPage/AdminProducts/EditNew';
 
 
 export const Router = () => (
@@ -56,11 +57,11 @@ export const Router = () => (
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/:categoryName?"
-                    component={props => <LayoutAdmin {...props}><AdminEditNewCategory {...props}/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminCategoriesEditNew {...props}/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/top/:topCatName?"
-                    component={props => <LayoutAdmin {...props}><AdminEditNewCategory {...props}/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminCategoriesEditNew {...props}/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/options"
@@ -71,8 +72,12 @@ export const Router = () => (
                     component={props => <LayoutAdmin {...props}><AdminProducts/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
-                    path="/admin/products/review/:productName?"
+                    path="/admin/products/:productName?"
                     component={props => <LayoutAdmin {...props}><AdminProductReview/></LayoutAdmin>}/>
+                <Route exact
+                //<PrivateAdminRoute exact
+                    path="/admin/products/edit/:productName?"
+                    component={props => <LayoutAdmin {...props}><AdminProductsEditNew/></LayoutAdmin>}/>
 
                 <Route path="*" component={NotFound}/>
             </Switch>

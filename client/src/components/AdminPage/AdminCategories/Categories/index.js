@@ -1,17 +1,14 @@
 import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 
+import { Box, Link, List, ListItem, Divider } from '@material-ui/core';
+
+import useStyles from './useStyles';
+
 import Spinner from '../../../common/Spinner';
 import CategoryItem from './CategoryItem';
 import AddWideButton from '../../../common/buttons/AddWide';
 import Notification from '../../../common/messages/Notification';
-
-import Link from '@material-ui/core/Link';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
-import useStyles from './useStyles';
 
 
 export default props => {

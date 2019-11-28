@@ -8,5 +8,10 @@ export default makeStyles(theme => (
             justifyContent: 'space-between',
             paddingRight: theme.spacing(5)
         },
+        link: {
+            textDecoration: 'none',
+            color: '#333',
+            textTransform: 'capitalize',
+        },
     }
 ));

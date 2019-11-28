@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema(
     {
-        art: {
+        itemNo: {
             type: String,
             required: true
         },
@@ -12,7 +12,7 @@ const ProductSchema = new Schema(
             required: true,
             default: true
         },
-        title: {
+        name: {
             type: String,
             required: true
         },
@@ -50,12 +50,22 @@ const ProductSchema = new Schema(
                     ref: "colors",
                     required: true
                 },
+                enabled: {
+                    type: Boolean,
+                    required: true,
+                    default: true
+                },
                 sizes: [
                     {
                         size: {
                             type: Schema.Types.ObjectId,
                             ref: "sizes",
                             required: true
+                        },
+                        enabled: {
+                            type: Boolean,
+                            required: true,
+                            default: true
                         },
                         quantity: {
                             type: Number,
@@ -74,8 +84,8 @@ const ProductSchema = new Schema(
         manufacturerCountry: String,
         seller: String,
         date: {
-        type: Date,
-        default: Date.now
+            type: Date,
+            default: Date.now
         }
     },
     { strict: false }

@@ -1,18 +1,21 @@
 import React from 'react';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import useStyles from "./useStyles";
-import Login from "../../LoginForm";
 import {useDispatch, useSelector} from "react-redux";
+
+import { Dialog, Backdrop, Fade } from "@material-ui/core";
+
+import useStyles from "./useStyles";
+
 import {closeModalAction} from "../../../store/actions/modal";
+
+import Login from "../../LoginForm";
 import Registration from "../../RegistrationForm";
-import {Dialog} from "@material-ui/core";
 
 
 export default function TransitionsModal() {
-    const classes = useStyles();
     const {open, login}  = useSelector(state => state.modal);
     const dispatch = useDispatch();
+
+    const classes = useStyles();
 
     return (
         <div>

@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 
-import Grid from '@material-ui/core/Grid';
+import { Grid } from '@material-ui/core';
+
 import useStyles from './useStyles';
 
 import AddWideButton from '../../../common/buttons/AddWide';

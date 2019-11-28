@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
+
+import { Link, Grid} from '@material-ui/core';
+
 import useStyles from './useStyles';
 
 import AdminSideBar from '../../../AdminPage/AdminSideBar';

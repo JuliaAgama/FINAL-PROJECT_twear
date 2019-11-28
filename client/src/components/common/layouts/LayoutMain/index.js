@@ -1,10 +1,13 @@
 import React from 'react';
+
+import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
+import {Container} from "@material-ui/core";
+
+import useStyles from "./useStyles";
+
 import Header from '../../../Header';
 import Footer from '../../../Footer';
 import SettingsButton from '../../../common/buttons/Settings';
-import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
-import {Container} from "@material-ui/core";
-import useStyles from "./useStyles";
 
 export default () => {
 

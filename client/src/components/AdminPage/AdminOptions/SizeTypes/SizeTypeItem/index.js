@@ -5,16 +5,16 @@ import * as sizeTypesActions from '../../../../../store/actions/sizeTypes';
 import SizeTypesApi from '../../../../../services/SizeTypes';
 import SizesApi from '../../../../../services/Sizes';
 
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import { Grid, TextField } from '@material-ui/core';
+
 import useStyles from './useStyles';
 
 import SaveButton from '../../../../common/buttons/Save';
 import DeleteButton from '../../../../common/buttons/Delete';
 import WarningModal from '../../../../common/messages/WarningModal';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
-
 import Sizes from '../../Sizes';
+
 
 export default props => {
 

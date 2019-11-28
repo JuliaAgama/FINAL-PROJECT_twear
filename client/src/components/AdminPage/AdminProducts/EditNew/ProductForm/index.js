@@ -1,118 +1,157 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from "react-router-dom";
 
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import Paper from '@material-ui/core/Paper';
-import { Button, TextField } from '@material-ui/core';
+import { Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => (
-    {
-        root: {
-            padding: '1rem',
-            flexGrow: 1
-        },
-        paper: {
-            marginTop: '1rem',
-            padding: theme.spacing(2),
-            textAlign: 'center',
-            color: theme.palette.text.secondary,
-            textTransform: 'capitalize'
-        },
-    }
-));
+import useStyles from './useStyles';
+
+import RadioVertical from '../../../../common/inputs/RadioVertical';
 
 
 export default props => {
 
-    // const{productId} = props;
+    const { productName, item, topCatsBase, categoriesBase, gendersBase, colorsBase, sizeTypesBase, sizesBase, onSubmitHandler} = props;
 
-    // let [state, setState] = useState('something');
+    let [formData, setFormData] = useState({});
 
-    // useEffect(()=> {
-    //     if(productId === 'newProduct') {
-    //         setState('another');
+    useEffect(()=> {
+        if(productName) {
+            let newProduct = productName && productName.includes('newProduct') ?
+                productName.slice(productName.indexOf('-')+1) :
+                undefined;
+            item ?
+                setFormData({
+                    _id: item._id || '',
+                    itemNo: item.itemNo || 0,
+                    enabled: item.enabled || true,
+                    name: item.name || '',
+                    description: item.description || '',
+                    price: item.price || 0,
+                    previousPrice: item.previousPrice || 0,
+                    categories: [...item.categories] || [],
+                    genders: [...item.genders] || [],
+                    colors: [...item.colors] || [],
+                    imgs: [...item.imgs]  || [],
+                    productUrl: item.productUrl || '',
+                    brand: item.brand || '',
+                    manufacturer: item.manufacturer || '',
+                    manufacturerCountry: item.manufacturerCountry || '',
+                    seller: item.seller || '',
+                    date: item.date || Date.now()
+                }) :
+                setFormData({})
+        }
+    },[productName, item]);
+
+
+    const onChange = event => {
+    //     if (event.target.name === 'genders') {
+    //         event.target.checked ?
+    //             setFormData({
+    //                 ...formData,
+    //                 genders: formData.genders ? [...formData.genders.filter(el => el.gender !== event.target.value), {gender: event.target.value}] : [{gender: event.target.value}]
+    //             }) :
+    //             setFormData({
+    //                 ...formData,
+    //                 genders: [...formData.genders.filter(el => el.gender !== event.target.value)]
+    //             })
     //     } else {
-    //         setState('hmmmm...');
+    //         setFormData({
+    //             ...formData,
+    //             [event.target.name]: event.target.value
+    //         });
     //     }
-    // },[])
+    };
+
+    const onSubmit = event => {
+        event.preventDefault();
+        onSubmitHandler(formData);
+    };
 
 
-
-    console.log(state);
+    const classes = useStyles();
 
     return (
         <>
-            <h1> THIS IS FORM FOR PRODUCT</h1>
-            <div className='container product-form'>
+            <h1> This is form for {(productName.slice(0,productName.indexOf('-'))).toUpperCase()}</h1>
+            <div className={classes.wrapper}>
+                <form autoComplete="off" onSubmit={onSubmit}>
+                    <Grid container className={classes.paper}>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="outlined-required"
+                                label="itemNo"
+                                name='itemNo'
+                                placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
+                                value={formData.itemNo ? formData.itemNo : ''}
+                                onChange={onChange}
+                                onFocus={onChange}
+                                className={classes.textField}
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item className={classes.justify}>
+                            <TextField
+                                required
+                                id="outlined-required"
+                                label="Product"
+                                name='name'
+                                autoFocus
+                                onChange={onChange}
+                                defaultValue={productName && productName.includes('newProduct') ? '' : productName}
+                                className={classes.textField}
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                    </Grid>
 
-                <form className="text-center border border-light p-5" action="#">
-
-                    <input type="text" id="defaultContactFormName" className="form-control mb-4" placeholder="Name"/>
-
-                    <div className="form-group">
-                                <textarea className="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Description"/>
+                    <div>
+                        <Grid container className={classes.paper}>
+                            <Grid item xs={6}>
+                                Choose top Category
+                            </Grid>
+                            <Grid item xs={6}>
+                                Choose Category
+                            </Grid>
+                            <Grid item xs={6}>
+                                Choose Genders
+                            </Grid>
+                            <Grid item xs={6}>
+                                Choose Colors
+                            </Grid>
+                            <Grid item xs={6}>
+                                Choose Set of Sizes (SizeType)
+                            </Grid>
+                        </Grid>
                     </div>
 
-                    <input type="text" id="defaultContactFormName" className="form-control mb-4" placeholder="Price"/>
-
-                    <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text" id="inputGroupFileAddon01">Upload photo</span>
-                        </div>
-                        <div className="custom-file">
-                            <input type="file" className="custom-file-input" id="inputGroupFile01"
-                                    aria-describedby="inputGroupFileAddon01" />
-                                <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
-                        </div>
-                    </div>
-
-                    <button className="btn btn-info btn-block" type="submit">Save product</button>
-
+                    <Grid container className={classes.paper}>
+                        <Grid item xs={12}>
+                            <div className="input-group mb-3">
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="inputGroupFileAddon01">Upload photo</span>
+                                </div>
+                                <div className="custom-file">
+                                    <input
+                                        type="file"
+                                        id="inputGroupFile01"
+                                        name="img"
+                                        value=""
+                                        onChange={onChange}
+                                        className="custom-file-input"
+                                        aria-describedby="inputGroupFileAddon01"
+                                    />
+                                    <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <button className="btn btn-info btn-block" type="submit">Save category</button>
+                        </Grid>
+                    </Grid>
                 </form>
-
             </div>
-
-
-            <Grid container className={classes.root}>
-            {/* {manageList.map((el,ind) => (
-                <Grid item key={ind} xs={12} lg={4}>
-                    <Link to={`/admin/${el.url}`}>
-                        <Paper className={classes.paper}>Manage {el.name}</Paper>
-                    </Link>
-                </Grid>
-            ))} */}
-            <Grid item xs={12}>
-            <Paper className={classes.control}>
-                <Grid container>
-                <Grid item>
-                    <FormLabel>spacing</FormLabel>
-                    <RadioGroup
-                        name="spacing"
-                        aria-label="spacing"
-                        value={spacing.toString()}
-                        {/* onChange={handleChange} */}
-                        row
-                    >
-                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(value => (
-                        <FormControlLabel
-                            key={value}
-                            value={value.toString()}
-                            control={<Radio />}
-                            label={value.toString()}
-                        />
-                    ))}
-                    </RadioGroup>
-                </Grid>
-                </Grid>
-            </Paper>
-            </Grid>
-    </Grid>
-
         </>
     )
-}
+};

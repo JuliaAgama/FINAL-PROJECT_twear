@@ -1,24 +1,14 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import clsx from 'clsx';
 
 import * as colorsActions from '../../../store/actions/colors';
 import * as sizeTypesActions from '../../../store/actions/sizeTypes';
 import * as sizesActions from '../../../store/actions/sizes';
 
-import clsx from 'clsx';
-import { Hidden } from '@material-ui/core';
-import withWidth from '@material-ui/core/withWidth';
-
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Collapse from '@material-ui/core/Collapse';
-
-import Divider from '@material-ui/core/Divider';
+import { Typography, Box, Grid, List, ListItem, Divider, Collapse, IconButton, withWidth } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import IconButton from '@material-ui/core/IconButton';
+
 import useStyles from './useStyles';
 
 import Colors from './Colors';

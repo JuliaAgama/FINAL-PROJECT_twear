@@ -1,22 +1,13 @@
 import React, {useState, useEffect} from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import useStyles from './useStyles';
+import { Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox } from '@material-ui/core';
 
-import TextField from '@material-ui/core/TextField';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControl from '@material-ui/core/FormControl';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Checkbox from '@material-ui/core/Checkbox';
+import useStyles from './useStyles';
 
 import RadioVertical from '../../../../common/inputs/RadioVertical';
 
 
 export default props => {
-    const classes = useStyles();
 
     const{categoryName, topCatName, item, topCatsBase, gendersBase, displayAdditional, onSubmitHandler} = props;
 
@@ -81,6 +72,8 @@ export default props => {
         event.preventDefault();
         onSubmitHandler(formData);
     };
+
+    const classes = useStyles();
 
     return (
         <>

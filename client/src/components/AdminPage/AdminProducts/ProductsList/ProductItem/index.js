@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import useStyles from './useStyles';
-
 // import clsx from 'clsx';
+
+import { Grid, Link, ListItem, Divider } from '@material-ui/core';
+
+import useStyles from './useStyles';
 
 import ImgIcon from '../../../../common/images/ImgIcon';
 
@@ -24,7 +21,7 @@ export default props => {
         <>
         <Divider />
         <ListItem>
-            <Link href={"/admin/products/review/"+item.name}>
+            <Link href={"/admin/products/"+item.name} className={classes.link}>
                 <Grid container className={classes.paper}>
                     <Grid item xs={6}>
                         <Grid container className={classes.paper}>

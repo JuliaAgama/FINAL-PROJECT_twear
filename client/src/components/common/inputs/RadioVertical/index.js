@@ -1,12 +1,8 @@
 import React from 'react';
 
-import useStyles from './useStyles';
+import { FormLabel, FormControl, FormControlLabel, Radio, RadioGroup} from '@material-ui/core';
 
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
+import useStyles from './useStyles';
 
 
 export default props => {
@@ -24,6 +20,7 @@ export default props => {
                     key={item._id}
                     id={item._id}
                     value={item._id}
+                    name={item.name}
                     control={<Radio />}
                     label={item.name}
                     checked={checkedCondition(item._id)}

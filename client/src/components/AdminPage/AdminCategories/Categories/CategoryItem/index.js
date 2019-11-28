@@ -5,10 +5,8 @@ import * as categoriesActions from '../../../../../store/actions/categories';
 import CategoriesApi from '../../../../../services/Categories';
 import ProductsApi from '../../../../../services/Products';
 
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
+import { Grid, Link, ListItem, Divider } from '@material-ui/core';
+
 import useStyles from './useStyles';
 
 import ImgIcon from '../../../../common/images/ImgIcon';

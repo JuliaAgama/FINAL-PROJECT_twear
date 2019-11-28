@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import useStyles from './useStyles';
+
 import Modal from '@material-ui/core/Modal';
+
+import useStyles from './useStyles';
 
 const rand = () => (0);
 // const rand = () => (Math.round(Math.random() * 20) - 10);
@@ -14,6 +16,7 @@ const getModalStyle = () => {
         transform: `translate(-${top}%, -${left}%)`,
     };
 };
+
 
 export default props => {
     const classes = useStyles();
@@ -47,4 +50,4 @@ export default props => {
             </div>
         </>
     );
-}
+};
