@@ -21,7 +21,7 @@ export default function Login() {
                     <Link to='/personalCabinet'>
                         <div className={classes.link}>
                             <PersonIcon/>
-                            <span className={classes.name}>{customer.firstName}</span>
+                            <span className={classes.name}>My Account</span>
                         </div>
                     </Link>
                     :
