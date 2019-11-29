@@ -4,6 +4,7 @@ import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
 
 import useStyles from "./useStyles";
+import Grid from "@material-ui/core/Grid";
 
 import Header from '../../../Header';
 import Footer from '../../../Footer';
@@ -31,10 +32,11 @@ export default () => {
         <ThemeProvider theme={theme}>
             <Container maxWidth={false} className={classes.layoutContainer}>
                 <div className={classes.header}><Header/></div>
+
                     <div style={{textAlign: 'center'}}>YURA'S BLOCK</div>
                 <div className={classes.footer}><Footer/></div>
                 <SettingsButton title='Admin Page' size={2} color='red' onClick={redirectToAdmin}/>
             </Container>
-        </ThemeProvider>    
+        </ThemeProvider>
     );
 };

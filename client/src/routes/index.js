@@ -22,6 +22,9 @@ import AdminOptions from '../components/AdminPage/AdminOptions';
 import AdminProducts from '../components/AdminPage/AdminProducts';
 import AdminProductReview from '../components/AdminPage/AdminProducts/ProductReview';
 import AdminProductsEditNew from '../components/AdminPage/AdminProducts/EditNew';
+import PersonalCabinet from "../components/PersonalCabinet";
+import PrivateRoute from "../components/common/PrivateRoute";
+import AccessDenied from "../components/AccessDenied";
 
 
 export const Router = () => (
@@ -33,6 +36,9 @@ export const Router = () => (
                 <Route exact
                     path="/"
                     component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
+                <Route exact
+                       path="/personalCabinet"
+                       component={props => <LayoutMain {...props}><PersonalCabinet/></LayoutMain>}/>
                 <Route exact
                     path="/top-categories/:topCat?"
                     component={props => <LayoutMain {...props}><TopCatPage/></LayoutMain>}/>
@@ -46,15 +52,20 @@ export const Router = () => (
                 <Route exact
                     path="/admin/login"
                     component={AdminLoginPage}/>
+
                 <Route exact
+                       path="/accessDenied"
+                       component={AccessDenied}/>
+
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin"
                     component={props => <LayoutAdmin {...props}><AdminPage/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories"
                     component={props => <LayoutAdmin {...props}><AdminCategories/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/:categoryName?"
                     component={props => <LayoutAdmin {...props}><AdminCategoriesEditNew {...props}/></LayoutAdmin>}/>

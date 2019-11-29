@@ -15,6 +15,11 @@ export default makeStyles(theme => (
             fontWeight: '700',
             borderBottom: '1px solid black',
             backgroundColor: 'white'
+            borderBottom: '1px solid black'
+        },
+        link: {
+            display: 'flex',
+            // justifyContent: 'start'
         }
     }
 ));
