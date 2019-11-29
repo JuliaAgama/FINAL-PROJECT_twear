@@ -9,8 +9,7 @@ export default function CategoriesMenu(props) {
     const classes = useStyles();
     const {categories, loaded}  = useSelector(state => state.categories);
     const dispatch = useDispatch();
-    useEffect(dispatch(getAllCategories()));
-    console.log(categories);
+    useEffect(() => { getAllCategories()(dispatch)}, [dispatch]);
     // const clickHandler = () => {
     //     if (props.isMen){
     //         dispatch(showMenCategoriesAction());
