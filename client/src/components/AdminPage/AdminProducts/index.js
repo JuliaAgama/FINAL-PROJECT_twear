@@ -141,7 +141,7 @@ export default withWidth()(() => {
                 </Hidden>
             </Link>
             <Box p={2} textAlign="center" className={classes.paper} >
-                <h3>Filter products:</h3>
+                <Typography variant="h6" textAlign="center">Filter</Typography>
                     {topCatsLoaded && categoriesLoaded ?
                     (
                     <Grid container className={classes.paper}>

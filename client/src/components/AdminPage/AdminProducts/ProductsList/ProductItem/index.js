@@ -1,47 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-// import clsx from 'clsx';
+import React from 'react';
 
-import { Grid, Link, ListItem, Divider } from '@material-ui/core';
+import { Typography, Box, Grid, Link, ListItem, Divider, Hidden } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
-import ImgIcon from '../../../../common/images/ImgIcon';
-
 
 export default props => {
-
-    const dispatch = useDispatch();
 
     const {item} = props;
 
     const classes = useStyles();
 
+    const cutName = (string, l) => string.length >= l ? string.slice(0, l-3)+'...' : string;
+
     return (
-        <>
+        <Grid item xs={12} sm={6} lg={4}>
         <Divider />
         <ListItem>
             <Link href={"/admin/products/"+item.name} className={classes.link}>
                 <Grid container className={classes.paper}>
-                    <Grid item xs={6}>
-                        <Grid container className={classes.paper}>
-                            <Grid item xs={4} >
-                                <ImgIcon src={item.imgs[0]}/>
-                            </Grid>
-                            <Grid item xs={7}> {item.name} </Grid>
-                            <Grid item xs={1}>
-                            </Grid>
-                            <Grid item xs={1}></Grid>
+                    <Grid item container>
+                        <Grid item>
+                            <Box className={classes.image}>
+                                <img src={item.imgs[0]} className={classes.img} alt="Not Found"/>
+                            </Box>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="body2" className={classes.title}>{cutName(item.name, 20)}</Typography>
                         </Grid>
                     </Grid>
-                    <Grid item xs={2}></Grid>
-                    <Grid item xs={1}>
-                    </Grid>
-                    <Grid item xs={1}>
+                    <Grid item>
+                        <Typography variant="body2" >
+                            <Box fontStyle="italic" fontSize={14} fontWeight="light" className={classes.art}>{item.itemNo}</Box>
+                        </Typography>
                     </Grid>
                 </Grid>
             </Link>
         </ListItem>
-        </>
+        </Grid>
     )
 };
