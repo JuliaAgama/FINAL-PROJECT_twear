@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Box from "@material-ui/core/Box";
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
+import {getAllCategories} from "../../../store/actions/categories";
 
 export function Item(props) {
     const classes = useStyles();
@@ -18,16 +19,18 @@ export function Item(props) {
 
 export function CategoryItems(props) {
     const classes = useStyles();
-    const {menCategories, womenCategories}  = useSelector(state => state.categories);
     const {show}  = useSelector(state => state.header);
     const {isMen, isWomen}  = useSelector(state => state.header);
+    const dispatch = useDispatch();
+    useEffect(() => { getAllCategories()(dispatch)}, [dispatch]);
+    const {categories}  = useSelector(state => state.categories);
 
     let items = [];
 
     if (isMen) {
-        items = menCategories.map(item => <Item key={item.id} url={item.url} title={item.title} mobile={props.mobile} />)
+        items = categories.map(item => <Item key={item._id} url='someWhere' title={item.name} mobile={props.mobile} />)
     } else if (isWomen) {
-        items = womenCategories.map(item => <Item key={item.id} url={item.url} title={item.title} mobile={props.mobile} />)
+        items = categories.map(item => <Item key={item._id} url='someWhere' title={item.name} mobile={props.mobile} />)
     }
 
     return (

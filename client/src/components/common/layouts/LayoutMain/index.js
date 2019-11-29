@@ -29,14 +29,12 @@ export default () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div style={{height: '1500 px'}}>
             <Container maxWidth={false} className={classes.layoutContainer}>
-                <Header/>
-                <div style={{textAlign: 'center'}}>YURA'S BLOCK</div>
-                <Footer style= {{position: 'absolute', bottom: '0' }}/>
+                <div className={classes.header}><Header/></div>
+                    <div style={{textAlign: 'center'}}>YURA'S BLOCK</div>
+                <div className={classes.footer}><Footer/></div>
                 <SettingsButton title='Admin Page' size={2} color='red' onClick={redirectToAdmin}/>
             </Container>
-            </div>
         </ThemeProvider>    
     );
 };

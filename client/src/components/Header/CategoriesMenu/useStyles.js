@@ -14,6 +14,7 @@ export default makeStyles(theme => (
             [theme.breakpoints.down('sm')]: {
                 padding: '16px 1px',
             },
+            backgroundColor: 'white'
         },
         btnBorder: {
             borderRight: '1px solid black'
