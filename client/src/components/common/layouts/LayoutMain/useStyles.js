@@ -5,8 +5,7 @@ export default makeStyles(theme => (
         layoutContainer: {
             width: '100%',
             padding: '4%',
-            height: '100vh',
-            position: 'relative',
+            minHeight: '100%',
             display: 'flex',
             flexDirection: 'column',
 
@@ -15,7 +14,7 @@ export default makeStyles(theme => (
             flex: '0 0 auto'
         },
         header: {
-            flex: '1 0 auto'
+            flex: '1'
         }
     }
 ));

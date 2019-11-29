@@ -11,9 +11,11 @@ export default function PersonalCabinet() {
 
     return (
         <React.Fragment>
+            <div>
             <Container maxWidth={false} className={classes.container}>
                 <Header/>
             </Container>
+            </div>
         </React.Fragment>
     );
 }

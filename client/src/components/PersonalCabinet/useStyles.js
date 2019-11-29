@@ -6,7 +6,7 @@ export default makeStyles(theme => (
             display: 'flex',
             width: '100%',
             border: '1px solid black',
-            borderTop: 'none'
+            borderTop: 'none',
         }
     }
 ));

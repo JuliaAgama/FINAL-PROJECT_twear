@@ -10,7 +10,7 @@ import Header from '../../../Header';
 import Footer from '../../../Footer';
 import SettingsButton from '../../../common/buttons/Settings';
 
-export default () => {
+export default props => {
 
     const redirectToAdmin = () => {
         window.location.assign(`/admin/`);
@@ -32,8 +32,7 @@ export default () => {
         <ThemeProvider theme={theme}>
             <Container maxWidth={false} className={classes.layoutContainer}>
                 <div className={classes.header}><Header/></div>
-
-                    <div style={{textAlign: 'center'}}>YURA'S BLOCK</div>
+                    <div>{props.children}</div>
                 <div className={classes.footer}><Footer/></div>
                 <SettingsButton title='Admin Page' size={2} color='red' onClick={redirectToAdmin}/>
             </Container>
