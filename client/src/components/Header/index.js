@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import withWidth from '@material-ui/core/withWidth';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import {useDispatch, useSelector} from "react-redux";
@@ -20,9 +20,8 @@ import useStyles from './useStyles';
 function Header() {
 
     const classes = useStyles();
-    const {show, showMobileMenu}  = useSelector(state => state.header);
-
     const dispatch = useDispatch();
+    const {show, showMobileMenu}  = useSelector(state => state.header);
 
     const handleClickAway = () =>{
         if(showMobileMenu) {
