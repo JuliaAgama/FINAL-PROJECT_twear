@@ -12,7 +12,7 @@ import TopCategories from './TopCats';
 import ErrorModal from '../../common/messages/ErrorModal';
 
 
-export default withWidth()(props => {
+export default withWidth()(() => {
 
     const dispatch = useDispatch();
 

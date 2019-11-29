@@ -5,15 +5,16 @@ export default makeStyles(theme => (
         paper: {
             flexGrow: 1,
             width: '100%',
-            margin: theme.spacing(1),
-            // padding: theme.spacing(1,3),
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
             alignItems: 'center',
             justifyContent: 'space-between',
             backgroundColor: theme.palette.background.paper,
             // textTransform: 'capitalize',
         },
         input: {
-            padding: theme.spacing(3,1)
+            paddingTop: theme.spacing(1),
+            paddingBottom: theme.spacing(2,)
         },
     }
 ));

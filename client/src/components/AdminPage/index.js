@@ -1,22 +1,19 @@
 import React from 'react';
-import { Hidden } from '@material-ui/core';
-import withWidth from '@material-ui/core/withWidth';
+import { Typography, withWidth, Box } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
 
-export default withWidth()(props => {
+export default withWidth()(() => {
 
     const classes = useStyles();
 
     return(
-        <Hidden smDown>
-            <div className={classes.root}>
-                <div className={classes.image}>
-                    <div className={classes.header}>
-                    </div>
-                </div>
-            </div>
-        </Hidden>
+        <Box className={classes.root}>
+            <Box className={classes.background}>
+                <Typography className={classes.header} variant="h2">ADMIN PANEL</Typography>
+                <img className={classes.img} src="/img/twear_logo_scarlet-on-transparent-SQUARE.png" alt="NOT FOUND"/>
+            </Box>
+        </Box>
     )
 });

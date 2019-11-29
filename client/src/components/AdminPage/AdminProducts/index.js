@@ -145,7 +145,7 @@ export default withWidth()(() => {
                     {topCatsLoaded && categoriesLoaded ?
                     (
                     <Grid container className={classes.paper}>
-                        <Grid item xs={6} lg={4} className={classes.input}>
+                        <Grid item xs={12} sm={6} lg={4} className={classes.input}>
                             <Selector
                                 selectorName='Top Category'
                                 selectorArr={topCatsList}
@@ -153,7 +153,7 @@ export default withWidth()(() => {
                                 onChange={onChangeTopCat}
                             />
                         </Grid>
-                        <Grid item xs={6} lg={4} className={classes.input}>
+                        <Grid item xs={12} sm={6} lg={4} className={classes.input}>
                             <Selector
                                 selectorName='Category'
                                 selectorArr={categoriesList}

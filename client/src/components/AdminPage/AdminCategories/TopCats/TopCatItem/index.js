@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import clsx from 'clsx';
 
 import * as topCatsActions from '../../../../../store/actions/topCats';
 import TopCatsApi from '../../../../../services/TopCats';
 import CategoriesApi from '../../../../../services/Categories';
 
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
+import {Typography, Box, Collapse, Grid, Link, ListItem, Divider, IconButton} from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import useStyles from './useStyles';
 
-import clsx from 'clsx';
-import IconButton from '@material-ui/core/IconButton';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Collapse from '@material-ui/core/Collapse';
-import Box from '@material-ui/core/Box';
-
 import Categories from '../../Categories';
-import ImgIcon from '../../../../common/images/ImgIcon';
 import OpenEditButton from '../../../../common/buttons/Edit';
 import DeleteButton from '../../../../common/buttons/Delete';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
@@ -88,35 +81,37 @@ export default props => {
         <>
         <Divider />
         <ListItem>
-            <Grid container className={classes.paper}>
-                <Grid item xs={6}>
-                    <Grid container className={classes.paper}>
-                        <Grid item xs={4} >
-                            <ImgIcon src={item.img}/>
-                        </Grid>
-                        <Grid item xs={7}> {item.name} </Grid>
-                        <Grid item xs={1}>
-                            <IconButton
-                                className={clsx(classes.expand, {[classes.expandOpen]: expanded})}
-                                onClick={handleExpandClick}
-                                aria-expanded={expanded}
-                                color="secondary"
-                                aria-label="expandDown"
-                            >
-                                <ExpandMoreIcon />
-                            </IconButton>
-                        </Grid>
-                        <Grid item xs={1}></Grid>
+            <Grid container spacing={2} className={classes.paper}>
+                <Grid item xs={12} sm container className={classes.container}>
+                    <Grid item>
+                        <Box className={classes.image}>
+                            <img className={classes.img} src={item.img} alt="Not Found"/>
+                        </Box>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="body1" className={classes.title}>{item.name}</Typography>
+                    </Grid>
+                    <Grid item>
+                        <IconButton
+                            className={clsx(classes.expand, {[classes.expandOpen]: expanded})}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            color="secondary"
+                            aria-label="expandDown"
+                        >
+                            <ExpandMoreIcon />
+                        </IconButton>
                     </Grid>
                 </Grid>
-                <Grid item xs={2}></Grid>
-                <Grid item xs={1}>
-                    <Link href={"/admin/categories/top/"+item.name}>
-                        <OpenEditButton/>
-                    </Link>
-                </Grid>
-                <Grid item xs={1}>
-                    <DeleteButton onClick={openConfirm}/>
+                <Grid item xs={12} sm container className={classes.container}>
+                    <Grid item>
+                        <Link href={"/admin/categories/top/"+item.name}>
+                            <OpenEditButton/>
+                        </Link>
+                    </Grid>
+                    <Grid item>
+                        <DeleteButton onClick={openConfirm}/>
+                    </Grid>
                 </Grid>
             </Grid>
         </ListItem>

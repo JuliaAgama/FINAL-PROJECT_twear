@@ -3,15 +3,31 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => (
     {
         paper: {
+            margin: 'auto',
+            maxWidth: '100%',
+        },
+        container: {
             flexGrow: 1,
             alignItems: 'center',
-            // textTransform: 'capitalize',
-            justifyContent: 'space-between',
-            paddingRight: theme.spacing(5)
+            justifyContent: 'space-around',
+        },
+        image: {
+            width: 50,
+            height: 40,
+        },
+        img: {
+            margin: 'auto',
+            display: 'block',
+            maxWidth: '100%',
+            maxHeight: '100%',
+        },
+        title: {
+            marginLeft: theme.spacing(2),
         },
         expand: {
             transform: 'rotate(0deg)',
-            margin: theme.spacing(2),
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
             textAlign: 'center',
             transition: theme.transitions.create('transform', {
                 duration: theme.transitions.duration.shortest,
@@ -21,7 +37,7 @@ export default makeStyles(theme => (
             transform: 'rotate(180deg)',
         },
         expanded: {
-            marginLeft: theme.spacing(12)
+            marginLeft: theme.spacing(5)
         }
     }
 ));
