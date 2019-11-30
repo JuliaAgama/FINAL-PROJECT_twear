@@ -94,7 +94,7 @@ const Registration = (props) => {
                             to the processing of your personal data. To exercise your rights, please write to privacy@twear.com.
                             You can also manage your subscriptions via your account.
                         </p>
-                        <Field name='confirm' component={renderCheckbox} className={classes.checkboxText}  validate={[required]} label={checkboxText} />
+                        <Field name='isAdmin' component={renderCheckbox} className={classes.checkboxText}  validate={[required]} label={checkboxText} />
                         <Button disabled={pristine || submitting || invalid}
                                 type='submit'
                                 fullWidth={true}

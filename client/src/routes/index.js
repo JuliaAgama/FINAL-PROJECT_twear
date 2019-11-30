@@ -2,7 +2,6 @@ import React from 'react';
 import { CssBaseline } from '@material-ui/core';
 
 import {Switch, Route} from 'react-router-dom';
-// import PrivateAdminRoute from './PrivateAdmin';
 
 import NotFound from '../components/NotFound';
 

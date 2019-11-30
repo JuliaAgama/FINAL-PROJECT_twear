@@ -24,7 +24,7 @@ function Header() {
     const {show, showMobileMenu}  = useSelector(state => state.header);
 
     const dispatch = useDispatch();
-    useEffect(() => {dispatch(getCustomerAction())});
+    useEffect(() => {getCustomerAction()(dispatch)},[dispatch]);
 
     const handleClickAway = () =>{
         if(showMobileMenu) {

@@ -6,6 +6,8 @@ import useStyles from './useStyles';
 
 import AdminSideBar from '../../../AdminPage/AdminSideBar';
 import AdminSideBarMob from '../../../AdminPage/AdminSideBarMob';
+import {useDispatch} from "react-redux";
+import {getCustomerAction} from "../../../../store/actions/customer";
 
 const manageList = [
     {name: 'products', url: 'products'},
@@ -18,6 +20,9 @@ const manageList = [
 export default props => {
 
     const classes = useStyles();
+
+    const dispatch = useDispatch();
+    useEffect(() => {getCustomerAction()(dispatch)},[dispatch]);
 
     let [active, setActive] = useState(false);
 

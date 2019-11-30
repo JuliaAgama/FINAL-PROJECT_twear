@@ -15,6 +15,13 @@ export default function PersonalCabinet() {
             <Container maxWidth={false} className={classes.container}>
                 <Header/>
             </Container>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
+                <h1>Hello</h1>
             </div>
         </React.Fragment>
     );
