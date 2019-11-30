@@ -13,7 +13,12 @@ export default makeStyles(theme => (
             textTransform: 'none',
             fontSize: '16px',
             fontWeight: '700',
-            borderBottom: '1px solid black'
+            borderBottom: '1px solid black',
+            backgroundColor: 'white'
+        },
+        link: {
+            display: 'flex',
+            // justifyContent: 'start'
         }
     }
 ));

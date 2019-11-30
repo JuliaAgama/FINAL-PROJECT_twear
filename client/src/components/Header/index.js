@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import withWidth from '@material-ui/core/withWidth';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import {useDispatch, useSelector} from "react-redux";
@@ -16,6 +16,7 @@ import DropDownMenu from "./DropDownMenu";
 import {CategoryItems} from "./CategoryItems";
 import Modal from '../common/Modal'
 import useStyles from './useStyles';
+import {getCustomerAction} from "../../store/actions/customer";
 
 function Header() {
 
@@ -23,6 +24,7 @@ function Header() {
     const {show, showMobileMenu}  = useSelector(state => state.header);
 
     const dispatch = useDispatch();
+    useEffect(() => {getCustomerAction()(dispatch)},[dispatch]);
 
     const handleClickAway = () =>{
         if(showMobileMenu) {

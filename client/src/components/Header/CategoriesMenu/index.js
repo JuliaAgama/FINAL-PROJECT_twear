@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {showMenCategoriesAction, showWomenCategoriesAction} from "../../../store/actions/header";
 import useStyles from "./useStyles";
 
@@ -17,7 +17,7 @@ export default function CategoriesMenu(props) {
 
     return (
         <React.Fragment>
-            <Button className={props.border ?`${classes.btn} ${classes.btnBorder}`: classes.btn}
+            <Button className={props.border ? `${classes.btn} ${classes.btnBorder}`: classes.btn}
                     onClick={clickHandler}
             >
                 {props.title}

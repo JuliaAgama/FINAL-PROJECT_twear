@@ -1,15 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
 
-import useStyles from "./useStyles";
 
 import Header from '../../../Header';
 import Footer from '../../../Footer';
 import SettingsButton from '../../../common/buttons/Settings';
+import {getAllCategories} from "../../../../store/actions/categories";
+import {useDispatch} from "react-redux";
+import useStyles from "./useStyles";
 
-export default () => {
+export default props => {
+    const dispatch = useDispatch();
+    useEffect(() => { getAllCategories()(dispatch)}, [dispatch]);
 
     const redirectToAdmin = () => {
         window.location.assign(`/admin/`);
@@ -29,14 +33,12 @@ export default () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div style={{height: '1500 px'}}>
             <Container maxWidth={false} className={classes.layoutContainer}>
-                <Header/>
-                <div style={{textAlign: 'center'}}>YURA'S BLOCK</div>
-                <Footer style= {{position: 'absolute', bottom: '0' }}/>
+                <div className={classes.header}><Header/></div>
+                    <div>{props.children}</div>
+                <div className={classes.footer}><Footer/></div>
                 <SettingsButton title='Admin Page' size={2} color='red' onClick={redirectToAdmin}/>
             </Container>
-            </div>
-        </ThemeProvider>    
+        </ThemeProvider>
     );
 };

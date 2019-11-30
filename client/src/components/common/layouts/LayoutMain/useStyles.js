@@ -4,12 +4,17 @@ export default makeStyles(theme => (
     {
         layoutContainer: {
             width: '100%',
-            padding: '4%'
-        },
+            padding: '4%',
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
 
-        stayBottom: {
-            position: 'absolute',
-            bottom: '0'
+        },
+        footer: {
+            flex: '0 0 auto'
+        },
+        header: {
+            flex: '1 0 auto'
         }
     }
 ));

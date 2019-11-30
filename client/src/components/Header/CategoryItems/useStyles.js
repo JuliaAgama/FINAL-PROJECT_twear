@@ -34,6 +34,8 @@ export default makeStyles(theme => (
                 borderLeft: 'none',
                 borderRight: 'none',
             },
+            backgroundColor: 'white',
+            zIndex: '100000'
         },
         hide: {
             display: 'none'

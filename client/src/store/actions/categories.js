@@ -15,7 +15,7 @@ export function categoryItemSendRequest() {
 };
 
 export function getAllCategories() {
-    return function (dispatch) {
+      return function (dispatch) {
         dispatch(categoriesSendRequest());
         (new CategoriesApi()).getCategories()
         .then(res => {
