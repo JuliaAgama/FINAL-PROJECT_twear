@@ -22,8 +22,8 @@ export function CategoryItems(props) {
     const {show}  = useSelector(state => state.header);
     const {isMen, isWomen}  = useSelector(state => state.header);
     const dispatch = useDispatch();
-    // useEffect(() => { getAllCategories()(dispatch)}, [dispatch]);
     const {categories}  = useSelector(state => state.categories);
+    useEffect(() => getAllCategories()(dispatch), []);
 
     let items = [];
 

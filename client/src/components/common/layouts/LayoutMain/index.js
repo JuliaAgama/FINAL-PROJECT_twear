@@ -12,8 +12,8 @@ import {useDispatch} from "react-redux";
 import useStyles from "./useStyles";
 
 export default props => {
-    const dispatch = useDispatch();
-    useEffect(() => { getAllCategories()(dispatch)}, [dispatch]);
+    // const dispatch = useDispatch();
+    // useEffect(() => { getAllCategories()(dispatch)}, [dispatch]);
 
     const redirectToAdmin = () => {
         window.location.assign(`/admin/`);

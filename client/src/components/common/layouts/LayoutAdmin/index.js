@@ -21,8 +21,8 @@ export default props => {
 
     const classes = useStyles();
 
-    const dispatch = useDispatch();
-    useEffect(() => {getCustomerAction()(dispatch)},[dispatch]);
+    // const dispatch = useDispatch();
+    // useEffect(() => {getCustomerAction()(dispatch)},[dispatch]);
 
     let [active, setActive] = useState(false);
 

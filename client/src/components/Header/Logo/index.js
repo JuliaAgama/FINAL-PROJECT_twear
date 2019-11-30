@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import useStyles from "./useStyles";
+import {Link} from "react-router-dom";
 
 
 
@@ -9,8 +10,10 @@ export default function Logo() {
 
     return (
         <React.Fragment>
-            <Button href='/' fullWidth={true} className={classes.btn}>
-                <img className={classes.img} src='/img/twear_logo_grey-on-transparent.png' alt='NOT FOUND'/>
+            <Button fullWidth={true} className={classes.btn}>
+                <Link to='/'>
+                    <img className={classes.img} src='/img/twear_logo_grey-on-transparent.png' alt='NOT FOUND'/>
+                </Link>
             </Button>
         </React.Fragment>
     );

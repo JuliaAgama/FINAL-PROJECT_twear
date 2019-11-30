@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => (
     {
         img: {
-            width: '168px',
+            width: '136px',
             [theme.breakpoints.down('sm')]: {
-                width: '130px',
+                width: '105px',
             },
         },
         btn: {
