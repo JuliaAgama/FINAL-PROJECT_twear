@@ -30,7 +30,7 @@ export default props => {
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <Typography variant="body2" >
+                        <Typography component="div" variant="body2" >
                             <Box fontStyle="italic" fontSize={14} fontWeight="light" className={classes.art}>{item.itemNo}</Box>
                         </Typography>
                     </Grid>

@@ -15,7 +15,7 @@ export default props => {
 
     return (
         <>
-            <Typography variant="h6" textAlign="center">Products</Typography>
+            <Typography variant="h6" >Products</Typography>
             <List className={classes.listing} id='products-listing'>
                 <Grid container>
                     {productsList.map(item =>
