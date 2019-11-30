@@ -18,8 +18,9 @@ import Notification from '../../../common/messages/Notification';
 
 export default props => {
 
-    const productName = "new product";
-    // const productName = props.match.params.productName;
+    console.log(props);
+    // const productName = "new product";
+    const productName = props.match.params.productName;
 
     // get data (that are in need for the form) from data base:
     const dispatch = useDispatch();
