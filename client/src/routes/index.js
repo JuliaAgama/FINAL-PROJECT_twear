@@ -14,7 +14,6 @@ import TopCatPage from '../components/TopCatPage';
 import CategoryPage from '../components/CategoryPage';
 import ProductPage from '../components/ProductPage';
 
-import AdminLoginPage from '../components/AdminLoginPage';
 import AdminPage from '../components/AdminPage';
 import AdminCategories from '../components/AdminPage/AdminCategories';
 import AdminCategoriesEditNew from '../components/AdminPage/AdminCategories/EditNew';
@@ -43,9 +42,6 @@ export const Router = () => (
                     path="/products/:product?"
                     component={props => <LayoutMain {...props}><ProductPage/></LayoutMain>}/>
 
-                <Route exact
-                    path="/admin/login"
-                    component={AdminLoginPage}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin"

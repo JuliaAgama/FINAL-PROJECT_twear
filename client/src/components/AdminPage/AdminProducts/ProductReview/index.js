@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { Typography, Box, Grid, Link, List } from '@material-ui/core';
+import { Typography, Box, Grid, List } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -30,7 +31,7 @@ export default props => {
         <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">PRODUCT TITLE </Box>
         <Typography component="div" className={classes.root}>
             <Grid container className={classes.paper}>
-                <Link href={""} className={classes.editBtn}> <OpenEditButton/> </Link>
+                <Link to={""} className={classes.editBtn}> <OpenEditButton/> </Link>
                 <Grid item xs={12} sm={6} lg={8} className={classes.relative}>
                     <Typography component="div" variant="body2">
                         <Box fontSize="h6.fontSize" ml={6} pt={2} pb={2}>Art: itemNo </Box>
@@ -53,7 +54,7 @@ export default props => {
                 <Box>
                     Product Inventory (Sizes, quantity, enabled\disabled (?))
                 </Box>
-                <Link href={`/admin/products`}>
+                <Link to={`/admin/products`}>
                     <button >Back</button>
                 </Link>
         </Typography>

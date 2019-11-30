@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import * as categoriesActions from '../../../../../store/actions/categories';
 import CategoriesApi from '../../../../../services/Categories';
 import ProductsApi from '../../../../../services/Products';
 
-import { Typography, Box, Grid, Link, ListItem, Divider } from '@material-ui/core';
+import { Typography, Box, Grid, ListItem, Divider } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -89,7 +90,7 @@ export default props => {
 
                 <Grid item xs={12} sm container className={classes.container}>
                     <Grid item>
-                        <Link href={"/admin/categories/"+item.name}>
+                        <Link to={"/admin/categories/"+item.name}>
                             <OpenEditButton size="small"/>
                         </Link>
                     </Grid>

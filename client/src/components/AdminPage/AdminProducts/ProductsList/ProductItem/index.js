@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { Typography, Box, Grid, Link, ListItem, Divider, Hidden } from '@material-ui/core';
+import { Typography, Box, Grid, ListItem, Divider, Hidden } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -17,7 +18,7 @@ export default props => {
         <Grid item xs={12} sm={6} lg={4}>
         <Divider />
         <ListItem>
-            <Link href={"/admin/products/"+item.name} className={classes.link}>
+            <Link to={"/admin/products/"+item.name} className={classes.link}>
                 <Grid container className={classes.paper}>
                     <Grid item container>
                         <Grid item>

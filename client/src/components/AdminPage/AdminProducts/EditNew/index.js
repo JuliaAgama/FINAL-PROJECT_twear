@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import * as topCatsActions from '../../../../store/actions/topCats';
 import * as categoriesActions from '../../../../store/actions/categories';
@@ -9,7 +10,7 @@ import * as sizeTypesActions from '../../../../store/actions/sizeTypes';
 import * as sizesActions from '../../../../store/actions/sizes';
 import * as productsActions from '../../../../store/actions/products';
 
-import { Link } from '@material-ui/core';
+// import {  } from '@material-ui/core';
 
 import ProductForm from './ProductForm';
 import WarningModal from '../../../common/messages/WarningModal';
@@ -91,7 +92,7 @@ export default props => {
                 sizesBase={sizesBase}
                 onSubmitHandler={onSubmitHandler}
             />
-            <Link href={`/admin/products`}>
+            <Link to={`/admin/products`}>
                 <button className="btn btn-secondary text-uppercase m-5">Back</button>
             </Link>
         </div>

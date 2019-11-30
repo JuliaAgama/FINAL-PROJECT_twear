@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { Typography, Box, List, ListItem, ListItemText, Link, Divider } from '@material-ui/core';
+import { Typography, Box, List, ListItem, ListItemText, Divider } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -33,7 +34,7 @@ export default props => {
                         <List component="nav" aria-label="admin-drop-down-menu">
                             {items.map((el, ind) => (
                                 <ListItem button onClick={onToggle} key={ind}>
-                                    <Link href={`/admin/${el.url}`} className={classes.link}>
+                                    <Link to={`/admin/${el.url}`} className={classes.link}>
                                         <ListItemText primary={`Manage ${el.name}`} />
                                     </Link>
                                 </ListItem>
