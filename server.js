@@ -57,33 +57,33 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Use Routes
-app.use("/configs", globalConfigs);
-app.use("/cart", cart);
-app.use("/categories", categories);
-app.use("/colors", colors);
-app.use("/comments", comments);
-app.use("/customers", customers);
-app.use("/filters", filters);
-app.use("/genders", genders);
-app.use("/links", links);
-app.use("/orders", orders);
-app.use("/pages", pages);
-app.use("/partners", partners);
-app.use("/payment-methods", paymentMethods);
-app.use("/products", products);
-app.use("/shipping-methods", shippingMethods);
-app.use("/sizes", sizes);
-app.use("/size-types", sizeTypes);
-app.use("/slides", slides);
-app.use("/subscribers", subscribers);
-app.use("/top-categories", topCats);
-app.use("/wishlist", wishlist);
+app.use("/api/configs", globalConfigs);
+app.use("/api/cart", cart);
+app.use("/api/categories", categories);
+app.use("/api/colors", colors);
+app.use("/api/comments", comments);
+app.use("/api/customers", customers);
+app.use("/api/filters", filters);
+app.use("/api/genders", genders);
+app.use("/api/links", links);
+app.use("/api/orders", orders);
+app.use("/api/pages", pages);
+app.use("/api/partners", partners);
+app.use("/api/payment-methods", paymentMethods);
+app.use("/api/products", products);
+app.use("/api/shipping-methods", shippingMethods);
+app.use("/api/sizes", sizes);
+app.use("/api/size-types", sizeTypes);
+app.use("/api/slides", slides);
+app.use("/api/subscribers", subscribers);
+app.use("/api/top-categories", topCats);
+app.use("/api/wishlist", wishlist);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("client/build"));
-  
+
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
