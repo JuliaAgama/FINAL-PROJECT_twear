@@ -78,8 +78,9 @@ export const Router = () => (
                 <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/products/:productName?"
-                    component={props => <LayoutAdmin {...props}><AdminProductReview/></LayoutAdmin>}/>
-                <PrivateRoute exact
+                    component={props => <LayoutAdmin {...props}><AdminProductReview{...props}/></LayoutAdmin>}/>
+
+                <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/products/edit/:productName?"
                     component={props => <LayoutAdmin {...props}><AdminProductsEditNew/></LayoutAdmin>}/>
