@@ -12,7 +12,7 @@ export default withWidth()(() => {
         <Box className={classes.root}>
             <Box className={classes.background}>
                 <Typography className={classes.header} variant="h2">ADMIN PANEL</Typography>
-                <img className={classes.img} src="/img/twear_logo_scarlet-on-transparent-SQUARE.png" alt="NOT FOUND"/>
+                <img className={classes.img} src="/img/twear_logo_scarlet-on-transparent.png" alt="NOT FOUND"/>
             </Box>
         </Box>
     )

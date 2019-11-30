@@ -16,7 +16,7 @@ export default class Base {
     };
 
     getUrl(path) {
-        return `/${path}`;
+        return `/api/${path}`;
     }
 
     get(url) {

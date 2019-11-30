@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { Link, List, ListItem, Divider, Hidden } from '@material-ui/core';
+import { List, ListItem, Divider, Hidden } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -43,7 +44,7 @@ export default () => {
                     }
                     <Divider />
                     <ListItem>
-                        <Link href="/admin/categories/top/newTopCategory" className={classes.center}>
+                        <Link to="/admin/categories/top/newTopCategory" className={classes.center}>
                         <Hidden xsDown>
                             <AddWideButton text='CREATE NEW TOP CATEGORY' color='secondary'/>
                         </Hidden>

@@ -10,7 +10,6 @@ export default makeStyles(theme => (
             alignItems: 'center',
             justifyContent: 'space-between',
             backgroundColor: theme.palette.background.paper,
-            // textTransform: 'capitalize',
         },
         input: {
             paddingTop: theme.spacing(1),

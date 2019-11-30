@@ -75,16 +75,15 @@ export default withWidth()(() => {
         <Typography component="div" variant="body1">
             <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">OPTIONS SETS</Box>
 
-            <Grid container className={classes.paper}>
-                <List className={classes.listing}>
+            <Box className={classes.paper}>
+                <List >
                     <Divider />
                     {optionsList.map((el, ind) => (
-                        <div key={ind}>
+                        <Box key={ind}>
                             <ListItem >
-                                <Grid container className={classes.paper}>
-                                    <Grid item xs={2} ></Grid>
-                                    <Grid item xs={8}> {el.name.toUpperCase()} </Grid>
-                                    <Grid item xs={1}>
+                                <Grid container className={classes.container}>
+                                    <Grid item> {el.name.toUpperCase()} </Grid>
+                                    <Grid item>
                                         <IconButton
                                             className={clsx(classes.expand, {[classes.expandOpen]: expanded[el.name]})}
                                             onClick={() => handleExpandClick(el.name)}
@@ -95,25 +94,23 @@ export default withWidth()(() => {
                                             <ExpandMoreIcon />
                                         </IconButton>
                                     </Grid>
-                                    <Grid item xs={1}></Grid>
                                 </Grid>
-
                             </ListItem>
                             <Collapse in={expanded[el.name]} timeout="auto" unmountOnExit>
-                                <div className={classes.expanded}>
+                                <Box className={classes.expanded}>
                                     {el.name === 'colors' ?
                                         <Colors handleNotification={handleNotification}/> : <></>
                                     }
                                     {el.name === 'sizes' ?
                                         <SizeTypes handleNotification={handleNotification}/> : <></>
                                     }
-                                </div>
+                                </Box>
                             </Collapse>
                             <Divider />
-                        </div>
+                        </Box>
                     ))}
                 </List>
-            </Grid>
+            </Box>
             <ErrorModal
                 modalIsOpen={errorIsOpen}
                 modalText={errorModalText}

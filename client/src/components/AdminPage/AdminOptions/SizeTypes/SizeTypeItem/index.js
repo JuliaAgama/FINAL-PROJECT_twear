@@ -121,9 +121,9 @@ export default props => {
 
     return (
         <>
-            <Grid item xs={6} className={classes.wrapper}>
+            <Grid item xs={12} sm={6} lg={4} className={classes.paper}>
                 <form autoComplete="off">
-                    <Grid container className={classes.verticalCenter}>
+                    <Grid container className={classes.container}>
                         <Grid item xs={6}>
                             <TextField
                                 className={classes.textField}
@@ -135,14 +135,13 @@ export default props => {
                                 margin="normal"
                             />
                         </Grid>
-                        <Grid item xs={1}>
+                        <Grid item xs={3}>
                             <SaveButton
                                 onClick={saveSizeType}
                                 size="medium"
                                 className={formData.name === item.name ? '' : 'fabGreenFilled' }/>
                         </Grid>
-                        <Grid item xs={2}></Grid>
-                        <Grid item xs={1}>
+                        <Grid item xs={3}>
                             {item._id ?
                                 <DeleteButton  onClick={openConfirm}  size="medium"/> :
                                 <></>

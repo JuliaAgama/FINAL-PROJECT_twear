@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import * as topCatsActions from '../../../store/actions/topCats';
 import * as categoriesActions from '../../../store/actions/categories';
 import * as productsActions from '../../../store/actions/products';
 
-import { withWidth, Typography, Box, Grid, Link, Hidden } from '@material-ui/core';
+import { withWidth, Typography, Box, Grid, Hidden } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -128,7 +129,7 @@ export default withWidth()(() => {
     return (
         <Typography component="div" variant="body1">
             <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">PRODUCTS</Box>
-            <Link href="/admin/products/edit/newProduct" className={classes.center}>
+            <Link to="/admin/products/edit/newProduct" className={classes.center}>
                 <Hidden smDown>
                     <Box p={2} textAlign="center" className={classes.paper}>
                         <AddWideButton text='CREATE NEW PRODUCT' color='secondary'/>
@@ -141,7 +142,7 @@ export default withWidth()(() => {
                 </Hidden>
             </Link>
             <Box p={2} textAlign="center" className={classes.paper} >
-                <h3>Filter products:</h3>
+                <Typography component="div" variant="h6">Filter</Typography>
                     {topCatsLoaded && categoriesLoaded ?
                     (
                     <Grid container className={classes.paper}>

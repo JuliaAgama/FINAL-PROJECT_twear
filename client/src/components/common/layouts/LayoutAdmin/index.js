@@ -40,7 +40,7 @@ export default props => {
                     <div className={classes.paper}>
                         <Link href="/admin" >
                             <div className={classes.logo}>
-                                <img className={classes.image} src="/img/twear_logo_grey-on-transparent-SQUARE.png" alt="NOT FOUND"/>
+                                <img className={classes.image} src="/img/twear_logo_grey-on-transparent.png" alt="NOT FOUND"/>
                             </div>
                         </Link>
                         <h3>admin panel</h3>

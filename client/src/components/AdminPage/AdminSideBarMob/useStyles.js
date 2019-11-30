@@ -20,6 +20,7 @@ export default makeStyles(theme => (
             margin: theme.spacing(1),
             border: '1px solid black',
             borderRadius: '3px',
+            backgroundColor: theme.palette.background.paper,
             padding: theme.spacing(1),
             justifyContent: 'center',
             alignContent: 'center',
