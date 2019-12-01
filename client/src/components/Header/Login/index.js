@@ -1,17 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Button from "@material-ui/core/Button";
 import PersonIcon from '@material-ui/icons/Person';
 import {Link} from "react-router-dom";
 import {openLoginModalAction} from "../../../store/actions/modal";
 import {useDispatch, useSelector} from "react-redux";
 import useStyles from "./useStyles";
+import {getCustomerAction} from "../../../store/actions/customer";
 
 
 export default function Login() {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const {customer}  = useSelector(state => state.customers);
+    const customer = useSelector(state => state.customers.customer);
+    useEffect(() => {dispatch(getCustomerAction())},[]);
 
     return (
         <React.Fragment>

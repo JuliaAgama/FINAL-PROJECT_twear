@@ -17,20 +17,35 @@ export function Item(props) {
     );
 };
 
+function CategoriesFilter(categories, gender) {
+    let genderId = '5dc422511c9d440000cdd6ae';
+    if (gender === 'men') genderId = '5dc422441c9d440000cdd6ac';
+    const filteredCategories = categories.filter(category => {
+        let isMatch = false;
+        category.genders.forEach(item => {
+            if (item.gender === genderId){
+                isMatch = true;
+            }
+        });
+        return isMatch;
+    });
+    return filteredCategories;
+};
+
 export function CategoryItems(props) {
     const classes = useStyles();
-    const {show}  = useSelector(state => state.header);
-    const {isMen, isWomen}  = useSelector(state => state.header);
+    const isMen  = useSelector(state => state.header.isMen);
+    const isWomen  = useSelector(state => state.header.isWomen);
+    const show  = useSelector(state => state.header.show);
+    const categories  = useSelector(state => state.categories.categories);
     const dispatch = useDispatch();
-    const {categories}  = useSelector(state => state.categories);
-    useEffect(() => getAllCategories()(dispatch), []);
-
+    useEffect(() => getAllCategories()(dispatch), [dispatch]);
     let items = [];
 
     if (isMen) {
-        items = categories.map(item => <Item key={item._id} url='someWhere' title={item.name} mobile={props.mobile} />)
+        items = CategoriesFilter(categories, 'men').map(item => <Item key={item._id} url='someWhere' title={item.name} mobile={props.mobile} />)
     } else if (isWomen) {
-        items = categories.map(item => <Item key={item._id} url='someWhere' title={item.name} mobile={props.mobile} />)
+        items = CategoriesFilter(categories).map(item => <Item key={item._id} url='someWhere' title={item.name} mobile={props.mobile} />)
     }
 
     return (

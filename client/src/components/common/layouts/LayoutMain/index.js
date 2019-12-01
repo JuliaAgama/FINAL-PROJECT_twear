@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
@@ -7,13 +7,9 @@ import {Container} from "@material-ui/core";
 import Header from '../../../Header';
 import Footer from '../../../Footer';
 import SettingsButton from '../../../common/buttons/Settings';
-import {getAllCategories} from "../../../../store/actions/categories";
-import {useDispatch} from "react-redux";
 import useStyles from "./useStyles";
 
 export default props => {
-    // const dispatch = useDispatch();
-    // useEffect(() => { getAllCategories()(dispatch)}, [dispatch]);
 
     const redirectToAdmin = () => {
         window.location.assign(`/admin/`);

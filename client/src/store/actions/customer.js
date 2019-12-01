@@ -2,6 +2,7 @@ import CustomerApi from "../../services/Customer";
 import * as Customer from "../constants/customer";
 import { SubmissionError } from 'redux-form';
 import {closeModalAction} from "./modal";
+import Base from '../../services/base';
 
 export function getCustomer(){
     return new CustomerApi().getCustomer();
@@ -129,15 +130,24 @@ export function loginAction(customer){
 }
 
 export function getCustomerAction() {
-    return function (dispatch) {
-        getCustomer().then(res => {
-            return dispatch({
-                type: Customer.CUSTOMER_GET_CUSTOMER,
-                data: res,
-            });
-        });
+    if (Base.getToken()){
+        return function (dispatch) {
+            getCustomer()
+                .then(res => {
+                    return dispatch({
+                        type: Customer.CUSTOMER_GET_CUSTOMER,
+                        data: res,
+                    });
+                })
+                .catch((error) => {
+                    if (error.response && error.response.status === 401)
+                        console.log('Error', error.message);
+                });
+        }
     }
-
+    else {
+        return customerResponseFailed();
+    }
 }
 
 export function logoutAction() {
