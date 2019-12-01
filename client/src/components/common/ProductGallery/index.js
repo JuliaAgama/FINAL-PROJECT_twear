@@ -1,9 +1,7 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import useStyles from "./useStyles";
-import {Link} from "react-router-dom";
 import {Container} from "@material-ui/core";
 import ProductCard from "../ProductCard";
+import useStyles from "./useStyles";
 
 
 

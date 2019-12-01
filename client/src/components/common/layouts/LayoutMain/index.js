@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
@@ -11,9 +12,7 @@ import useStyles from "./useStyles";
 
 export default props => {
 
-    const redirectToAdmin = () => {
-        window.location.assign(`/admin/`);
-    };
+    let history = useHistory();
 
     const breakpointValues = {
         xs: 0,
@@ -33,7 +32,7 @@ export default props => {
                 <div className={classes.header}><Header/></div>
                     <div>{props.children}</div>
                 <div className={classes.footer}><Footer/></div>
-                <SettingsButton title='Admin Page' size={2} color='red' onClick={redirectToAdmin}/>
+                <SettingsButton title='Admin Page' size={2} color='red' onClick={() => history.push("/admin")}/>
             </Container>
         </ThemeProvider>
     );

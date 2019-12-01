@@ -23,6 +23,7 @@ import AdminProductsEditNew from '../components/AdminPage/AdminProducts/EditNew'
 import PersonalCabinet from "../components/PersonalCabinet";
 import PrivateRoute from "../components/common/PrivateRoute";
 import AccessDenied from "../components/AccessDenied";
+import ProductGallery from "../components/common/ProductGallery";
 
 
 export const Router = () => (
@@ -33,7 +34,7 @@ export const Router = () => (
             <Switch>
                 <Route exact
                     path="/"
-                    component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
+                    component={props => <LayoutMain {...props}><ProductGallery/></LayoutMain>}/>
                 <Route exact
                        path="/personalCabinet"
                        component={props => <LayoutMain {...props}><PersonalCabinet/></LayoutMain>}/>
@@ -42,7 +43,7 @@ export const Router = () => (
                     component={props => <LayoutMain {...props}><TopCatPage/></LayoutMain>}/>
                 <Route exact
                     path="/categories/:category?"
-                    component={props => <LayoutMain {...props}><CategoryPage/></LayoutMain>}/>
+                    component={props => <LayoutMain {...props}><ProductGallery/></LayoutMain>}/>
                 <Route exact
                     path="/products/:product?"
                     component={props => <LayoutMain {...props}><ProductPage/></LayoutMain>}/>

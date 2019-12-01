@@ -7,8 +7,8 @@ export default makeStyles(theme => (
             flexWrap: 'wrap',
             width: '100%',
             padding: '0',
-            margin: '0',
-            position: 'relative'
+            margin: '20px 0',
+            // border: '1px solid black',
         },
     }
 ));
