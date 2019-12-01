@@ -60,9 +60,22 @@ export default props => {
     const [warningText, setWarningText] = useState({title: '', description: ''});
     const closeWarning =() => setWarningIsOpen(false);
 
+    const checkDoubles = (existingList, formData) => {
+        const listBesidesItem = existingList.filter(el => el._id !== formData._id);
+        if( productName && listBesidesItem.some(el => el.itemNo === formData.itemNo)) {
+            setWarningIsOpen(true);
+            setWarningText({title: 'Cannot save!', description: `Product with itemNo "${formData.itemNo}" already exists!`});
+            return true;
+        };
+        return false;
+    };
+
     const onSubmitHandler = formData => {
 
         if (productName) {
+            if(checkDoubles(productsBase, formData)) {
+                return false;
+            };
             if (!formData.genders || formData.genders.length === 0) {
                 setWarningIsOpen(true);
                 setWarningText({title: 'Item cannot be saved', description: 'Choose at least one gender '});
@@ -76,7 +89,7 @@ export default props => {
         };
 
         setTimeout(() => {
-            return history.push("/admin/products");
+            return history.push("/admin/products/"+formData.name);
             // window.location.assign(`/admin/products`);
         }, timeout)
     };
