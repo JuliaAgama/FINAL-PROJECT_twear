@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
 
 import * as topCatsActions from '../../../../store/actions/topCats';
 import * as categoriesActions from '../../../../store/actions/categories';
@@ -12,6 +13,8 @@ import Notification from '../../../common/messages/Notification';
 
 
 export default props => {
+
+    let history = useHistory();
 
     const categoryName = props.match.params.categoryName;
     const topCatName = props.match.params.topCatName;
@@ -76,7 +79,9 @@ export default props => {
         }
 
         setTimeout(() => {
-            window.location.assign(`/admin/categories`);
+            return history.push("/admin/categories")
+            // return <Route render={() => <Redirect to='/admin/categories'/>} />
+            // window.location.assign(`/admin/categories`);
         }, timeout)
     };
 

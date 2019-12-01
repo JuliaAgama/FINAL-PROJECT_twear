@@ -1,18 +1,13 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import useStyles from "./useStyles";
+import {Container} from "@material-ui/core";
 
 
-export default props => {
+export default function ProductCard() {
+    const classes = useStyles();
 
     return (
-        <>
-            <div
-                className="caterory-gallery-item col-12 col-md-6 col-lg-4 col-xl-3 card-body p-5 border border-secondary text-center"
-            >
-                <Link to={`/products/${props.item.name}`} className ="p-5 text-center d-block">
-                    <p>{props.item.name}</p>
-                </Link>
-            </div>
-        </>
-    )
-};
+        <Container maxWidth={false} className={classes.mainContainer}>ProductGallery</Container>
+    );
+}
