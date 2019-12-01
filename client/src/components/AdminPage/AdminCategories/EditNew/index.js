@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import * as topCatsActions from '../../../../store/actions/topCats';
 import * as categoriesActions from '../../../../store/actions/categories';
@@ -12,6 +12,8 @@ import Notification from '../../../common/messages/Notification';
 
 
 export default props => {
+    
+    const history = useHistory();
 
     const categoryName = props.match.params.categoryName;
     const topCatName = props.match.params.topCatName;
@@ -52,31 +54,59 @@ export default props => {
     const [warningText, setWarningText] = useState({title: '', description: ''});
     const closeWarning =() => setWarningIsOpen(false);
 
+    const checkDoubles = (existingList, formData) => {
+        const listBesidesItem = existingList.filter(el => el._id !== formData._id);
+        if( listBesidesItem.some(el => el.name.toLowerCase() === formData.name.toLowerCase())) {
+            setWarningIsOpen(true);
+            setWarningText({title: 'Cannot save!', description: `Category with name ${formData.name.toUpperCase()} already exists!`});
+            return true;
+        };
+        if( categoryName && listBesidesItem.some(el => el.itemNo === formData.itemNo)) {
+            setWarningIsOpen(true);
+            setWarningText({title: 'Cannot save!', description: `Category with itemNo "${formData.itemNo}" already exists!`});
+            return true;
+        };
+        return false;
+    };
+
+
     const onSubmitHandler = formData => {
 
         // for category:
         if (categoryName) {
+            if(checkDoubles(catsBase, formData)) {
+                return false;
+            };
             if (!formData.genders || formData.genders.length === 0) {
                 setWarningIsOpen(true);
                 setWarningText({title: 'Item cannot be saved', description: 'Choose at least one gender '});
                 return false;
-            } else {
-                categoryName.includes('newCategory') ?
-                    categoriesActions.addCategory(formData)(dispatch) :
-                    categoriesActions.updateCategory(formData)(dispatch);
-                    ref.current(`Category ${formData.name.toUpperCase()} has been saved!`);
-            }
+            } 
+            if (!formData.itemNo || formData.itemNo === '') {
+                setWarningIsOpen(true);
+                setWarningText({title: 'Item cannot be saved', description: 'Enter itemNo'});
+                return false;
+            } 
+            categoryName.includes('newCategory') ?
+                categoriesActions.addCategory(formData)(dispatch) :
+                categoriesActions.updateCategory(formData)(dispatch);
+                ref.current(`Category ${formData.name.toUpperCase()} has been saved!`);
 
         // for top category:
         } else if (topCatName) {
+            if(checkDoubles(topCatsBase, formData)) {
+                return false;
+            };
             topCatName === 'newTopCategory' ?
                 topCatsActions.addTopCat(formData)(dispatch) :
                 topCatsActions.updateTopCat(formData)(dispatch);
+                // topCatsActions.getAllTopCats()(dispatch);
                 ref.current(`Top category ${formData.name.toUpperCase()} has been saved!`);
         }
 
         setTimeout(() => {
-            window.location.assign(`/admin/categories`);
+            return history.push("/admin/categories");
+            // window.location.assign(`/admin/categories`);
         }, timeout)
     };
 

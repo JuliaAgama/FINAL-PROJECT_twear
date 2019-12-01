@@ -60,7 +60,8 @@ exports.deleteTopCat = (req, res, next) => {
     if (!topCat) {
       return res
         .status(400)
-        .json({ message: `TopCat with _id "${req.params.id}" is not found.` });
+        .json({ message: `TopCat with _id "${req.params.id}" is not found.`
+      });
     } else {
       const topCatToDelete = await TopCat.findOne({ _id: req.params.id });
 
@@ -68,7 +69,7 @@ exports.deleteTopCat = (req, res, next) => {
         .then(deletedTopCat =>
           res.status(200).json({
             message: `TopCat "${topCatToDelete.name.toUpperCase()}" with id "${topCatToDelete.id}" is successfully deleted from DB `,
-            deletedTopCatInfo: categortopCatToDeleteyToDelete
+            deletedTopCatInfo: topCatToDelete
           })
         )
         .catch(err =>
