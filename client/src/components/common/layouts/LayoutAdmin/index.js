@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from "react-router-dom";
 
-import { Link, Grid, Hidden} from '@material-ui/core';
+import { Grid, Hidden} from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -33,7 +34,7 @@ export default props => {
             <Hidden smDown>
                 <Grid item xs={12} md={4} lg={3}>
                     <div className={classes.paper}>
-                        <Link href="/admin" >
+                        <Link to="/admin" >
                             <div className={classes.logo}>
                                 <img className={classes.image} src="/img/twear_logo_grey-on-transparent.png" alt="NOT FOUND"/>
                             </div>

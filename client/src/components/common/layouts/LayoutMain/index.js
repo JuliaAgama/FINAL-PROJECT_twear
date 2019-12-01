@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
@@ -10,10 +11,6 @@ import Footer from '../../../Footer';
 import SettingsButton from '../../../common/buttons/Settings';
 
 export default () => {
-
-    const redirectToAdmin = () => {
-        window.location.assign(`/admin/`);
-    };
 
     const breakpointValues = {
         xs: 0,
@@ -34,7 +31,9 @@ export default () => {
                 <Header/>
                 <div style={{textAlign: 'center'}}>YURA'S BLOCK</div>
                 <Footer style= {{position: 'absolute', bottom: '0' }}/>
-                <SettingsButton title='Admin Page' size={2} color='red' onClick={redirectToAdmin}/>
+                <Link to={`/admin`}>
+                    <SettingsButton title='Admin Page' size={2} color='red' />
+                </Link>
             </Container>
             </div>
         </ThemeProvider>    
