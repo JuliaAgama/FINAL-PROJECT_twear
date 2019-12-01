@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import * as topCatsActions from '../../../../store/actions/topCats';
 import * as categoriesActions from '../../../../store/actions/categories';
@@ -18,6 +18,8 @@ import Notification from '../../../common/messages/Notification';
 
 
 export default props => {
+    
+    const history = useHistory();
 
     console.log(props);
     // const productName = "new product";
@@ -74,7 +76,8 @@ export default props => {
         };
 
         setTimeout(() => {
-            window.location.assign(`/admin/products`);
+            return history.push("/admin/products");
+            // window.location.assign(`/admin/products`);
         }, timeout)
     };
 

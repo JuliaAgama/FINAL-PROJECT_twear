@@ -31,25 +31,25 @@ export const Router = () => (
             <Switch>
                 <Route exact
                     path="/"
-                    component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
+                    component={props => <LayoutMain {...props}><HomePage{...props}/></LayoutMain>}/>
                 <Route exact
                     path="/top-categories/:topCat?"
-                    component={props => <LayoutMain {...props}><TopCatPage/></LayoutMain>}/>
+                    component={props => <LayoutMain {...props}><TopCatPage{...props}/></LayoutMain>}/>
                 <Route exact
                     path="/categories/:category?"
-                    component={props => <LayoutMain {...props}><CategoryPage/></LayoutMain>}/>
+                    component={props => <LayoutMain {...props}><CategoryPage{...props}/></LayoutMain>}/>
                 <Route exact
                     path="/products/:product?"
-                    component={props => <LayoutMain {...props}><ProductPage/></LayoutMain>}/>
+                    component={props => <LayoutMain {...props}><ProductPage{...props}/></LayoutMain>}/>
 
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin"
-                    component={props => <LayoutAdmin {...props}><AdminPage/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminPage{...props}/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories"
-                    component={props => <LayoutAdmin {...props}><AdminCategories/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminCategories{...props}/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/:categoryName?"
@@ -61,11 +61,11 @@ export const Router = () => (
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/options"
-                    component={props => <LayoutAdmin {...props}><AdminOptions/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminOptions{...props}/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/products"
-                    component={props => <LayoutAdmin {...props}><AdminProducts/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminProducts{...props}/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/products/:productName?"
@@ -73,7 +73,7 @@ export const Router = () => (
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/products/edit/:productName?"
-                    component={props => <LayoutAdmin {...props}><AdminProductsEditNew/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminProductsEditNew{...props}/></LayoutAdmin>}/>
 
                 <Route path="*" component={NotFound}/>
             </Switch>
