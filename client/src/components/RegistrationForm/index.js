@@ -1,25 +1,20 @@
-import useStyles from "./useStyles";
 import React, {useState} from "react";
-import Grid from "@material-ui/core/Grid";
-import {Container} from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import FormControl from "@material-ui/core/FormControl";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
+
+import {Container, Box, Grid, TextField, FormControl, FormControlLabel, RadioGroup, Radio, Checkbox, Button,} from "@material-ui/core";
+
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/dist/style.css'
-import Checkbox from "@material-ui/core/Checkbox";
 
-export default function Registration() {
-    const classes = useStyles();
+import useStyles from "./useStyles";
+
+
+export default () => {
+
     const [value, setValue] = useState('female');
     const [phoneNumber, setPhoneNumber] = useState('+380');
     const [checked, setChecked] = useState(false);
     const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' +
-                         'and for customizing my user experience to my interests or my shopping habits.';
+    'and for customizing my user experience to my interests or my shopping habits.';
 
     const handleChangeRadio = event => {
         setValue(event.target.value);
@@ -32,6 +27,8 @@ export default function Registration() {
     const handleChangeChecked = () => {
         setChecked(!checked);
     }
+
+    const classes = useStyles();
 
     return (
         <React.Fragment>
@@ -110,4 +107,4 @@ export default function Registration() {
             </Grid>
         </React.Fragment>
     );
-}
+};

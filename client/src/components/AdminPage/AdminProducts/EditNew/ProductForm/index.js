@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 
-import { Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox } from '@material-ui/core';
+import { Typography, Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
+
+import UploadFile from '../../../../common/inputs/UploadFile';
 
 export default props => {
 
@@ -66,99 +68,81 @@ export default props => {
         onSubmitHandler(formData);
     };
 
+    const cutName = (string, l) => string.length >= l ? string.slice(0, l-3)+'...' : string;
 
     const classes = useStyles();
 
     return (
-        <>
-            <h1> This is form for {(productName.slice(0,productName.indexOf('-'))).toUpperCase()}</h1>
-            <div className={classes.wrapper}>
-                <form autoComplete="off" onSubmit={onSubmit}>
+        <Typography component="div" variant="body1" className={classes.wrapper}>
+            <form autoComplete="off">
+                <Grid container className={classes.paper}>
+                    <Grid item xs={4}>
+                        <TextField
+                            required
+                            id="outlined-required"
+                            label="itemNo"
+                            name='itemNo'
+                            placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
+                            value={formData.itemNo ? formData.itemNo : ''}
+                            onChange={onChange}
+                            onFocus={onChange}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </Grid>
+                    <Grid item className={classes.justify}>
+                        <TextField
+                            required
+                            id="outlined-required"
+                            label="Product"
+                            name='name'
+                            autoFocus
+                            onChange={onChange}
+                            defaultValue={productName && productName.includes('newProduct') ? '' : productName}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </Grid>
+                </Grid>
+
+                <div>
                     <Grid container className={classes.paper}>
-                        <Grid item xs={4}>
-                            <TextField
-                                required
-                                id="outlined-required"
-                                label="itemNo"
-                                name='itemNo'
-                                placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
-                                value={formData.itemNo ? formData.itemNo : ''}
-                                onChange={onChange}
-                                onFocus={onChange}
-                                className={classes.textField}
-                                margin="normal"
-                                variant="outlined"
-                            />
+                        <Grid item xs={6}>
+                            Choose top Category
                         </Grid>
-                        <Grid item className={classes.justify}>
-                            <TextField
-                                required
-                                id="outlined-required"
-                                label="Product"
-                                name='name'
-                                autoFocus
-                                onChange={onChange}
-                                defaultValue={productName && productName.includes('newProduct') ? '' : productName}
-                                className={classes.textField}
-                                margin="normal"
-                                variant="outlined"
-                            />
+                        <Grid item xs={6}>
+                            Choose Category
+                        </Grid>
+                        <Grid item xs={6}>
+                            Choose Genders
+                        </Grid>
+                        <Grid item xs={6}>
+                            Choose Colors
+                        </Grid>
+                        <Grid item xs={6}>
+                            Choose Appropriate Set of Sizes (SizeType)
                         </Grid>
                     </Grid>
+                </div>
 
-                    <div>
-                        <Grid container className={classes.paper}>
-                            <Grid item xs={6}>
-                                Choose top Category
-                            </Grid>
-                            <Grid item xs={6}>
-                                Choose Category
-                            </Grid>
-                            <Grid item xs={6}>
-                                Choose Genders
-                            </Grid>
-                            <Grid item xs={6}>
-                                Choose Colors
-                            </Grid>
-                            <Grid item xs={6}>
-                                Choose Appropriate Set of Sizes (SizeType)
-                            </Grid>
-                        </Grid>
-                    </div>
-
-                    <Grid container className={classes.paper}>
-                        <Grid item xs={12}>
-                            <div className="input-group mb-3">
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text" id="inputGroupFileAddon01">Upload photo</span>
-                                </div>
-                                <div className="custom-file">
-                                    <input
-                                        type="file"
-                                        id="inputGroupFile01"
-                                        name="img"
-                                        value=""
-                                        onChange={onChange}
-                                        className="custom-file-input"
-                                        aria-describedby="inputGroupFileAddon01"
-                                    />
-                                    <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
-                                </div>
-                            </div>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <button className="btn btn-info btn-block" type="submit">Save category</button>
-                        </Grid>
+                <Grid container className={classes.paper}>
+                    <Grid item xs={12}>
+                        <UploadFile/>
                     </Grid>
-                </form>
-                {item && item.name ?
-                    (
-                        <Link to={`/admin/products/`+item.name}>
-                            <button className="btn btn-secondary text-uppercase m-5">{`${item.name} page`}</button>
-                        </Link>
-                    ) : <></>
-                }
-            </div>
-        </>
+                    <Grid item xs={12}>
+                        <Button
+                        fullWidth={true}
+                        variant="outlined"
+                        className={classes.btn}
+                        onClick={onSubmit}
+                        > {`SAVE`}</Button>
+                    </Grid>
+                </Grid>
+            </form>
+            {item && item.name ?  <Link to={`/admin/products`+item.name} className={classes.link}> {`<<   to ${cutName(item.name, 10)} page`} </Link> : <></>
+            }
+        </Typography>
     )
 };

@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Box, Grid, FormLabel, FormControl, FormControlLabel, Radio, RadioGroup} from '@material-ui/core';
 
-import useStyles from './useStyles';
+// import useStyles from './useStyles';
 
 
 export default props => {
 
     const {legend, listArray, checkedCondition, onChange } = props;
 
-    const classes = useStyles();
+    // const classes = useStyles();
 
     return (
         <FormControl component="fieldset" >

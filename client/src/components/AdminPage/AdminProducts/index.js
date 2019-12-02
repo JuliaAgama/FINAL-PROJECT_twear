@@ -131,7 +131,7 @@ export default withWidth()(() => {
     return (
         <Typography component="div" variant="body1">
             <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">PRODUCTS</Box>
-            <Link to="/admin/products/edit/newProduct" className={classes.center}>
+            <Link to="/admin/products/edit/newProduct"  className={classes.link}>
                 <Hidden smDown>
                     <Box p={2} textAlign="center" className={classes.paper}>
                         <AddWideButton text='CREATE NEW PRODUCT' color='secondary'/>

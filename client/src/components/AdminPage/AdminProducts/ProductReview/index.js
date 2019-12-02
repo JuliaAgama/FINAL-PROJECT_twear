@@ -29,7 +29,7 @@ export default props => {
     }, [dispatch])
 
     const [product, setProduct] = useState(null);
-    
+
     useEffect(() => {
         if(products && products[0]) {setProduct(products[0]);}
     }, [products]);
@@ -96,9 +96,7 @@ export default props => {
                     Product Inventory (Sizes, quantity, enabled\disabled (?))
                 </Box>
             </Grid>
-            <Link to={`/admin/products`}>
-                <button >Back</button>
-            </Link>
+            <Link to={`/admin/products`} className={classes.link}> {`<<   to Products List`} </Link>
         </Typography>
         </>
     )

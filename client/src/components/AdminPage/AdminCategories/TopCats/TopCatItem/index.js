@@ -70,7 +70,6 @@ export default props => {
     const deleteItem = (event) => {
         event.preventDefault();
         (new TopCatsApi()).deleteTopCategory(item).then(res => {
-            console.log('hi');
             setConfirmIsOpen(false);
             topCatsActions.getAllTopCats()(dispatch);
             handleNotification(itemName);

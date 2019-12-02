@@ -6,27 +6,28 @@ const path = require("path");
 const cors = require("cors");
 require("dotenv").config();
 
-const globalConfigs = require("./routes/globalConfigs");
-const customers = require("./routes/customers");
+const cart = require("./routes/cart");
 const categories = require("./routes/categories");
-const products = require("./routes/products");
-const genders = require("./routes/genders");
-const topCats = require("./routes/topCats");
 const colors = require("./routes/colors");
+const comments = require("./routes/comments");
+const customers = require("./routes/customers");
+const filters = require("./routes/filters");
+const genders = require("./routes/genders");
+const globalConfigs = require("./routes/globalConfigs");
+const links = require("./routes/links");
+const orders = require("./routes/orders");
+const pages = require("./routes/pages");
+const partners = require("./routes/partners");
+const paymentMethods = require("./routes/paymentMethods");
+const products = require("./routes/products");
+const shippingMethods = require("./routes/shippingMethods");
 const sizes = require("./routes/sizes");
 const sizeTypes = require("./routes/sizeTypes");
-const filters = require("./routes/filters");
-const subscribers = require("./routes/subscribers");
-const cart = require("./routes/cart");
-const orders = require("./routes/orders");
-const links = require("./routes/links");
-const pages = require("./routes/pages");
 const slides = require("./routes/slides");
+const subscribers = require("./routes/subscribers");
+const topCats = require("./routes/topCats");
+const images = require('./routes/images');
 const wishlist = require("./routes/wishlist");
-const comments = require("./routes/comments");
-const shippingMethods = require("./routes/shippingMethods");
-const paymentMethods = require("./routes/paymentMethods");
-const partners = require("./routes/partners");
 const mainRoute = require("./routes/index");
 
 const app = express();
@@ -50,18 +51,21 @@ mongoose
   .catch(err => console.log(err));
 
 // Passport middleware
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  successStatus: 200,
+}));
 app.use(passport.initialize());
 
 // Passport Config
 require("./config/passport")(passport);
 
 // Use Routes
-app.use("/api/configs", globalConfigs);
 app.use("/api/cart", cart);
 app.use("/api/categories", categories);
 app.use("/api/colors", colors);
 app.use("/api/comments", comments);
+app.use("/api/configs", globalConfigs);
 app.use("/api/customers", customers);
 app.use("/api/filters", filters);
 app.use("/api/genders", genders);
@@ -77,6 +81,7 @@ app.use("/api/size-types", sizeTypes);
 app.use("/api/slides", slides);
 app.use("/api/subscribers", subscribers);
 app.use("/api/top-categories", topCats);
+app.use("/api/images", images);
 app.use("/api/wishlist", wishlist);
 
 // Server static assets if in production

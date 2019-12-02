@@ -6,7 +6,8 @@ export default makeStyles(theme => (
             width: '100%',
             backgroundColor: theme.palette.background.paper,
         },
-        center: {
+        link: {
+            textDecoration: 'none!important',
             textAlign: 'center',
             margin: '0 auto',
             "&:hover": {

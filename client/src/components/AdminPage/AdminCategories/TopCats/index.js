@@ -44,7 +44,7 @@ export default () => {
                     }
                     <Divider />
                     <ListItem>
-                        <Link to="/admin/categories/top/newTopCategory" className={classes.center}>
+                        <Link to="/admin/categories/top/newTopCategory" className={classes.link}>
                         <Hidden xsDown>
                             <AddWideButton text='CREATE NEW TOP CATEGORY' color='secondary'/>
                         </Hidden>

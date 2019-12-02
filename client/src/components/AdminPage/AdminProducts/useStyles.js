@@ -15,5 +15,13 @@ export default makeStyles(theme => (
             paddingTop: theme.spacing(1),
             paddingBottom: theme.spacing(2,)
         },
+        link: {
+            textDecoration: 'none!important',
+            textAlign: 'center',
+            margin: '0 auto',
+            "&:hover": {
+                textDecoration: 'none !important'
+            },
+        },
     }
 ));
