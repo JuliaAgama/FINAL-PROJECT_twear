@@ -1,20 +1,18 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
-import { blue } from '@material-ui/core/colors';
-import { pink } from '@material-ui/core/colors';
-import { grey } from '@material-ui/core/colors';
+import { green, blue, pink, grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
         fab:{
             margin: theme.spacing(1),
             textAlign: 'center',
+            backgroundColor: theme.palette.common.white,
         },
         fabBlue: {
             margin: theme.spacing(1),
             textAlign: 'center',
             color: blue[600],
-            backgroundColor: 'transparent',
+            backgroundColor: theme.palette.common.white,
             '&:hover': {
                 color: theme.palette.common.white,
                 backgroundColor: blue[500],
@@ -24,7 +22,7 @@ export default makeStyles(theme => (
             margin: theme.spacing(1),
             textAlign: 'center',
             color: green[600],
-            backgroundColor: 'transparent',
+            backgroundColor: theme.palette.common.white,
             '&:hover': {
                 color: theme.palette.common.white,
                 backgroundColor: green[500],
@@ -34,7 +32,7 @@ export default makeStyles(theme => (
             margin: theme.spacing(1),
             textAlign: 'center',
             color: pink[600],
-            backgroundColor: 'transparent',
+            backgroundColor: theme.palette.common.white,
             '&:hover': {
                 color: theme.palette.common.white,
                 backgroundColor: pink[500],
@@ -44,7 +42,7 @@ export default makeStyles(theme => (
             margin: theme.spacing(1),
             textAlign: 'center',
             color: grey[600],
-            backgroundColor: 'transparent',
+            backgroundColor: theme.palette.common.white,
             '&:hover': {
                 color: theme.palette.common.white,
                 backgroundColor: grey[500],

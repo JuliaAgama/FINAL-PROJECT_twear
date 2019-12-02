@@ -5,8 +5,8 @@ import * as sizesActions from '../../../../../store/actions/sizes';
 import SizesApi from '../../../../../services/Sizes';
 import ProductsApi from '../../../../../services/Products';
 
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import { Grid, TextField } from '@material-ui/core';
+
 import useStyles from './useStyles';
 
 import SaveButton from '../../../../common/buttons/Save';

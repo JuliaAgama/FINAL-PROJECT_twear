@@ -2,29 +2,23 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => (
     {
-        root: {
-            height: '100vh',
-        },
-        header: {
-            paddingTop: '1rem',
-            textAlign: 'center',
-            color: theme.palette.secondary.main,
-        },
-        listing: {
+        paper: {
             width: '100%',
+            marginBottom: theme.spacing(3),
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingRight: theme.spacing(1),
             backgroundColor: theme.palette.background.paper,
         },
-        paper: {
-            margin: theme.spacing(3,1),
+        container: {
             flexGrow: 1,
             alignItems: 'center',
-            // textTransform: 'capitalize',
-            justifyContent: 'space-between',
-            paddingRight: theme.spacing(5)
+            justifyContent: 'space-around',
         },
         expand: {
             transform: 'rotate(0deg)',
-            margin: theme.spacing(2),
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
             textAlign: 'center',
             transition: theme.transitions.create('transform', {
                 duration: theme.transitions.duration.shortest,
@@ -34,7 +28,7 @@ export default makeStyles(theme => (
             transform: 'rotate(180deg)',
         },
         expanded: {
-            marginLeft: theme.spacing(12)
+            marginLeft: theme.spacing(1)
         }
     }
 ));

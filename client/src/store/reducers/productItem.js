@@ -1,7 +1,7 @@
-import * as COLORS from '../constants/colors';
+import * as PRODUCTS from '../constants/products';
 
 const initState = {
-    colorItem: {},
+    productItem: {},
     loaded: false,
     error: null
 };
@@ -10,7 +10,7 @@ export default function (state = initState, action) {
 
     switch (action.type) {
 
-        case COLORS.COLOR_SEND_REQUEST:
+        case PRODUCTS.PRODUCT_SEND_REQUEST:
             return {
                 ...state,
                 ...{
@@ -18,7 +18,7 @@ export default function (state = initState, action) {
                 }
             };
 
-            case COLORS.COLOR_RESPONSE_FAILED:
+            case PRODUCTS.PRODUCT_RESPONSE_FAILED:
                 return {
                     ...state,
                     ...{
@@ -26,11 +26,11 @@ export default function (state = initState, action) {
                     }
                 };
 
-            case COLORS.COLOR_GET_COLOR_ITEM:
+            case PRODUCTS.PRODUCT_GET_PRODUCT_ITEM:
                 return {
                     ...state,
                     ...{
-                        colorItem: action.data,
+                        productItem: action.data,
                         loaded: true
                     }
                 };

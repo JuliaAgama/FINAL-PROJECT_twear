@@ -2,34 +2,18 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => (
     {
-        wrapper: {
-            margin: `${theme.spacing(1)} auto`,
-            marginBottom: theme.spacing(2)
-        },
-        textField: {
-            margin: `${theme.spacing(1)} auto`,
-            width: '100%',
-            backgroundColor: '#fff',
-        },
-        justify: {
-            width: '100%'
-        },
         paper: {
-            flexGrow: 1,
-            alignItems: 'flex-start',
+            margin: 'auto',
+            maxWidth: '100%',
             textTransform: 'capitalize',
-            justifyContent: 'space-between',
-            paddingRight: theme.spacing(3)
         },
-        formControl: {
-            margin: theme.spacing(2),
-            paddingLeft: theme.spacing(2),
-        },
-        displayNone: {
-            display: 'none',
-        },
-        displayBlock: {
-            display: 'block',
+        container: {
+            marginTop: theme.spacing(1),
+            paddingBottom: theme.spacing(5),
+            paddingRight: theme.spacing(2),
+            flexGrow: 1,
+            alignItems: 'center',
+            justifyContent: 'space-around',
         },
     }
 ));

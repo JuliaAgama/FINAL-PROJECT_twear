@@ -17,9 +17,27 @@ export function productItemSendRequest() {
 export function getAllProducts() {
     return function (dispatch) {
         dispatch(productsSendRequest());
-        (new ProductsApi()).getProducts().then(res => {
+        (new ProductsApi()).getAllProducts().then(res => {
             return dispatch({
                 type: PRODUCTS.PRODUCTS_GET_ALL_PRODUCTS,
+                data: res
+            });
+        })
+        .catch(err => {
+            return dispatch({
+                type: PRODUCTS.PRODUCTS_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        });
+    };
+};
+
+export function getProductsByFilter(filter) {
+    return function (dispatch) {
+        dispatch(productsSendRequest());
+        (new ProductsApi()).getProductsByFilter(filter).then(res => {
+            return dispatch({
+                type: PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_FILTER,
                 data: res
             });
         })
@@ -38,6 +56,24 @@ export function getProductsBySearch(searchValue) {
         (new ProductsApi()).getProductsBySearch(searchValue).then(res => {
             return dispatch({
                 type: PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_SEARCH,
+                data: res
+            });
+        })
+        .catch(err => {
+            return dispatch({
+                type: PRODUCTS.PRODUCTS_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        });
+    };
+};
+
+export function getProductsByParentId(CategoryId) {
+    return function (dispatch) {
+        dispatch(productsSendRequest());
+        (new ProductsApi()).getProductsByMatch({Category: CategoryId}).then(res => {
+            return dispatch({
+                type: PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_PARENT_ID,
                 data: res
             });
         })

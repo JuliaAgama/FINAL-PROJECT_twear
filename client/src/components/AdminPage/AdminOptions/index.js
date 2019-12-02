@@ -1,22 +1,14 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import clsx from 'clsx';
 
 import * as colorsActions from '../../../store/actions/colors';
 import * as sizeTypesActions from '../../../store/actions/sizeTypes';
 import * as sizesActions from '../../../store/actions/sizes';
 
-import clsx from 'clsx';
-import { Hidden } from '@material-ui/core';
-import withWidth from '@material-ui/core/withWidth';
-
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Collapse from '@material-ui/core/Collapse';
-
-import Divider from '@material-ui/core/Divider';
+import { Typography, Box, Grid, List, ListItem, Divider, Collapse, IconButton, withWidth } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import IconButton from '@material-ui/core/IconButton';
+
 import useStyles from './useStyles';
 
 import Colors from './Colors';
@@ -80,22 +72,18 @@ export default withWidth()(() => {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <div className={classes.header}>
-                <Hidden >
-                    <h3>OPTIONS SETS</h3>
-                </Hidden>
-            </div>
-            <Grid container className={classes.paper}>
-                <List className={classes.listing}>
+        <Typography component="div" variant="body1">
+            <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">OPTIONS SETS</Box>
+
+            <Box className={classes.paper}>
+                <List >
                     <Divider />
                     {optionsList.map((el, ind) => (
-                        <div key={ind}>
+                        <Box key={ind}>
                             <ListItem >
-                                <Grid container className={classes.paper}>
-                                    <Grid item xs={2} ></Grid>
-                                    <Grid item xs={8}> {el.name.toUpperCase()} </Grid>
-                                    <Grid item xs={1}>
+                                <Grid container className={classes.container}>
+                                    <Grid item> {el.name.toUpperCase()} </Grid>
+                                    <Grid item>
                                         <IconButton
                                             className={clsx(classes.expand, {[classes.expandOpen]: expanded[el.name]})}
                                             onClick={() => handleExpandClick(el.name)}
@@ -106,25 +94,23 @@ export default withWidth()(() => {
                                             <ExpandMoreIcon />
                                         </IconButton>
                                     </Grid>
-                                    <Grid item xs={1}></Grid>
                                 </Grid>
-
                             </ListItem>
                             <Collapse in={expanded[el.name]} timeout="auto" unmountOnExit>
-                                <div className={classes.expanded}>
+                                <Box className={classes.expanded}>
                                     {el.name === 'colors' ?
                                         <Colors handleNotification={handleNotification}/> : <></>
                                     }
                                     {el.name === 'sizes' ?
                                         <SizeTypes handleNotification={handleNotification}/> : <></>
                                     }
-                                </div>
+                                </Box>
                             </Collapse>
                             <Divider />
-                        </div>
+                        </Box>
                     ))}
                 </List>
-            </Grid>
+            </Box>
             <ErrorModal
                 modalIsOpen={errorIsOpen}
                 modalText={errorModalText}
@@ -132,6 +118,7 @@ export default withWidth()(() => {
                 closeFunction={closeErrorModal}
             />
             <Notification timeout={timeout} children={add => (ref.current = add)} />
-        </div>
+
+        </Typography>
     )
 });

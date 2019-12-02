@@ -2,13 +2,12 @@ import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import axios from 'axios';
 
-
 import * as colorsActions from '../../../../../store/actions/colors';
 import ColorsApi from '../../../../../services/Colors';
 import ProductsApi from '../../../../../services/Products';
 
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import { Typography, Box, Grid, TextField } from '@material-ui/core';
+
 import useStyles from './useStyles';
 
 import SaveButton from '../../../../common/buttons/Save';
@@ -128,7 +127,7 @@ export default props => {
         // return () => {
         //     source.cancel();
         // };
-    }, []);
+    }, [item._id]);
 
     const checkMatchingProducts = () => {
         if(productsMatched && productsMatched[0]) {
@@ -167,12 +166,12 @@ export default props => {
 
     return (
         <>
-            <Grid item xs={6} lg={4} xl={3} className={classes.wrapper}>
-                <form autoComplete="off">
-                    <Grid container className={classes.verticalCenter}>
-                        <Grid item xs={1}>
+        <Grid item xs={12} sm={6} lg={4}>
+            <form autoComplete="off">
+                <Grid container className={classes.paper}>
+                    <Grid item xs={12} sm container className={classes.container}>
+                        <Grid item xs={3}>
                             <input
-                                className={classes.colorInput}
                                 id={item._id}
                                 type="color"
                                 name={'cssValue'}
@@ -180,10 +179,8 @@ export default props => {
                                 onChange={onChange}
                             />
                         </Grid>
-                        <Grid item xs={1}></Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={7}>
                             <TextField
-                                className={classes.textField}
                                 required
                                 id={item._id}
                                 name={'name'}
@@ -192,23 +189,24 @@ export default props => {
                                 margin="normal"
                             />
                         </Grid>
-                        <Grid item xs={1}>
+                    </Grid>
+                    <Grid item xs={12} sm container className={classes.container}>
+                        <Grid item>
                             <SaveButton
                                 onClick={saveColor}
                                 size="small"
                                 className={formData.name === item.name && formData.cssValue === item.cssValue ? '' : 'fabGreenFilled' }/>
                         </Grid>
-                        <Grid item xs={2}></Grid>
-                        <Grid item xs={1}>
+                        <Grid item>
                             {item._id ?
                             <DeleteButton  onClick={openConfirm}  size="small"/> :
                             <></>
                             }
                         </Grid>
-                        <Grid item xs={3}></Grid>
                     </Grid>
-                </form>
-            </Grid>
+                </Grid>
+            </form>
+        </Grid>
             <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
             <ConfirmModal modalIsOpen={confirmIsOpen} modalText={confirmText} doFunction={deleteColor} closeFunction={closeConfirm}/>
         </>

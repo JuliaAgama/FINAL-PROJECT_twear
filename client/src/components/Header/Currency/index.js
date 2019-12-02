@@ -30,47 +30,12 @@ export default function Currency() {
                         onClick={() => {setVisibility(true)}}>
                     {!isVisible ? 'Currency' :
                         (<Container>
-                           <span onClick={handleChange} data-currency='USA' className={classes.span}>USA</span>
-                           <span onClick={handleChange} data-currency='EUR' className={classes.span}>EUR</span>
-                           <span onClick={handleChange} data-currency='UA' className={classes.span}>UA</span>
+                            <span onClick={handleChange} data-currency='USD' className={classes.span}>USA</span>
+                            <span onClick={handleChange} data-currency='EUR' className={classes.span}>EUR</span>
+                            <span onClick={handleChange} data-currency='UA' className={classes.span}>UA</span>
                         </Container>)}
                 </Button>
             </ClickAwayListener>
         </React.Fragment>
     );
-}
-
-{/*<FormControl component="fieldset">*/}
-{/*    <RadioGroup aria-label="position" name="position" value={selectedValue} onChange={handleChange} row>*/}
-{/*        <FormControlLabel*/}
-{/*            control={<Radio*/}
-{/*                value="USD"*/}
-{/*                color="default"*/}
-{/*                icon={<RadioButtonUncheckedIcon fontSize="small" />}*/}
-{/*                checkedIcon={<RadioButtonCheckedIcon fontSize="small" />}*/}
-{/*            />}*/}
-{/*            label="USD"*/}
-{/*            labelPlacement="end"*/}
-{/*        />*/}
-{/*        <FormControlLabel*/}
-{/*            control={<Radio*/}
-{/*                value="EUR"*/}
-{/*                color="default"*/}
-{/*                icon={<RadioButtonUncheckedIcon fontSize="small" />}*/}
-{/*                checkedIcon={<RadioButtonCheckedIcon fontSize="small" />}*/}
-{/*            />}*/}
-{/*            label="EUR"*/}
-{/*            labelPlacement="end"*/}
-{/*        />*/}
-{/*        <FormControlLabel*/}
-{/*            control={<Radio*/}
-{/*                value="UA"*/}
-{/*                color="default"*/}
-{/*                icon={<RadioButtonUncheckedIcon fontSize="small" />}*/}
-{/*                checkedIcon={<RadioButtonCheckedIcon fontSize="small" />}*/}
-{/*            />}*/}
-{/*            label="UA"*/}
-{/*            labelPlacement="end"*/}
-{/*        />*/}
-{/*    </RadioGroup>*/}
-{/*</FormControl>*/}
+};

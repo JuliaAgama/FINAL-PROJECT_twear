@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+
 import { X } from 'react-feather';
 import { useTransition } from 'react-spring';
-import { Container, Message, Button, Content, Life } from './useStyles.js';
+
+import { Container, Message, Button, Content, Life } from './useStyles';
 
 let id = 0;
+
 
 export default ({ config = { tension: 125, friction: 20, precision: 0.1 }, timeout = 3000, children})  => {
     const [refMap] = useState(() => new WeakMap())

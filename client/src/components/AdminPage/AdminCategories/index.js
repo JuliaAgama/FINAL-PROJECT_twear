@@ -4,16 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as topCatsActions from '../../../store/actions/topCats';
 import * as categoriesActions from '../../../store/actions/categories';
 
-import { Hidden } from '@material-ui/core';
-import withWidth from '@material-ui/core/withWidth';
-import Grid from '@material-ui/core/Grid';
+import { Typography, Box, Grid, Hidden, withWidth } from '@material-ui/core';
+
 import useStyles from './useStyles';
 
 import TopCategories from './TopCats';
 import ErrorModal from '../../common/messages/ErrorModal';
 
 
-export default withWidth()(props => {
+export default withWidth()(() => {
 
     const dispatch = useDispatch();
 
@@ -51,12 +50,9 @@ export default withWidth()(props => {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <div className={classes.header}>
-                <Hidden >
-                    <h3>CATEGORIES</h3>
-                </Hidden>
-            </div>
+        <Typography component="div" variant="body1">
+            <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">CATEGORIES</Box>
+
             <Grid container className={classes.paper}>
                 <TopCategories/>
             </Grid>
@@ -66,6 +62,6 @@ export default withWidth()(props => {
                 doFunction={() => {closeErrorModal(); getTopCatsList(); getCategoriesList()}}
                 closeFunction={closeErrorModal}
             />
-        </div>
+        </Typography>
     )
 });

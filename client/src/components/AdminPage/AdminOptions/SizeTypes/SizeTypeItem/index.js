@@ -5,16 +5,16 @@ import * as sizeTypesActions from '../../../../../store/actions/sizeTypes';
 import SizeTypesApi from '../../../../../services/SizeTypes';
 import SizesApi from '../../../../../services/Sizes';
 
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import { Grid, TextField } from '@material-ui/core';
+
 import useStyles from './useStyles';
 
 import SaveButton from '../../../../common/buttons/Save';
 import DeleteButton from '../../../../common/buttons/Delete';
 import WarningModal from '../../../../common/messages/WarningModal';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
-
 import Sizes from '../../Sizes';
+
 
 export default props => {
 
@@ -121,9 +121,9 @@ export default props => {
 
     return (
         <>
-            <Grid item xs={6} className={classes.wrapper}>
+            <Grid item xs={12} sm={6} lg={4} className={classes.paper}>
                 <form autoComplete="off">
-                    <Grid container className={classes.verticalCenter}>
+                    <Grid container className={classes.container}>
                         <Grid item xs={6}>
                             <TextField
                                 className={classes.textField}
@@ -135,14 +135,13 @@ export default props => {
                                 margin="normal"
                             />
                         </Grid>
-                        <Grid item xs={1}>
+                        <Grid item xs={3}>
                             <SaveButton
                                 onClick={saveSizeType}
                                 size="medium"
                                 className={formData.name === item.name ? '' : 'fabGreenFilled' }/>
                         </Grid>
-                        <Grid item xs={2}></Grid>
-                        <Grid item xs={1}>
+                        <Grid item xs={3}>
                             {item._id ?
                                 <DeleteButton  onClick={openConfirm}  size="medium"/> :
                                 <></>

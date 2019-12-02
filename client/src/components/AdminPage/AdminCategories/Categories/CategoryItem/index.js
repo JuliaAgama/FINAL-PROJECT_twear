@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import * as categoriesActions from '../../../../../store/actions/categories';
 import CategoriesApi from '../../../../../services/Categories';
 import ProductsApi from '../../../../../services/Products';
 
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
+import { Typography, Box, Grid, ListItem, Divider } from '@material-ui/core';
+
 import useStyles from './useStyles';
 
-import ImgIcon from '../../../../common/images/ImgIcon';
 import OpenEditButton from '../../../../common/buttons/Edit';
 import DeleteButton from '../../../../common/buttons/Delete';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
@@ -78,24 +76,27 @@ export default props => {
         <>
         <Divider />
         <ListItem>
-            <Grid container className={classes.paper}>
-                <Grid item xs={6}>
-                    <Grid container className={classes.paper}>
-                        <Grid item xs={4} >
-                            <ImgIcon src={item.img}/>
-                        </Grid>
-                        <Grid item xs={7}> {item.name} </Grid>
-                        <Grid item xs={1}></Grid>
+            <Grid container spacing={2} className={classes.paper}>
+                <Grid item xs={12} sm container className={classes.container}>
+                    <Grid item>
+                        <Box className={classes.image}>
+                            <img className={classes.img} src={item.img} alt="Not Found"/>
+                        </Box>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="body2" className={classes.title}>{item.name}</Typography>
                     </Grid>
                 </Grid>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={1}>
-                    <Link href={"/admin/categories/"+item.name}>
-                        <OpenEditButton size="small"/>
-                    </Link>
-                </Grid>
-                <Grid item xs={1}>
-                    <DeleteButton size="small" onClick={openConfirm}/>
+
+                <Grid item xs={12} sm container className={classes.container}>
+                    <Grid item>
+                        <Link to={"/admin/categories/"+item.name}>
+                            <OpenEditButton size="small"/>
+                        </Link>
+                    </Grid>
+                    <Grid item>
+                        <DeleteButton size="small" onClick={openConfirm}/>
+                    </Grid>
                 </Grid>
             </Grid>
         </ListItem>

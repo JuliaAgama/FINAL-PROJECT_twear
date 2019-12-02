@@ -1,17 +1,16 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+
+import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
+import {Container} from "@material-ui/core";
+
+import useStyles from "./useStyles";
+
 import Header from '../../../Header';
 import Footer from '../../../Footer';
 import SettingsButton from '../../../common/buttons/Settings';
-import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
-import {Container} from "@material-ui/core";
-import useStyles from "./useStyles";
 
-export default props => {
-
-    const redirectToAdmin = () => {
-        window.location.assign(`/admin/login`);
-    };
-    const classes = useStyles();
+export default () => {
 
     const breakpointValues = {
         xs: 0,
@@ -23,13 +22,20 @@ export default props => {
 
     const theme = createMuiTheme({ breakpoints: { values: breakpointValues } });
 
+    const classes = useStyles();
+
     return (
         <ThemeProvider theme={theme}>
+            <div style={{height: '1500 px'}}>
             <Container maxWidth={false} className={classes.layoutContainer}>
                 <Header/>
-                <Footer/>
-                <SettingsButton title='Admin Page' size={2} color='red' onClick={redirectToAdmin}/>
+                <div style={{textAlign: 'center'}}>YURA'S BLOCK</div>
+                <Footer style= {{position: 'absolute', bottom: '0' }}/>
+                <Link to={`/admin`}>
+                    <SettingsButton title='Admin Page' size={2} color='red' />
+                </Link>
             </Container>
-        </ThemeProvider>
+            </div>
+        </ThemeProvider>    
     );
 };

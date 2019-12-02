@@ -1,26 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import {Link} from "react-router-dom";
-
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Paper } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
 
-export default () => {
+export default props => {
+
+    const {items} = props;
+
     const classes = useStyles();
-    const manageList = [
-        {name: 'products', url: 'products'},
-        {name: 'categories', url: 'categories'},
-        {name: 'colors & sizes', url: 'options'},
-        {name: 'info & settings', url: 'settings'}
-    ];
 
     return(
         <div className={classes.root}>
             <Grid container className={classes.listing}>
-                {manageList.map((el,ind) => (
+                {items.map((el,ind) => (
                     <Grid item key={ind} xs={12}>
                         <Link to={`/admin/${el.url}`} className={classes.link}>
                             <Paper className={classes.paper}>Manage {el.name}</Paper>

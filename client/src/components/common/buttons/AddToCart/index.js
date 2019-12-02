@@ -1,7 +1,6 @@
 import React from 'react';
 
 import IconButton from '@material-ui/core/IconButton';
-// import Fab from '@material-ui/core/Fab';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 import useStyles from './useStyles';

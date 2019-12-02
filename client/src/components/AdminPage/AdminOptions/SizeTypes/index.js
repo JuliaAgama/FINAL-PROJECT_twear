@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 
-import Grid from '@material-ui/core/Grid';
+import { Grid, Box } from '@material-ui/core';
+
 import useStyles from './useStyles';
 
 import AddWideButton from '../../../common/buttons/AddWide';
@@ -34,21 +35,19 @@ export default props => {
         {
             sizeTypesLoaded ?
             (
-                <div className={classes.wrapper}>
-                <Grid container>
+                <>
                     {newSizeType ?
-                        (
-                            <SizeTypeItem
-                                    item={newSizeType}
-                                    key={Math.random()}
-                                    handleNotification={handleNotification}
-                                />
-                        ) :
-                    <Grid item xs={12} className={classes.wrapper}>
-                        <AddWideButton  text='CREATE NEW SET OF SIZES' color='secondary' onClick={addItem}/>
-                    </Grid>
+                        <SizeTypeItem
+                            item={newSizeType}
+                            key={Math.random()}
+                            handleNotification={handleNotification}
+                        /> :
+                        <Grid item className={classes.container}>
+                            <Box>
+                                <AddWideButton text='NEW SET OF SIZES' color='secondary' onClick={addItem}/>
+                            </Box>
+                        </Grid>
                     }
-                </Grid>
                     <Grid container className={classes.paper}>
                         {sizeTypesList
                             .map(item =>
@@ -60,7 +59,7 @@ export default props => {
                                 )
                         }
                     </Grid>
-                </div>
+                </>
             ) :
             <Spinner/>
         }
