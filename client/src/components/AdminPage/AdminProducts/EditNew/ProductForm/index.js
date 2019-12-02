@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 
 import { Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox } from '@material-ui/core';
 
 import useStyles from './useStyles';
-
-import RadioVertical from '../../../../common/inputs/RadioVertical';
 
 
 export default props => {
@@ -14,7 +13,7 @@ export default props => {
     let [formData, setFormData] = useState({});
 
     useEffect(()=> {
-        if(productName) {
+        if(productName && item) {
             let newProduct = productName && productName.includes('newProduct') ?
                 productName.slice(productName.indexOf('-')+1) :
                 undefined;
@@ -27,10 +26,10 @@ export default props => {
                     description: item.description || '',
                     price: item.price || 0,
                     previousPrice: item.previousPrice || 0,
-                    categories: [...item.categories] || [],
-                    genders: [...item.genders] || [],
-                    colors: [...item.colors] || [],
-                    imgs: [...item.imgs]  || [],
+                    categories: item.categories || [],
+                    genders: item.genders || [],
+                    colors: item.colors || [],
+                    imgs: item.imgs  || [],
                     productUrl: item.productUrl || '',
                     brand: item.brand || '',
                     manufacturer: item.manufacturer || '',
@@ -55,10 +54,10 @@ export default props => {
     //                 genders: [...formData.genders.filter(el => el.gender !== event.target.value)]
     //             })
     //     } else {
-    //         setFormData({
-    //             ...formData,
-    //             [event.target.name]: event.target.value
-    //         });
+            setFormData({
+                ...formData,
+                [event.target.name]: event.target.value
+            });
     //     }
     };
 
@@ -78,6 +77,7 @@ export default props => {
                     <Grid container className={classes.paper}>
                         <Grid item xs={4}>
                             <TextField
+                                required
                                 id="outlined-required"
                                 label="itemNo"
                                 name='itemNo'
@@ -121,7 +121,7 @@ export default props => {
                                 Choose Colors
                             </Grid>
                             <Grid item xs={6}>
-                                Choose Set of Sizes (SizeType)
+                                Choose Appropriate Set of Sizes (SizeType)
                             </Grid>
                         </Grid>
                     </div>
@@ -151,6 +151,13 @@ export default props => {
                         </Grid>
                     </Grid>
                 </form>
+                {item && item.name ?
+                    (
+                        <Link to={`/admin/products/`+item.name}>
+                            <button className="btn btn-secondary text-uppercase m-5">{`${item.name} page`}</button>
+                        </Link>
+                    ) : <></>
+                }
             </div>
         </>
     )

@@ -18,7 +18,7 @@ import Notification from '../../../common/messages/Notification';
 
 
 export default props => {
-    
+
     const history = useHistory();
 
     console.log(props);
@@ -27,6 +27,7 @@ export default props => {
 
     // get data (that are in need for the form) from data base:
     const dispatch = useDispatch();
+    const products = useSelector(state => state.products.productsFiltered.products)
     const productsBase = useSelector(state => state.products.products);
     const categoriesBase = useSelector(state => state.categories.categories);
     const topCatsBase = (useSelector(state => state.topCats.topCats));
@@ -35,14 +36,15 @@ export default props => {
     const sizeTypesBase = useSelector(state => state.sizeTypes.sizeTypes);
     const sizesBase = useSelector(state => state.sizes.sizes);
 
-    const getItem = () => {
-        if (productsBase && productName) {
-            return productsBase.filter(el => el.name === productName)[0];
-        }
-        return {};
-    };
+    // const getItem = () => {
+    //     if (productsBase && productName) {
+    //         return productsBase.filter(el => el.name === productName);
+    //     }
+    //     return {};
+    // };
 
     useEffect(() => {
+        productsActions.getProductsByFilter(`name=${productName}`)(dispatch);
         productsActions.getAllProducts()(dispatch);
         topCatsActions.getAllTopCats()(dispatch);
         categoriesActions.getAllCategories()(dispatch);
@@ -51,6 +53,12 @@ export default props => {
         sizeTypesActions.getAllSizeTypes()(dispatch);
         sizesActions.getAllSizes()(dispatch);
     }, [dispatch]);
+
+    const [product, setProduct] = useState(null);
+
+    useEffect(() => {
+        if(products && products[0]) {setProduct(products[0]);}
+    }, [products]);
 
     const ref = useRef(null);
     const timeout = 2000;
@@ -99,7 +107,7 @@ export default props => {
         <div className="m-5">
             <ProductForm
                 productName={productName}
-                item={getItem()}
+                item={product}
                 topCatsBase={topCatsBase}
                 categoriesBase={categoriesBase}
                 gendersBase={gendersBase}
@@ -108,8 +116,8 @@ export default props => {
                 sizesBase={sizesBase}
                 onSubmitHandler={onSubmitHandler}
             />
-            <Link to={`/admin/products`}>
-                <button className="btn btn-secondary text-uppercase m-5">Back</button>
+            <Link to={`/admin/products/`}>
+                <button className="btn btn-secondary text-uppercase m-5">All Products</button>
             </Link>
         </div>
         <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>

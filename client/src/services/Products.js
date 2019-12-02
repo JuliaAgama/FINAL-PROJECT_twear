@@ -9,7 +9,7 @@ export default class Products extends Base {
     }
 
     getProductsByFilter(filter) {
-        return super.get(`products/filter`+filter)
+        return super.get(`products/filter?`+filter)
         .then(res => res.data)
         // .catch(err => err.response.data);
     }

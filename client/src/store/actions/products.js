@@ -32,6 +32,24 @@ export function getAllProducts() {
     };
 };
 
+export function getProductsByFilter(filter) {
+    return function (dispatch) {
+        dispatch(productsSendRequest());
+        (new ProductsApi()).getProductsByFilter(filter).then(res => {
+            return dispatch({
+                type: PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_FILTER,
+                data: res
+            });
+        })
+        .catch(err => {
+            return dispatch({
+                type: PRODUCTS.PRODUCTS_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        });
+    };
+};
+
 export function getProductsBySearch(searchValue) {
     return function (dispatch) {
         dispatch(productsSendRequest());

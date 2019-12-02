@@ -6,17 +6,28 @@ export default makeStyles(theme => (
             padding: theme.spacing(2),
             backgroundColor: theme.palette.background.paper,
         },
-        paper: {
+        paperOne: {
             margin: theme.spacing(1),
+            marginBottom: theme.spacing(3),
             border: '1px solid #333',
             padding: theme.spacing(1),
-            justifyContent: 'space-between',
+            alignItems: 'center',
             minHeight: '200px',
             position: 'relative',
         },
-        relative: {
+        paperTwo: {
+            margin: theme.spacing(1),
+            marginBottom: theme.spacing(3),
+            border: '1px solid #333',
+            padding: theme.spacing(1),
+            alignItems: 'top',
+            minHeight: '200px',
+            position: 'relative',
+        },
+        details: {
             position: 'relative',
             paddingBottom: theme.spacing(10),
+            paddingRight: theme.spacing(4),
         },
         editBtn: {
             position: 'absolute',
@@ -30,7 +41,9 @@ export default makeStyles(theme => (
             fontWeight: 'bold',
         },
         carousel: {
-            paddingLeft: theme.spacing(4)
+            maxWidth: '100%',
+            // maxHeight: '300px',
+            maxHeight: '90%',
         },
     }
 ));

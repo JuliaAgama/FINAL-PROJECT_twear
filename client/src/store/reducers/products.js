@@ -2,6 +2,7 @@ import * as PRODUCTS from '../constants/products';
 
 const initState = {
     products: [],
+    productsFiltered: {},
     loaded: false,
     error: null
 };
@@ -34,6 +35,15 @@ export default function (state = initState, action) {
                     loaded: true
                 }
             };
+
+            case PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_FILTER:
+                return {
+                    ...state,
+                    ...{
+                        productsFiltered: action.data,
+                        loaded: true
+                    }
+                };
 
         case PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_SEARCH:
             return {

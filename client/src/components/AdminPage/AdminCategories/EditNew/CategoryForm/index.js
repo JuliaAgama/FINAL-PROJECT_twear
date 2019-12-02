@@ -4,8 +4,6 @@ import { Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, R
 
 import useStyles from './useStyles';
 
-import RadioVertical from '../../../../common/inputs/RadioVertical';
-
 
 export default props => {
 
