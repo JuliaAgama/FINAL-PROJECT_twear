@@ -73,12 +73,14 @@ export default withWidth()(() => {
     const closeErrorModal = () => setErrorIsOpen(false);
 
     // filter products on Categories & Enabled selection:
+    const [selectedTopCat, setSelectedTopCat] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedPublish, setSelectedPublish] = useState(publishOptions[0]._id);
     const [enabled, setEnabled] = useState(null);
 
     //get categories in store on TopCat selection:
     const onChangeTopCat = (id) => {
+        setSelectedTopCat(id);
         setSelectedCategory('');
         id && id !== '' ? getCategoriesByParentId(id) : getCategoriesList();
     };
@@ -150,7 +152,7 @@ export default withWidth()(() => {
                             <Selector
                                 selectorName='Top Category'
                                 selectorArr={topCatsList}
-                                selectedItem=''
+                                selectedItem={selectedTopCat}
                                 onChange={onChangeTopCat}
                             />
                         </Grid>
