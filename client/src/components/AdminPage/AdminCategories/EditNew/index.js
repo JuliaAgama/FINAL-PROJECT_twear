@@ -6,13 +6,17 @@ import * as topCatsActions from '../../../../store/actions/topCats';
 import * as categoriesActions from '../../../../store/actions/categories';
 import * as gendersActions from '../../../../store/actions/genders';
 
+import { Typography, Box } from '@material-ui/core';
+
+import useStyles from "./useStyles";
+
 import CategoryForm from './CategoryForm';
 import WarningModal from '../../../common/messages/WarningModal';
 import Notification from '../../../common/messages/Notification';
 
 
 export default props => {
-    
+
     const history = useHistory();
 
     const categoryName = props.match.params.categoryName;
@@ -81,12 +85,12 @@ export default props => {
                 setWarningIsOpen(true);
                 setWarningText({title: 'Item cannot be saved', description: 'Choose at least one gender '});
                 return false;
-            } 
+            }
             if (!formData.itemNo || formData.itemNo === '') {
                 setWarningIsOpen(true);
                 setWarningText({title: 'Item cannot be saved', description: 'Enter itemNo'});
                 return false;
-            } 
+            }
             categoryName.includes('newCategory') ?
                 categoriesActions.addCategory(formData)(dispatch) :
                 categoriesActions.updateCategory(formData)(dispatch);
@@ -110,9 +114,12 @@ export default props => {
         }, timeout)
     };
 
+    const classes = useStyles();
+
     return (
-        <>
-        <div className="m-5">
+        <Typography component="div" variant="body1">
+            <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">Edit {(topCatName || categoryName.slice(0,(categoryName.indexOf('-')+1))).toUpperCase()}</Box>
+
             <CategoryForm
                 categoryName={categoryName}
                 topCatName={topCatName}
@@ -122,12 +129,9 @@ export default props => {
                 gendersBase={gendersBase}
                 onSubmitHandler={onSubmitHandler}
             />
-            <Link to={`/admin/categories`}>
-                <button className="btn btn-secondary text-uppercase m-5">Back</button>
-            </Link>
-        </div>
-        <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
-        <Notification timeout={timeout} children={add => (ref.current = add)} />
-        </>
+            <Link to={`/admin/categories`} className={classes.link}> {`<<   to Categories`} </Link>
+            <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
+            <Notification timeout={timeout} children={add => (ref.current = add)} />
+        </Typography>
     )
 };

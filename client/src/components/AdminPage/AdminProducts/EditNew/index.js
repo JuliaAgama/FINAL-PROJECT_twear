@@ -10,7 +10,9 @@ import * as sizeTypesActions from '../../../../store/actions/sizeTypes';
 import * as sizesActions from '../../../../store/actions/sizes';
 import * as productsActions from '../../../../store/actions/products';
 
-// import {  } from '@material-ui/core';
+import { Typography, Box } from '@material-ui/core';
+
+import useStyles from "./useStyles";
 
 import ProductForm from './ProductForm';
 import WarningModal from '../../../common/messages/WarningModal';
@@ -97,14 +99,16 @@ export default props => {
         };
 
         setTimeout(() => {
-            return history.push("/admin/products/"+formData.name);
+            return history.push("/admin/products/edit/"+formData.name);
             // window.location.assign(`/admin/products`);
         }, timeout)
     };
 
+    const classes = useStyles();
+
     return (
-        <>
-        <div className="m-5">
+        <Typography component="div" variant="body1">
+            <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">Edit {productName.toUpperCase()}</Box>
             <ProductForm
                 productName={productName}
                 item={product}
@@ -116,12 +120,9 @@ export default props => {
                 sizesBase={sizesBase}
                 onSubmitHandler={onSubmitHandler}
             />
-            <Link to={`/admin/products/`}>
-                <button className="btn btn-secondary text-uppercase m-5">All Products</button>
-            </Link>
-        </div>
-        <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
-        <Notification timeout={timeout} children={add => (ref.current = add)} />
-        </>
+            <Link to={`/admin/products`} className={classes.link}> {`<<   to Products List`} </Link>
+            <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
+            <Notification timeout={timeout} children={add => (ref.current = add)} />
+        </Typography>
     )
 };

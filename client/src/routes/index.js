@@ -31,7 +31,7 @@ export const Router = () => (
             <Switch>
                 <Route exact
                     path="/"
-                    component={props => <LayoutMain {...props}><HomePage{...props}/></LayoutMain>}/>
+                    component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
                 <Route exact
                     path="/top-categories/:topCat?"
                     component={props => <LayoutMain {...props}><TopCatPage{...props}/></LayoutMain>}/>
@@ -45,11 +45,11 @@ export const Router = () => (
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin"
-                    component={props => <LayoutAdmin {...props}><AdminPage{...props}/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminPage/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories"
-                    component={props => <LayoutAdmin {...props}><AdminCategories{...props}/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminCategories/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/:categoryName?"
@@ -61,11 +61,11 @@ export const Router = () => (
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/options"
-                    component={props => <LayoutAdmin {...props}><AdminOptions{...props}/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminOptions/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/products"
-                    component={props => <LayoutAdmin {...props}><AdminProducts{...props}/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminProducts/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/products/:productName?"

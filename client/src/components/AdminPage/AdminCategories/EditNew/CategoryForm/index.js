@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 
-import { Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox } from '@material-ui/core';
+import { Typography, Box, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, Button } from '@material-ui/core';
 
 import useStyles from './useStyles';
+
+import UploadFile from '../../../../common/inputs/UploadFile';
 
 
 export default props => {
@@ -66,111 +68,97 @@ export default props => {
     const classes = useStyles();
 
     return (
-        <>
-            <h1> This is form for {(topCatName || categoryName.slice(0,categoryName.indexOf('-'))).toUpperCase()}</h1>
-            <div className={classes.wrapper}>
-                <form autoComplete="off" onSubmit={onSubmit}>
-                    <Grid container className={classes.paper}>
-                        <Grid item xs={4} className={classes[displayAdditional]}>
-                            <TextField
-                                id="outlined-required"
-                                label="itemNo"
-                                name='itemNo'
-                                placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
-                                value={formData.itemNo ? formData.itemNo : ''}
-                                onChange={onChange}
-                                onFocus={onChange}
-                                className={classes.textField}
-                                margin="normal"
-                                variant="outlined"
-                            />
-                        </Grid>
-                        <Grid item className={classes.justify}>
-                            <TextField
-                                required
-                                id="outlined-required"
-                                label="Category"
-                                name='name'
-                                autoFocus
-                                onChange={onChange}
-                                defaultValue={topCatName === 'newTopCategory' || (categoryName && categoryName.includes('newCategory')) ? '' : topCatName || categoryName}
-                                className={classes.textField}
-                                margin="normal"
-                                variant="outlined"
-                            />
-                        </Grid>
+        <Typography component="div" variant="body1" className={classes.wrapper}>
+            <form autoComplete="off">
+                <Grid container className={classes.paper}>
+                    <Grid item xs={4} className={classes[displayAdditional]}>
+                        <TextField
+                            id="outlined-required"
+                            label="itemNo"
+                            name='itemNo'
+                            placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
+                            value={formData.itemNo ? formData.itemNo : ''}
+                            onChange={onChange}
+                            onFocus={onChange}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
                     </Grid>
+                    <Grid item className={classes.justify}>
+                        <TextField
+                            required
+                            id="outlined-required"
+                            label="Category"
+                            name='name'
+                            autoFocus
+                            onChange={onChange}
+                            defaultValue={topCatName === 'newTopCategory' || (categoryName && categoryName.includes('newCategory')) ? '' : topCatName || categoryName}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </Grid>
+                </Grid>
 
-                    <div className={classes[displayAdditional]}>
-                        <Grid container className={classes.paper}>
-                            <Grid item xs={6}>
-                                <FormControl component="fieldset" className={classes.formControl}>
-                                    <FormLabel component="legend">In Top Category:</FormLabel>
-                                    <RadioGroup aria-label="topCats" name="topCategory">
-                                    {topCatsBase.map(topCat =>
+                <div className={classes[displayAdditional]}>
+                    <Grid container className={classes.paper}>
+                        <Grid item xs={6}>
+                            <FormControl component="fieldset" className={classes.formControl}>
+                                <FormLabel component="legend">In Top Category:</FormLabel>
+                                <RadioGroup aria-label="topCats" name="topCategory">
+                                {topCatsBase.map(topCat =>
+                                    <FormControlLabel
+                                        key={topCat._id}
+                                        id={topCat._id}
+                                        value={topCat._id}
+                                        control={<Radio />}
+                                        label={topCat.name}
+                                        checked={formData.topCategory && formData.topCategory === topCat._id ? true : false}
+                                        onChange={onChange}
+                                    />
+                                )}
+                                </RadioGroup>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <FormControl component="fieldset" className={classes.formControl}>
+                                <FormLabel component="legend">Select Genders</FormLabel>
+                                <FormGroup>
+                                    {gendersBase.map(gender =>
                                         <FormControlLabel
-                                            key={topCat._id}
-                                            id={topCat._id}
-                                            value={topCat._id}
-                                            control={<Radio />}
-                                            label={topCat.name}
-                                            checked={formData.topCategory && formData.topCategory === topCat._id ? true : false}
-                                            onChange={onChange}
+                                            key={gender._id}
+                                            control={
+                                                <Checkbox
+                                                    name='genders'
+                                                    id={gender._id}
+                                                    value={gender._id}
+                                                    checked={formData.genders && formData.genders.some(el => el.gender === gender._id) ? true : false}
+                                                    onChange={onChange}
+                                                />}
+                                            label={gender.name}
                                         />
                                     )}
-                                    </RadioGroup>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <FormControl component="fieldset" className={classes.formControl}>
-                                    <FormLabel component="legend">Select Genders</FormLabel>
-                                    <FormGroup>
-                                        {gendersBase.map(gender =>
-                                            <FormControlLabel
-                                                key={gender._id}
-                                                control={
-                                                    <Checkbox
-                                                        name='genders'
-                                                        id={gender._id}
-                                                        value={gender._id}
-                                                        checked={formData.genders && formData.genders.some(el => el.gender === gender._id) ? true : false}
-                                                        onChange={onChange}
-                                                    />}
-                                                label={gender.name}
-                                            />
-                                        )}
-                                    </FormGroup>
-                                </FormControl>
-                            </Grid>
-                        </Grid>
-                    </div>
-
-                    <Grid container className={classes.paper}>
-                        <Grid item xs={12}>
-                            <div className="input-group mb-3">
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text" id="inputGroupFileAddon01">Upload photo</span>
-                                </div>
-                                <div className="custom-file">
-                                    <input
-                                        type="file"
-                                        id="inputGroupFile01"
-                                        name="img"
-                                        value=""
-                                        onChange={onChange}
-                                        className="custom-file-input"
-                                        aria-describedby="inputGroupFileAddon01"
-                                    />
-                                    <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
-                                </div>
-                            </div>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <button className="btn btn-info btn-block" type="submit">Save category</button>
+                                </FormGroup>
+                            </FormControl>
                         </Grid>
                     </Grid>
-                </form>
-            </div>
-        </>
+                </div>
+
+                <Grid container className={classes.paper}>
+                    <Grid item xs={12}>
+                        <UploadFile/>
+                    </Grid>
+                    <Grid item xs={12}>
+                    <Button
+                        fullWidth={true}
+                        variant="outlined"
+                        className={classes.btn}
+                        onClick={onSubmit}
+                    > {`SAVE`}</Button>
+                    </Grid>
+                </Grid>
+            </form>
+        </Typography>
     )
 };
