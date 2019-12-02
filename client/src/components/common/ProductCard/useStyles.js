@@ -4,15 +4,11 @@ export default makeStyles(theme => (
     {
         mainContainer: {
             width: '25%',
-            // borderTop: 'none',
-            border: '1px solid black',
-            // borderLeft: '1px solid black',
+            borderRight: '1px solid black',
             margin: '0',
             padding: '2%',
-            // position: 'relative'
         },
         anime: {
-            // position:'absolute',
             willChange: 'transform, opacity'
         },
         imgContainer: {
@@ -44,5 +40,8 @@ export default makeStyles(theme => (
             paddingBottom: '18%',
             margin: '0',
         },
+        borderRight: {
+            borderRight: 'none'
+        }
     }
 ));
