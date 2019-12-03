@@ -9,6 +9,10 @@ export default makeStyles(theme => (
             padding: '0',
             margin: '20px 0',
             border: '1px solid black',
+            [theme.breakpoints.down('sm')]: {
+                borderRight: 'none',
+                borderLeft: 'none',
+            },
         },
     }
 ));

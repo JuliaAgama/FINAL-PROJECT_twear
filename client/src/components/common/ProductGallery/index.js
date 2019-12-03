@@ -1,21 +1,25 @@
 import React, {useEffect} from "react";
+import { useTheme } from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
 import ProductCard from "../ProductCard";
-import useStyles from "./useStyles";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllProducts} from "../../../store/actions/products";
 import EmptyProductCard from "../EmptyProductCard";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useStyles from "./useStyles";
 
 
 
 export default function ProductGallery() {
     const classes = useStyles();
+    const theme = useTheme();
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.products);
-
+    const matches = useMediaQuery(theme.breakpoints.down('sm'));
     useEffect(() => {dispatch(getAllProducts())},[]);
     let counter = 1;
-    const rowElementsCount = 4;
+    let rowElementsCount = 4;
+    if (matches) rowElementsCount = 2;
     const productCards = products.map((product) =>{
         let borderRight =true;
         if (counter % rowElementsCount === 0) borderRight = false;
