@@ -23,7 +23,7 @@ import AdminProductsEditNew from '../components/AdminPage/AdminProducts/EditNew'
 import PersonalCabinet from "../components/PersonalCabinet";
 import PrivateRoute from "../components/common/PrivateRoute";
 import AccessDenied from "../components/AccessDenied";
-import ProductGallery from "../components/common/ProductGallery";
+import ProductGallery from "../components/common/ProductsGallery";
 
 
 export const Router = () => (
