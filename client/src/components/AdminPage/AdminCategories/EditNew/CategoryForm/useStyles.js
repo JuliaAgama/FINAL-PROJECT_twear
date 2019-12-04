@@ -18,7 +18,6 @@ export default makeStyles(theme => (
             alignItems: 'flex-start',
             textTransform: 'capitalize',
             justifyContent: 'space-between',
-            paddingRight: theme.spacing(3)
         },
         formControl: {
             margin: theme.spacing(2),

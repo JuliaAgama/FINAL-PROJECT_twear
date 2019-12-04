@@ -73,7 +73,7 @@ export default withWidth()(() => {
 
     return (
         <Typography component="div" variant="body1">
-            <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">OPTIONS SETS</Box>
+            <Box color="secondary.main" p={3} pl={6} pr={6} ml={2} mr={2} borderBottom={1} textAlign="center" fontSize="h6.fontSize">OPTIONS SETS</Box>
 
             <Box className={classes.paper}>
                 <List >

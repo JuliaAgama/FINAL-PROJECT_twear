@@ -54,7 +54,7 @@ export default props => {
 
     const confirmText = {
         title: `Are you sure to DELETE ${itemName.toUpperCase()}?`,
-        description: `If you confirm deletion of ${itemName.toUpperCase()} category from database it will affect the total catalogue and cannot be undone`,
+        description: `If you confirm deletion of ${itemName.toUpperCase()} category from database it cannot be undone`,
         buttonYes: 'DELETE, I am SURE',
         buttonNo: "No, don't DELETE"
     };

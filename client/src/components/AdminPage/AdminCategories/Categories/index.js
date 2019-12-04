@@ -37,7 +37,7 @@ export default props => {
                 <Box >
                     <List className={classes.root}>
                         {categoriesList
-                            .map(item => item.topCategory === topCatId ?
+                            .map(item => item.topCategory._id === topCatId ?
                                 <CategoryItem
                                     item={item}
                                     key={item._id}

@@ -13,7 +13,7 @@ exports.addCategory = (req, res, next) => {
 
       newCategory
       .populate("topCategory")
-      .populate("genders.gender")
+      .populate("gender")
       .execPopulate();
 
       newCategory
@@ -45,7 +45,7 @@ exports.updateCategory = (req, res, next) => {
           { new: true }
         )
         .populate("topCategory")
-        .populate("genders.gender")
+        .populate("gender")
           .then(category => res.json(category))
           .catch(err =>
             res.status(400).json({
@@ -90,6 +90,8 @@ exports.deleteCategory = (req, res, next) => {
 
 exports.getCategories = (req, res, next) => {
   Category.find()
+  .populate("topCategory")
+  .populate("gender")
     .then(category => res.send(category))
     .catch(err =>
       res.status(400).json({
@@ -100,6 +102,8 @@ exports.getCategories = (req, res, next) => {
 
 exports.getCategory = (req, res, next) => {
   Category.findOne({_id: req.params.id })
+  .populate("topCategory")
+  .populate("gender")
     .then(category => {
       if (!category) {
         return res.status(400).json({
@@ -133,17 +137,20 @@ exports.searchCategories = async (req, res, next) => {
   // Finding ALL categories, that have at least one match
   let matchedCategories = await Category.find({
     $text: { $search: query }
-  });
+  })
+  .populate("topCategory")
+  .populate("gender");
 
   res.send(matchedCategories);
 };
 
 exports.matchCategoriesByObject = async (req, res, next) => {
   try {
-    const categoriesMatchTopCat = await Category.find(req.body);
-    const categoriesMatchGender = await Category.find({genders: {$elemMatch: req.body}});
-    const categories = [...categoriesMatchTopCat, ...categoriesMatchGender];
-    res.json(categories);
+    const categoriesMatch = await Category.find(req.body)
+    .populate("topCategory")
+    .populate("gender");
+
+    res.json(categoriesMatch);
   } catch (err) {
     res.status(400).json({
       message: `Error happened on server: "${err}" `

@@ -108,19 +108,21 @@ export default props => {
 
     return (
         <Typography component="div" variant="body1">
-            <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">Edit {productName.toUpperCase()}</Box>
-            <ProductForm
-                productName={productName}
-                item={product}
-                topCatsBase={topCatsBase}
-                categoriesBase={categoriesBase}
-                gendersBase={gendersBase}
-                colorsBase={colorsBase}
-                sizeTypesBase={sizeTypesBase}
-                sizesBase={sizesBase}
-                onSubmitHandler={onSubmitHandler}
-            />
-            <Link to={`/admin/products`} className={classes.link}> {`<<   to Products List`} </Link>
+            <Box color="secondary.main" p={3} pl={6} pr={6} ml={2} mr={2} borderBottom={1} textAlign="center" fontSize="h6.fontSize">Edit {productName.toUpperCase()}</Box>
+            <Box p={2}>
+                <ProductForm
+                    productName={productName}
+                    item={product}
+                    topCatsBase={topCatsBase}
+                    categoriesBase={categoriesBase}
+                    gendersBase={gendersBase}
+                    colorsBase={colorsBase}
+                    sizeTypesBase={sizeTypesBase}
+                    sizesBase={sizesBase}
+                    onSubmitHandler={onSubmitHandler}
+                />
+                <Link to={`/admin/products`} className={classes.link}> {`<<   to Products List`} </Link>
+            </Box>
             <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
             <Notification timeout={timeout} children={add => (ref.current = add)} />
         </Typography>

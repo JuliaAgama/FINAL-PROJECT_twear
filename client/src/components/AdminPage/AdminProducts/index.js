@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import * as topCatsActions from '../../../store/actions/topCats';
 import * as categoriesActions from '../../../store/actions/categories';
@@ -23,7 +23,14 @@ export default withWidth()(() => {
     const publishOptions = [
         {name: 'all', _id: 'all'},
         {name: 'yes', _id: 'enabled'},
-        {name: 'no', _id: 'disabled'}]
+        {name: 'no', _id: 'disabled'}
+    ];
+
+    const [selectedPublish, setSelectedPublish] = useState(publishOptions[0]._id);
+    const [enabled, setEnabled] = useState(null);
+    const [selectedTopCat, setSelectedTopCat] = useState('');
+    const [categoriesDisplay, setCategoriesDisplay] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('');
 
     const dispatch = useDispatch();
 
@@ -32,9 +39,6 @@ export default withWidth()(() => {
     };
     const getCategoriesList = () => {
         categoriesActions.getAllCategories()(dispatch);
-    };
-    const getCategoriesByParentId = (id) => {
-        categoriesActions.getCategoriesByParentId(id)(dispatch);
     };
     const getProductsList = () => {
         productsActions.getAllProducts()(dispatch);
@@ -72,17 +76,14 @@ export default withWidth()(() => {
     };
     const closeErrorModal = () => setErrorIsOpen(false);
 
-    // filter products on Categories & Enabled selection:
-    const [selectedTopCat, setSelectedTopCat] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedPublish, setSelectedPublish] = useState(publishOptions[0]._id);
-    const [enabled, setEnabled] = useState(null);
+    useEffect(() => {
+        setCategoriesDisplay(categoriesList);
+    }, [categoriesList]);
 
-    //get categories in store on TopCat selection:
     const onChangeTopCat = (id) => {
         setSelectedTopCat(id);
         setSelectedCategory('');
-        id && id !== '' ? getCategoriesByParentId(id) : getCategoriesList();
+        id && id !== '' ? setCategoriesDisplay(categoriesList.filter(el => el.topCategory._id === id)) : setCategoriesDisplay(categoriesList);
     };
 
     const onChangeCategory = (id) => {
@@ -109,14 +110,14 @@ export default withWidth()(() => {
 
         let productsToDisplay = selectedCategory && selectedCategory !== '' ?
         productsList.filter(item =>
-            item.categories.some(category =>
-                category.category === selectedCategory)
+            item.categories.some(elem =>
+                elem.category._id === selectedCategory)
         ) :
         productsList.filter(item =>
-            item.categories.some(category =>
-                category.category === categoriesList
-                    .map(el => el._id)
-                    .find(el => el === category.category)
+            item.categories.some(elem =>
+                elem.category._id === categoriesDisplay
+                                    .map(el => el._id)
+                                    .find(el => el === elem.category._id)
             )
         );
         if(enabled !== null) {
@@ -130,7 +131,7 @@ export default withWidth()(() => {
 
     return (
         <Typography component="div" variant="body1">
-            <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">PRODUCTS</Box>
+            <Box color="secondary.main" p={3} pl={6} pr={6} ml={2} mr={2} borderBottom={1} textAlign="center" fontSize="h6.fontSize">PRODUCTS</Box>
             <Link to="/admin/products/edit/newProduct"  className={classes.link}>
                 <Hidden smDown>
                     <Box p={2} textAlign="center" className={classes.paper}>
@@ -159,7 +160,7 @@ export default withWidth()(() => {
                         <Grid item xs={12} sm={6} lg={4} className={classes.input}>
                             <Selector
                                 selectorName='Category'
-                                selectorArr={categoriesList}
+                                selectorArr={categoriesDisplay}
                                 selectedItem={selectedCategory}
                                 onChange={onChangeCategory}
                             />
@@ -183,7 +184,8 @@ export default withWidth()(() => {
             <ErrorModal
                 modalIsOpen={errorIsOpen}
                 modalText={errorModalText}
-                doFunction={() => document.location.reload()}
+                doFunction={() => useHistory().push("/admin/products")}
+                //doFunction={() => document.location.reload()}
                 closeFunction={closeErrorModal}
             />
         </Typography>

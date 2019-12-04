@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import { Typography, Box, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, Button } from '@material-ui/core';
+import { Typography, Grid, TextField, FormLabel, FormControlLabel, FormControl, Radio, RadioGroup, Button } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -19,39 +19,25 @@ export default props => {
                 categoryName.slice(categoryName.indexOf('-')+1) :
                 undefined;
             item ?
-                setFormData({
-                    _id: item._id || '',
-                    itemNo: item.itemNo || 0,
-                    name: item.name || '',
-                    topCategory: item.topCategory,
-                    genders: [...item.genders],
-                    img: item.img || '',
-                    date: item.date || Date.now()
-                }) :
-                setFormData({topCategory: newInTopCat})
+                setFormData(item) :
+                setFormData({topCategory: topCatsBase.find(el => el._id === newInTopCat)})
 
         } else if (topCatName && item) {
-                setFormData({
-                    _id: item._id || '',
-                    name: item.name || '',
-                    img: item.img || '',
-                    date: item.date || Date.now()
-                });
+            setFormData(item);
         }
     },[categoryName, topCatName, item]);
 
-
     const onChange = event => {
-        if (event.target.name === 'genders') {
-            event.target.checked ?
-                setFormData({
-                    ...formData,
-                    genders: formData.genders ? [...formData.genders.filter(el => el.gender !== event.target.value), {gender: event.target.value}] : [{gender: event.target.value}]
-                }) :
-                setFormData({
-                    ...formData,
-                    genders: [...formData.genders.filter(el => el.gender !== event.target.value)]
-                })
+        if (event.target.name === 'gender') {
+            setFormData({
+                ...formData,
+                gender: gendersBase.find(el => el._id === event.target.value)
+            });
+        } else if (event.target.name === 'topCategory') {
+            setFormData({
+                ...formData,
+                topCategory: topCatsBase.find(el => el._id === event.target.value)
+            });
         } else {
             setFormData({
                 ...formData,
@@ -71,7 +57,7 @@ export default props => {
         <Typography component="div" variant="body1" className={classes.wrapper}>
             <form autoComplete="off">
                 <Grid container className={classes.paper}>
-                    <Grid item xs={4} className={classes[displayAdditional]}>
+                    <Grid item item xs={5} sm={3} className={classes[displayAdditional]}>
                         <TextField
                             id="outlined-required"
                             label="itemNo"
@@ -85,7 +71,7 @@ export default props => {
                             variant="outlined"
                         />
                     </Grid>
-                    <Grid item className={classes.justify}>
+                    <Grid item xs={12} sm={8} className={classes.justify}>
                         <TextField
                             required
                             id="outlined-required"
@@ -114,7 +100,7 @@ export default props => {
                                         value={topCat._id}
                                         control={<Radio />}
                                         label={topCat.name}
-                                        checked={formData.topCategory && formData.topCategory === topCat._id ? true : false}
+                                        checked={formData.topCategory && formData.topCategory._id === topCat._id ? true : false}
                                         onChange={onChange}
                                     />
                                 )}
@@ -123,23 +109,20 @@ export default props => {
                         </Grid>
                         <Grid item xs={6}>
                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormLabel component="legend">Select Genders</FormLabel>
-                                <FormGroup>
+                                <FormLabel component="legend">Available for Gender:</FormLabel>
+                                    <RadioGroup aria-label="genders" name="gender">
                                     {gendersBase.map(gender =>
                                         <FormControlLabel
                                             key={gender._id}
-                                            control={
-                                                <Checkbox
-                                                    name='genders'
-                                                    id={gender._id}
-                                                    value={gender._id}
-                                                    checked={formData.genders && formData.genders.some(el => el.gender === gender._id) ? true : false}
-                                                    onChange={onChange}
-                                                />}
+                                            id={gender._id}
+                                            value={gender._id}
+                                            control={<Radio />}
                                             label={gender.name}
+                                            checked={formData.gender && formData.gender._id === gender._id ? true : false}
+                                            onChange={onChange}
                                         />
                                     )}
-                                </FormGroup>
+                                    </RadioGroup>
                             </FormControl>
                         </Grid>
                     </Grid>
