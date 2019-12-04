@@ -10,6 +10,21 @@ import CategoryLink from "./CategoryLink";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useStyles from "./useStyles";
 
+function getFiniteValue(obj) {
+    getProp(obj);
+
+    function getProp(o) {
+        for(const prop in o) {
+            if(typeof(o[prop]) === 'object') {
+                console.log(o[prop]);
+                getProp(o[prop]);
+            } else {
+                console.log("_______________" + prop + ' => ',o[prop])
+            }
+        }
+    }
+}
+
 
 
 export default function ProductGallery() {
@@ -23,6 +38,9 @@ export default function ProductGallery() {
     let counter = 1;
     let rowElementsCount = 4;
     if (matches) rowElementsCount = 2;
+    products.forEach(card => {
+        getFiniteValue(card);
+    });
     console.log(products);
 
     const productCards = products.map((product) =>{

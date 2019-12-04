@@ -1,9 +1,5 @@
 import React, {useState} from "react";
-
-import {Container, Box, Grid, TextField, FormControl, FormControlLabel, RadioGroup, Radio, Checkbox, Button,} from "@material-ui/core";
-
-import PhoneInput from 'react-phone-input-2'
-import React from "react";
+import {Container, Box, Grid, FormControl, FormControlLabel, Radio, Button,} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 import {renderTextField, renderRadioGroup, renderCheckbox, renderPhoneNumber} from "../common/inputFields";
@@ -18,24 +14,11 @@ import {
     password
 } from '../common/validators';
 import {loginAction, registrationAction} from "../../store/actions/customer";
-import Grid from "@material-ui/core/Grid";
-import {Container} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
 import 'react-phone-input-2/dist/style.css'
 
 import useStyles from "./useStyles";
 import Spinner from "../common/Spinner";
 
-
-const Registration = (props) => {
-
-    const [value, setValue] = useState('female');
-    const [phoneNumber, setPhoneNumber] = useState('+380');
-    const [checked, setChecked] = useState(false);
 const minLength7 = minLength(7);
 const minLength3 = minLength(3);
 const minLength2 = minLength(2);
@@ -43,7 +26,13 @@ const maxLength25 = maxLength(25);
 const maxLength10 = maxLength(10);
 const maxLength30 = maxLength(30);
 
+
 const Registration = (props) => {
+
+    const [value, setValue] = useState('female');
+    const [phoneNumber, setPhoneNumber] = useState('+380');
+    const [checked, setChecked] = useState(false);
+
     const classes = useStyles();
     const dispatch = useDispatch();
     const { handleSubmit, pristine, invalid, submitting } = props;
@@ -63,9 +52,8 @@ const Registration = (props) => {
 
     const handleChangeChecked = () => {
         setChecked(!checked);
-    }
+    };
 
-    const classes = useStyles();
 
     return (
         <React.Fragment>
@@ -136,7 +124,6 @@ const Registration = (props) => {
     );
 };
 
-};
 
 export default reduxForm({
     form: 'Registration'
