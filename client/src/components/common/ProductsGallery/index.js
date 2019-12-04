@@ -10,20 +10,29 @@ import CategoryLink from "./CategoryLink";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useStyles from "./useStyles";
 
-function getFiniteValue(obj) {
-    getProp(obj);
-
-    function getProp(o) {
-        for(const prop in o) {
-            if(typeof(o[prop]) === 'object') {
-                console.log(o[prop]);
-                getProp(o[prop]);
-            } else {
-                console.log("_______________" + prop + ' => ',o[prop])
+function getSetOfProductsColors(products) {
+    let colorSet = new Set();
+    products.forEach(card => {
+        card.colors.forEach(item => {
+            if (item.color) {
+                colorSet.add(item.color.name);
             }
-        }
-    }
+        })
+    });
+    return colorSet;
 }
+
+function getSetOfProductSizes(product) {
+    let sizesSet = new Set();
+    product.colors.forEach(item => {
+        if (item.sizes) {
+            item.sizes.forEach(size => {
+                sizesSet.add(size.size.name + " ");
+            });
+        }
+    })
+    return sizesSet;
+};
 
 
 
@@ -38,18 +47,16 @@ export default function ProductGallery() {
     let counter = 1;
     let rowElementsCount = 4;
     if (matches) rowElementsCount = 2;
-    products.forEach(card => {
-        getFiniteValue(card);
-    });
     console.log(products);
 
     const productCards = products.map((product) =>{
         let borderRight =true;
         if (counter % rowElementsCount === 0) borderRight = false;
         counter++;
+        let sizes = getSetOfProductSizes(product);
         return <ProductCard name={product.name}
                      price={product.price}
-                     itemNo={product.itemNo}
+                     sizes={sizes}
                      srcImg1={product.imgs[0]}
                      srcImg2={product.imgs[1]}
                      key={product._id}
