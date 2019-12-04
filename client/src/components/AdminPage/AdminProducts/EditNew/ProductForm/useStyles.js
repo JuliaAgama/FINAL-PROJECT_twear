@@ -6,6 +6,16 @@ export default makeStyles(theme => (
         wrapper: {
             margin: `${theme.spacing(1)} auto`,
         },
+        paper: {
+            flexGrow: 1,
+            alignItems: 'flex-start',
+            textTransform: 'capitalize',
+            justifyContent: 'space-between',
+        },
+        input: {
+            paddingTop: theme.spacing(1),
+            paddingTBottom: theme.spacing(1),
+        },
         textField: {
             margin: `${theme.spacing(1)} auto`,
             width: '100%',
@@ -13,13 +23,6 @@ export default makeStyles(theme => (
         },
         justify: {
             width: '100%'
-        },
-        paper: {
-            flexGrow: 1,
-            alignItems: 'flex-start',
-            textTransform: 'capitalize',
-            justifyContent: 'space-between',
-            paddingRight: theme.spacing(3)
         },
         formControl: {
             margin: theme.spacing(2),

@@ -6,6 +6,7 @@ import { Typography, Box, Button, Grid, TextField, FormLabel, FormControlLabel, 
 import useStyles from './useStyles';
 
 
+import Selector from '../../../../common/inputs/Selector';
 import UploadFile from '../../../../common/inputs/UploadFile';
 
 export default props => {
@@ -76,7 +77,7 @@ export default props => {
         <Typography component="div" variant="body1" className={classes.wrapper}>
             <form autoComplete="off">
                 <Grid container className={classes.paper}>
-                    <Grid item xs={4}>
+                    <Grid item xs={5} sm={3}>
                         <TextField
                             required
                             id="outlined-required"
@@ -91,7 +92,7 @@ export default props => {
                             variant="outlined"
                         />
                     </Grid>
-                    <Grid item className={classes.justify}>
+                    <Grid item xs={12} sm={8} className={classes.justify}>
                         <TextField
                             required
                             id="outlined-required"
@@ -106,26 +107,48 @@ export default props => {
                         />
                     </Grid>
                 </Grid>
-
-                <div>
-                    <Grid container className={classes.paper}>
-                        <Grid item xs={6}>
-                            Choose top Category
-                        </Grid>
-                        <Grid item xs={6}>
-                            Choose Category
-                        </Grid>
-                        <Grid item xs={6}>
-                            Choose Genders
-                        </Grid>
-                        <Grid item xs={6}>
-                            Choose Colors
-                        </Grid>
-                        <Grid item xs={6}>
-                            Choose Appropriate Set of Sizes (SizeType)
-                        </Grid>
+                <Grid item xs={12} container>
+                    <Grid item xs={12} sm={4} className={classes.input}>
+                        <Selector
+                            selectorName='Gender'
+                            selectorArr={gendersBase}
+                            selectedItem=''
+                            //onChange={onChangeGender}
+                        />
                     </Grid>
-                </div>
+                    <Grid item xs={12} sm={4} className={classes.input}>
+                        <Selector
+                            selectorName='Top Category'
+                            selectorArr={topCatsBase}
+                            selectedItem=''
+                            //onChange={onChangeTopCat}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={4} className={classes.input}>
+                        <Selector
+                            selectorName='Category'
+                            selectorArr={categoriesBase}
+                            selectedItem=''
+                            //onChange={onChangeCategory}
+                        />
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        Choose top Category
+                    </Grid>
+                    <Grid item xs={6}>
+                        Choose Category
+                    </Grid>
+                    <Grid item xs={6}>
+                        Choose Genders
+                    </Grid>
+                    <Grid item xs={6}>
+                        Choose Colors
+                    </Grid>
+                    <Grid item xs={6}>
+                        Choose Appropriate Set of Sizes (SizeType)
+                    </Grid>
+                </Grid>
 
                 <Grid container className={classes.paper}>
                     <Grid item xs={12}>

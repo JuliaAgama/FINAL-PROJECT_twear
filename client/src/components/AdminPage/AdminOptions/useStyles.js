@@ -7,7 +7,7 @@ export default makeStyles(theme => (
             marginBottom: theme.spacing(3),
             alignItems: 'center',
             justifyContent: 'space-between',
-            paddingRight: theme.spacing(1),
+            padding: theme.spacing(2),
             backgroundColor: theme.palette.background.paper,
         },
         container: {

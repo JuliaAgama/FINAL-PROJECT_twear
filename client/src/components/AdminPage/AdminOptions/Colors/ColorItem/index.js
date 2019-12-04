@@ -31,9 +31,9 @@ export default props => {
         // if (!itemUnmounted) {
             setFormData(item);
         // };
-        // return () => {
-        //     itemUnmounted = true;
-        // }
+        return () => {
+            setFormData(item);
+        }
     },[item]);
 
     const onChange = event => {
@@ -97,9 +97,9 @@ export default props => {
         // if (!itemUnmounted) {
             (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(res));
         // };
-        // return () => {
-        //     itemUnmounted = true;
-        // }
+        return () => {
+            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(res));
+        }
 
 
 

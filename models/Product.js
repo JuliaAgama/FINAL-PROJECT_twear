@@ -23,31 +23,33 @@ const ProductSchema = new Schema(
             default: 0
         },
         previousPrice: Number,
-        categories: [
-            {
-                category:
-                    {
-                        type: Schema.Types.ObjectId,
-                        ref: "categories",
-                        required: true
-                    }
+        categories: [{
+            category: {
+                type: Schema.Types.ObjectId,
+                ref: "categories",
+                required: true
             }
-        ],
-        genders: [
-            {
-                gender:
-                    {
-                        type: Schema.Types.ObjectId,
-                        ref: "genders",
-                        required: true
-                    }
-            }
-        ],
-        colors: [
-            {
-                color: {
+        }],
+        gender: {
+            type: Schema.Types.ObjectId,
+            ref: "genders",
+            required: true
+        },
+        colors: [{
+            color: {
+                type: Schema.Types.ObjectId,
+                ref: "colors",
+                required: true
+            },
+            enabled: {
+                type: Boolean,
+                required: true,
+                default: true
+            },
+            sizes: [{
+                size: {
                     type: Schema.Types.ObjectId,
-                    ref: "colors",
+                    ref: "sizes",
                     required: true
                 },
                 enabled: {
@@ -55,28 +57,14 @@ const ProductSchema = new Schema(
                     required: true,
                     default: true
                 },
-                sizes: [
-                    {
-                        size: {
-                            type: Schema.Types.ObjectId,
-                            ref: "sizes",
-                            required: true
-                        },
-                        enabled: {
-                            type: Boolean,
-                            required: true,
-                            default: true
-                        },
-                        quantity: {
-                            type: Number,
-                            required: true,
-                            default: 0
-                        }
-                    }
-                ],
-                imgsColor: [String]
-            },
-        ],
+                quantity: {
+                    type: Number,
+                    required: true,
+                    default: 0
+                }
+            }],
+            imgsColor: [String]
+        }],
         imgs: [String],
         productUrl: String,
         brand: String,

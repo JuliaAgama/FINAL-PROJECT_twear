@@ -25,26 +25,26 @@ export default makeStyles(theme => (
             minHeight: '200px',
             position: 'relative',
         },
-        details: {
-            position: 'relative',
-            paddingBottom: theme.spacing(10),
-            paddingRight: theme.spacing(4),
-        },
         editBtn: {
             position: 'absolute',
             top: theme.spacing(-4),
             left: theme.spacing(-4),
         },
-        price: {
-            position: 'absolute',
-            bottom: 0,
-            paddingBottom: theme.spacing(2),
-            fontWeight: 'bold',
-        },
-        carousel: {
-            maxWidth: '100%',
-            maxHeight: '90%',
-        },
+        // details: {
+        //     position: 'relative',
+        //     paddingBottom: theme.spacing(10),
+        //     paddingRight: theme.spacing(4),
+        // },
+        // price: {
+        //     position: 'absolute',
+        //     bottom: 0,
+        //     paddingBottom: theme.spacing(2),
+        //     fontWeight: 'bold',
+        // },
+        // carousel: {
+        //     maxWidth: '100%',
+        //     maxHeight: '90%',
+        // },
         link: {
             display: 'inline-block',
             textDecoration: 'none!important',

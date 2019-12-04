@@ -28,11 +28,12 @@ export default props => {
 
     return (
         <div>
-            <FormControl variant="outlined" className={classes.formControl}>
+            <FormControl variant="outlined" className={classes.paper}>
                 <InputLabel ref={inputLabel} htmlFor={`selector-form-${selectorName.replace(/ /gi,'-')}`}>
                     {selectorName}
                 </InputLabel>
                 <Select
+                    className={classes.inputField}
                     native
                     value={selectedId}
                     onChange={handleChange}
