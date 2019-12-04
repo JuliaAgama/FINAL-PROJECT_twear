@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 
-import { Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox } from '@material-ui/core';
+import { Typography, Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
-import RadioVertical from '../../../../common/inputs/RadioVertical';
 
+import Selector from '../../../../common/inputs/Selector';
+import UploadFile from '../../../../common/inputs/UploadFile';
 
 export default props => {
 
@@ -14,7 +16,7 @@ export default props => {
     let [formData, setFormData] = useState({});
 
     useEffect(()=> {
-        if(productName) {
+        if(productName && item) {
             let newProduct = productName && productName.includes('newProduct') ?
                 productName.slice(productName.indexOf('-')+1) :
                 undefined;
@@ -27,10 +29,10 @@ export default props => {
                     description: item.description || '',
                     price: item.price || 0,
                     previousPrice: item.previousPrice || 0,
-                    categories: [...item.categories] || [],
-                    genders: [...item.genders] || [],
-                    colors: [...item.colors] || [],
-                    imgs: [...item.imgs]  || [],
+                    categories: item.categories || [],
+                    genders: item.genders || [],
+                    colors: item.colors || [],
+                    imgs: item.imgs  || [],
                     productUrl: item.productUrl || '',
                     brand: item.brand || '',
                     manufacturer: item.manufacturer || '',
@@ -55,10 +57,10 @@ export default props => {
     //                 genders: [...formData.genders.filter(el => el.gender !== event.target.value)]
     //             })
     //     } else {
-    //         setFormData({
-    //             ...formData,
-    //             [event.target.name]: event.target.value
-    //         });
+            setFormData({
+                ...formData,
+                [event.target.name]: event.target.value
+            });
     //     }
     };
 
@@ -67,91 +69,103 @@ export default props => {
         onSubmitHandler(formData);
     };
 
+    const cutName = (string, l) => string.length >= l ? string.slice(0, l-3)+'...' : string;
 
     const classes = useStyles();
 
     return (
-        <>
-            <h1> This is form for {(productName.slice(0,productName.indexOf('-'))).toUpperCase()}</h1>
-            <div className={classes.wrapper}>
-                <form autoComplete="off" onSubmit={onSubmit}>
-                    <Grid container className={classes.paper}>
-                        <Grid item xs={4}>
-                            <TextField
-                                id="outlined-required"
-                                label="itemNo"
-                                name='itemNo'
-                                placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
-                                value={formData.itemNo ? formData.itemNo : ''}
-                                onChange={onChange}
-                                onFocus={onChange}
-                                className={classes.textField}
-                                margin="normal"
-                                variant="outlined"
-                            />
-                        </Grid>
-                        <Grid item className={classes.justify}>
-                            <TextField
-                                required
-                                id="outlined-required"
-                                label="Product"
-                                name='name'
-                                autoFocus
-                                onChange={onChange}
-                                defaultValue={productName && productName.includes('newProduct') ? '' : productName}
-                                className={classes.textField}
-                                margin="normal"
-                                variant="outlined"
-                            />
-                        </Grid>
+        <Typography component="div" variant="body1" className={classes.wrapper}>
+            <form autoComplete="off">
+                <Grid container className={classes.paper}>
+                    <Grid item xs={5} sm={3}>
+                        <TextField
+                            required
+                            id="outlined-required"
+                            label="itemNo"
+                            name='itemNo'
+                            placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
+                            value={formData.itemNo ? formData.itemNo : ''}
+                            onChange={onChange}
+                            onFocus={onChange}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={8} className={classes.justify}>
+                        <TextField
+                            required
+                            id="outlined-required"
+                            label="Product"
+                            name='name'
+                            autoFocus
+                            onChange={onChange}
+                            defaultValue={productName && productName.includes('newProduct') ? '' : productName}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </Grid>
+                </Grid>
+                <Grid item xs={12} container>
+                    <Grid item xs={12} sm={4} className={classes.input}>
+                        <Selector
+                            selectorName='Gender'
+                            selectorArr={gendersBase}
+                            selectedItem=''
+                            //onChange={onChangeGender}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={4} className={classes.input}>
+                        <Selector
+                            selectorName='Top Category'
+                            selectorArr={topCatsBase}
+                            selectedItem=''
+                            //onChange={onChangeTopCat}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={4} className={classes.input}>
+                        <Selector
+                            selectorName='Category'
+                            selectorArr={categoriesBase}
+                            selectedItem=''
+                            //onChange={onChangeCategory}
+                        />
                     </Grid>
 
-                    <div>
-                        <Grid container className={classes.paper}>
-                            <Grid item xs={6}>
-                                Choose top Category
-                            </Grid>
-                            <Grid item xs={6}>
-                                Choose Category
-                            </Grid>
-                            <Grid item xs={6}>
-                                Choose Genders
-                            </Grid>
-                            <Grid item xs={6}>
-                                Choose Colors
-                            </Grid>
-                            <Grid item xs={6}>
-                                Choose Set of Sizes (SizeType)
-                            </Grid>
-                        </Grid>
-                    </div>
-
-                    <Grid container className={classes.paper}>
-                        <Grid item xs={12}>
-                            <div className="input-group mb-3">
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text" id="inputGroupFileAddon01">Upload photo</span>
-                                </div>
-                                <div className="custom-file">
-                                    <input
-                                        type="file"
-                                        id="inputGroupFile01"
-                                        name="img"
-                                        value=""
-                                        onChange={onChange}
-                                        className="custom-file-input"
-                                        aria-describedby="inputGroupFileAddon01"
-                                    />
-                                    <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
-                                </div>
-                            </div>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <button className="btn btn-info btn-block" type="submit">Save category</button>
-                        </Grid>
+                    <Grid item xs={6}>
+                        Choose top Category
                     </Grid>
-                </form>
-            </div>
-        </>
+                    <Grid item xs={6}>
+                        Choose Category
+                    </Grid>
+                    <Grid item xs={6}>
+                        Choose Genders
+                    </Grid>
+                    <Grid item xs={6}>
+                        Choose Colors
+                    </Grid>
+                    <Grid item xs={6}>
+                        Choose Appropriate Set of Sizes (SizeType)
+                    </Grid>
+                </Grid>
+
+                <Grid container className={classes.paper}>
+                    <Grid item xs={12}>
+                        <UploadFile/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                        fullWidth={true}
+                        variant="outlined"
+                        className={classes.btn}
+                        onClick={onSubmit}
+                        > {`SAVE`}</Button>
+                    </Grid>
+                </Grid>
+            </form>
+            {item && item.name ?  <Link to={`/admin/products`+item.name} className={classes.link}> {`<<   to ${cutName(item.name, 10)} page`} </Link> : <></>
+            }
+        </Typography>
     )
 };

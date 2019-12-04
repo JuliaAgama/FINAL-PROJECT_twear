@@ -12,18 +12,14 @@ const CategorySchema = new Schema(
         },
         topCategory: {
             type: Schema.Types.ObjectId,
-            ref: 'topCats'
+            ref: 'topCats',
+            required: true
         },
-        genders: [
-            {
-                gender:
-                    {
-                        type: Schema.Types.ObjectId,
-                        ref: "genders",
-                        // required: true
-                    }
-            }
-        ],
+        gender: {
+            type: Schema.Types.ObjectId,
+            ref: "genders",
+            required: true
+        },
         img: {
             type: String,
         },

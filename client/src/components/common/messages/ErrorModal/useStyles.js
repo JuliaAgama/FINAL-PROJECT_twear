@@ -6,6 +6,7 @@ export default makeStyles(theme => (
         paper: {
             position: 'absolute',
             width: 400,
+            maxWidth: '90%',
             color: red[700],
             backgroundColor: red[100],
             border: '2px solid #000',

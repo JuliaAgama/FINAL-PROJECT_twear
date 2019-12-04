@@ -37,7 +37,7 @@ export default props => {
                 <Box >
                     <List className={classes.root}>
                         {categoriesList
-                            .map(item => item.topCategory === topCatId ?
+                            .map(item => item.topCategory._id === topCatId ?
                                 <CategoryItem
                                     item={item}
                                     key={item._id}
@@ -48,7 +48,7 @@ export default props => {
                         }
                         <Divider />
                         <ListItem>
-                            <Link to={`/admin/categories/newCategory-${topCatId}`} className={classes.center}>
+                            <Link to={`/admin/categories/newCategory-${topCatId}`} className={classes.link}>
                                 <AddWideButton text='ADD MORE' color='primary'/>
                             </Link>
                         </ListItem>

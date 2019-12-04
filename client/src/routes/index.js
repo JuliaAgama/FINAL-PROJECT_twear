@@ -40,13 +40,13 @@ export const Router = () => (
                        component={props => <LayoutMain {...props}><PersonalCabinet/></LayoutMain>}/>
                 <Route exact
                     path="/top-categories/:topCat?"
-                    component={props => <LayoutMain {...props}><TopCatPage/></LayoutMain>}/>
+                    component={props => <LayoutMain {...props}><TopCatPage{...props}/></LayoutMain>}/>
                 <Route exact
                     path="/categories/:category?"
                     component={props => <LayoutMain {...props}><ProductGallery/></LayoutMain>}/>
                 <Route exact
                     path="/products/:product?"
-                    component={props => <LayoutMain {...props}><ProductPage/></LayoutMain>}/>
+                    component={props => <LayoutMain {...props}><ProductPage{...props}/></LayoutMain>}/>
 
                 <Route exact
                        path="/accessDenied"
@@ -84,7 +84,7 @@ export const Router = () => (
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/products/edit/:productName?"
-                    component={props => <LayoutAdmin {...props}><AdminProductsEditNew/></LayoutAdmin>}/>
+                    component={props => <LayoutAdmin {...props}><AdminProductsEditNew{...props}/></LayoutAdmin>}/>
 
                 <Route path="*" component={NotFound}/>
             </Switch>

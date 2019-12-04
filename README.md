@@ -3,17 +3,15 @@ DAN-IT. Full Stack course. Front End. FINAL PROJECT. E-commerce - MyShop. Julia 
 
 Technology Stack:
 
-React JS: Modules: Redux, ---;
+React JS: Redux, Hooks, ---;
 
-Styles: Material-ui;
-
-HTML views: JSX;
+React styles & libraries: Material-ui; react-sLick, react-spring; see more in package.json;
 
 Node.js. Modules: ----;
 
 Database MongoDB: mlab/MongoDB Cloud;
 
-Cloud storage: Amazon S3;
+Cloud storage: Cloudinary/Amazon S3;
 
 Deployment server: Heroku server;
 
@@ -35,18 +33,33 @@ Database structure;
 
 REST API & Redux setting;
 
-Admin Panel incl. login, catalogue management, styles;
+All components of Admin Panel incl., catalogue management, styles;
+
+Commonn components: buttons, messages, sliders, etc.
 
 ...
 
 ...
 
+
+
+Olexandr Shtuka:
+
+Authentification routes and logics;
+
+Components: Login & Registration;
+
+Components: Header;
+
+Components: Products gallery and card;
+
 ...
+
 
 
 Olexandr Savchenko:
 
-AWS S3;
+Images upload (Cloudinary vs AS3)
 
 ...
 
@@ -57,34 +70,12 @@ AWS S3;
 
 Olexandr Shaporda:
 
-Design setter;
+Footer
 
 ...
-...
-...
-...
-
-
-Olexandr Shtuka:
-
-Login;
-...
-...
-...
-
-
-Dmitro Boriskin:
 
 ...
-...
-...
 
-
-Yuriy Lastivka:
-
-Header;
-...
-...
 ...
 
 
@@ -92,10 +83,5 @@ Header;
 
 
 
-
-
-
-
-
-
-Web Preview link: https://
+Web Preview link: https://twear.herokuapp.com/
+Test password for Admin - upon personal request to jverchyonova@gmail.com

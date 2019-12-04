@@ -48,9 +48,9 @@ exports.addProduct = (req, res, next) => {
 
   newProduct
     .populate("categories.category")
-    .populate("genders.gender")
+    .populate("gender")
     .populate("colors.color")
-    .populate("sizes.size")
+    .populate("colors.sizes.size")
     .execPopulate();
 
   newProduct
@@ -92,9 +92,9 @@ exports.updateProduct = (req, res, next) => {
           { new: true }
         )
           .populate("categories.category")
-          .populate("genders.gender")
+          .populate("gender")
           .populate("colors.color")
-          .populate("sizes.size")
+          .populate("colors.sizes.size")
           .then(product => res.json(product))
           .catch(err =>
             res.status(400).json({
@@ -116,6 +116,10 @@ exports.getProducts = (req, res, next) => {
   const sort = req.query.sort;
 
   Product.find()
+    .populate("categories.category")
+    .populate("gender")
+    .populate("colors.color")
+    .populate("colors.sizes.size")
     .skip(startPage * perPage - perPage)
     .limit(perPage)
     .sort(sort)
@@ -129,6 +133,10 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   Product.findOne({ _id: req.params.id })
+    .populate("categories.category")
+    .populate("gender")
+    .populate("colors.color")
+    .populate("colors.sizes.size")
     .then(product => {
       if (!product) {
         res.status(400).json({
@@ -153,6 +161,10 @@ exports.getProductsFilterParams = async (req, res, next) => {
 
   try {
     const products = await Product.find(mongooseQuery)
+      .populate("categories.category")
+      .populate("gender")
+      .populate("colors.color")
+      .populate("colors.sizes.size")
       .skip(startPage * perPage - perPage)
       .limit(perPage)
       .sort(sort);
@@ -182,21 +194,39 @@ exports.searchProducts = async (req, res, next) => {
   let queryArr = query.split(" ");
 
   // Finding ALL products, that have at least one match
-  let matchedProducts = await Product.find({
-    $text: { $search: query }
-  });
+  let matchedProducts = await Product.find({$text: { $search: query }})
+    .populate("categories.category")
+    .populate("gender")
+    .populate("colors.color")
+    .populate("colors.sizes.size");
 
   res.send(matchedProducts);
 };
 
   exports.matchProductsByObject = async (req, res, next) => {
     try {
-      const productsMatchCategory = await Product.find({categories: {$elemMatch: req.body}});
-      const productsMatchColor = await Product.find({colors: {$elemMatch: req.body}});
-      const productsMatchGender = await Product.find({genders: {$elemMatch: req.body}});
-      const productsMatchSize = await Product.find({'colors.sizes.size': req.body.size});
+      const productsMatch = await Product.find(req.body)
+        .populate("categories.category")
+        .populate("gender")
+        .populate("colors.color")
+        .populate("colors.sizes.size");
+      const productsMatchCategory = await Product.find({categories: {$elemMatch: req.body}})
+        .populate("categories.category")
+        .populate("gender")
+        .populate("colors.color")
+        .populate("colors.sizes.size");
+      const productsMatchColor = await Product.find({colors: {$elemMatch: req.body}})
+        .populate("categories.category")
+        .populate("gender")
+        .populate("colors.color")
+        .populate("colors.sizes.size");
+      const productsMatchSize = await Product.find({'colors.sizes.size': req.body.size})
+        .populate("categories.category")
+        .populate("gender")
+        .populate("colors.color")
+        .populate("colors.sizes.size");;
 
-      const products = [...productsMatchCategory, ...productsMatchColor, ...productsMatchGender, ...productsMatchSize];
+      const products = [...productsMatch, ...productsMatchCategory, ...productsMatchColor, ...productsMatchSize];
       res.json(products);
     } catch (err) {
       res.status(400).json({

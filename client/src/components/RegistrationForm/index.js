@@ -1,3 +1,8 @@
+import React, {useState} from "react";
+
+import {Container, Box, Grid, TextField, FormControl, FormControlLabel, RadioGroup, Radio, Checkbox, Button,} from "@material-ui/core";
+
+import PhoneInput from 'react-phone-input-2'
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { Field, reduxForm } from 'redux-form';
@@ -21,9 +26,16 @@ import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import 'react-phone-input-2/dist/style.css'
+
 import useStyles from "./useStyles";
 import Spinner from "../common/Spinner";
 
+
+const Registration = (props) => {
+
+    const [value, setValue] = useState('female');
+    const [phoneNumber, setPhoneNumber] = useState('+380');
+    const [checked, setChecked] = useState(false);
 const minLength7 = minLength(7);
 const minLength3 = minLength(3);
 const minLength2 = minLength(2);
@@ -39,7 +51,21 @@ const Registration = (props) => {
     const submit = (values) => dispatch(registrationAction(values));
 
     const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' +
-                         'and for customizing my user experience to my interests or my shopping habits.';
+    'and for customizing my user experience to my interests or my shopping habits.';
+
+    const handleChangeRadio = event => {
+        setValue(event.target.value);
+    };
+
+    const handleOnChangePhoneNumber = event => {
+        setPhoneNumber(event.target.value);
+    };
+
+    const handleChangeChecked = () => {
+        setChecked(!checked);
+    }
+
+    const classes = useStyles();
 
     return (
         <React.Fragment>
@@ -108,6 +134,8 @@ const Registration = (props) => {
             </Grid>
         </React.Fragment>
     );
+};
+
 };
 
 export default reduxForm({

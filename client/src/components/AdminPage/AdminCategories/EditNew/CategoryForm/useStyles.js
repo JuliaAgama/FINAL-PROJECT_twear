@@ -18,11 +18,19 @@ export default makeStyles(theme => (
             alignItems: 'flex-start',
             textTransform: 'capitalize',
             justifyContent: 'space-between',
-            paddingRight: theme.spacing(3)
         },
         formControl: {
             margin: theme.spacing(2),
             paddingLeft: theme.spacing(2),
+        },
+        btn: {
+            display: 'block',
+            width: '25%',
+            margin: '0 auto',
+            marginTop: theme.spacing(2),
+            borderRadius: '18px',
+            outline: 'none!important',
+            textDecoration: 'none!important',
         },
         displayNone: {
             display: 'none',

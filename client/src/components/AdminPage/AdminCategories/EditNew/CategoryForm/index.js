@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 
-import { Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox } from '@material-ui/core';
+import { Typography, Grid, TextField, FormLabel, FormControlLabel, FormControl, Radio, RadioGroup, Button } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
-import RadioVertical from '../../../../common/inputs/RadioVertical';
+import UploadFile from '../../../../common/inputs/UploadFile';
 
 
 export default props => {
@@ -19,39 +19,25 @@ export default props => {
                 categoryName.slice(categoryName.indexOf('-')+1) :
                 undefined;
             item ?
-                setFormData({
-                    _id: item._id || '',
-                    itemNo: item.itemNo || 0,
-                    name: item.name || '',
-                    topCategory: item.topCategory,
-                    genders: [...item.genders],
-                    img: item.img || '',
-                    date: item.date || Date.now()
-                }) :
-                setFormData({topCategory: newInTopCat})
+                setFormData(item) :
+                setFormData({topCategory: topCatsBase.find(el => el._id === newInTopCat)})
 
         } else if (topCatName && item) {
-                setFormData({
-                    _id: item._id || '',
-                    name: item.name || '',
-                    img: item.img || '',
-                    date: item.date || Date.now()
-                });
+            setFormData(item);
         }
     },[categoryName, topCatName, item]);
 
-
     const onChange = event => {
-        if (event.target.name === 'genders') {
-            event.target.checked ?
-                setFormData({
-                    ...formData,
-                    genders: formData.genders ? [...formData.genders.filter(el => el.gender !== event.target.value), {gender: event.target.value}] : [{gender: event.target.value}]
-                }) :
-                setFormData({
-                    ...formData,
-                    genders: [...formData.genders.filter(el => el.gender !== event.target.value)]
-                })
+        if (event.target.name === 'gender') {
+            setFormData({
+                ...formData,
+                gender: gendersBase.find(el => el._id === event.target.value)
+            });
+        } else if (event.target.name === 'topCategory') {
+            setFormData({
+                ...formData,
+                topCategory: topCatsBase.find(el => el._id === event.target.value)
+            });
         } else {
             setFormData({
                 ...formData,
@@ -59,14 +45,6 @@ export default props => {
             });
         }
     };
-    // // manage radio:
-    // const [selectedRadio, setSelectedRadio] = useState(formData.topCategory);
-    // const onChangeTopCat = event => {
-    // setSelectedRadio(event.target.value);
-    // };
-    // const radioCondition = id => selectedRadio === id ? true : false;
-
-    // // const radioCondition = id => formData.topCategory && formData.topCategory === id ? true : false;
 
     const onSubmit = event => {
         event.preventDefault();
@@ -76,117 +54,94 @@ export default props => {
     const classes = useStyles();
 
     return (
-        <>
-            <h1> This is form for {(topCatName || categoryName.slice(0,categoryName.indexOf('-'))).toUpperCase()}</h1>
-            <div className={classes.wrapper}>
-                <form autoComplete="off" onSubmit={onSubmit}>
-                    <Grid container className={classes.paper}>
-                        <Grid item xs={4} className={classes[displayAdditional]}>
-                            <TextField
-                                id="outlined-required"
-                                label="itemNo"
-                                name='itemNo'
-                                placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
-                                value={formData.itemNo ? formData.itemNo : ''}
-                                onChange={onChange}
-                                onFocus={onChange}
-                                className={classes.textField}
-                                margin="normal"
-                                variant="outlined"
-                            />
-                        </Grid>
-                        <Grid item className={classes.justify}>
-                            <TextField
-                                required
-                                id="outlined-required"
-                                label="Category"
-                                name='name'
-                                autoFocus
-                                onChange={onChange}
-                                defaultValue={topCatName === 'newTopCategory' || (categoryName && categoryName.includes('newCategory')) ? '' : topCatName || categoryName}
-                                className={classes.textField}
-                                margin="normal"
-                                variant="outlined"
-                            />
-                        </Grid>
+        <Typography component="div" variant="body1" className={classes.wrapper}>
+            <form autoComplete="off">
+                <Grid container className={classes.paper}>
+                    <Grid item item xs={5} sm={3} className={classes[displayAdditional]}>
+                        <TextField
+                            id="outlined-required"
+                            label="itemNo"
+                            name='itemNo'
+                            placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
+                            value={formData.itemNo ? formData.itemNo : ''}
+                            onChange={onChange}
+                            onFocus={onChange}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
                     </Grid>
+                    <Grid item xs={12} sm={8} className={classes.justify}>
+                        <TextField
+                            required
+                            id="outlined-required"
+                            label="Category"
+                            name='name'
+                            autoFocus
+                            onChange={onChange}
+                            defaultValue={topCatName === 'newTopCategory' || (categoryName && categoryName.includes('newCategory')) ? '' : topCatName || categoryName}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </Grid>
+                </Grid>
 
-                    <div className={classes[displayAdditional]}>
-                        <Grid container className={classes.paper}>
-                            <Grid item xs={6}>
-                                {/* <RadioVertical
-                                    legend="In Top Category:"
-                                    listArray={topCatsBase}
-                                    checkedCondition={radioCondition}
-                                    onChange={() => {onChange(); onChangeTopCat();}}
-                                /> */}
-                                <FormControl component="fieldset" className={classes.formControl}>
-                                    <FormLabel component="legend">In Top Category:</FormLabel>
-                                    <RadioGroup aria-label="topCats" name="topCategory">
-                                    {topCatsBase.map(topCat =>
+                <div className={classes[displayAdditional]}>
+                    <Grid container className={classes.paper}>
+                        <Grid item xs={6}>
+                            <FormControl component="fieldset" className={classes.formControl}>
+                                <FormLabel component="legend">In Top Category:</FormLabel>
+                                <RadioGroup aria-label="topCats" name="topCategory">
+                                {topCatsBase.map(topCat =>
+                                    <FormControlLabel
+                                        key={topCat._id}
+                                        id={topCat._id}
+                                        value={topCat._id}
+                                        control={<Radio />}
+                                        label={topCat.name}
+                                        checked={formData.topCategory && formData.topCategory._id === topCat._id ? true : false}
+                                        onChange={onChange}
+                                    />
+                                )}
+                                </RadioGroup>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <FormControl component="fieldset" className={classes.formControl}>
+                                <FormLabel component="legend">Available for Gender:</FormLabel>
+                                    <RadioGroup aria-label="genders" name="gender">
+                                    {gendersBase.map(gender =>
                                         <FormControlLabel
-                                            key={topCat._id}
-                                            id={topCat._id}
-                                            value={topCat._id}
+                                            key={gender._id}
+                                            id={gender._id}
+                                            value={gender._id}
                                             control={<Radio />}
-                                            label={topCat.name}
-                                            checked={formData.topCategory && formData.topCategory === topCat._id ? true : false}
+                                            label={gender.name}
+                                            checked={formData.gender && formData.gender._id === gender._id ? true : false}
                                             onChange={onChange}
                                         />
                                     )}
                                     </RadioGroup>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <FormControl component="fieldset" className={classes.formControl}>
-                                    <FormLabel component="legend">Select Genders</FormLabel>
-                                    <FormGroup>
-                                        {gendersBase.map(gender =>
-                                            <FormControlLabel
-                                                key={gender._id}
-                                                control={
-                                                    <Checkbox
-                                                        name='genders'
-                                                        id={gender._id}
-                                                        value={gender._id}
-                                                        checked={formData.genders && formData.genders.some(el => el.gender === gender._id) ? true : false}
-                                                        onChange={onChange}
-                                                    />}
-                                                label={gender.name}
-                                            />
-                                        )}
-                                    </FormGroup>
-                                </FormControl>
-                            </Grid>
-                        </Grid>
-                    </div>
-
-                    <Grid container className={classes.paper}>
-                        <Grid item xs={12}>
-                            <div className="input-group mb-3">
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text" id="inputGroupFileAddon01">Upload photo</span>
-                                </div>
-                                <div className="custom-file">
-                                    <input
-                                        type="file"
-                                        id="inputGroupFile01"
-                                        name="img"
-                                        value=""
-                                        onChange={onChange}
-                                        className="custom-file-input"
-                                        aria-describedby="inputGroupFileAddon01"
-                                    />
-                                    <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
-                                </div>
-                            </div>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <button className="btn btn-info btn-block" type="submit">Save category</button>
+                            </FormControl>
                         </Grid>
                     </Grid>
-                </form>
-            </div>
-        </>
+                </div>
+
+                <Grid container className={classes.paper}>
+                    <Grid item xs={12}>
+                        <UploadFile/>
+                    </Grid>
+                    <Grid item xs={12}>
+                    <Button
+                        fullWidth={true}
+                        variant="outlined"
+                        className={classes.btn}
+                        onClick={onSubmit}
+                    > {`SAVE`}</Button>
+                    </Grid>
+                </Grid>
+            </form>
+        </Typography>
     )
 };
