@@ -1,9 +1,7 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { useTheme } from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
 import ProductCard from "./ProductCard";
-import {useDispatch, useSelector} from "react-redux";
-import {getAllProducts} from "../../../store/actions/products";
 import EmptyProductCard from "./EmptyProductCard";
 import CategoryTitle from "./CategoryTitle";
 import CategoryLink from "./CategoryLink";
@@ -34,20 +32,31 @@ function getSetOfProductSizes(product) {
     return sizesSet;
 };
 
+function getCategoryTitle(categoryName) {
+    let title = "Selected New Arrivals";
+    if (categoryName) {
+        const arr = categoryName.split('-');
+        if (arr[0] === 'men') {
+            title = `Men's ${arr[1]}`
+        } else if (arr[0] === 'women') {
+            title = `Women's ${arr[1]}`
+        } else if (arr[0] === 'unisex') {
+            title = arr[1];
+        }
+    }
+    return title;
+}
 
 
-export default function ProductGallery() {
-    const productCount = 6;
+
+export default function ProductGallery(props) {
+    const {products, categoryName} = props;
     const classes = useStyles();
     const theme = useTheme();
-    const dispatch = useDispatch();
-    const products = useSelector(state => state.products.products);
     const matches = useMediaQuery(theme.breakpoints.down('sm'));
-    useEffect(() => {dispatch(getAllProducts())},[]);
     let counter = 1;
     let rowElementsCount = 4;
     if (matches) rowElementsCount = 2;
-    console.log(products);
 
     const productCards = products.map((product) =>{
         let borderRight =true;
@@ -71,31 +80,32 @@ export default function ProductGallery() {
         }
     }
 
-    if (productCount === 6) {
+    if (products.length === 4) {
         if (!matches) {
             productCards.push(<CategoryLink key={Date.now()+ Math.random()}
-                                            categoryLink='#' categoryName='Shop Women New Arrivals'
+                                            categoryLink={`/categories/${categoryName}`}
+                                            categoryName={getCategoryTitle(categoryName)}
                                             borderRight={true} />);
             productCards.push(<CategoryLink key={Date.now()+ Math.random()}
-                                            categoryLink='#'
-                                            categoryName='Shop Men New Arrivals'
+                                            categoryLink={`/categories/${categoryName}`}
+                                            categoryName={getCategoryTitle(categoryName)}
                                             borderRight={false} />);
         } else {
             productCards.splice(2,0,<CategoryLink key={Date.now()+ Math.random()}
-                                                  categoryLink='#'
-                                                  categoryName='Shop Women New Arrivals'
+                                                  categoryLink={`/categories/${categoryName}`}
+                                                  categoryName={getCategoryTitle(categoryName)}
                                                   borderRight={false}
                                                   borderBottom={true}  />);
             productCards.push(<CategoryLink key={Date.now()+ Math.random()}
-                                            categoryLink='#'
-                                            categoryName='Shop Men New Arrivals'
+                                            categoryLink={`/categories/${categoryName}`}
+                                            categoryName={getCategoryTitle(categoryName)}
                                             borderRight={false} />);
         }
     }
 
     return (
         <>
-            <CategoryTitle title='Selected New Arrivals'/>
+            <CategoryTitle title={getCategoryTitle(categoryName)}/>
             <Container maxWidth={false} className={classes.mainContainer}>
                 {productCards}
             </Container>
