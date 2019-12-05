@@ -18,7 +18,7 @@ export default props => {
         <Grid item xs={12} sm={6} lg={4}>
         <Divider />
         <ListItem>
-            <Link to={"/admin/products/"+item.name} className={classes.link}>
+            <Link to={"/admin/products/"+item.itemNo} className={classes.link}>
                 <Grid container className={classes.paper}>
                     <Grid item container>
                         <Grid item>

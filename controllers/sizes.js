@@ -86,6 +86,7 @@ exports.deleteSize = (req, res, next) => {
 
 exports.getSizes = (req, res, next) => {
   Size.find()
+    .populate("sizeType")
     .then(sizes => res.json(sizes))
     .catch(err =>
       res.status(400).json({
@@ -96,6 +97,7 @@ exports.getSizes = (req, res, next) => {
 
 exports.getSize = (req, res, next) => {
   Size.findOne({_id: req.params.id })
+    .populate("sizeType")
     .then(size => {
       if (!size) {
         return res.status(400).json({
@@ -114,7 +116,8 @@ exports.getSize = (req, res, next) => {
 
 exports.matchSizesByObject = async (req, res, next) => {
   try {
-    const sizesMatchTopCat = await Size.find(req.body);
+    const sizesMatchTopCat = await Size.find(req.body)
+    .populate("sizeType");
     const sizes = [...sizesMatchTopCat];
     res.json(sizes);
   } catch (err) {

@@ -25,13 +25,15 @@ export default props => {
     return (
         <>
             <Box fontSize="body1.fontSize" pt={2} pb={2} textAlign='center' className={classes.colored} >  {item.color ? item.color.name.toUpperCase() : ''}</Box>
-            <ImageGallery
-                items={item.imgsColor.map(url => ({original: url, thumbnail: url} ))}
-                showIndex={true}
-                showBullets={true}
-                showThumbnails={false}
-                thumbnailPosition={'top'}
-            />
+            {item.imgsColor[0] ?
+                <ImageGallery
+                    items={item.imgsColor.map(url => ({original: url, thumbnail: url} ))}
+                    showIndex={true}
+                    showBullets={true}
+                    showThumbnails={false}
+                    thumbnailPosition={'top'}
+                /> : <></>
+            }
         </>
     )
 };

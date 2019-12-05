@@ -21,6 +21,8 @@ export default props => {
                     <Box fontSize="h6.fontSize" ml={6} pt={2} pb={2}>Art: {product.itemNo} </Box>
                     <Box> {product.description} </Box>
                     <Box fontSize="body1.fontSize" pt={2}> Categories: {product.categories.map(el => el.category.name.toUpperCase()).join(', ')} </Box>
+                    <Box pt={2}> Gender: {product.gender.name.toUpperCase()} </Box>
+                    <Box pt={2}> Sizes Set: {product.sizeType.name.toUpperCase()} </Box>
                     <Box fontSize="h6.fontSize" className={classes.price}>Price: $ {product.price}</Box>
                 </Typography>
             </Grid>

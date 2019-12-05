@@ -68,11 +68,11 @@ export const Router = () => (
                     component={props => <LayoutAdmin {...props}><AdminProducts/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
-                    path="/admin/products/:productName?"
+                    path="/admin/products/:itemNo?"
                     component={props => <LayoutAdmin {...props}><AdminProductReview{...props}/></LayoutAdmin>}/>
                 <Route exact
                 //<PrivateAdminRoute exact
-                    path="/admin/products/edit/:productName?"
+                    path="/admin/products/edit/:itemNo?"
                     component={props => <LayoutAdmin {...props}><AdminProductsEditNew{...props}/></LayoutAdmin>}/>
 
                 <Route path="*" component={NotFound}/>

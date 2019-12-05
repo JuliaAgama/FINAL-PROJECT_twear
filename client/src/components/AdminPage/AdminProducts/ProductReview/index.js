@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 
 import * as productsActions from '../../../../store/actions/products';
 
-import { Typography, Box, Grid } from '@material-ui/core';
+import { Typography, Box, Grid, CssBaseline } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
 import ProductBasicBox from './ProductBasicBox';
 import ProductColorsBox from './ProductColorsBox';
+import ProductInventoryBox from './ProductInventoryBox';
 import Spinner from '../../../common/Spinner';
 import OpenEditButton from '../../../common/buttons/Edit';
 
@@ -18,15 +19,21 @@ import 'react-image-gallery/styles/css/image-gallery-no-icon.css';
 
 export default props => {
 
-    const productName = props.match.params.productName;
+    const itemNo = props.match.params.itemNo;
 
-    // get products from store filtered by name:
     const dispatch = useDispatch();
-    const products = useSelector(state => state.products.productsFiltered.products);
+
+    // const getSizesByParentId = (id) => {
+    //     sizesActions.getAllSizeTypes()(dispatch);
+    // };
 
     useEffect(() => {
-        productsActions.getProductsByFilter(`name=${productName}`)(dispatch);
+        productsActions.getProductsByFilter(`itemNo=${itemNo}`)(dispatch);
+        // getSizesList();
     }, [dispatch])
+
+    const products = useSelector(state => state.products.productsFiltered.products);
+    // const sizes = useSelector(state => state.sizes.sizes);
 
     const [product, setProduct] = useState(null);
 
@@ -39,12 +46,14 @@ export default props => {
 
     return (
         <>
-        <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">{productName.toUpperCase()} </Box>
+        {product && product.name ?
+            <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">{product.name.toUpperCase()} </Box> : <Spinner/>
+        }
         <Typography component="div" className={classes.root}>
             <Grid container className={classes.paperOne}>
                 {product ?
                     <>
-                        <Link to={"/admin/products/edit/"+product.name} className={classes.editBtn}> <OpenEditButton/> </Link>
+                        <Link to={"/admin/products/edit/"+product.itemNo} className={classes.editBtn}> <OpenEditButton/> </Link>
                         <ProductBasicBox product={product}/>
                     </> :
                     <Spinner/>
@@ -68,10 +77,20 @@ export default props => {
                 }
             </Grid>
             <Grid container className={classes.paperOne}>
-                <Link to={""} className={classes.editBtn}> <OpenEditButton/> </Link>
-                <Box fontSize="h6.fontSize" ml={6} pt={2} pb={2}>
-                    Product Inventory (Sizes, quantity, enabled\disabled (?))
-                </Box>
+                <Grid item xs={12}>
+                    <Box fontSize="h6.fontSize" ml={6} pt={2} pb={2}>
+                        Product Inventory (Sizes, quantity, enabled\disabled (?))
+                    </Box>
+                </Grid>
+                <Grid item xs={12}>
+                    {product && product.colors[0] ?
+                    <>
+                        <CssBaseline />
+                        <ProductInventoryBox product={product}/>
+                    </> : <Spinner/>
+                    }
+                </Grid>
+
             </Grid>
             <Link to={`/admin/products`} className={classes.link}> {`<<   to Products List`} </Link>
         </Typography>
