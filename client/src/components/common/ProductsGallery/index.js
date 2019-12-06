@@ -7,6 +7,7 @@ import CategoryTitle from "./CategoryTitle";
 import CategoryLink from "./CategoryLink";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useStyles from "./useStyles";
+import FiltersMenu from "./FiltersMenu";
 
 function getSetOfProductsColors(products) {
     let colorSet = new Set();
@@ -106,6 +107,7 @@ export default function ProductGallery(props) {
     return (
         <>
             <CategoryTitle title={getCategoryTitle(categoryName)}/>
+            <FiltersMenu colors={getSetOfProductsColors(products)}/>
             <Container maxWidth={false} className={classes.mainContainer}>
                 {productCards}
             </Container>
