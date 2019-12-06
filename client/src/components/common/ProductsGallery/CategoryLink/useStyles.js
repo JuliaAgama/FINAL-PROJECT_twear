@@ -6,12 +6,12 @@ export default makeStyles(theme => (
             width: '50%',
             [theme.breakpoints.down('sm')]: {
                 width: '100%',
-                padding: '15px 0',
+                padding: '10px 0',
             },
             borderRight: '1px solid black',
             borderTop: '1px solid black',
             margin: '0',
-            padding: '20px 0',
+            padding: '10px 0',
             textAlign: 'center',
         },
         borderRight: {

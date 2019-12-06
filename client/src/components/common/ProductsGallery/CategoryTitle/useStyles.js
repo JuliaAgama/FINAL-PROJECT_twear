@@ -9,6 +9,7 @@ export default makeStyles(theme => (
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1.5rem',
             },
+            marginBottom: '20px'
         }
     }
 ));

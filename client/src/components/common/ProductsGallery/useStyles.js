@@ -7,7 +7,8 @@ export default makeStyles(theme => (
             flexWrap: 'wrap',
             width: '100%',
             padding: '0',
-            margin: '20px 0',
+            margin: '0',
+            marginBottom: '20px',
             border: '1px solid black',
             [theme.breakpoints.down('sm')]: {
                 borderRight: 'none',
