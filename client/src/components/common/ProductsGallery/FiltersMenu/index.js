@@ -4,15 +4,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Container} from "@material-ui/core";
-
-const useStyles = makeStyles({
-    root: {
-        flexGrow: 1,
-    },
-    tab: {
-        minWidth: '0'
-    }
-});
+import useStyles from "./useStyles";
+import SortMenu from "./SortMenu";
 
 export default function FiltersMenu(props) {
     const {colors} = props;
@@ -45,6 +38,7 @@ export default function FiltersMenu(props) {
                     <Tab className={classes.tab} label="All color" />
                     {colorTabs}
                 </Tabs>
+                <SortMenu/>
             </Container>
         </ThemeProvider>
     );
