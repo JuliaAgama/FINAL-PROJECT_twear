@@ -48,6 +48,7 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     customer: action.data,
+                    isAuth: action.data.success,
                     loaded: false
                 }
             };
