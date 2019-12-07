@@ -138,14 +138,16 @@ export default props => {
             itemNo.includes('newProduct') ?
                 productsActions.addProduct(formData)(dispatch) :
                 productsActions.updateProduct(formData)(dispatch);
-                ref.current(`Product ${formData.name.toUpperCase()} has been saved!`);
 
-            // setTimeout(() => {
-            //     return history.push("/admin/products/edit/"+formData.itemNo);
-            // }, timeout*2)
+            ref.current(`Product ${formData.name.toUpperCase()} has been saved!`);
+
+            setTimeout(() => {
+                return history.push("/admin/products/"+formData.itemNo);
+            }, timeout*2)
 
         } catch (error) {
-            setErrorIsOpen(true);
+            console.log('something happened')
+            // setErrorIsOpen(true);
         }
     };
 
