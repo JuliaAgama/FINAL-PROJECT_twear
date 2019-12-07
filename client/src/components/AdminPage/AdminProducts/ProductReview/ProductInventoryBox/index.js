@@ -24,12 +24,16 @@ export default props => {
         },
         {
             Header: 'Colors',
-            columns: product.colors.map(item =>
-                ({
-                    Header: item.color.name.toUpperCase(),
-                    accessor: item.color.name,
-                })
-            ),
+            columns:
+            //  product.colors && product.colors[0] && product.colors[0].color ?
+            //     product.colors.map(item =>({
+            //         Header: item.color.name.toUpperCase(),
+            //         accessor: item.color.name,
+            //     })) :
+                {
+                    Header: 'No Color',
+                    accessor: 'noColor',
+                }
         }
     ],
     []

@@ -42,7 +42,7 @@ export default props => {
         sizeTypesActions.getAllSizeTypes()(dispatch);
     };
     const getProductByItemNo = () => {
-    productsActions.getProductItemByItemNo(itemNo)(dispatch)
+    if(itemNo !== 'newProduct') {productsActions.getProductItemByItemNo(itemNo)(dispatch)}
     };
 
     useEffect(() => {
@@ -60,7 +60,7 @@ export default props => {
         }
     }, [dispatch]);
 
-    const product = useSelector(state => state.productItem.productItem);
+    const product = itemNo === 'newProduct' ? {name: itemNo} : useSelector(state => state.productItem.productItem);
     const topCatsBase = (useSelector(state => state.topCats.topCats));
     const categoriesBase = useSelector(state => state.categories.categories);
     const gendersBase = useSelector(state => state.genders.genders);
@@ -112,24 +112,22 @@ export default props => {
     };
 
     const checkDoublesInDataBase = (formData) => {
-        if (product && formData) {
-            (new ProductsApi())
-            .getProductsByMatch({itemNo: formData.itemNo})
-            .then(res => res.filter(el => el._id !== product._id))
-            .then(res => {
-                if (res[0]) {
-                    setWarningIsOpen(true);
-                    setWarningText({title: 'Cannot save!', description: `Product with itemNo "${formData.itemNo}" already exists!`});
-                    return true;
-                }
-                return false;
-            })
-        }
+        (new ProductsApi())
+        .getProductsByMatch({itemNo: formData.itemNo})
+        .then(res => res.filter(el => el._id !== product._id))
+        .then(res => {
+            if (res[0]) {
+                setWarningIsOpen(true);
+                setWarningText({title: 'Cannot save!', description: `Product with itemNo "${formData.itemNo}" already exists!`});
+                return true;
+            }
+            return false;
+        })
     };
 
     const onSubmitHandler = async formData => {
 
-        if( checkEmpty(formData.itemNo) || checkEmpty(formData.name) || checkEmpty(formData.topCat) || checkEmpty(formData.category) || checkEmpty(formData.gender) || checkEmpty(formData.sizeType)) {
+        if(checkEmpty(formData.itemNo) || checkEmpty(formData.name) || checkEmpty(formData.categories) || checkEmpty(formData.gender) || checkEmpty(formData.sizeType)) {
             return false;
         };
 
@@ -142,42 +140,50 @@ export default props => {
                 productsActions.updateProduct(formData)(dispatch);
                 ref.current(`Product ${formData.name.toUpperCase()} has been saved!`);
 
-            setTimeout(() => {
-                return history.push("/admin/products/edit/"+formData.itemNo);
-            }, timeout)
+            // setTimeout(() => {
+            //     return history.push("/admin/products/edit/"+formData.itemNo);
+            // }, timeout*2)
 
         } catch (error) {
             setErrorIsOpen(true);
         }
     };
 
+    const cutName = (string, l) => string.length >= l ? string.slice(0, l-3)+'...' : string;
+
     const classes = useStyles();
 
     return (
         <Typography component="div" variant="body1">
-        {productLoaded ?
+        {productLoaded || product.name === 'newProduct' ?
             <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">Edit {product.name.toUpperCase()} </Box> : <Spinner/>
         }
             <Box p={2}>
-                {productLoaded && topCatsLoaded && categoriesLoaded && gendersLoaded && sizeTypesLoaded ?
-                    <ProductForm
-                        itemNo={itemNo}
-                        item={product}
-                        topCatsBase={topCatsBase}
-                        categoriesBase={categoriesBase}
-                        gendersBase={gendersBase}
-                        sizeTypesBase={sizeTypesBase}
-                        onSubmitHandler={onSubmitHandler}
-                    /> : <Spinner/>
+                {(productLoaded && topCatsLoaded && categoriesLoaded && gendersLoaded && sizeTypesLoaded) || itemNo === 'newProduct' ?
+                    <Typography component="div" variant="body1" className={classes.wrapper}>
+                        <ProductForm
+                            itemNo={itemNo}
+                            item={product}
+                            topCatsBase={topCatsBase}
+                            categoriesBase={categoriesBase}
+                            gendersBase={gendersBase}
+                            sizeTypesBase={sizeTypesBase}
+                            onSubmitHandler={onSubmitHandler}
+                        />
+                    </Typography> : <Spinner/>
                 }
-                <Link to={`/admin/products`} className={classes.link}> {`<<   to Products List`} </Link>
+                {product && product.itemNo ?
+                    <Link to={`/admin/products/`+product.itemNo} className={classes.linkGreen}> {`<<   to ${cutName(product.name, 10)} page`} </Link> : <></>
+                }
+                <Box/>
+                <Link to={`/admin/products`} className={classes.linkPink}> {`<<   to Products List`} </Link>
             </Box>
             <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
             <Notification timeout={timeout} children={add => (ref.current = add)} />
             <ErrorModal
                 modalIsOpen={errorIsOpen}
                 modalText={errorModalText}
-                doFunction={() => history.push("/admin/products/edit/itemNo")}
+                doFunction={() => history.push(`/admin/products/edit/`+product.itemNo)}
                 closeFunction={closeErrorModal}
             />
         </Typography>
