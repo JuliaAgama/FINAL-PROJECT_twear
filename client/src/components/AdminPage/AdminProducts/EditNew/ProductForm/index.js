@@ -74,6 +74,12 @@ export default props => {
                 });
             }
 
+        } else if (event.target.name.includes('imgs')) {
+            let changedUrl = formData.imgs.splice(parseInt(event.target.name), 1, event.target.value)
+            setFormData({
+                ...formData
+            });
+
         } else {
             setFormData({
                 ...formData,
@@ -87,8 +93,6 @@ export default props => {
         onSubmitHandler(formData);
     };
 
-    console.log( 'formData: ', formData);
-
     const classes = useStyles();
 
     return (
@@ -97,7 +101,7 @@ export default props => {
                 <Grid item xs={5} sm={3}>
                     <TextField
                         required
-                        id="outlined-required"
+                        id="product-itemNo"
                         label="itemNo"
                         name='itemNo'
                         placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
@@ -113,7 +117,7 @@ export default props => {
                 <Grid item xs={12} sm={8}>
                     <TextField
                         required
-                        id="outlined-required"
+                        id="product-name"
                         label="Name"
                         name='name'
                         autoFocus
@@ -206,7 +210,7 @@ export default props => {
 
                 <Grid item xs={12}>
                     <TextField
-                        id="outlined-multiline-flexible"
+                        id="product-description"
                         label="Description"
                         multiline
                         rowsMax='5'
@@ -223,7 +227,7 @@ export default props => {
                     <FormControl variant="outlined">
                         <InputLabel htmlFor="price">Price</InputLabel>
                         <OutlinedInput
-                            id="price"
+                            id="product-price"
                             name="price"
                             type="number"
                             value={formData.price ? parseFloat(formData.price) : ''}
@@ -239,6 +243,23 @@ export default props => {
                 <Grid item xs={12}>
                     <UploadFile/>
                 </Grid>
+
+                <Grid item xs={12}> ВРЕМЕННОЕ ДОБАВЛЕНИЕ УРЛОВ ФОТОК (на ворнинг не обращаем внимания пока):
+                    { [0,1,2,3,4].map((el, ind) =>
+                        <TextField
+                            key={el}
+                            id={'imgs-'+ind}
+                            label={'imgs-'+(ind+1)}
+                            name={ind+'-imgs'}
+                            onChange={onChange}
+                            value={formData.imgs ? formData.imgs[ind] : ''}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    )}
+                </Grid>
+
                 <Grid item xs={12}>
                     <Button
                     fullWidth={true}
