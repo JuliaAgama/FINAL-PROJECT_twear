@@ -11,3 +11,70 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+#item1 {
+  background-image: url('https://i.ibb.co/J5KpSd3/Screenshot-2019-12-06-at-13-53-50.png');
+}
+#item2 {
+  background-image: url('https://i.ibb.co/Bj0Qzm9/Screenshot-2019-12-06-at-14-00-14.png');
+}
+#item3 {
+  background-image: url('https://i.ibb.co/qdSpJtd/Screenshot-2019-12-06-at-14-00-34.png');
+}
+#item4 {
+  background-image: url('https://i.ibb.co/89shpdK/Screenshot-2019-12-06-at-14-00-49.png');
+}
+
+.hidden-link {
+  display:none;
+  text-decoration: none;
+
+}
+
+.category-item-home {
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  text-decoration: none;
+  transition: all 2s ease;
+  height: 80vh;
+
+}
+
+.category-item-home>a {
+  font-family: "Roboto";
+  color: white;
+  padding: 30%;
+}
+
+.category-item-home:hover{
+  filter: grayscale(1);
+  transition: all 1s ease;
+}
+
+.category-item-home:hover::after {
+  content: url("");
+  border: 2px solid white;
+  height:2px;
+  width: 100%;
+  transition: all 1s ease;
+}
+
+.category-item-home:hover::before {
+  content: url("");
+  border: 2px solid white;
+  height:2px;
+  width: 100%;
+  transition: all 1s ease;
+}
+
+.category-item-home:hover .hidden-link {
+  display:flex;
+}
+
+
+

@@ -9,6 +9,7 @@ import useStyles from "./useStyles";
 import Header from '../../../Header';
 import Footer from '../../../Footer';
 import SettingsButton from '../../../common/buttons/Settings';
+import CategoriesMain from '../../../CatergoriesMain';
 
 export default () => {
 
@@ -29,7 +30,7 @@ export default () => {
             <div style={{height: '1500 px'}}>
             <Container maxWidth={false} className={classes.layoutContainer}>
                 <Header/>
-                <div style={{textAlign: 'center'}}>YURA'S BLOCK</div>
+                <CategoriesMain/>
                 <Footer style= {{position: 'absolute', bottom: '0' }}/>
                 <Link to={`/admin`}>
                     <SettingsButton title='Admin Page' size={2} color='red' />
