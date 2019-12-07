@@ -5,6 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Hidden from "@material-ui/core/Hidden";
 import useStyles from "./useStyles";
+import {Container} from "@material-ui/core";
 
 
 export default function Search() {
@@ -17,18 +18,18 @@ export default function Search() {
         <React.Fragment>
             <Hidden smDown>
                 <ClickAwayListener onClickAway={handleClickAway}>
-                    <Button className={isVisible ? `${classes.btn} ${classes.btnSearch}` : classes.btn}
+                    <Container className={isVisible ? `${classes.container} ${classes.search}` : classes.container}
                             onClick={() => {setVisibility(true)}}
                     >
-                        {!isVisible ? 'Search' : (<><SearchIcon/><InputBase fullWidth={true} className={classes.input}/></>)}
-                    </Button>
+                        {!isVisible ? 'Search' : (<><SearchIcon /><InputBase fullWidth={true} className={classes.input}/></>)}
+                    </Container>
                 </ClickAwayListener>
             </Hidden>
             <Hidden mdUp>
-                <Button className={classes.btnSearch}>
+                <Container className={classes.container}>
                     <SearchIcon />
                     <InputBase className={classes.input} fullWidth={true}  placeholder='Search'/>
-                </Button>
+                </Container>
             </Hidden>
         </React.Fragment>
     );

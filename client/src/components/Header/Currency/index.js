@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Container from "@material-ui/core/Container";
 import useStyles from "./useStyles";
@@ -16,15 +15,16 @@ export default function Currency() {
     return (
         <React.Fragment>
             <ClickAwayListener onClickAway={handleClickAway}>
-                <Button className={isVisible ? classes.btnSpan : classes.btn}
+                <Container className={classes.container}
                         onClick={() => {setVisibility(true)}}>
                     {!isVisible ? 'Currency' :
-                        (<Container>
-                           <span  data-currency='USA' className={classes.span}>USA</span>
-                           <span  data-currency='EUR' className={classes.span}>EUR</span>
-                           <span  data-currency='UA' className={classes.span}>UA</span>
-                        </Container>)}
-                </Button>
+                        (<>
+                           <span  data-currency='USA'>USA</span>
+                           <span  data-currency='EUR'>EUR</span>
+                           <span  data-currency='UA'>UA</span>
+                        </>)
+                        }
+                </Container>
             </ClickAwayListener>
         </React.Fragment>
     );

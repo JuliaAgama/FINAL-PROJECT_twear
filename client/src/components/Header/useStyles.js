@@ -8,7 +8,7 @@ export default makeStyles(theme => (
             width: '100%',
             padding: '0',
             margin: '0',
-            position: 'relative'
+            position: 'relative',
         },
         container: {
             display: 'flex',
@@ -43,6 +43,7 @@ export default makeStyles(theme => (
             top: '100px',
             borderRight: '1px solid black',
             borderLeft: '1px solid black',
+            zIndex: '100'
         },
         hide: {
             display: 'none'

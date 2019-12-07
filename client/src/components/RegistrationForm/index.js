@@ -1,5 +1,4 @@
-import React, {useState} from "react";
-import {Container, Box, Grid, FormControl, FormControlLabel, Radio, Button,} from "@material-ui/core";
+import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 import {renderTextField, renderRadioGroup, renderCheckbox, renderPhoneNumber} from "../common/inputFields";
@@ -14,8 +13,14 @@ import {
     password
 } from '../common/validators';
 import {loginAction, registrationAction} from "../../store/actions/customer";
+import Grid from "@material-ui/core/Grid";
+import {Container} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
 import 'react-phone-input-2/dist/style.css'
-
 import useStyles from "./useStyles";
 import Spinner from "../common/Spinner";
 
@@ -26,13 +31,7 @@ const maxLength25 = maxLength(25);
 const maxLength10 = maxLength(10);
 const maxLength30 = maxLength(30);
 
-
 const Registration = (props) => {
-
-    const [value, setValue] = useState('female');
-    const [phoneNumber, setPhoneNumber] = useState('+380');
-    const [checked, setChecked] = useState(false);
-
     const classes = useStyles();
     const dispatch = useDispatch();
     const { handleSubmit, pristine, invalid, submitting } = props;
@@ -40,20 +39,7 @@ const Registration = (props) => {
     const submit = (values) => dispatch(registrationAction(values));
 
     const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' +
-    'and for customizing my user experience to my interests or my shopping habits.';
-
-    const handleChangeRadio = event => {
-        setValue(event.target.value);
-    };
-
-    const handleOnChangePhoneNumber = event => {
-        setPhoneNumber(event.target.value);
-    };
-
-    const handleChangeChecked = () => {
-        setChecked(!checked);
-    };
-
+        'and for customizing my user experience to my interests or my shopping habits.';
 
     return (
         <React.Fragment>
@@ -75,19 +61,19 @@ const Registration = (props) => {
                         </div>
                         <FormControl component="fieldset">
                             <Field name='gender' component={renderRadioGroup} validate={[required]}>
-                                    <FormControlLabel
-                                        value='female'
-                                        control={<Radio color="default" />}
-                                        label="MISS, MRS., MS."
-                                        labelPlacement="end"
-                                        className={classes.radioBtn}
-                                    />
-                                    <FormControlLabel
-                                        control={<Radio color="default" />}
-                                        label="MR."
-                                        labelPlacement="end"
-                                        value='male'
-                                    />
+                                <FormControlLabel
+                                    value='female'
+                                    control={<Radio color="default" />}
+                                    label="MISS, MRS., MS."
+                                    labelPlacement="end"
+                                    className={classes.radioBtn}
+                                />
+                                <FormControlLabel
+                                    control={<Radio color="default" />}
+                                    label="MR."
+                                    labelPlacement="end"
+                                    value='male'
+                                />
                             </Field>
                         </FormControl>
                         <Box className={classes.inputContainer}>
@@ -123,8 +109,6 @@ const Registration = (props) => {
         </React.Fragment>
     );
 };
-
-
 export default reduxForm({
     form: 'Registration'
 })(Registration);
