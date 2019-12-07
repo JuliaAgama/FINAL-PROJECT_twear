@@ -35,6 +35,15 @@ export default function (state = initState, action) {
                     }
                 };
 
+            case PRODUCTS.PRODUCT_GET_PRODUCT_ITEM_BY_ITEMNO:
+                return {
+                    ...state,
+                    ...{
+                        productItem: action.data,
+                        loaded: true
+                    }
+                };
+
         default:
             return state
     }

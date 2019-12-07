@@ -127,6 +127,8 @@ export default withWidth()(() => {
         return productsToDisplay;
     };
 
+    const history = useHistory();
+
     const classes = useStyles();
 
     return (
@@ -184,7 +186,7 @@ export default withWidth()(() => {
             <ErrorModal
                 modalIsOpen={errorIsOpen}
                 modalText={errorModalText}
-                doFunction={() => useHistory().push("/admin/products")}
+                doFunction={() => history.push("/admin/products")}
                 //doFunction={() => document.location.reload()}
                 closeFunction={closeErrorModal}
             />

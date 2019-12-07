@@ -1,67 +1,85 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
 
-import { Typography, Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox } from '@material-ui/core';
+import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, OutlinedInput, InputAdornment, InputLabel } from '@material-ui/core';
 
 import useStyles from './useStyles';
-
 
 import Selector from '../../../../common/inputs/Selector';
 import UploadFile from '../../../../common/inputs/UploadFile';
 
+
 export default props => {
 
-    const { productName, item, topCatsBase, categoriesBase, gendersBase, colorsBase, sizeTypesBase, sizesBase, onSubmitHandler} = props;
+    const { itemNo, item, topCatsBase, categoriesBase, gendersBase, sizeTypesBase, onSubmitHandler} = props;
 
-    let [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({});
+    const [selectedTopCat, setSelectedTopCat] = useState({_id: ''});
+    const [categoriesDisplay, setCategoriesDisplay] = useState([]);
+    const [sizeTypeLocked, setSizeTypeLocked] = useState(false);
+
+    const checkSizeType = id => (
+        item && item.colors && item.colors.some(el =>
+            el.sizes && el.sizes.some(el => parseInt(el.quantity) > 0 && el.size.sizeType === id)
+        ) ?
+        true : false
+    );
 
     useEffect(()=> {
-        if(productName && item) {
-            let newProduct = productName && productName.includes('newProduct') ?
-                productName.slice(productName.indexOf('-')+1) :
-                undefined;
-            item ?
-                setFormData({
-                    _id: item._id || '',
-                    itemNo: item.itemNo || 0,
-                    enabled: item.enabled || true,
-                    name: item.name || '',
-                    description: item.description || '',
-                    price: item.price || 0,
-                    previousPrice: item.previousPrice || 0,
-                    categories: item.categories || [],
-                    genders: item.genders || [],
-                    colors: item.colors || [],
-                    imgs: item.imgs  || [],
-                    productUrl: item.productUrl || '',
-                    brand: item.brand || '',
-                    manufacturer: item.manufacturer || '',
-                    manufacturerCountry: item.manufacturerCountry || '',
-                    seller: item.seller || '',
-                    date: item.date || Date.now()
-                }) :
-                setFormData({})
+        if (item && itemNo !== 'newProduct') {
+            setFormData(item);
+            setSelectedTopCat(topCatsBase.find(el => el._id === item.categories[0].category.topCategory));
+            item.sizeType && checkSizeType(item.sizeType._id) ?
+            setSizeTypeLocked(true) : setSizeTypeLocked(false);
         }
-    },[productName, item]);
+    },[item, itemNo]);
 
+    useEffect(()=> {
+        setCategoriesDisplay(categoriesBase.filter(el => el.topCategory._id === selectedTopCat._id));
+    },[selectedTopCat]);
+
+    const onChangeTopCat = id => {
+        id && id !== '' ? setSelectedTopCat(topCatsBase.find(el => el._id === id)) : setSelectedTopCat({_id: ''});
+        setFormData({
+            ...formData,
+            categories: []
+        });
+    };
 
     const onChange = event => {
-    //     if (event.target.name === 'genders') {
-    //         event.target.checked ?
-    //             setFormData({
-    //                 ...formData,
-    //                 genders: formData.genders ? [...formData.genders.filter(el => el.gender !== event.target.value), {gender: event.target.value}] : [{gender: event.target.value}]
-    //             }) :
-    //             setFormData({
-    //                 ...formData,
-    //                 genders: [...formData.genders.filter(el => el.gender !== event.target.value)]
-    //             })
-    //     } else {
+
+        if (event.target.name === 'categories') {
+            event.target.checked ?
+            setFormData({
+                ...formData,
+                categories: formData.categories ?
+                [...formData.categories.filter(el => el && el.category && el.category._id !== event.target.value), {category: categoriesBase.find(item => item._id === event.target.id)}] :
+                [{category: categoriesBase.find(item => item._id === event.target.id)}]
+            }) :
+            setFormData({
+                ...formData,
+                categories: [...formData.categories.filter(el => el && el.category && el.category._id !== event.target.id)]
+            })
+
+        } else if (event.target.name === 'gender') {
+            setFormData({
+                ...formData,
+                gender: gendersBase.find(el => el._id === event.target.value)
+            });
+
+        } else if (event.target.name === 'sizeType') {
+            if (sizeTypeLocked === false) {
+                setFormData({
+                    ...formData,
+                    sizeType: sizeTypesBase.find(el => el._id === event.target.value)
+                });
+            }
+
+        } else {
             setFormData({
                 ...formData,
                 [event.target.name]: event.target.value
             });
-    //     }
+        }
     };
 
     const onSubmit = event => {
@@ -69,103 +87,167 @@ export default props => {
         onSubmitHandler(formData);
     };
 
-    const cutName = (string, l) => string.length >= l ? string.slice(0, l-3)+'...' : string;
+    console.log( 'formData: ', formData);
 
     const classes = useStyles();
 
     return (
-        <Typography component="div" variant="body1" className={classes.wrapper}>
-            <form autoComplete="off">
-                <Grid container className={classes.paper}>
-                    <Grid item xs={5} sm={3}>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="itemNo"
-                            name='itemNo'
-                            placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
-                            value={formData.itemNo ? formData.itemNo : ''}
-                            onChange={onChange}
-                            onFocus={onChange}
-                            className={classes.textField}
-                            margin="normal"
-                            variant="outlined"
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={8} className={classes.justify}>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Product"
-                            name='name'
-                            autoFocus
-                            onChange={onChange}
-                            defaultValue={productName && productName.includes('newProduct') ? '' : productName}
-                            className={classes.textField}
-                            margin="normal"
-                            variant="outlined"
-                        />
-                    </Grid>
-                </Grid>
-                <Grid item xs={12} container>
-                    <Grid item xs={12} sm={4} className={classes.input}>
-                        <Selector
-                            selectorName='Gender'
-                            selectorArr={gendersBase}
-                            selectedItem=''
-                            //onChange={onChangeGender}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={4} className={classes.input}>
-                        <Selector
-                            selectorName='Top Category'
-                            selectorArr={topCatsBase}
-                            selectedItem=''
-                            //onChange={onChangeTopCat}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={4} className={classes.input}>
-                        <Selector
-                            selectorName='Category'
-                            selectorArr={categoriesBase}
-                            selectedItem=''
-                            //onChange={onChangeCategory}
-                        />
-                    </Grid>
-
-                    <Grid item xs={6}>
-                        Choose top Category
-                    </Grid>
-                    <Grid item xs={6}>
-                        Choose Category
-                    </Grid>
-                    <Grid item xs={6}>
-                        Choose Genders
-                    </Grid>
-                    <Grid item xs={6}>
-                        Choose Colors
-                    </Grid>
-                    <Grid item xs={6}>
-                        Choose Appropriate Set of Sizes (SizeType)
-                    </Grid>
-                </Grid>
-
-                <Grid container className={classes.paper}>
-                    <Grid item xs={12}>
-                        <UploadFile/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button
-                        fullWidth={true}
+        <form autoComplete="off">
+            <Grid container className={classes.paper}>
+                <Grid item xs={5} sm={3}>
+                    <TextField
+                        required
+                        id="outlined-required"
+                        label="itemNo"
+                        name='itemNo'
+                        placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
+                        defaultValue={itemNo && itemNo.includes('newProduct') ? '' : itemNo}
+                        onChange={onChange}
+                        onFocus={onChange}
+                        className={classes.textField}
+                        margin="normal"
                         variant="outlined"
-                        className={classes.btn}
-                        onClick={onSubmit}
-                        > {`SAVE`}</Button>
-                    </Grid>
+                    />
                 </Grid>
-            </form>
-            {item && item.name ?  <Link to={`/admin/products`+item.name} className={classes.link}> {`<<   to ${cutName(item.name, 10)} page`} </Link> : <></>
-            }
-        </Typography>
+
+                <Grid item xs={12} sm={8}>
+                    <TextField
+                        required
+                        id="outlined-required"
+                        label="Name"
+                        name='name'
+                        autoFocus
+                        onChange={onChange}
+                        value={formData.name ? formData.name : ''}
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                    />
+                </Grid>
+            </Grid>
+
+            <Grid item xs={12} container>
+                <Grid item xs={6}  className={classes.input}>
+                    <Box pt={2} pb={1}>Select Categories: </Box>
+                </Grid>
+                <Grid item xs={6}  className={classes.input}>
+                    <Selector
+                        selectorName='Top Category'
+                        selectorArr={topCatsBase}
+                        selectedItem={selectedTopCat._id}
+                        onChange={onChangeTopCat}
+                    />
+                </Grid>
+
+                    <FormControl component="fieldset" className={classes.formControl}>
+                        <FormGroup>
+                            <Grid container>
+                            {categoriesDisplay.map(item =>
+                                <Grid item xs={6} lg={4} className={classes.input} key={item._id}>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            name='categories'
+                                            id={item._id}
+                                            value={item._id}
+                                            checked={formData.categories && formData.categories.some(el => el.category._id === item._id) ? true : false}
+                                            onChange={onChange}
+                                        />}
+                                    label={item.name}
+                                />
+                                </Grid>
+                            )}
+                            </Grid>
+                        </FormGroup>
+                    </FormControl>
+            </Grid>
+            <Grid item xs={12} container>
+                <Grid item xs={6}>
+                    <FormControl component="fieldset" className={classes.formControl}>
+                        <FormLabel component="legend">Gender:</FormLabel>
+                            <RadioGroup aria-label="genders" name="gender">
+                            {gendersBase.map(gender =>
+                                <FormControlLabel
+                                    key={gender._id}
+                                    id={gender._id}
+                                    value={gender._id}
+                                    control={<Radio />}
+                                    label={gender.name}
+                                    checked={formData.gender && formData.gender._id === gender._id ? true : false}
+                                    onChange={onChange}
+                                />
+                            )}
+                            </RadioGroup>
+                    </FormControl>
+                </Grid>
+
+                <Grid item xs={6}>
+                    <FormControl component="fieldset" className={classes.formControl}>
+                        <FormLabel component="legend">Sizes Set:
+                            { sizeTypeLocked ?
+                            <span> (Cannot change as there are products of its sizes) </span> : <></>
+                            }
+                            </FormLabel>
+                            <RadioGroup aria-label="sizeTypes" name="sizeType">
+                            {sizeTypesBase.map(sizeType =>
+                                <FormControlLabel
+                                    key={sizeType._id}
+                                    id={sizeType._id}
+                                    value={sizeType._id}
+                                    control={<Radio />}
+                                    label={sizeType.name}
+                                    checked={formData.sizeType && formData.sizeType._id === sizeType._id ? true : false}
+                                    onChange={onChange}
+                                />
+                            )}
+                        </RadioGroup>
+                    </FormControl>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <TextField
+                        id="outlined-multiline-flexible"
+                        label="Description"
+                        multiline
+                        rowsMax='5'
+                        name='description'
+                        onChange={onChange}
+                        value={formData.description ? formData.description : ''}
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                    />
+                </Grid>
+
+                <Grid item xs={5} sm={3}>
+                    <FormControl variant="outlined">
+                        <InputLabel htmlFor="price">Price</InputLabel>
+                        <OutlinedInput
+                            id="price"
+                            name="price"
+                            type="number"
+                            value={formData.price ? parseFloat(formData.price) : ''}
+                            onChange={onChange}
+                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                            labelWidth={60}
+                        />
+                    </FormControl>
+                </Grid>
+            </Grid>
+
+            <Grid container className={classes.paper}>
+                <Grid item xs={12}>
+                    <UploadFile/>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button
+                    fullWidth={true}
+                    variant="outlined"
+                    className={classes.btn}
+                    onClick={onSubmit}
+                    > {`SAVE`}</Button>
+                </Grid>
+            </Grid>
+        </form>
     )
 };

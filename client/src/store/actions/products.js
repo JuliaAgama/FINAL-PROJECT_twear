@@ -104,6 +104,24 @@ export function getProductItem(id) {
     };
 };
 
+export function getProductItemByItemNo(itemNo) {
+    return function (dispatch) {
+        dispatch(productItemSendRequest());
+        (new ProductsApi()).getProductByItemNo(itemNo).then(res => {
+            return dispatch({
+                type: PRODUCTS.PRODUCT_GET_PRODUCT_ITEM_BY_ITEMNO,
+                data: res
+            });
+        })
+        .catch(err => {
+            return dispatch({
+                type: PRODUCTS.PRODUCT_RESPONSE_FAILED,
+                error: err.response.data
+            })
+        });
+    };
+};
+
 export function addProduct(item){
     return function (dispatch) {
         dispatch(productsSendRequest());

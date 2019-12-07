@@ -11,6 +11,7 @@ const {
   updateProduct,
   getProducts,
   getProduct,
+  getProductByItemNo,
   getProductsFilterParams,
   searchProducts,
   matchProductsByObject
@@ -67,7 +68,7 @@ router.post(
 // @access  Private
 router.post(
   "/",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   addProduct
 );
 
@@ -76,7 +77,7 @@ router.post(
 // @access  Private
 router.put(
   "/:id",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   updateProduct
 );
 
@@ -104,5 +105,10 @@ router.post("/match", matchProductsByObject);
 // @desc    GET existing product by id
 // @access  Public
 router.get("/:id", getProduct);
+
+// @route   GET /products/itemNo/:itemNo
+// @desc    GET existing product by itemNo
+// @access  Public
+router.get("/itemNo/:itemNo", getProductByItemNo);
 
 module.exports = router;

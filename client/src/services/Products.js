@@ -32,6 +32,12 @@ export default class Products extends Base {
         // .catch(err => err.response.data);
     }
 
+    getProductByItemNo(itemNo) {
+        return super.get('products/itemNo/' + itemNo)
+        .then(res => res.data)
+        // .catch(err => err.response.data);
+    }
+
     addProduct(product) {
         return super.post(`products`, product)
         .then(res => res.data)
