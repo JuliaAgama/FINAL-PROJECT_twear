@@ -61,7 +61,7 @@ export default props => {
     }, [dispatch]);
 
     const product = itemNo === 'newProduct' ? {name: itemNo} : useSelector(state => state.productItem.productItem);
-    const topCatsBase = (useSelector(state => state.topCats.topCats));
+    const topCatsBase = useSelector(state => state.topCats.topCats);
     const categoriesBase = useSelector(state => state.categories.categories);
     const gendersBase = useSelector(state => state.genders.genders);
     const sizeTypesBase = useSelector(state => state.sizeTypes.sizeTypes);

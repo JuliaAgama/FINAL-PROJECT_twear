@@ -21,7 +21,8 @@ import AdminProducts from '../components/AdminPage/AdminProducts';
 import AdminProductReview from '../components/AdminPage/AdminProducts/ProductReview';
 import AdminProductsEditNew from '../components/AdminPage/AdminProducts/EditNew';
 import PersonalCabinet from "../components/PersonalCabinet";
-import PrivateRoute from "../components/common/PrivateRoute";
+import PrivateAdminRoute from "./PrivateAdmin";
+import PrivateRoute from "./PrivateRoute";
 import AccessDenied from "../components/AccessDenied";
 
 
@@ -36,8 +37,8 @@ export const Router = () => (
                     path="/"
                     component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
                 <Route exact
-                       path="/personalCabinet"
-                       component={props => <LayoutMain {...props}><PersonalCabinet/></LayoutMain>}/>
+                    path="/personalCabinet"
+                    component={props => <LayoutMain {...props}><PersonalCabinet/></LayoutMain>}/>
                 <Route exact
                     path="/top-categories/:topCat?"
                     component={props => <LayoutMain {...props}><TopCatPage{...props}/></LayoutMain>}/>
@@ -49,40 +50,40 @@ export const Router = () => (
                     component={props => <LayoutMain {...props}><ProductPage{...props}/></LayoutMain>}/>
 
                 <Route exact
-                       path="/accessDenied"
-                       component={AccessDenied}/>
+                    path="/accessDenied"
+                    component={AccessDenied}/>
 
-                <PrivateRoute exact
-                //<PrivateAdminRoute exact
+                {/* <PrivateRoute exact */}
+                <PrivateAdminRoute exact
                     path="/admin"
                     component={props => <LayoutAdmin {...props}><AdminPage/></LayoutAdmin>}/>
-                <PrivateRoute exact
-                //<PrivateAdminRoute exact
+                {/* <PrivateRoute exact */}
+                <PrivateAdminRoute exact
                     path="/admin/categories"
                     component={props => <LayoutAdmin {...props}><AdminCategories/></LayoutAdmin>}/>
-                <PrivateRoute exact
-                //<PrivateAdminRoute exact
+                {/* <PrivateRoute exact */}
+                <PrivateAdminRoute exact
                     path="/admin/categories/:categoryName?"
                     component={props => <LayoutAdmin {...props}><AdminCategoriesEditNew {...props}/></LayoutAdmin>}/>
-                <PrivateRoute exact
-                //<PrivateAdminRoute exact
+                {/* <PrivateRoute exact */}
+                <PrivateAdminRoute exact
                     path="/admin/categories/top/:topCatName?"
                     component={props => <LayoutAdmin {...props}><AdminCategoriesEditNew {...props}/></LayoutAdmin>}/>
-                <PrivateRoute exact
-                //<PrivateAdminRoute exact
+                {/* <PrivateRoute exact */}
+                <PrivateAdminRoute exact
                     path="/admin/options"
                     component={props => <LayoutAdmin {...props}><AdminOptions/></LayoutAdmin>}/>
-                <PrivateRoute exact
-                //<PrivateAdminRoute exact
+                {/* <PrivateRoute exact */}
+                <PrivateAdminRoute exact
                     path="/admin/products"
                     component={props => <LayoutAdmin {...props}><AdminProducts/></LayoutAdmin>}/>
-                <PrivateRoute exact
-                //<PrivateAdminRoute exact
+                {/* <PrivateRoute exact */}
+                <PrivateAdminRoute exact
                     path="/admin/products/:itemNo?"
                     component={props => <LayoutAdmin {...props}><AdminProductReview{...props}/></LayoutAdmin>}/>
 
-                <Route exact
-                //<PrivateAdminRoute exact
+                {/* <Route exact */}
+                <PrivateAdminRoute exact
                     path="/admin/products/edit/:itemNo?"
                     component={props => <LayoutAdmin {...props}><AdminProductsEditNew{...props}/></LayoutAdmin>}/>
 

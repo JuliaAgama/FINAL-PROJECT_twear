@@ -1,19 +1,21 @@
 import React from "react";
-import { Field, reduxForm } from 'redux-form';
-import {renderTextField} from "../common/inputFields";
-import Grid from "@material-ui/core/Grid";
-import {Container} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
-import {openRegistrationModalAction} from "../../store/actions/modal";
+import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import {required, minLength, maxLength, emptyString, password} from '../common/validators';
+import { Field, reduxForm } from 'redux-form';
+
 import {loginAction} from "../../store/actions/customer";
-import Spinner from '../common/Spinner'
+import {openRegistrationModalAction} from "../../store/actions/modal";
+
+import {Container, Grid, Button} from "@material-ui/core";
 
 import useStyles from "./useStyles";
 
-const minLength7 = minLength(7);
+import {required, minLength, maxLength, emptyString, password} from '../common/validators';
+import {renderTextField} from "../common/inputFields";
+import Spinner from '../common/Spinner'
+
+
+const minLength6 = minLength(6);
 const minLength3 = minLength(3);
 const maxLength30 = maxLength(30);
 
@@ -35,16 +37,17 @@ const Login = (props) => {
                 <Container maxWidth={false} className={classes.container}>
                     <form onSubmit={handleSubmit(submit)} className={classes.form}>
                         <Field name="loginOrEmail" component={renderTextField} type='text' label="Login" validate={[required, emptyString, minLength3]} />
-                        <Field name="password" component={renderTextField} type='password' label="Password" validate={[required, password, minLength7, maxLength30]} />
+                        <Field name="password" component={renderTextField} type='password' label="Password" validate={[required, password, minLength6, maxLength30]} />
 
                         <Button disabled={pristine || submitting || invalid} fullWidth={true} variant="outlined" type='submit' className={classes.btn}>Log In</Button>
                         <div className={classes.linkContainer}>
-                            <Link href="someWhere" className={classes.link}>
+                            <Link to="/someWhere" className={classes.link}>
                                 Forgot password?
                             </Link>
-                            <Link href="#"
-                                  className={classes.link}
-                                  onClick={clickHandler}
+                            <Link
+                                to="/"
+                                className={classes.link}
+                                onClick={clickHandler}
                             >
                                 Registration
                             </Link>
@@ -58,8 +61,6 @@ const Login = (props) => {
         </React.Fragment>
     );
 }
-
-
 
 export default reduxForm({
     form: 'Login'

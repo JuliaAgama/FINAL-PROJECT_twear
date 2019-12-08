@@ -5,12 +5,12 @@ export default ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            sessionStorage.getItem('token') ? (
+            localStorage.getItem('token') &&  localStorage.getItem('isAdmin')? (
                 <Component {...props} />
             ) : (
                 <Redirect to={{
-                    //pathname: "/admin/login",
-                    state: { from: props.location }
+                    pathname: "/accessDenied",
+                    //state: { from: props.location }
                 }} />
             )
         }

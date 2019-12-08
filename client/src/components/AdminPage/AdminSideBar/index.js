@@ -14,7 +14,7 @@ export default props => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    useEffect(() => {dispatch(getCustomerAction())},[]);
+    // useEffect(() => {dispatch(getCustomerAction())},[]);
 
     return(
         <div className={classes.root}>
