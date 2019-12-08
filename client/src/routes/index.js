@@ -2,7 +2,6 @@ import React from 'react';
 import { CssBaseline } from '@material-ui/core';
 
 import {Switch, Route} from 'react-router-dom';
-// import PrivateAdminRoute from './PrivateAdmin';
 
 import NotFound from '../components/NotFound';
 
@@ -21,6 +20,10 @@ import AdminOptions from '../components/AdminPage/AdminOptions';
 import AdminProducts from '../components/AdminPage/AdminProducts';
 import AdminProductReview from '../components/AdminPage/AdminProducts/ProductReview';
 import AdminProductsEditNew from '../components/AdminPage/AdminProducts/EditNew';
+import PersonalCabinet from "../components/PersonalCabinet";
+import PrivateRoute from "../components/common/PrivateRoute";
+import AccessDenied from "../components/AccessDenied";
+
 
 
 export const Router = () => (
@@ -33,43 +36,51 @@ export const Router = () => (
                     path="/"
                     component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
                 <Route exact
+                       path="/personalCabinet"
+                       component={props => <LayoutMain {...props}><PersonalCabinet/></LayoutMain>}/>
+                <Route exact
                     path="/top-categories/:topCat?"
                     component={props => <LayoutMain {...props}><TopCatPage{...props}/></LayoutMain>}/>
                 <Route exact
                     path="/categories/:category?"
-                    component={props => <LayoutMain {...props}><CategoryPage{...props}/></LayoutMain>}/>
+                    component={props => <LayoutMain {...props}><CategoryPage/></LayoutMain>}/>
                 <Route exact
                     path="/products/:product?"
                     component={props => <LayoutMain {...props}><ProductPage{...props}/></LayoutMain>}/>
 
                 <Route exact
+                       path="/accessDenied"
+                       component={AccessDenied}/>
+
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin"
                     component={props => <LayoutAdmin {...props}><AdminPage/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories"
                     component={props => <LayoutAdmin {...props}><AdminCategories/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/:categoryName?"
                     component={props => <LayoutAdmin {...props}><AdminCategoriesEditNew {...props}/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/categories/top/:topCatName?"
                     component={props => <LayoutAdmin {...props}><AdminCategoriesEditNew {...props}/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/options"
                     component={props => <LayoutAdmin {...props}><AdminOptions/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/products"
                     component={props => <LayoutAdmin {...props}><AdminProducts/></LayoutAdmin>}/>
-                <Route exact
+                <PrivateRoute exact
                 //<PrivateAdminRoute exact
                     path="/admin/products/:itemNo?"
                     component={props => <LayoutAdmin {...props}><AdminProductReview{...props}/></LayoutAdmin>}/>
+
                 <Route exact
                 //<PrivateAdminRoute exact
                     path="/admin/products/edit/:itemNo?"

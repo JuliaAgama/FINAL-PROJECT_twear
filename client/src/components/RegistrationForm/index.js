@@ -1,40 +1,51 @@
-import React, {useState} from "react";
-
-import {Container, Box, Grid, TextField, FormControl, FormControlLabel, RadioGroup, Radio, Checkbox, Button,} from "@material-ui/core";
-
-import PhoneInput from 'react-phone-input-2'
+import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import { Field, reduxForm } from 'redux-form';
+import {renderTextField, renderRadioGroup, renderCheckbox, renderPhoneNumber} from "../common/inputFields";
+import {
+    required,
+    minLength,
+    email,
+    name,
+    phoneNumber,
+    maxLength,
+    login,
+    password
+} from '../common/validators';
+import {loginAction, registrationAction} from "../../store/actions/customer";
+import Grid from "@material-ui/core/Grid";
+import {Container} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
 import 'react-phone-input-2/dist/style.css'
-
 import useStyles from "./useStyles";
+import Spinner from "../common/Spinner";
 
+const minLength7 = minLength(7);
+const minLength3 = minLength(3);
+const minLength2 = minLength(2);
+const maxLength25 = maxLength(25);
+const maxLength10 = maxLength(10);
+const maxLength30 = maxLength(30);
 
-export default () => {
-
-    const [value, setValue] = useState('female');
-    const [phoneNumber, setPhoneNumber] = useState('+380');
-    const [checked, setChecked] = useState(false);
-    const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' +
-    'and for customizing my user experience to my interests or my shopping habits.';
-
-    const handleChangeRadio = event => {
-        setValue(event.target.value);
-    };
-
-    const handleOnChangePhoneNumber = event => {
-        setPhoneNumber(event.target.value);
-    };
-
-    const handleChangeChecked = () => {
-        setChecked(!checked);
-    }
-
+const Registration = (props) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const { handleSubmit, pristine, invalid, submitting } = props;
+    const {loaded}  = useSelector(state => state.customers);
+    const submit = (values) => dispatch(registrationAction(values));
+
+    const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' +
+        'and for customizing my user experience to my interests or my shopping habits.';
 
     return (
         <React.Fragment>
             <Grid container item xs={12} >
                 <Container maxWidth={false} className={classes.container}>
-                    <form className={classes.form}>
+                    <form onSubmit={handleSubmit(submit)} className={classes.form}>
                         <Box className={classes.box}>
                             <p>I'M A NEW CUSTOMER</p>
                             <p>Create an account to make purchases and enjoy privileged access to exclusive shopping features such as:</p>
@@ -49,7 +60,7 @@ export default () => {
                             <span>* Required fields</span>
                         </div>
                         <FormControl component="fieldset">
-                            <RadioGroup aria-label="position" name="position" value={value} onChange={handleChangeRadio} row>
+                            <Field name='gender' component={renderRadioGroup} validate={[required]}>
                                 <FormControlLabel
                                     value='female'
                                     control={<Radio color="default" />}
@@ -63,26 +74,15 @@ export default () => {
                                     labelPlacement="end"
                                     value='male'
                                 />
-                            </RadioGroup>
+                            </Field>
                         </FormControl>
                         <Box className={classes.inputContainer}>
-                            <TextField className={classes.inputField} fullWidth={true} margin='normal' required label="First Name"/>
-                            <TextField className={classes.inputField} fullWidth={true} margin='normal' required label="Last Name"/>
-                            <TextField className={classes.inputField} fullWidth={true} margin='normal'  label="Login"/>
-                            <TextField className={classes.inputField} fullWidth={true} margin='normal' type='email' required label="Email"/>
-                            <TextField fullWidth={true} className={classes.inputField} margin='normal' label="Password" type="password" required/>
-                            <TextField fullWidth={true} className={classes.inputField} margin='normal' id="date" label="Birthday" required type="date" defaultValue="2000-01-01"/>
-                            <PhoneInput containerStyle={{
-                                            marginTop: '30px',
-                                            marginBottom: '30px',
-                                            marginLeft: 'calc(50% - 125px)',
-                                            width: '250px'
-                                        }}
-                                        inputStyle={{width: '250px'}}
-                                        dropdownStyle={{width: '250px'}}
-                                        defaultCountry={'ua'}
-                                        value={phoneNumber}
-                                        onChange={()=> handleOnChangePhoneNumber}/>
+                            <Field name="firstName" component={renderTextField} type='text' label="First Name*" validate={[required, name, minLength2, maxLength25]} className={classes.inputField}/>
+                            <Field name="lastName" component={renderTextField} type='text' label="Last Name*" validate={[required, name, minLength2, maxLength25]} className={classes.inputField}/>
+                            <Field name="login" component={renderTextField} type='text' label="Login" validate={[required, login, minLength3, maxLength10]} className={classes.inputField}/>
+                            <Field name="email" component={renderTextField} type='email' label="Email*" validate={[required, email]} className={classes.inputField}/>
+                            <Field name="password" component={renderTextField} type='password' label="Password*" validate={[required, password, minLength7, maxLength30]} className={classes.inputField} />
+                            <Field name="telephone" component={renderPhoneNumber} style={classes.phoneSpan}  validate={[phoneNumber]} className={classes.inputPhone}/>
                         </Box>
                         <p className={classes.text}>The data fields with an asterisk (*) must be completed in order to complete your registration
                             and satisfy any request you make. Your personal data may be jointly controlled by
@@ -94,17 +94,21 @@ export default () => {
                             to the processing of your personal data. To exercise your rights, please write to privacy@twear.com.
                             You can also manage your subscriptions via your account.
                         </p>
-                        <FormControlLabel
-                            value={checked}
-                            control={<Checkbox  color="default"/>}
-                            label={checkboxText}
-                            onChange={handleChangeChecked}
-                            className={classes.checkboxText}
-                        />
-                        <Button fullWidth={true} variant="outlined" className={classes.btn}>Registration</Button>
+                        <Field name='confirm' component={renderCheckbox} className={classes.checkboxText}  validate={[required]} label={checkboxText} />
+                        <Button disabled={pristine || submitting || invalid}
+                                type='submit'
+                                fullWidth={true}
+                                variant="outlined"
+                                className={classes.btn}>Registration</Button>
                     </form>
+                    <Container className={classes.spinnerContainer}>
+                        {loaded ? <Spinner/> : ''}
+                    </Container>
                 </Container>
             </Grid>
         </React.Fragment>
     );
 };
+export default reduxForm({
+    form: 'Registration'
+})(Registration);

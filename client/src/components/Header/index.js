@@ -20,8 +20,8 @@ import useStyles from './useStyles';
 function Header() {
 
     const classes = useStyles();
-    const {show, showMobileMenu}  = useSelector(state => state.header);
-
+    const show  = useSelector(state => state.header.show);
+    const showMobileMenu  = useSelector(state => state.header.showMobileMenu);
     const dispatch = useDispatch();
 
     const handleClickAway = () =>{

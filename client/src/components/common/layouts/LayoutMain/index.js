@@ -1,16 +1,13 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
 
-import useStyles from "./useStyles";
-
 import Header from '../../../Header';
 import Footer from '../../../Footer';
-import SettingsButton from '../../../common/buttons/Settings';
+import useStyles from "./useStyles";
 
-export default () => {
+export default props => {
 
     const breakpointValues = {
         xs: 0,
@@ -26,16 +23,11 @@ export default () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div style={{height: '1500 px'}}>
             <Container maxWidth={false} className={classes.layoutContainer}>
-                <Header/>
-                <div style={{textAlign: 'center'}}>YURA'S BLOCK</div>
-                <Footer style= {{position: 'absolute', bottom: '0' }}/>
-                <Link to={`/admin`}>
-                    <SettingsButton title='Admin Page' size={2} color='red' />
-                </Link>
+                <div className={classes.header}><Header/></div>
+                    <div>{props.children}</div>
+                <div className={classes.footer}><Footer/></div>
             </Container>
-            </div>
-        </ThemeProvider>    
+        </ThemeProvider>
     );
 };

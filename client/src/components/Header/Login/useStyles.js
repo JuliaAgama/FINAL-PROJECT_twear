@@ -2,18 +2,35 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => (
     {
-        btn: {
+        container: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             width: '100%',
             [theme.breakpoints.down('sm')]: {
                 width: '50%',
+                padding: '14px 0',
+                backgroundColor: 'white'
             },
             padding: '16px 0',
-            borderRadius: '0',
-            outline: 'none!important',
-            textTransform: 'none',
             fontSize: '16px',
             fontWeight: '700',
-            borderBottom: '1px solid black'
+            borderBottom: '1px solid black',
+        },
+        linkContainer: {
+            color: 'black',
+            textDecoration: 'none'
+        },
+        link: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        name: {
+            marginLeft: '10px'
+        },
+        span: {
+            padding: '1px 0',
         }
     }
 ));

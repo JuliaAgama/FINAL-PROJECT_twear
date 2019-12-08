@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 
 import CategoryCard from './CategoryCard';
-import ProductCard from '../common/ProductCard';
+import ProductCard from '../common/ProductsGallery/ProductCard';
 
     const topCats = [
         {name: 'clothes', _id: '901'},
