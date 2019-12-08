@@ -35,6 +35,11 @@ const ProductSchema = new Schema(
             ref: "genders",
             required: true
         },
+        sizeType: {
+            type: Schema.Types.ObjectId,
+            ref: "sizeTypes",
+            required: true
+        },
         colors: [{
             color: {
                 type: Schema.Types.ObjectId,

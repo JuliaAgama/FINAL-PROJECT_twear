@@ -59,7 +59,7 @@ export default props => {
                 <Grid container className={classes.paper}>
                     <Grid item item xs={5} sm={3} className={classes[displayAdditional]}>
                         <TextField
-                            id="outlined-required"
+                            id="category-itemNo"
                             label="itemNo"
                             name='itemNo'
                             placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
@@ -74,7 +74,7 @@ export default props => {
                     <Grid item xs={12} sm={8} className={classes.justify}>
                         <TextField
                             required
-                            id="outlined-required"
+                            id="category-name"
                             label="Category"
                             name='name'
                             autoFocus
@@ -131,6 +131,18 @@ export default props => {
                 <Grid container className={classes.paper}>
                     <Grid item xs={12}>
                         <UploadFile/>
+                    </Grid>
+                    <Grid item xs={12}> ВРЕМЕННОЕ ДОБАВЛЕНИЕ УРЛЫ ФОТКИ (на ворнинг не обращаем внимания пока):
+                        <TextField
+                            id={'img'}
+                            label={'img URL'}
+                            name={'img'}
+                            onChange={onChange}
+                            value={formData.img ? formData.img : ''}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
                     </Grid>
                     <Grid item xs={12}>
                     <Button
