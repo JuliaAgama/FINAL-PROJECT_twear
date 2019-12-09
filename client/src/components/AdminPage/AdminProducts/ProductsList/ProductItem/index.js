@@ -18,25 +18,29 @@ export default props => {
         <Grid item xs={12} sm={6} lg={4}>
         <Divider />
         <ListItem>
-            <Link to={"/admin/products/"+item.itemNo} className={classes.link}>
-                <Grid container className={classes.paper}>
-                    <Grid item container>
-                        <Grid item>
+            <Grid container className={classes.paper}>
+                <Grid item container>
+                    <Grid item>
+                        <Link to={"/admin/products/"+item.itemNo} className={classes.link}>
                             <Box className={classes.image}>
                                 <img src={item.imgs[0]} className={classes.img} alt="Not Found"/>
                             </Box>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="body2" className={classes.title}>{cutName(item.name, 19)}</Typography>
-                        </Grid>
+                        </Link>
                     </Grid>
                     <Grid item>
-                        <Typography component="div" variant="body2" >
-                            <Box fontStyle="italic" fontSize={14} fontWeight="light" className={classes.art}>{item.itemNo}</Box>
-                        </Typography>
+                        <Link to={"/admin/products/"+item.itemNo} className={classes.link}>
+                            <Typography variant="body2" className={classes.title}>{cutName(item.name, 19)}</Typography>
+                        </Link>
                     </Grid>
                 </Grid>
-            </Link>
+                <Grid item>
+                    <Typography component="div" variant="body2" >
+                        <Link to={"/admin/products/"+item.itemNo} className={classes.link}>
+                            <Box fontStyle="italic" fontSize={14} fontWeight="light" className={classes.art}>{item.itemNo}</Box>
+                        </Link>
+                    </Typography>
+                </Grid>
+            </Grid>
         </ListItem>
         </Grid>
     )
