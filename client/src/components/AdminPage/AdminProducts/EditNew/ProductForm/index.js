@@ -4,13 +4,14 @@ import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl,
 
 import useStyles from './useStyles';
 
+import ColorItem from './ColorItem';
 import Selector from '../../../../common/inputs/Selector';
 import UploadFile from '../../../../common/inputs/UploadFile';
 
 
 export default props => {
 
-    const { itemNo, item, topCatsBase, categoriesBase, gendersBase, sizeTypesBase, onSubmitHandler} = props;
+    const { itemNo, item, topCatsBase, categoriesBase, gendersBase, sizeTypesBase, colorsBase, onSubmitHandler} = props;
 
     const [formData, setFormData] = useState({});
     const [selectedTopCat, setSelectedTopCat] = useState({_id: ''});
@@ -74,11 +75,31 @@ export default props => {
                 });
             }
 
+        } else if (event.target.name === 'colors') {
+                event.target.checked ?
+                setFormData({
+                    ...formData,
+                    colors: formData.colors ?
+                    [...formData.colors.filter(el => el && el.color && el.color._id !== event.target.value), {color: colorsBase.find(item => item._id === event.target.id)}] :
+                    [{color: colorsBase.find(item => item._id === event.target.id)}]
+                }) :
+                setFormData({
+                    ...formData,
+                    colors: [...formData.colors.filter(el => el && el.color && el.color._id !== event.target.id)]
+                })
+
         } else if (event.target.name.includes('imgs')) {
-            let changedUrl = formData.imgs.splice(parseInt(event.target.name), 1, event.target.value)
-            setFormData({
-                ...formData
-            });
+            if(formData.imgs ) {
+                let changedUrl =  formData.imgs.splice(parseInt(event.target.name), 1, event.target.value);
+                setFormData({
+                    ...formData
+                });
+            } else {
+                setFormData({
+                    ...formData,
+                    imgs: [event.target.value]
+                });
+            }
 
         } else {
             setFormData({
@@ -113,7 +134,6 @@ export default props => {
                         variant="outlined"
                     />
                 </Grid>
-
                 <Grid item xs={12} sm={8}>
                     <TextField
                         required
@@ -142,12 +162,14 @@ export default props => {
                         onChange={onChangeTopCat}
                     />
                 </Grid>
-
-                    <FormControl component="fieldset" className={classes.formControl}>
-                        <FormGroup>
-                            <Grid container>
-                            {categoriesDisplay.map(item =>
-                                <Grid item xs={6} lg={4} className={classes.input} key={item._id}>
+                <FormControl component="fieldset" className={classes.formControl}>
+                    <FormGroup>
+                        <Grid container>
+                        {categoriesDisplay.map(item =>
+                            <Grid item xs={6} lg={4}
+                                className={classes.input}
+                                key={item._id}
+                            >
                                 <FormControlLabel
                                     control={
                                         <Checkbox
@@ -159,12 +181,44 @@ export default props => {
                                         />}
                                     label={item.name}
                                 />
-                                </Grid>
-                            )}
                             </Grid>
-                        </FormGroup>
-                    </FormControl>
+                        )}
+                        </Grid>
+                    </FormGroup>
+                </FormControl>
             </Grid>
+
+            <Grid item xs={12} container>
+                <Grid item xs={12}>
+                    <TextField
+                        id="product-description"
+                        label="Description"
+                        multiline
+                        rowsMax='5'
+                        name='description'
+                        onChange={onChange}
+                        value={formData.description ? formData.description : ''}
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                    />
+                </Grid>
+                <Grid item xs={5} sm={3}>
+                    <FormControl variant="outlined">
+                        <InputLabel htmlFor="price">Price</InputLabel>
+                        <OutlinedInput
+                            id="product-price"
+                            name="price"
+                            type="number"
+                            value={formData.price ? parseFloat(formData.price) : ''}
+                            onChange={onChange}
+                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                            labelWidth={60}
+                        />
+                    </FormControl>
+                </Grid>
+            </Grid>
+
             <Grid item xs={12} container>
                 <Grid item xs={6}>
                     <FormControl component="fieldset" className={classes.formControl}>
@@ -184,7 +238,6 @@ export default props => {
                             </RadioGroup>
                     </FormControl>
                 </Grid>
-
                 <Grid item xs={6}>
                     <FormControl component="fieldset" className={classes.formControl}>
                         <FormLabel component="legend">Sizes Set:
@@ -207,43 +260,33 @@ export default props => {
                         </RadioGroup>
                     </FormControl>
                 </Grid>
+            </Grid>
 
-                <Grid item xs={12}>
-                    <TextField
-                        id="product-description"
-                        label="Description"
-                        multiline
-                        rowsMax='5'
-                        name='description'
-                        onChange={onChange}
-                        value={formData.description ? formData.description : ''}
-                        className={classes.textField}
-                        margin="normal"
-                        variant="outlined"
-                    />
-                </Grid>
-
-                <Grid item xs={5} sm={3}>
-                    <FormControl variant="outlined">
-                        <InputLabel htmlFor="price">Price</InputLabel>
-                        <OutlinedInput
-                            id="product-price"
-                            name="price"
-                            type="number"
-                            value={formData.price ? parseFloat(formData.price) : ''}
-                            onChange={onChange}
-                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                            labelWidth={60}
-                        />
-                    </FormControl>
-                </Grid>
+            <Grid item xs={12} container> Colors:
+                <FormControl component="fieldset" className={classes.formControl}>
+                    <FormGroup>
+                        <Grid container>
+                            {colorsBase.map(item =>
+                                <Grid item xs={6} lg={4}
+                                    className={classes.input}
+                                    key={item._id}
+                                >
+                                    <ColorItem
+                                        item={item}
+                                        formData={formData}
+                                        onChange={onChange}
+                                    />
+                                </Grid>
+                            )}
+                        </Grid>
+                    </FormGroup>
+                </FormControl>
             </Grid>
 
             <Grid container className={classes.paper}>
                 <Grid item xs={12}>
                     <UploadFile/>
                 </Grid>
-
                 <Grid item xs={12}> ВРЕМЕННОЕ ДОБАВЛЕНИЕ УРЛОВ ФОТОК (на ворнинг не обращаем внимания пока):
                     { [0,1,2,3,4].map((el, ind) =>
                         <TextField

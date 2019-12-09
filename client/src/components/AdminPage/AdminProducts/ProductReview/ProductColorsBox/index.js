@@ -11,20 +11,21 @@ import 'react-image-gallery/styles/css/image-gallery-no-icon.css';
 export default props => {
     const {item} = props;
 
-    const [css, setCss] = useState({backgroundColor: 'transparent'});
+    const [css, setCss] = useState({color: 'transparent'});
 
     useEffect(() => {
         if (item && item.color) {
-            setCss(item.color.cssValue);
+            setCss({color: item.color.cssValue});
         }
     }, [item])
 
-    const classes = useStyles();
-    // const classes = useStyles(css);
+    const cutName = (string, l) => string.length > l ? string.slice(0, l-2)+'..' : string;
+
+    const classes = useStyles(css);
 
     return (
         <>
-            <Box fontSize="body1.fontSize" pt={2} pb={2} textAlign='center' className={classes.colored} >  {item.color ? item.color.name.toUpperCase() : ''}</Box>
+            <Box fontSize="body1.fontSize"  pb={2} textAlign='center' className={classes.colored} >  {item.color ? cutName(item.color.name.toUpperCase(),6) : ''}</Box>
             {item.imgsColor[0] ?
                 <ImageGallery
                     items={item.imgsColor.map(url => ({original: url, thumbnail: url} ))}
@@ -32,7 +33,7 @@ export default props => {
                     showBullets={true}
                     showThumbnails={false}
                     thumbnailPosition={'top'}
-                /> : <></>
+                /> : <>No photos</>
             }
         </>
     )

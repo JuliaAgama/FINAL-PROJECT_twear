@@ -60,7 +60,9 @@ export default props => {
                 }
             </Grid>
             <Grid container className={classes.paperTwo}>
-                <Link to={""} className={classes.editBtn}> <OpenEditButton/> </Link>
+            {product ?
+                <Link to={"/admin/products/edit/colors/"+product.itemNo} className={classes.editBtn}> <OpenEditButton/> </Link> : <></>
+            }
                 <Grid item xs={12}>
                     <Box fontSize="h6.fontSize" ml={6} pt={2} pb={2}>
                         Product Colors

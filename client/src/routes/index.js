@@ -20,6 +20,7 @@ import AdminOptions from '../components/AdminPage/AdminOptions';
 import AdminProducts from '../components/AdminPage/AdminProducts';
 import AdminProductReview from '../components/AdminPage/AdminProducts/ProductReview';
 import AdminProductsEditNew from '../components/AdminPage/AdminProducts/EditNew';
+import AdminProductsEditNewColors from '../components/AdminPage/AdminProducts/EditNewColors';
 import PersonalCabinet from "../components/PersonalCabinet";
 import PrivateAdminRoute from "./PrivateAdmin";
 import PrivateRoute from "./PrivateRoute";
@@ -81,15 +82,17 @@ export const Router = () => (
                 <PrivateAdminRoute exact
                     path="/admin/products/:itemNo?"
                     component={props => <LayoutAdmin {...props}><AdminProductReview{...props}/></LayoutAdmin>}/>
-
                 {/* <Route exact */}
                 <PrivateAdminRoute exact
                     path="/admin/products/edit/:itemNo?"
                     component={props => <LayoutAdmin {...props}><AdminProductsEditNew{...props}/></LayoutAdmin>}/>
+                {/* <Route exact */}
+                <PrivateAdminRoute exact
+                    path="/admin/products/edit/colors/:itemNo?"
+                    component={props => <LayoutAdmin {...props}><AdminProductsEditNewColors{...props}/></LayoutAdmin>}/>
 
                 <Route path="*" component={NotFound}/>
             </Switch>
         </div>
     </React.Fragment>
 );
-

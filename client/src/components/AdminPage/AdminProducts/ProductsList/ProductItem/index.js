@@ -12,7 +12,7 @@ export default props => {
 
     const classes = useStyles();
 
-    const cutName = (string, l) => string.length >= l ? string.slice(0, l-3)+'...' : string;
+    const cutName = (string, l) => string.length > l ? string.slice(0, l-3)+'...' : string;
 
     return (
         <Grid item xs={12} sm={6} lg={4}>
@@ -27,7 +27,7 @@ export default props => {
                             </Box>
                         </Grid>
                         <Grid item>
-                            <Typography variant="body2" className={classes.title}>{cutName(item.name, 20)}</Typography>
+                            <Typography variant="body2" className={classes.title}>{cutName(item.name, 19)}</Typography>
                         </Grid>
                     </Grid>
                     <Grid item>
