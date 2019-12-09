@@ -39,10 +39,10 @@ export default props => {
   let [formData, setFormData] = useState({});
   let [imgURL, setImg] = useState("https://via.placeholder.com/150");
 
-  setImg = url => {
-    imgURL = url;
-    console.log("URL:", imgURL);
-  };
+  // setImg = url => {
+  //   imgURL = url;
+  //   console.log("URL:", imgURL);
+  // };
 
   useEffect(() => {
     if (categoryName) {
@@ -107,10 +107,6 @@ export default props => {
       })
         .then(r => {
           console.log("Response", r.data);
-          // // let imgTest = r.data.public_id;
-          // // let imgUrl = r.data.url;
-          // console.log(imgTest);
-          // console.log(imgUrl);
           console.log(r.data.url);
           setImg(r.data.url);
           setFormData({ img: r.data.url });
