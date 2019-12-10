@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as colorsActions from '../../../../../store/actions/colors';
 import ColorsApi from '../../../../../services/Colors';
 import ProductsApi from '../../../../../services/Products';
+import ArchivesApi from '../../../../../services/Archives';
 
 import { Grid, TextField, Tooltip } from '@material-ui/core';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -90,15 +91,17 @@ export default props => {
     };
 
     // handle deleting color:
-    const [productsMatched, setProductsMatched] = useState(null);
+    const [productsMatched, setProductsMatched] = useState([]);
 
     useEffect(() => {
         // let itemUnmounted = false;
         // if (!itemUnmounted) {
-            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(res));
+            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+            (new ArchivesApi()).getArchivesByMatch({color: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
         // };
         return () => {
-            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(res));
+            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+            (new ArchivesApi()).getArchivesByMatch({color: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
         }
 
 
@@ -130,9 +133,12 @@ export default props => {
     }, [item._id]);
 
     const checkMatchingProducts = () => {
-        if(productsMatched && productsMatched[0]) {
+        if(productsMatched[0]) {
             setWarningIsOpen(true);
-            setWarningText({title: `Cannot delete ${formData.name.toUpperCase()} color!`, description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}"`).join(', ')}!`});
+            setWarningText({
+                title: `Cannot delete ${formData.name.toUpperCase()} color!`,
+                description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}" (${el.itemNo})`).join(', ')}!`
+            });
             return true;
         };
         return false;

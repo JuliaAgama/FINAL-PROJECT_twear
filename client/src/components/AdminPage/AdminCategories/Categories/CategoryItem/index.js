@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import * as categoriesActions from '../../../../../store/actions/categories';
 import CategoriesApi from '../../../../../services/Categories';
 import ProductsApi from '../../../../../services/Products';
+import ArchivesApi from '../../../../../services/Archives';
 
 import { Typography, Box, Grid, ListItem, Divider, Tooltip } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -26,16 +27,20 @@ export default props => {
     // handle deleting category:
     const [warningIsOpen, setWarningIsOpen] = useState(false);
     const [warningText, setWarningText] = useState({title: '', description: ''});
-    const [productsMatched, setProductsMatched] = useState(null);
+    const [productsMatched, setProductsMatched] = useState([]);
 
     useEffect(() => {
-        (new ProductsApi()).getProductsByMatch({category: item._id}).then(res => setProductsMatched(res));
+        (new ProductsApi()).getProductsByMatch({category: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+        (new ArchivesApi()).getArchivesByMatch({category: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
     }, [item]);
-
+    
     const checkMatchingProducts = () => {
-        if(productsMatched && productsMatched[0]) {
+        if(productsMatched[0]) {
             setWarningIsOpen(true);
-            setWarningText({title: `Cannot delete ${itemName.toUpperCase()} category!`, description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}"`).join(', ')}!`});
+            setWarningText({
+                title: `Cannot delete ${itemName.toUpperCase()} category!`,
+                description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}" (${el.itemNo})`).join(', ')}!`
+            });
             return true;
         };
         return false;

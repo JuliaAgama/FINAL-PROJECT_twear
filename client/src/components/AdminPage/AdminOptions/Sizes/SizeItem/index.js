@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as sizesActions from '../../../../../store/actions/sizes';
 import SizesApi from '../../../../../services/Sizes';
 import ProductsApi from '../../../../../services/Products';
+import ArchivesApi from '../../../../../services/Archives';
 
 import { Grid, TextField, Tooltip } from '@material-ui/core';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -74,15 +75,19 @@ export default props => {
     };
 
     // handle deleting size:
-    const [productsMatched, setProductsMatched] = useState(null);
+    const [productsMatched, setProductsMatched] = useState([]);
     useEffect(() => {
-        (new ProductsApi()).getProductsByMatch({size: item._id}).then(res => setProductsMatched(res));
+        (new ProductsApi()).getProductsByMatch({size: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+            (new ArchivesApi()).getArchivesByMatch({size: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
     }, [item]);
 
     const checkMatchingProducts = () => {
-        if(productsMatched && productsMatched[0]) {
+        if(productsMatched[0]) {
             setWarningIsOpen(true);
-            setWarningText({title: `Cannot delete ${formData.name.toUpperCase()} size!`, description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}"`).join(', ')}!`});
+            setWarningText({
+                title: `Cannot delete ${formData.name.toUpperCase()} size!`,
+                description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}" (${el.itemNo})`).join(', ')}!`
+        });
             return true;
         };
         return false;
