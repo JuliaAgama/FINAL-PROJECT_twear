@@ -9,6 +9,7 @@ const {
   addImages,
   addArchive,
   updateArchive,
+  deleteArchive,
   getArchives,
   getArchive,
   getArchiveByItemNo,
@@ -58,7 +59,7 @@ const upload = multer({
 // @access  Private
 router.post(
   "/images",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   upload.array("photos"),
   addImages
 );
@@ -79,6 +80,15 @@ router.put(
   "/:id",
   // passport.authenticate("jwt-admin", { session: false }),
   updateArchive
+);
+
+// @route   DELETE /archives/:id
+// @desc    Delete existing archive
+// @access  Private
+router.delete(
+  "/:id",
+  // passport.authenticate("jwt-admin", { session: false }),
+  deleteArchive
 );
 
 // @route   GET /archives

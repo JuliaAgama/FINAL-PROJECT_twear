@@ -32,11 +32,11 @@ export default props => {
             item.sizeType && checkSizeType(item.sizeType._id) ?
             setSizeTypeLocked(true) : setSizeTypeLocked(false);
         }
-    },[item, itemNo]);
+    },[item, itemNo, topCatsBase]);
 
     useEffect(()=> {
         setCategoriesDisplay(categoriesBase.filter(el => el.topCategory._id === selectedTopCat._id));
-    },[selectedTopCat]);
+    },[selectedTopCat, categoriesBase]);
 
     const onChangeTopCat = id => {
         id && id !== '' ? setSelectedTopCat(topCatsBase.find(el => el._id === id)) : setSelectedTopCat({_id: ''});
@@ -90,7 +90,7 @@ export default props => {
 
         } else if (event.target.name.includes('imgs')) {
             if(formData.imgs ) {
-                let changedUrl =  formData.imgs.splice(parseInt(event.target.name), 1, event.target.value);
+                formData.imgs.splice(parseInt(event.target.name), 1, event.target.value);
                 setFormData({
                     ...formData
                 });
@@ -113,7 +113,7 @@ export default props => {
         event.preventDefault();
         onSubmitHandler(formData);
     };
-
+    
     const classes = useStyles();
 
     return (
@@ -164,7 +164,7 @@ export default props => {
                 </Grid>
                 <FormControl component="fieldset" className={classes.formControl}>
                     <FormGroup>
-                        <Grid container>
+                        <Grid container spacing={3}>
                         {categoriesDisplay.map(item =>
                             <Grid item xs={6} lg={4}
                                 className={classes.input}

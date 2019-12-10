@@ -115,6 +115,33 @@ exports.updateArchive = (req, res, next) => {
       })
     );
 };
+exports.deleteArchive = (req, res, next) => {
+  Archive.findOne({_id: req.params.id }).then(async archive => {
+    if (!archive) {
+      return res
+      .status(400)
+      .json({
+        message: `Product with id "${req.params.id}" is not found in archive.`
+      });
+    } else {
+      const archiveToDelete = await Archive.findOne({_id: req.params.id });
+
+      Archive.deleteOne({_id: req.params.id })
+        .then(deletedCount =>
+          res.status(200).json({
+            message: `Product "${archiveToDelete.name.toUpperCase()}" witn id "${archiveToDelete.id}" is successfully deleted from Archive in DB.`,
+            deletedArchiveInfo: archiveToDelete
+          })
+        )
+        .catch(err =>
+          res.status(400).json({
+            message: `Error happened on server: "${err}" `
+          })
+        );
+    }
+  });
+};
+
 
 exports.getArchives = (req, res, next) => {
   const perPage = Number(req.query.perPage);

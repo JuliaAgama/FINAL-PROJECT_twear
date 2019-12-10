@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from 'react';
 
-import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, OutlinedInput, InputAdornment, InputLabel } from '@material-ui/core';
+import { Box, Grid, TextField } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
-import UploadFile from '../../../../common/inputs/UploadFile';
+// import UploadFile from '../../../../common/inputs/UploadFile';
 
 
 export default props => {
 
     const { item, colorsBase, onChangeColor} = props;
 
-    const [formData, setFormData] = useState({});
+    // const [formData, setFormData] = useState({});
     const [colorLocked, setColorLocked] = useState(false);
 
     const productsExist = () => item && item.sizes.some(el => parseInt(el.quantity) > 0) ? true : false;
@@ -30,6 +30,7 @@ export default props => {
             setCss({color: item.color.cssValue});
         }
     }, [item])
+    
     const classes = useStyles(css);
 
     return (

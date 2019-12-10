@@ -6,7 +6,7 @@ const path = require("path");
 const cors = require("cors");
 require("dotenv").config();
 
-const archives = require("./routes/cart");
+const archives = require("./routes/archives");
 const cart = require("./routes/cart");
 const categories = require("./routes/categories");
 const colors = require("./routes/colors");

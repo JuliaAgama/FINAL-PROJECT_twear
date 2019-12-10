@@ -5,12 +5,12 @@ import * as sizesActions from '../../../../../store/actions/sizes';
 import SizesApi from '../../../../../services/Sizes';
 import ProductsApi from '../../../../../services/Products';
 
-import { Grid, TextField } from '@material-ui/core';
+import { Grid, TextField, Tooltip } from '@material-ui/core';
+import PublishIcon from '@material-ui/icons/Publish';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import useStyles from './useStyles';
 
-import SaveButton from '../../../../common/buttons/Save';
-import DeleteButton from '../../../../common/buttons/Delete';
 import WarningModal from '../../../../common/messages/WarningModal';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
@@ -136,16 +136,17 @@ export default props => {
                             />
                         </Grid>
                         <Grid item xs={1}>
-                            <SaveButton
-                                onClick={saveSize}
-                                size="small"
-                                className={formData.name === item.name ? '' : 'fabGreenFilled' }/>
+                            <Tooltip title="Save" >
+                                <PublishIcon aria-label="save" className={formData.name === item.name ? classes.saveBtn : classes.saveBtnFilled} onClick={saveSize}/>
+                            </Tooltip>
                         </Grid>
                         <Grid item xs={2}></Grid>
                         <Grid item xs={1}>
                             {item._id ?
-                                <DeleteButton  onClick={openConfirm}  size="small"/> :
-                                <></>
+                            <Tooltip title="Delete" >
+                                <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={openConfirm}/>
+                            </Tooltip> :
+                            <></>
                             }
                         </Grid>
                         <Grid item xs={2}></Grid>

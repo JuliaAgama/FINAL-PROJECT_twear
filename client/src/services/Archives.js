@@ -42,7 +42,7 @@ export default class Archives extends Base {
         .then(res => res.data)
     }
 
-    deleteArchiveById(archive){
+    deleteArchive(archive){
         return super.delete(`archives/${archive._id}`, archive)
         .then(res => res.data)
     }

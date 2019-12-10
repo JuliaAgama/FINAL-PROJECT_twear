@@ -1,14 +1,12 @@
 import React, {useState} from "react";
-import Button from "@material-ui/core/Button";
-import InputBase from "@material-ui/core/InputBase";
+
+import {InputBase, ClickAwayListener, Hidden, Container} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Hidden from "@material-ui/core/Hidden";
+
 import useStyles from "./useStyles";
-import {Container} from "@material-ui/core";
 
 
-export default function Search() {
+export default () => {
 
     const classes = useStyles();
     const [isVisible, setVisibility] = useState(false);
@@ -33,4 +31,4 @@ export default function Search() {
             </Hidden>
         </React.Fragment>
     );
-}
+};

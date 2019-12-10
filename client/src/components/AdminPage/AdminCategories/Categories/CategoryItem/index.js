@@ -6,12 +6,12 @@ import * as categoriesActions from '../../../../../store/actions/categories';
 import CategoriesApi from '../../../../../services/Categories';
 import ProductsApi from '../../../../../services/Products';
 
-import { Typography, Box, Grid, ListItem, Divider } from '@material-ui/core';
+import { Typography, Box, Grid, ListItem, Divider, Tooltip } from '@material-ui/core';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import useStyles from './useStyles';
 
-import OpenEditButton from '../../../../common/buttons/Edit';
-import DeleteButton from '../../../../common/buttons/Delete';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
 import WarningModal from '../../../../common/messages/WarningModal';
 
@@ -90,12 +90,16 @@ export default props => {
 
                 <Grid item xs={12} sm container className={classes.container}>
                     <Grid item>
-                        <Link to={"/admin/categories/"+item.name}>
-                            <OpenEditButton size="small"/>
-                        </Link>
+                        <Tooltip title="Edit" >
+                            <Link to={"/admin/categories/"+item.name}>
+                                <EditOutlinedIcon className={classes.editBtn}/>
+                            </Link>
+                        </Tooltip>
                     </Grid>
                     <Grid item>
-                        <DeleteButton size="small" onClick={openConfirm}/>
+                        <Tooltip title="Delete" >
+                            <DeleteOutlineOutlinedIcon className={classes.deleteBtn} onClick={openConfirm}/>
+                        </Tooltip>
                     </Grid>
                 </Grid>
             </Grid>

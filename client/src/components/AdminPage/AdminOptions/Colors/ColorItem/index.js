@@ -6,12 +6,12 @@ import * as colorsActions from '../../../../../store/actions/colors';
 import ColorsApi from '../../../../../services/Colors';
 import ProductsApi from '../../../../../services/Products';
 
-import { Typography, Box, Grid, TextField } from '@material-ui/core';
+import { Grid, TextField, Tooltip } from '@material-ui/core';
+import PublishIcon from '@material-ui/icons/Publish';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import useStyles from './useStyles';
 
-import SaveButton from '../../../../common/buttons/Save';
-import DeleteButton from '../../../../common/buttons/Delete';
 import WarningModal from '../../../../common/messages/WarningModal';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
@@ -192,14 +192,15 @@ export default props => {
                     </Grid>
                     <Grid item xs={12} sm container className={classes.container}>
                         <Grid item>
-                            <SaveButton
-                                onClick={saveColor}
-                                size="small"
-                                className={formData.name === item.name && formData.cssValue === item.cssValue ? '' : 'fabGreenFilled' }/>
+                            <Tooltip title="Save" >
+                                <PublishIcon aria-label="save" className={formData.name === item.name && formData.cssValue === item.cssValue ? classes.saveBtn : classes.saveBtnFilled} onClick={saveColor}/>
+                            </Tooltip>
                         </Grid>
                         <Grid item>
                             {item._id ?
-                            <DeleteButton  onClick={openConfirm}  size="small"/> :
+                            <Tooltip title="Delete" >
+                                <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={openConfirm}/>
+                            </Tooltip> :
                             <></>
                             }
                         </Grid>

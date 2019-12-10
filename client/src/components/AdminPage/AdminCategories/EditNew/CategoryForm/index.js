@@ -25,7 +25,7 @@ export default props => {
         } else if (topCatName && item) {
             setFormData(item);
         }
-    },[categoryName, topCatName, item]);
+    },[categoryName, topCatName, item, topCatsBase]);
 
     const onChange = event => {
         if (event.target.name === 'gender') {

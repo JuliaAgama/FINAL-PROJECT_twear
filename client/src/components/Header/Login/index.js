@@ -1,12 +1,15 @@
 import React, {useEffect} from "react";
-import PersonIcon from '@material-ui/icons/Person';
-import {Link} from "react-router-dom";
-import {openLoginModalAction} from "../../../store/actions/modal";
 import {useDispatch, useSelector} from "react-redux";
-import useStyles from "./useStyles";
+import {Link} from "react-router-dom";
+
 import {getCustomerAction} from "../../../store/actions/customer";
-import {Container} from "@material-ui/core";
+import {openLoginModalAction} from "../../../store/actions/modal";
 import {hideDesktopCategoriesMenuAction, hideMobileMenuAction} from "../../../store/actions/header";
+
+import {Container} from "@material-ui/core";
+import PersonIcon from '@material-ui/icons/Person';
+
+import useStyles from "./useStyles";
 
 
 export default function Login() {
@@ -14,7 +17,7 @@ export default function Login() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const customer = useSelector(state => state.customers.customer);
-    useEffect(() => {dispatch(getCustomerAction())},[]);
+    useEffect(() => {dispatch(getCustomerAction())},[dispatch]);
     const show  = useSelector(state => state.header.show);
     const showMobileMenu  = useSelector(state => state.header.showMobileMenu);
     const clickHandler = () => {

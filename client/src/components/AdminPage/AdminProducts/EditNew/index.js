@@ -92,7 +92,7 @@ export default props => {
 
     useEffect(() => {
         if(productError || topCatsError || categoriesError || gendersError || sizeTypesError || colorsError) {setErrorIsOpen(true)}
-    },[productError, topCatsError, categoriesError, productError, gendersError, sizeTypesError, colorsError]
+    },[productError, topCatsError, categoriesError, gendersError, sizeTypesError, colorsError]
     );
 
     const errorModalText = {

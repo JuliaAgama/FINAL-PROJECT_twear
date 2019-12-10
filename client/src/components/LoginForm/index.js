@@ -11,7 +11,7 @@ import {Container, Grid, Button} from "@material-ui/core";
 import useStyles from "./useStyles";
 
 import {required, minLength, maxLength, emptyString, password} from '../common/validators';
-import {renderTextField} from "../common/inputFields";
+import {renderTextField} from "../common/inputs/inputFields";
 import Spinner from '../common/Spinner'
 
 

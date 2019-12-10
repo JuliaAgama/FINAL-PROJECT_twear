@@ -30,7 +30,7 @@ export default props => {
     useEffect(() => {
         productsActions.getProductsByFilter(`itemNo=${itemNo}`)(dispatch);
         // getSizesList();
-    }, [dispatch])
+    }, [dispatch, itemNo])
 
     const products = useSelector(state => state.products.productsFiltered.products);
     // const sizes = useSelector(state => state.sizes.sizes);

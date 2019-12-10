@@ -29,7 +29,7 @@ export default props => {
     };
 
     const classes = useStyles();
-
+    
     return (
         <>
         {
@@ -38,7 +38,7 @@ export default props => {
                 <div className={classes.wrapper}>
                     <Grid container className={classes.paper}>
                         {sizesList
-                            .map(item => item.sizeType === sizeTypeId ?
+                            .map(item => item.sizeType._id === sizeTypeId ?
                                 <SizeItem
                                     item={item}
                                     key={item._id}

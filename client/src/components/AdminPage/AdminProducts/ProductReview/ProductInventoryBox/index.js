@@ -1,9 +1,9 @@
 import React, {useMemo} from 'react';
 import { useTable } from 'react-table';
 
-import { Typography, Box, Grid, CssBaseline, MaUTable, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+// import { Typography, Box, Grid, CssBaseline, MaUTable, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 
-import useStyles from './useStyles';
+// import useStyles from './useStyles';
 
 // import makeData from './makeData';
 
@@ -47,7 +47,7 @@ export default props => {
     // const { getTableProps,  getTableHeaderProps,  headerGroups,  rows, prepareRow } = useTable({ columns,  data });
 
 
-    const classes = useStyles();
+    // const classes = useStyles();
 
     return (
         <>

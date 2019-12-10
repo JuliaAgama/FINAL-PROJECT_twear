@@ -5,12 +5,12 @@ import * as sizeTypesActions from '../../../../../store/actions/sizeTypes';
 import SizeTypesApi from '../../../../../services/SizeTypes';
 import SizesApi from '../../../../../services/Sizes';
 
-import { Grid, TextField } from '@material-ui/core';
+import { Grid, TextField, Tooltip, IconButton } from '@material-ui/core';
+import PublishIcon from '@material-ui/icons/Publish';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import useStyles from './useStyles';
 
-import SaveButton from '../../../../common/buttons/Save';
-import DeleteButton from '../../../../common/buttons/Delete';
 import WarningModal from '../../../../common/messages/WarningModal';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
 import Sizes from '../../Sizes';
@@ -123,7 +123,7 @@ export default props => {
         <>
             <Grid item xs={12} sm={6} lg={4} className={classes.paper}>
                 <form autoComplete="off">
-                    <Grid container className={classes.container}>
+                    <Grid container className={classes.container} spacing={1}>
                         <Grid item xs={6}>
                             <TextField
                                 className={classes.textField}
@@ -136,16 +136,21 @@ export default props => {
                             />
                         </Grid>
                         <Grid item xs={3}>
-                            <SaveButton
-                                onClick={saveSizeType}
-                                size="medium"
-                                className={formData.name === item.name ? '' : 'fabGreenFilled' }/>
+                            <Tooltip title="Save" >
+                                <IconButton aria-label="save" className={formData.name === item.name ? classes.saveBtn : classes.saveBtnFilled} onClick={saveSizeType}>
+                                    <PublishIcon/>
+                                </IconButton>
+                            </Tooltip>
                         </Grid>
                         <Grid item xs={3}>
+                        <Tooltip title="Delete" >
                             {item._id ?
-                                <DeleteButton  onClick={openConfirm}  size="medium"/> :
+                                <IconButton aria-label="delete" className={classes.deleteBtn} onClick={openConfirm}>
+                                    <DeleteOutlineOutlinedIcon />
+                                </IconButton> :
                                 <></>
                             }
+                        </Tooltip>
                         </Grid>
                         <Grid item xs={2}></Grid>
                     </Grid>

@@ -5,7 +5,7 @@ import ProductGallery from "../common/ProductsGallery";
 
 export default () => {
     const dispatch = useDispatch();
-    useEffect(() => {dispatch(getAllProducts())},[]);
+    useEffect(() => {dispatch(getAllProducts())},[dispatch]);
     let products = useSelector(state => state.products.products);
     products.splice(4);
     return <ProductGallery products={products}/>

@@ -23,7 +23,7 @@ import AdminProductsEditNew from '../components/AdminPage/AdminProducts/EditNew'
 import AdminProductsEditNewColors from '../components/AdminPage/AdminProducts/EditNewColors';
 import PersonalCabinet from "../components/PersonalCabinet";
 import PrivateAdminRoute from "./PrivateAdmin";
-import PrivateRoute from "./PrivateRoute";
+// import PrivateRoute from "./PrivateRoute";
 import AccessDenied from "../components/AccessDenied";
 
 
