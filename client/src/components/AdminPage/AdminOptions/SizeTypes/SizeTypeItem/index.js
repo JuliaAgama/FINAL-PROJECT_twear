@@ -27,6 +27,9 @@ export default props => {
 
     useEffect(()=> {
         setFormData(item);
+        return () => {
+            setFormData({_id: '', name: ''});
+        }
     },[item]);
 
     const onChange = event => {
@@ -78,6 +81,9 @@ export default props => {
     const [sizesMatched, setSizesMatched] = useState(null);
     useEffect(() => {
         (new SizesApi()).getSizesByMatch({sizeType: item._id}).then(res => setSizesMatched(res));
+        return () => {
+            setSizesMatched(null);
+        }
     }, [item]);
 
     const checkMatchingSizes = () => {

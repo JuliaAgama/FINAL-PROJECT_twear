@@ -7,7 +7,7 @@ export default makeStyles(theme => (
             flexGrow: 1,
             maxWidth: '100%',
             margin: `${theme.spacing(2)} auto`,
-            borderTop: `solid 1px #666666`,
+            borderBottom: `solid 1px #666666`,
             textTransform: 'capitalize',
         },
         container: {

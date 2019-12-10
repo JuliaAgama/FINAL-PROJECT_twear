@@ -32,7 +32,7 @@ export default props => {
     useEffect(() => {
         (new ProductsApi()).getProductsByMatch({category: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
         (new ArchivesApi()).getArchivesByMatch({category: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
-    }, [item]);
+    }, [item, productsMatched]);
     
     const checkMatchingProducts = () => {
         if(productsMatched[0]) {

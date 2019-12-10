@@ -33,7 +33,7 @@ export default props => {
             setFormData(item);
         // };
         return () => {
-            setFormData(item);
+            setFormData({_id: '', name: ''});
         }
     },[item]);
 
@@ -100,11 +100,8 @@ export default props => {
             (new ArchivesApi()).getArchivesByMatch({color: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
         // };
         return () => {
-            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
-            (new ArchivesApi()).getArchivesByMatch({color: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+            setProductsMatched([]);
         }
-
-
 
         // пробовала следующее, не сработало (везде примеры только с гет-запросами, а мне нужен пост-запрос).....
 
@@ -130,7 +127,8 @@ export default props => {
         // return () => {
         //     source.cancel();
         // };
-    }, [item._id]);
+    }, [item]);
+    // }, [item, productsMatched]);
 
     const checkMatchingProducts = () => {
         if(productsMatched[0]) {

@@ -48,6 +48,11 @@ export default withWidth()(() => {
         getTopCatsList();
         getCategoriesList();
         getProductsList();
+        return () => {
+            getTopCatsList();
+            getCategoriesList();
+            getProductsList();
+        }
     }, []);
 
     const topCatsList = useSelector(state => state.topCats.topCats);
@@ -66,6 +71,9 @@ export default withWidth()(() => {
 
     useEffect(() => {
         if(topCatsError || categoriesError || productsError) {setErrorIsOpen(true)}
+        return () => {
+            setErrorIsOpen(false);
+        }
     },[topCatsError, categoriesError, productsError]
     );
 
@@ -78,6 +86,9 @@ export default withWidth()(() => {
 
     useEffect(() => {
         setCategoriesDisplay(categoriesList);
+        return () => {
+            setCategoriesDisplay([]);
+        }
     }, [categoriesList]);
 
     const onChangeTopCat = (id) => {

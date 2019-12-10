@@ -106,9 +106,9 @@ export default withWidth()(() => {
                                     }
                                 </Box>
                             </Collapse>
-                            <Divider />
                         </Box>
                     ))}
+                    <Divider/>
                 </List>
             </Box>
             <ErrorModal

@@ -27,6 +27,9 @@ export default props => {
 
     useEffect(()=> {
         setFormData(item);
+        return () => {
+            setFormData({_id: '', name: ''});
+        }
     },[item]);
 
     const onChange = event => {
@@ -79,7 +82,11 @@ export default props => {
     useEffect(() => {
         (new ProductsApi()).getProductsByMatch({size: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
             (new ArchivesApi()).getArchivesByMatch({size: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+        return () => {
+            setProductsMatched([]);
+        }
     }, [item]);
+    // }, [item, productsMatched]);
 
     const checkMatchingProducts = () => {
         if(productsMatched[0]) {
