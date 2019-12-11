@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -10,9 +10,12 @@ import useStyles from './useStyles';
 
 import ProductBasicBox from './ProductBasicBox';
 import ProductColorsBox from './ProductColorsBox';
+import ProductEnabledBox from './ProductEnabledBox';
 import ProductInventoryBox from './ProductInventoryBox';
-import Spinner from '../../../common/Spinner';
+
 import OpenEditButton from '../../../common/buttons/Edit';
+import Notification from '../../../common/messages/Notification';
+import Spinner from '../../../common/Spinner';
 
 import 'react-image-gallery/styles/css/image-gallery-no-icon.css';
 
@@ -24,22 +27,28 @@ export default props => {
     const dispatch = useDispatch();
 
     // const getSizesByParentId = (id) => {
-    //     sizesActions.getAllSizeTypes()(dispatch);
-    // };
+        //     sizesActions.getAllSizeTypes()(dispatch);
+        // };
 
-    useEffect(() => {
-        productsActions.getProductsByFilter(`itemNo=${itemNo}`)(dispatch);
-        // getSizesList();
-    }, [dispatch, itemNo])
+        useEffect(() => {
+            productsActions.getProductsByFilter(`itemNo=${itemNo}`)(dispatch);
+            // getSizesList();
+        }, [dispatch, itemNo])
 
-    const products = useSelector(state => state.products.productsFiltered.products);
-    // const sizes = useSelector(state => state.sizes.sizes);
+        const products = useSelector(state => state.products.productsFiltered.products);
+        // const sizes = useSelector(state => state.sizes.sizes);
 
-    const [product, setProduct] = useState(null);
+        const [product, setProduct] = useState(null);
 
     useEffect(() => {
         if(products && products[0]) {setProduct(products[0]);}
     }, [products]);
+
+        const ref = useRef(null);
+        const timeout = 2000;
+        const handleNotification = item => {
+            ref.current(`Product ${item.name.toUpperCase()} has been updated!`);
+        };
 
 
     const classes = useStyles();
@@ -75,9 +84,24 @@ export default props => {
                                 <ProductColorsBox item={item}/>
                             </Grid>
                         </Grid>
-                    )) : <Spinner/>
+                    ))  : product ?
+                        <Box className={classes.light} pl={3}> No info of colors. Select at least one color </Box>: <Spinner/>
                 }
             </Grid>
+
+            {product ?
+                <Grid container className={classes.paperThree} spacing={2}>
+                    <Grid item>
+                        Published in catalog:
+                    </Grid>
+                    <Grid item>
+                        <ProductEnabledBox
+                            handleNotification={handleNotification}
+                        />
+                    </Grid>
+                </Grid> : <></>
+            }
+
             <Grid container className={classes.paperOne}>
                 <Grid item xs={12}>
                     <Box fontSize="h6.fontSize" ml={6} pt={2} pb={2}>
@@ -88,14 +112,19 @@ export default props => {
                     {product && product.colors[0] ?
                     <>
                         <CssBaseline />
-                        <ProductInventoryBox product={product}/>
-                    </> : <Spinner/>
+                        <ProductInventoryBox
+                            handleNotification={handleNotification}
+                        />
+                    </> : product ?
+                        <Box className={classes.light} pl={3}> No info of quantity. Select at least one color </Box> : <Spinner/>
                     }
                 </Grid>
 
             </Grid>
             <Link to={`/admin/products`} className={classes.link}> {`<<   to Products List`} </Link>
         </Typography>
+
+        <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     )
 };

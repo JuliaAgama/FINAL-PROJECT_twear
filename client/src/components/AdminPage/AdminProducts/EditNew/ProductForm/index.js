@@ -113,7 +113,7 @@ export default props => {
         event.preventDefault();
         onSubmitHandler(formData);
     };
-    
+
     const classes = useStyles();
 
     return (
@@ -150,7 +150,7 @@ export default props => {
                 </Grid>
             </Grid>
 
-            <Grid item xs={12} container>
+            <Grid item xs={12} container >
                 <Grid item xs={6}  className={classes.input}>
                     <Box pt={2} pb={1}>Select Categories: </Box>
                 </Grid>
@@ -219,8 +219,8 @@ export default props => {
                 </Grid>
             </Grid>
 
-            <Grid item xs={12} container>
-                <Grid item xs={6}>
+            <Grid item xs={12} container className={classes.bottomDivider}>
+                <Grid item xs={12} sm={6}>
                     <FormControl component="fieldset" className={classes.formControl}>
                         <FormLabel component="legend">Gender:</FormLabel>
                             <RadioGroup aria-label="genders" name="gender">
@@ -238,7 +238,7 @@ export default props => {
                             </RadioGroup>
                     </FormControl>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                     <FormControl component="fieldset" className={classes.formControl}>
                         <FormLabel component="legend">Sizes Set:
                             { sizeTypeLocked ?
@@ -259,6 +259,43 @@ export default props => {
                             )}
                         </RadioGroup>
                     </FormControl>
+                </Grid>
+            </Grid>
+
+            <Grid item xs={12} container className={classes.bottomDivider}>
+                <Grid item xs={12}>Product Images</Grid>
+                {formData && formData.imgs ? formData.imgs.map(url =>
+                    <Grid item xs={4} sm={2}
+                        className={classes.imgItem}
+                        key={Math.random()}
+                    >
+                        <Box className={classes.imgContainer}>
+                            <img
+                                className={classes.img}
+                                src={url}
+                                alt="NOT FOUND"/>
+
+                        </Box>
+                    </Grid>
+                    ) : <></>
+                }
+                <Grid item xs={12}>
+                    <UploadFile/>
+                </Grid>
+                <Grid item xs={12}> ВРЕМЕННОЕ РЕДАКТИРОВАНИЕ УРЛОВ ФОТОК (на ворнинг не обращаем внимания):
+                    { [0,1,2,3,4].map((el, ind) =>
+                        <TextField
+                            key={el}
+                            id={'imgs-'+ind}
+                            label={'imgs-'+(ind+1)}
+                            name={ind+'-imgs'}
+                            onChange={onChange}
+                            value={formData.imgs ? formData.imgs[ind] : ''}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    )}
                 </Grid>
             </Grid>
 
@@ -283,34 +320,13 @@ export default props => {
                 </FormControl>
             </Grid>
 
-            <Grid container className={classes.paper}>
-                <Grid item xs={12}>
-                    <UploadFile/>
-                </Grid>
-                <Grid item xs={12}> ВРЕМЕННОЕ ДОБАВЛЕНИЕ УРЛОВ ФОТОК (на ворнинг не обращаем внимания пока):
-                    { [0,1,2,3,4].map((el, ind) =>
-                        <TextField
-                            key={el}
-                            id={'imgs-'+ind}
-                            label={'imgs-'+(ind+1)}
-                            name={ind+'-imgs'}
-                            onChange={onChange}
-                            value={formData.imgs ? formData.imgs[ind] : ''}
-                            className={classes.textField}
-                            margin="normal"
-                            variant="outlined"
-                        />
-                    )}
-                </Grid>
-
-                <Grid item xs={12}>
-                    <Button
-                    fullWidth={true}
-                    variant="outlined"
-                    className={classes.btn}
-                    onClick={onSubmit}
-                    > {`SAVE`}</Button>
-                </Grid>
+            <Grid item xs={12}>
+                <Button
+                fullWidth={true}
+                variant="outlined"
+                className={classes.btn}
+                onClick={onSubmit}
+                > {`SAVE`}</Button>
             </Grid>
         </form>
     )

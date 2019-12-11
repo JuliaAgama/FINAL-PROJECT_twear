@@ -9,7 +9,7 @@ import { Typography, Box } from '@material-ui/core';
 
 import useStyles from "./useStyles";
 
-import ColorInput from './ColorInput';
+import ColorItem from './ColorItem';
 import ErrorModal from '../../../common/messages/ErrorModal';
 import WarningModal from '../../../common/messages/WarningModal';
 import Notification from '../../../common/messages/Notification';
@@ -74,6 +74,9 @@ export default props => {
 
     const ref = useRef(null);
     const timeout = 2000;
+    const handleNotification = item => {
+        ref.current(`Product ${item.name.toUpperCase()} has been updated!`);
+    };
 
     // handle warning:
     const [warningIsOpen, setWarningIsOpen] = useState(false);
@@ -111,11 +114,12 @@ export default props => {
                     <Typography component="div" variant="body1" className={classes.wrapper}>
                         {product.colors && product.colors[0] ?
                             product.colors.map(item =>
-                                <ColorInput
+                                <ColorItem
                                     key={item._id || Math.random()}
                                     item={item}
                                     colorsBase={colorsBase}
                                     onChangeColor={onChangeColor}
+                                    handleNotification={handleNotification}
                                 /> ) : <></>
                         }
                     </Typography> : <Spinner/>
