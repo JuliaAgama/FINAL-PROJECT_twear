@@ -46,6 +46,20 @@ export default props => {
         });
     };
 
+    const onChangeColor = event => {
+        event.target.checked ?
+        setFormData({
+            ...formData,
+            colors: formData.colors ?
+            [...formData.colors.filter(el => el && el.color && el.color._id !== event.target.value), {color: colorsBase.find(item => item._id === event.target.id)}] :
+            [{color: colorsBase.find(item => item._id === event.target.id)}]
+        }) :
+        setFormData({
+            ...formData,
+            colors: [...formData.colors.filter(el => el && el.color && el.color._id !== event.target.id)]
+        })
+    };
+
     const onChange = event => {
 
         if (event.target.name === 'categories') {
@@ -74,19 +88,6 @@ export default props => {
                     sizeType: sizeTypesBase.find(el => el._id === event.target.value)
                 });
             }
-
-        } else if (event.target.name === 'colors') {
-                event.target.checked ?
-                setFormData({
-                    ...formData,
-                    colors: formData.colors ?
-                    [...formData.colors.filter(el => el && el.color && el.color._id !== event.target.value), {color: colorsBase.find(item => item._id === event.target.id)}] :
-                    [{color: colorsBase.find(item => item._id === event.target.id)}]
-                }) :
-                setFormData({
-                    ...formData,
-                    colors: [...formData.colors.filter(el => el && el.color && el.color._id !== event.target.id)]
-                })
 
         } else if (event.target.name.includes('imgs')) {
             if(formData.imgs ) {
@@ -311,7 +312,8 @@ export default props => {
                                     <ColorItem
                                         item={item}
                                         formData={formData}
-                                        onChange={onChange}
+                                        optionItem={formData.colors && formData.colors[0] ? formData.colors.find(el => el.color._id ===item._id) : null}
+                                        onChange={onChangeColor}
                                     />
                                 </Grid>
                             )}

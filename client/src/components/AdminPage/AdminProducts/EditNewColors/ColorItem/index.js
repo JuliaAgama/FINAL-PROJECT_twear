@@ -12,15 +12,6 @@ export default props => {
     const { item, colorsBase, onChangeColor} = props;
 
     // const [formData, setFormData] = useState({});
-    const [colorLocked, setColorLocked] = useState(false);
-
-    const productsExist = () => item && item.sizes.some(el => parseInt(el.quantity) > 0) ? true : false;
-
-    useEffect(()=> {
-        if (item ) {
-            item.color && item.color._id && productsExist() ? setColorLocked(true) : setColorLocked(false);
-        }
-    },[item]);
 
 
     const [css, setCss] = useState({color: 'transparent'});
@@ -30,7 +21,7 @@ export default props => {
             setCss({color: item.color.cssValue});
         }
     }, [item])
-    
+
     const classes = useStyles(css);
 
     return (
