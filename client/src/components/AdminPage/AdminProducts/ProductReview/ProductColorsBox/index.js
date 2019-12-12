@@ -26,7 +26,7 @@ export default props => {
     return (
         <>
             <Box fontSize="body1.fontSize"  pb={2} textAlign='center' className={classes.colored} >  {item.color ? cutName(item.color.name.toUpperCase(),6) : ''}</Box>
-            {item.imgsColor[0] ?
+            {item.imgsColor ?
                 <ImageGallery
                     items={item.imgsColor.map(url => ({original: url, thumbnail: url} ))}
                     showIndex={true}

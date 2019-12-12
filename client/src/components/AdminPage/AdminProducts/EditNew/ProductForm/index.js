@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, OutlinedInput, InputAdornment, InputLabel } from '@material-ui/core';
+import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, OutlinedInput, InputAdornment, InputLabel, Tooltip } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -82,12 +82,10 @@ export default props => {
             });
 
         } else if (event.target.name === 'sizeType') {
-            if (sizeTypeLocked === false) {
-                setFormData({
-                    ...formData,
-                    sizeType: sizeTypesBase.find(el => el._id === event.target.value)
-                });
-            }
+            setFormData({
+                ...formData,
+                sizeType: sizeTypesBase.find(el => el._id === event.target.value)
+            });
 
         } else if (event.target.name.includes('imgs')) {
             if(formData.imgs ) {
@@ -242,11 +240,23 @@ export default props => {
                 <Grid item xs={12} sm={6}>
                     <FormControl component="fieldset" className={classes.formControl}>
                         <FormLabel component="legend">Sizes Set:
-                            { sizeTypeLocked ?
-                            <span> (Cannot change as there are products of its sizes) </span> : <></>
-                            }
-                            </FormLabel>
+                        </FormLabel>
+                        { sizeTypeLocked ?
+                        <Tooltip title="Cannot change, there are products in storage">
                             <RadioGroup aria-label="sizeTypes" name="sizeType">
+                                {sizeTypesBase.map(sizeType =>
+                                    <FormControlLabel
+                                        key={sizeType._id}
+                                        id={sizeType._id}
+                                        value={sizeType._id}
+                                        control={<Radio />}
+                                        label={sizeType.name}
+                                        checked={formData.sizeType && formData.sizeType._id === sizeType._id ? true : false}
+                                    />
+                                )}
+                            </RadioGroup>
+                        </Tooltip> :
+                        <RadioGroup aria-label="sizeTypes" name="sizeType">
                             {sizeTypesBase.map(sizeType =>
                                 <FormControlLabel
                                     key={sizeType._id}
@@ -259,6 +269,7 @@ export default props => {
                                 />
                             )}
                         </RadioGroup>
+                        }
                     </FormControl>
                 </Grid>
             </Grid>

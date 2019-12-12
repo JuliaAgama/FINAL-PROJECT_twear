@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {  Checkbox, FormControlLabel, Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
+
 export default props => {
 
     const { item, formData, optionItem, onChange } = props;
@@ -17,7 +18,6 @@ export default props => {
         checked: {},
     })(props => <Checkbox color="default" {...props} />);
 
-
     const [colorIsLocked, setColorIsLocked] = useState(false);
 
     useEffect(()=> {
@@ -26,15 +26,6 @@ export default props => {
             setColorIsLocked(true) : setColorIsLocked(false);
         }
     },[item, optionItem]);
-
-    // const handleChange = event => {
-    //     if (colorIsLocked === false) {
-    //         onChange(event);
-    //     }
-    // };
-
-    // console.log(item.name, ' is locked: ', colorIsLocked);
-    // console.log(formData)
 
     return (
         colorIsLocked ?
