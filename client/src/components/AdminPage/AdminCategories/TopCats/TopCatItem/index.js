@@ -7,14 +7,14 @@ import * as topCatsActions from '../../../../../store/actions/topCats';
 import TopCatsApi from '../../../../../services/TopCats';
 import CategoriesApi from '../../../../../services/Categories';
 
-import {Typography, Box, Collapse, Grid, ListItem, Divider, IconButton} from '@material-ui/core';
+import {Typography, Box, Collapse, Grid, ListItem, Divider, IconButton, Tooltip} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import useStyles from './useStyles';
 
 import Categories from '../../Categories';
-import OpenEditButton from '../../../../common/buttons/Edit';
-import DeleteButton from '../../../../common/buttons/Delete';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
 import WarningModal from '../../../../common/messages/WarningModal';
 
@@ -106,12 +106,20 @@ export default props => {
                 </Grid>
                 <Grid item xs={12} sm container className={classes.container}>
                     <Grid item>
-                        <Link to={"/admin/categories/top/"+item.name}>
-                            <OpenEditButton/>
-                        </Link>
+                        <Tooltip title="Edit" >
+                            <Link to={"/admin/categories/top/"+item.name}>
+                                <IconButton aria-label="edit" className={classes.editBtn} onClick={openConfirm}>
+                                    <EditOutlinedIcon/>
+                                </IconButton>
+                            </Link>
+                        </Tooltip>
                     </Grid>
                     <Grid item>
-                        <DeleteButton onClick={openConfirm}/>
+                        <Tooltip title="Delete" >
+                            <IconButton aria-label="delete" className={classes.deleteBtn} onClick={openConfirm}>
+                                <DeleteOutlineOutlinedIcon />
+                            </IconButton>
+                        </Tooltip>
                     </Grid>
                 </Grid>
             </Grid>

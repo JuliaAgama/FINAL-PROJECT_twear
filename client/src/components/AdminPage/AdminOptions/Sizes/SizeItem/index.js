@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as sizesActions from '../../../../../store/actions/sizes';
 import SizesApi from '../../../../../services/Sizes';
 import ProductsApi from '../../../../../services/Products';
+import ArchivesApi from '../../../../../services/Archives';
 
-import { Grid, TextField } from '@material-ui/core';
+import { Grid, TextField, Tooltip } from '@material-ui/core';
+import PublishIcon from '@material-ui/icons/Publish';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import useStyles from './useStyles';
 
-import SaveButton from '../../../../common/buttons/Save';
-import DeleteButton from '../../../../common/buttons/Delete';
 import WarningModal from '../../../../common/messages/WarningModal';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
@@ -26,6 +27,9 @@ export default props => {
 
     useEffect(()=> {
         setFormData(item);
+        return () => {
+            setFormData({_id: '', name: ''});
+        }
     },[item]);
 
     const onChange = event => {
@@ -74,15 +78,23 @@ export default props => {
     };
 
     // handle deleting size:
-    const [productsMatched, setProductsMatched] = useState(null);
+    const [productsMatched, setProductsMatched] = useState([]);
     useEffect(() => {
-        (new ProductsApi()).getProductsByMatch({size: item._id}).then(res => setProductsMatched(res));
+        (new ProductsApi()).getProductsByMatch({size: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+            (new ArchivesApi()).getArchivesByMatch({size: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+        return () => {
+            setProductsMatched([]);
+        }
     }, [item]);
+    // }, [item, productsMatched]);
 
     const checkMatchingProducts = () => {
-        if(productsMatched && productsMatched[0]) {
+        if(productsMatched[0]) {
             setWarningIsOpen(true);
-            setWarningText({title: `Cannot delete ${formData.name.toUpperCase()} size!`, description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}"`).join(', ')}!`});
+            setWarningText({
+                title: `Cannot delete ${formData.name.toUpperCase()} size!`,
+                description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}" (${el.itemNo})`).join(', ')}!`
+        });
             return true;
         };
         return false;
@@ -136,16 +148,17 @@ export default props => {
                             />
                         </Grid>
                         <Grid item xs={1}>
-                            <SaveButton
-                                onClick={saveSize}
-                                size="small"
-                                className={formData.name === item.name ? '' : 'fabGreenFilled' }/>
+                            <Tooltip title="Save" >
+                                <PublishIcon aria-label="save" className={formData.name === item.name ? classes.saveBtn : classes.saveBtnFilled} onClick={saveSize}/>
+                            </Tooltip>
                         </Grid>
                         <Grid item xs={2}></Grid>
                         <Grid item xs={1}>
                             {item._id ?
-                                <DeleteButton  onClick={openConfirm}  size="small"/> :
-                                <></>
+                            <Tooltip title="Delete" >
+                                <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={openConfirm}/>
+                            </Tooltip> :
+                            <></>
                             }
                         </Grid>
                         <Grid item xs={2}></Grid>

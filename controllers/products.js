@@ -116,6 +116,33 @@ exports.updateProduct = (req, res, next) => {
     );
 };
 
+exports.deleteProduct = (req, res, next) => {
+  Product.findOne({_id: req.params.id }).then(async product => {
+    if (!product) {
+      return res
+      .status(400)
+      .json({
+        message: `Product with id "${req.params.id}" is not found.`
+      });
+    } else {
+      const productToDelete = await Product.findOne({_id: req.params.id });
+
+      Product.deleteOne({_id: req.params.id })
+        .then(deletedCount =>
+          res.status(200).json({
+            message: `Product "${productToDelete.name.toUpperCase()}" witn id "${productToDelete.id}" is successfully deleted from DB.`,
+            deletedProductInfo: productToDelete
+          })
+        )
+        .catch(err =>
+          res.status(400).json({
+            message: `Error happened on server: "${err}" `
+          })
+        );
+    }
+  });
+};
+
 exports.getProducts = (req, res, next) => {
   const perPage = Number(req.query.perPage);
   const startPage = Number(req.query.startPage);

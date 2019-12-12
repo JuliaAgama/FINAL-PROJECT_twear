@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { blue, pink, grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
@@ -24,6 +25,20 @@ export default makeStyles(theme => (
         title: {
             marginLeft: theme.spacing(2),
             textTransform: 'capitalize',
+        },
+        editBtn: {
+            cursor: 'pointer',
+            color: blue[700],
+            '&:hover': {
+                color: pink[700],
+            },
+        },
+        deleteBtn: {
+            cursor: 'pointer',
+            color: grey[700],
+            '&:hover': {
+                color: pink[700],
+            },
         },
     }
 ));

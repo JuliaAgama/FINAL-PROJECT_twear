@@ -1,27 +1,41 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import {useDispatch} from "react-redux";
-import {showMenCategoriesAction, showWomenCategoriesAction} from "../../../store/actions/header";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    hideDesktopCategoriesMenuAction,
+    showMenCategoriesAction,
+    showWomenCategoriesAction
+} from "../../../store/actions/header";
 import useStyles from "./useStyles";
+import {Container} from "@material-ui/core";
 
 export default function CategoriesMenu(props) {
     const classes = useStyles();
+    const show  = useSelector(state => state.header.show);
     const dispatch = useDispatch();
     const clickHandler = () => {
         if (props.isMen){
-            dispatch(showMenCategoriesAction());
+            if (!show){
+                dispatch(showMenCategoriesAction());
+            } else {
+                dispatch(hideDesktopCategoriesMenuAction());
+            }
         } else {
-            dispatch(showWomenCategoriesAction());
+            if (!show){
+                dispatch(showWomenCategoriesAction());
+            } else {
+                dispatch(hideDesktopCategoriesMenuAction());
+            }
+
         }
     };
 
     return (
         <React.Fragment>
-            <Button className={props.border ?`${classes.btn} ${classes.btnBorder}`: classes.btn}
+            <Container className={props.border ? `${classes.container} ${classes.containerBorder}`: classes.container}
                     onClick={clickHandler}
             >
                 {props.title}
-            </Button>
+            </Container>
         </React.Fragment>
     );
 }

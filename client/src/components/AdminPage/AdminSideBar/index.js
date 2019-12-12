@@ -23,7 +23,6 @@ export default props => {
                     </Grid>
                 ))}
             </Grid>
-
             <p>Go to <a href="/">shop</a>.</p>
         </div>
     )

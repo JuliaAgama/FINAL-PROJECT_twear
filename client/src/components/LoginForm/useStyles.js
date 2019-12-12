@@ -7,6 +7,7 @@ export default makeStyles(theme => (
             width: '100%',
             justifyContent: 'center',
             paddingBottom: '20px',
+            position: 'relative'
         },
         form: {
             width: '400px',
@@ -29,6 +30,14 @@ export default makeStyles(theme => (
             display: 'flex',
             width: '100%',
             justifyContent: 'space-between',
+        },
+        spinnerContainer: {
+            position: 'absolute',
+            left: 'calc(50% - 50px)',
+            top: 'calc(50% - 35px)',
+            [theme.breakpoints.down('sm')]: {
+                left: 'calc(50% - 35px)',
+            },
         }
     }
 ));

@@ -1,10 +1,10 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
 import Badge from "@material-ui/core/Badge";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
 import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
 import useStyles from "./useStyles";
+import {Container} from "@material-ui/core";
 
 
 export default function MiniCart() {
@@ -13,7 +13,7 @@ export default function MiniCart() {
 
     return (
         <React.Fragment>
-            <Button className={classes.btn}>
+            <Container className={classes.container}>
                 <Hidden smDown>
                     <Badge color="default" badgeContent={4} className={classes.badge}>
                         <Typography className={classes.padding}>Shopping Bag</Typography>
@@ -22,7 +22,7 @@ export default function MiniCart() {
                 <Hidden mdUp>
                     <LocalMallOutlinedIcon/>
                 </Hidden>
-            </Button>
+            </Container>
         </React.Fragment>
     );
 }

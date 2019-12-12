@@ -6,6 +6,7 @@ const path = require("path");
 const cors = require("cors");
 require("dotenv").config();
 
+const archives = require("./routes/archives");
 const cart = require("./routes/cart");
 const categories = require("./routes/categories");
 const colors = require("./routes/colors");
@@ -61,6 +62,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Use Routes
+app.use("/api/archives", archives);
 app.use("/api/cart", cart);
 app.use("/api/categories", categories);
 app.use("/api/colors", colors);

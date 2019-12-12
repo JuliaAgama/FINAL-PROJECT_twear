@@ -1,11 +1,14 @@
 import React from 'react';
-import withWidth from '@material-ui/core/withWidth';
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import {useDispatch, useSelector} from "react-redux";
+
 import {hideDesktopCategoriesMenuAction} from "../../store/actions/header";
 import {hideMobileMenuAction} from "../../store/actions/header";
-import {Container} from "@material-ui/core";
-import Hidden from "@material-ui/core/Hidden";
+
+import {withWidth, Container, Hidden} from '@material-ui/core';
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+
+import useStyles from './useStyles';
+
 import Logo from "./Logo";
 import Search from "./Search";
 import MiniCart from "./MiniCart";
@@ -15,13 +18,12 @@ import Login from "./Login";
 import DropDownMenu from "./DropDownMenu";
 import {CategoryItems} from "./CategoryItems";
 import Modal from '../common/Modal'
-import useStyles from './useStyles';
 
-function Header() {
+export default withWidth()( () => {
 
     const classes = useStyles();
-    const {show, showMobileMenu}  = useSelector(state => state.header);
-
+    const show  = useSelector(state => state.header.show);
+    const showMobileMenu  = useSelector(state => state.header.showMobileMenu);
     const dispatch = useDispatch();
 
     const handleClickAway = () =>{
@@ -75,6 +77,4 @@ function Header() {
                 </ClickAwayListener>
         </>
     );
-}
-
-export default withWidth()(Header);
+});

@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { pink } from '@material-ui/core/colors';
+import { pink, grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
@@ -25,6 +25,13 @@ export default makeStyles(theme => (
             minHeight: '200px',
             position: 'relative',
         },
+        paperThree: {
+            margin: theme.spacing(1),
+            marginBottom: theme.spacing(3),
+            padding: theme.spacing(1),
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
         editBtn: {
             position: 'absolute',
             top: theme.spacing(-4),
@@ -41,6 +48,10 @@ export default makeStyles(theme => (
                 color: pink[600],
                 textDecoration: 'underline',
             },
+        },
+        light: {
+            color: grey[400],
+            textTransform: 'uppercase',
         },
     }
 ));

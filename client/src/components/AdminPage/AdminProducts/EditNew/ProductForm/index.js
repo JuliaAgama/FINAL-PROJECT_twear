@@ -1,16 +1,17 @@
 import React, {useState, useEffect} from 'react';
 
-import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, OutlinedInput, InputAdornment, InputLabel } from '@material-ui/core';
+import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, OutlinedInput, InputAdornment, InputLabel, Tooltip } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
+import ColorItem from './ColorItem';
 import Selector from '../../../../common/inputs/Selector';
 import UploadFile from '../../../../common/inputs/UploadFile';
 
 
 export default props => {
 
-    const { itemNo, item, topCatsBase, categoriesBase, gendersBase, sizeTypesBase, onSubmitHandler} = props;
+    const { itemNo, item, topCatsBase, categoriesBase, gendersBase, sizeTypesBase, colorsBase, onSubmitHandler} = props;
 
     const [formData, setFormData] = useState({});
     const [selectedTopCat, setSelectedTopCat] = useState({_id: ''});
@@ -31,11 +32,11 @@ export default props => {
             item.sizeType && checkSizeType(item.sizeType._id) ?
             setSizeTypeLocked(true) : setSizeTypeLocked(false);
         }
-    },[item, itemNo]);
+    },[item, itemNo, topCatsBase]);
 
     useEffect(()=> {
         setCategoriesDisplay(categoriesBase.filter(el => el.topCategory._id === selectedTopCat._id));
-    },[selectedTopCat]);
+    },[selectedTopCat, categoriesBase]);
 
     const onChangeTopCat = id => {
         id && id !== '' ? setSelectedTopCat(topCatsBase.find(el => el._id === id)) : setSelectedTopCat({_id: ''});
@@ -43,6 +44,20 @@ export default props => {
             ...formData,
             categories: []
         });
+    };
+
+    const onChangeColor = event => {
+        event.target.checked ?
+        setFormData({
+            ...formData,
+            colors: formData.colors ?
+            [...formData.colors.filter(el => el && el.color && el.color._id !== event.target.value), {color: colorsBase.find(item => item._id === event.target.id)}] :
+            [{color: colorsBase.find(item => item._id === event.target.id)}]
+        }) :
+        setFormData({
+            ...formData,
+            colors: [...formData.colors.filter(el => el && el.color && el.color._id !== event.target.id)]
+        })
     };
 
     const onChange = event => {
@@ -67,10 +82,21 @@ export default props => {
             });
 
         } else if (event.target.name === 'sizeType') {
-            if (sizeTypeLocked === false) {
+            setFormData({
+                ...formData,
+                sizeType: sizeTypesBase.find(el => el._id === event.target.value)
+            });
+
+        } else if (event.target.name.includes('imgs')) {
+            if(formData.imgs ) {
+                formData.imgs.splice(parseInt(event.target.name), 1, event.target.value);
+                setFormData({
+                    ...formData
+                });
+            } else {
                 setFormData({
                     ...formData,
-                    sizeType: sizeTypesBase.find(el => el._id === event.target.value)
+                    imgs: [event.target.value]
                 });
             }
 
@@ -87,8 +113,6 @@ export default props => {
         onSubmitHandler(formData);
     };
 
-    console.log( 'formData: ', formData);
-
     const classes = useStyles();
 
     return (
@@ -97,7 +121,7 @@ export default props => {
                 <Grid item xs={5} sm={3}>
                     <TextField
                         required
-                        id="outlined-required"
+                        id="product-itemNo"
                         label="itemNo"
                         name='itemNo'
                         placeholder={`${Math.ceil(Math.random()*1000)}-${Math.ceil(Math.random()*100)}-${Math.ceil(Math.random()*10)}`}
@@ -109,11 +133,10 @@ export default props => {
                         variant="outlined"
                     />
                 </Grid>
-
                 <Grid item xs={12} sm={8}>
                     <TextField
                         required
-                        id="outlined-required"
+                        id="product-name"
                         label="Name"
                         name='name'
                         autoFocus
@@ -126,7 +149,7 @@ export default props => {
                 </Grid>
             </Grid>
 
-            <Grid item xs={12} container>
+            <Grid item xs={12} container >
                 <Grid item xs={6}  className={classes.input}>
                     <Box pt={2} pb={1}>Select Categories: </Box>
                 </Grid>
@@ -138,12 +161,14 @@ export default props => {
                         onChange={onChangeTopCat}
                     />
                 </Grid>
-
-                    <FormControl component="fieldset" className={classes.formControl}>
-                        <FormGroup>
-                            <Grid container>
-                            {categoriesDisplay.map(item =>
-                                <Grid item xs={6} lg={4} className={classes.input} key={item._id}>
+                <FormControl component="fieldset" className={classes.formControl}>
+                    <FormGroup>
+                        <Grid container spacing={3}>
+                        {categoriesDisplay.map(item =>
+                            <Grid item xs={6} lg={4}
+                                className={classes.input}
+                                key={item._id}
+                            >
                                 <FormControlLabel
                                     control={
                                         <Checkbox
@@ -155,14 +180,46 @@ export default props => {
                                         />}
                                     label={item.name}
                                 />
-                                </Grid>
-                            )}
                             </Grid>
-                        </FormGroup>
-                    </FormControl>
+                        )}
+                        </Grid>
+                    </FormGroup>
+                </FormControl>
             </Grid>
+
             <Grid item xs={12} container>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
+                    <TextField
+                        id="product-description"
+                        label="Description"
+                        multiline
+                        rowsMax='5'
+                        name='description'
+                        onChange={onChange}
+                        value={formData.description ? formData.description : ''}
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                    />
+                </Grid>
+                <Grid item xs={5} sm={3}>
+                    <FormControl variant="outlined">
+                        <InputLabel htmlFor="price">Price</InputLabel>
+                        <OutlinedInput
+                            id="product-price"
+                            name="price"
+                            type="number"
+                            value={formData.price ? parseFloat(formData.price) : ''}
+                            onChange={onChange}
+                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                            labelWidth={60}
+                        />
+                    </FormControl>
+                </Grid>
+            </Grid>
+
+            <Grid item xs={12} container className={classes.bottomDivider}>
+                <Grid item xs={12} sm={6}>
                     <FormControl component="fieldset" className={classes.formControl}>
                         <FormLabel component="legend">Gender:</FormLabel>
                             <RadioGroup aria-label="genders" name="gender">
@@ -180,15 +237,26 @@ export default props => {
                             </RadioGroup>
                     </FormControl>
                 </Grid>
-
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                     <FormControl component="fieldset" className={classes.formControl}>
                         <FormLabel component="legend">Sizes Set:
-                            { sizeTypeLocked ?
-                            <span> (Cannot change as there are products of its sizes) </span> : <></>
-                            }
-                            </FormLabel>
+                        </FormLabel>
+                        { sizeTypeLocked ?
+                        <Tooltip title="Cannot change, there are products in storage">
                             <RadioGroup aria-label="sizeTypes" name="sizeType">
+                                {sizeTypesBase.map(sizeType =>
+                                    <FormControlLabel
+                                        key={sizeType._id}
+                                        id={sizeType._id}
+                                        value={sizeType._id}
+                                        control={<Radio />}
+                                        label={sizeType.name}
+                                        checked={formData.sizeType && formData.sizeType._id === sizeType._id ? true : false}
+                                    />
+                                )}
+                            </RadioGroup>
+                        </Tooltip> :
+                        <RadioGroup aria-label="sizeTypes" name="sizeType">
                             {sizeTypesBase.map(sizeType =>
                                 <FormControlLabel
                                     key={sizeType._id}
@@ -201,52 +269,77 @@ export default props => {
                                 />
                             )}
                         </RadioGroup>
-                    </FormControl>
-                </Grid>
-
-                <Grid item xs={12}>
-                    <TextField
-                        id="outlined-multiline-flexible"
-                        label="Description"
-                        multiline
-                        rowsMax='5'
-                        name='description'
-                        onChange={onChange}
-                        value={formData.description ? formData.description : ''}
-                        className={classes.textField}
-                        margin="normal"
-                        variant="outlined"
-                    />
-                </Grid>
-
-                <Grid item xs={5} sm={3}>
-                    <FormControl variant="outlined">
-                        <InputLabel htmlFor="price">Price</InputLabel>
-                        <OutlinedInput
-                            id="price"
-                            name="price"
-                            type="number"
-                            value={formData.price ? parseFloat(formData.price) : ''}
-                            onChange={onChange}
-                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                            labelWidth={60}
-                        />
+                        }
                     </FormControl>
                 </Grid>
             </Grid>
 
-            <Grid container className={classes.paper}>
+            <Grid item xs={12} container className={classes.bottomDivider}>
+                <Grid item xs={12}>Product Images</Grid>
+                {formData && formData.imgs ? formData.imgs.map(url =>
+                    <Grid item xs={4} sm={2}
+                        className={classes.imgItem}
+                        key={Math.random()}
+                    >
+                        <Box className={classes.imgContainer}>
+                            <img
+                                className={classes.img}
+                                src={url}
+                                alt="NOT FOUND"/>
+
+                        </Box>
+                    </Grid>
+                    ) : <></>
+                }
                 <Grid item xs={12}>
                     <UploadFile/>
                 </Grid>
-                <Grid item xs={12}>
-                    <Button
-                    fullWidth={true}
-                    variant="outlined"
-                    className={classes.btn}
-                    onClick={onSubmit}
-                    > {`SAVE`}</Button>
+                <Grid item xs={12}> ВРЕМЕННОЕ РЕДАКТИРОВАНИЕ УРЛОВ ФОТОК (на ворнинг не обращаем внимания):
+                    { [0,1,2,3,4].map((el, ind) =>
+                        <TextField
+                            key={el}
+                            id={'imgs-'+ind}
+                            label={'imgs-'+(ind+1)}
+                            name={ind+'-imgs'}
+                            onChange={onChange}
+                            value={formData.imgs ? formData.imgs[ind] : ''}
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    )}
                 </Grid>
+            </Grid>
+
+            <Grid item xs={12} container> Colors:
+                <FormControl component="fieldset" className={classes.formControl}>
+                    <FormGroup>
+                        <Grid container>
+                            {colorsBase.map(item =>
+                                <Grid item xs={6} lg={4}
+                                    className={classes.input}
+                                    key={item._id}
+                                >
+                                    <ColorItem
+                                        item={item}
+                                        formData={formData}
+                                        optionItem={formData.colors && formData.colors[0] ? formData.colors.find(el => el.color._id ===item._id) : null}
+                                        onChange={onChangeColor}
+                                    />
+                                </Grid>
+                            )}
+                        </Grid>
+                    </FormGroup>
+                </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+                <Button
+                fullWidth={true}
+                variant="outlined"
+                className={classes.btn}
+                onClick={onSubmit}
+                > {`SAVE`}</Button>
             </Grid>
         </form>
     )
