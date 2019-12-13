@@ -12,51 +12,60 @@ code {
     monospace;
 }
 
-
 #item1 {
-  background-image: url('https://i.ibb.co/J5KpSd3/Screenshot-2019-12-06-at-13-53-50.png');
+  background-image: url("https://www.balenciaga.com/66/41/41936513ht_14_a_g.jpg");
 }
 #item2 {
-  background-image: url('https://i.ibb.co/Bj0Qzm9/Screenshot-2019-12-06-at-14-00-14.png');
+  background-image: url("https://www.balenciaga.com/66/41/41935900pk_14_a_g.jpg");
 }
 #item3 {
-  background-image: url('https://i.ibb.co/qdSpJtd/Screenshot-2019-12-06-at-14-00-34.png');
+  /* background-image: url('https://i.ibb.co/qdSpJtd/Screenshot-2019-12-06-at-14-00-34.png'); */
+  background-image: url("https://www.balenciaga.com/66/41/41922379IU_12_a_g.jpg");
 }
 #item4 {
-  background-image: url('https://i.ibb.co/89shpdK/Screenshot-2019-12-06-at-14-00-49.png');
+  /* background-image: url('https://i.ibb.co/89shpdK/Screenshot-2019-12-06-at-14-00-49.png'); */
+  background-image: url("https://www.balenciaga.com/66/41/41809866SC_12_a_g.jpg");
 }
 
 .hidden-link {
-  display:none;
+  display: none;
   text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+}
 
+.top-cat-name {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .category-item-home {
   background-size: cover;
+  background-position: center;
+  filter: grayscale(1);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
   font-size: 40px;
   text-decoration: none;
   transition: all 2s ease;
-  height: 80vh;
-
+  height: 75vh;
 }
 
-.category-item-home>a {
+.category-item-home > a {
   font-family: "Roboto";
-  color: white;
-  padding: 30%;
+  color: black;
+  padding: 20px 30px; 
+  /* flex: 1; */
 }
 
-.category-item-home:hover{
-  filter: grayscale(1);
+.category-item-home:hover {
+  filter: grayscale(0);
   transition: all 1s ease;
 }
 
-.category-item-home:hover::after {
+/* .category-item-home:hover::after {
   content: url("");
   border: 2px solid white;
   height:2px;
@@ -70,11 +79,13 @@ code {
   height:2px;
   width: 100%;
   transition: all 1s ease;
-}
+} */
 
 .category-item-home:hover .hidden-link {
-  display:flex;
+  display: flex;
 }
 
-
+.category-item-home:hover .top-cat-name {
+  display: none;
+}
 
