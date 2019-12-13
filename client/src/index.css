@@ -33,8 +33,10 @@ code {
 }
 
 .top-cat-name {
-  font-size: 10px;
-  align-self: flex-start;
+  font-size: 42px;
+  background: white;
+  width: 100%;
+  text-align: center;
 }
 
 .category-item-home {

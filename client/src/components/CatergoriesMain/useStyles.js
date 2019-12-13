@@ -13,7 +13,8 @@ export default makeStyles(theme => ({
 
   categoriesMainHeader: {
     textAlign: "center",
-    fontSize: 56,
+    fontSize: '2.25rem',
+    fontWeight: '700',
     margin: "70px 0 0 0"
   },
 
