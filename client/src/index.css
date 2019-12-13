@@ -19,11 +19,9 @@ code {
   background-image: url("https://www.balenciaga.com/66/41/41935900pk_14_a_g.jpg");
 }
 #item3 {
-  /* background-image: url('https://i.ibb.co/qdSpJtd/Screenshot-2019-12-06-at-14-00-34.png'); */
   background-image: url("https://www.balenciaga.com/66/41/41922379IU_12_a_g.jpg");
 }
 #item4 {
-  /* background-image: url('https://i.ibb.co/89shpdK/Screenshot-2019-12-06-at-14-00-49.png'); */
   background-image: url("https://www.balenciaga.com/66/41/41809866SC_12_a_g.jpg");
 }
 
@@ -35,8 +33,8 @@ code {
 }
 
 .top-cat-name {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 10px;
+  align-self: flex-start;
 }
 
 .category-item-home {
@@ -44,9 +42,9 @@ code {
   background-position: center;
   filter: grayscale(1);
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   font-size: 40px;
   text-decoration: none;
   transition: all 2s ease;
@@ -57,7 +55,6 @@ code {
   font-family: "Roboto";
   color: black;
   padding: 20px 30px; 
-  /* flex: 1; */
 }
 
 .category-item-home:hover {
@@ -65,24 +62,18 @@ code {
   transition: all 1s ease;
 }
 
-/* .category-item-home:hover::after {
-  content: url("");
-  border: 2px solid white;
-  height:2px;
+.category-item-home:hover .hidden-link {
+  display: block;
+  background-color: white;
+  background-size: 20%;
   width: 100%;
-  transition: all 1s ease;
+  text-align: center;
+  margin: 30px;
+  text-decoration: none;
 }
 
-.category-item-home:hover::before {
-  content: url("");
-  border: 2px solid white;
-  height:2px;
-  width: 100%;
-  transition: all 1s ease;
-} */
-
-.category-item-home:hover .hidden-link {
-  display: flex;
+.hidden-link:hover {
+  font-weight: 700;
 }
 
 .category-item-home:hover .top-cat-name {
