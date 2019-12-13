@@ -67,7 +67,6 @@ code {
 .category-item-home:hover .hidden-link {
   display: block;
   background-color: white;
-  background-size: 20%;
   width: 100%;
   text-align: center;
   margin: 30px;
