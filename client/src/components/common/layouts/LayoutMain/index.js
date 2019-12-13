@@ -9,7 +9,6 @@ import useStyles from "./useStyles";
 import Header from "../../../Header";
 import Footer from "../../../Footer";
 import SettingsButton from "../../../common/buttons/Settings";
-import CategoriesMain from "../../../CatergoriesMain";
 
 export default props => {
   const breakpointValues = {
@@ -30,7 +29,6 @@ export default props => {
         <div className={classes.header}>
           <Header />
         </div>
-        <CategoriesMain />
         <div>{props.children}</div>
         <div className={classes.footer}>
           <Footer />
