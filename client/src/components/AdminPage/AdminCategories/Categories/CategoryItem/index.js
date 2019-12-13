@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import * as categoriesActions from '../../../../../store/actions/categories';
 import CategoriesApi from '../../../../../services/Categories';
 import ProductsApi from '../../../../../services/Products';
+import ArchivesApi from '../../../../../services/Archives';
 
-import { Typography, Box, Grid, ListItem, Divider } from '@material-ui/core';
+import { Typography, Box, Grid, ListItem, Divider, Tooltip } from '@material-ui/core';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import useStyles from './useStyles';
 
-import OpenEditButton from '../../../../common/buttons/Edit';
-import DeleteButton from '../../../../common/buttons/Delete';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
 import WarningModal from '../../../../common/messages/WarningModal';
 
@@ -26,16 +27,20 @@ export default props => {
     // handle deleting category:
     const [warningIsOpen, setWarningIsOpen] = useState(false);
     const [warningText, setWarningText] = useState({title: '', description: ''});
-    const [productsMatched, setProductsMatched] = useState(null);
+    const [productsMatched, setProductsMatched] = useState([]);
 
     useEffect(() => {
-        (new ProductsApi()).getProductsByMatch({category: item._id}).then(res => setProductsMatched(res));
-    }, [item]);
-
+        (new ProductsApi()).getProductsByMatch({category: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+        (new ArchivesApi()).getArchivesByMatch({category: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+    }, [item, productsMatched]);
+    
     const checkMatchingProducts = () => {
-        if(productsMatched && productsMatched[0]) {
+        if(productsMatched[0]) {
             setWarningIsOpen(true);
-            setWarningText({title: `Cannot delete ${itemName.toUpperCase()} category!`, description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}"`).join(', ')}!`});
+            setWarningText({
+                title: `Cannot delete ${itemName.toUpperCase()} category!`,
+                description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}" (${el.itemNo})`).join(', ')}!`
+            });
             return true;
         };
         return false;
@@ -90,12 +95,16 @@ export default props => {
 
                 <Grid item xs={12} sm container className={classes.container}>
                     <Grid item>
-                        <Link to={"/admin/categories/"+item.name}>
-                            <OpenEditButton size="small"/>
-                        </Link>
+                        <Tooltip title="Edit" >
+                            <Link to={"/admin/categories/"+item.name}>
+                                <EditOutlinedIcon className={classes.editBtn}/>
+                            </Link>
+                        </Tooltip>
                     </Grid>
                     <Grid item>
-                        <DeleteButton size="small" onClick={openConfirm}/>
+                        <Tooltip title="Delete" >
+                            <DeleteOutlineOutlinedIcon className={classes.deleteBtn} onClick={openConfirm}/>
+                        </Tooltip>
                     </Grid>
                 </Grid>
             </Grid>

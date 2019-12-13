@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as reduxFormReducer } from 'redux-form';
 
 import topCats from './topCats';
 import topCatItem from './topCatItem';
@@ -18,6 +19,8 @@ import sizes from './sizes';
 import sizeItem from './sizeItem';
 import products from './products';
 import productItem from './productItem';
+import archives from './archives';
+import archiveItem from './archiveItem';
 
 export default combineReducers({
     topCats,
@@ -25,7 +28,6 @@ export default combineReducers({
     customers,
     header,
     modal,
-    // reducer2
     topCatItem,
     categoryItem,
     genders,
@@ -38,4 +40,7 @@ export default combineReducers({
     sizeItem,
     products,
     productItem,
+    archives,
+    archiveItem,
+    form: reduxFormReducer
 });

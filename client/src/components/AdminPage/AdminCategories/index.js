@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as topCatsActions from '../../../store/actions/topCats';
 import * as categoriesActions from '../../../store/actions/categories';
 
-import { Typography, Box, Grid, Hidden, withWidth } from '@material-ui/core';
+import { Typography, Box, Grid, withWidth } from '@material-ui/core';
 
 import useStyles from './useStyles';
 

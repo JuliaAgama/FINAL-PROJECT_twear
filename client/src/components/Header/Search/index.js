@@ -1,13 +1,12 @@
 import React, {useState} from "react";
-import Button from "@material-ui/core/Button";
-import InputBase from "@material-ui/core/InputBase";
+
+import {InputBase, ClickAwayListener, Hidden, Container} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Hidden from "@material-ui/core/Hidden";
+
 import useStyles from "./useStyles";
 
 
-export default function Search() {
+export default () => {
 
     const classes = useStyles();
     const [isVisible, setVisibility] = useState(false);
@@ -17,19 +16,19 @@ export default function Search() {
         <React.Fragment>
             <Hidden smDown>
                 <ClickAwayListener onClickAway={handleClickAway}>
-                    <Button className={isVisible ? `${classes.btn} ${classes.btnSearch}` : classes.btn}
+                    <Container className={isVisible ? `${classes.container} ${classes.search}` : classes.container}
                             onClick={() => {setVisibility(true)}}
                     >
-                        {!isVisible ? 'Search' : (<><SearchIcon/><InputBase fullWidth={true} className={classes.input}/></>)}
-                    </Button>
+                        {!isVisible ? 'Search' : (<><SearchIcon /><InputBase fullWidth={true} className={classes.input}/></>)}
+                    </Container>
                 </ClickAwayListener>
             </Hidden>
             <Hidden mdUp>
-                <Button className={classes.btnSearch}>
+                <Container className={classes.container}>
                     <SearchIcon />
                     <InputBase className={classes.input} fullWidth={true}  placeholder='Search'/>
-                </Button>
+                </Container>
             </Hidden>
         </React.Fragment>
     );
-}
+};

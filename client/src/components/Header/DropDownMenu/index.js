@@ -9,7 +9,7 @@ import useStyles from "./useStyles";
 export default function DropDownMenu() {
 
     const classes = useStyles();
-    const {showMobileMenu}  = useSelector(state => state.header);
+    const showMobileMenu  = useSelector(state => state.header.showMobileMenu);
 
     const dispatch = useDispatch();
     const showMenu = () => {

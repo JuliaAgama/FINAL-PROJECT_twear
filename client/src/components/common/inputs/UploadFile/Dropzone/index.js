@@ -1,7 +1,7 @@
 import React, { useState, createRef } from 'react';
 import clsx from 'clsx';
 
-import { Typography, Box, Grid } from '@material-ui/core';
+import { Typography, Box } from '@material-ui/core';
 
 import useStyles from './useStyles';
 

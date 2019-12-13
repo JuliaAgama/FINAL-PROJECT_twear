@@ -1,16 +1,18 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
+
 
 export default makeStyles(theme => (
     {
-        wrapper: {
-            margin: `${theme.spacing(1)} auto`,
-        },
         paper: {
             flexGrow: 1,
             alignItems: 'flex-start',
             textTransform: 'capitalize',
             justifyContent: 'space-between',
+        },
+        bottomDivider: {
+            borderBottom: '1px solid #999',
+            paddingBottom: theme.spacing(2),
+            marginBottom: theme.spacing(1),
         },
         input: {
             paddingTop: theme.spacing(1),
@@ -21,23 +23,29 @@ export default makeStyles(theme => (
             width: '100%',
             backgroundColor: '#fff',
         },
-        justify: {
-            width: '100%'
-        },
         formControl: {
             margin: theme.spacing(2),
             paddingLeft: theme.spacing(2),
         },
-        link: {
-            display: 'inline-block',
-            textDecoration: 'none!important',
-            textTransform: 'uppercase',
-            marginTop: theme.spacing(3),
-            color: '#000000',
-            "&:hover": {
-                color: green[600],
-                textDecoration: 'underline',
-            },
+        container: {
+            alignItems: 'center',
+        },
+        imgItem: {
+            height: '150px',
+            flexGrow: 1,
+            alignItems: 'flex-start',
+            textTransform: 'capitalize',
+            justifyContent: 'space-between',
+            padding: theme.spacing(1),
+        },
+        imgContainer: {
+            width: '99%',
+            height: '99%',
+            overflow: 'hidden',
+        },
+        img: {
+            objectFit: 'cover',
+            maxHeight: '100%',
         },
         btn: {
             display: 'block',

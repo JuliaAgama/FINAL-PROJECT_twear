@@ -2,18 +2,17 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => (
     {
-        btn: {
+        container: {
             width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             [theme.breakpoints.down('sm')]: {
                 width: '50px',
                 minWidth: '0',
-                padding: '12px 0',
                 borderRight: '1px solid black'
             },
-            padding: '2px 0',
-            borderRadius: '0',
-            outline: 'none!important',
-            textTransform: 'none',
+            padding: '0',
             fontSize: '16px',
             fontWeight: '700',
             borderBottom: '1px solid black'

@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 
-import { Grid } from '@material-ui/core';
+import { Grid, Tooltip } from '@material-ui/core';
+import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 
 import useStyles from './useStyles';
 
@@ -22,11 +23,19 @@ export default props => {
 
     useEffect(() => {
         setNewColor(null);
+        return () => {
+            setNewColor(null);
+        }
     }, [colorsList]);
 
     const addItem = event => {
         event.preventDefault();
         setNewColor ({name: '', cssValue: '#eeeeee'});
+    };
+
+    const cancelAdding = event => {
+        event.preventDefault();
+        setNewColor(null);
     };
 
     const classes = useStyles();
@@ -47,13 +56,16 @@ export default props => {
                             )
                         }
                         {newColor ?
-                        (
+                        (<>
+                            <Tooltip title="Cancel adding" >
+                                <CancelOutlinedIcon aria-label="cancel" className={classes.cancelBtn} onClick={cancelAdding}/>
+                            </Tooltip>
                             <ColorItem
                                 item={newColor}
                                 key={Math.random()}
                                 handleNotification={handleNotification}
                             />
-                        ) :
+                        </>) :
                             <Grid item xs={12} sm={6} lg={4} className={classes.container}>
                                 <AddButton
                                     className='fabPink'

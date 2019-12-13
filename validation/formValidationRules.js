@@ -98,7 +98,7 @@ const formValidationRules = [
     field: "password",
     method: "isLength",
     validWhen: true,
-    args: [{ min: 7, max: 30 }],
+    args: [{ min: 6, max: 30 }],
     message: "Password must be between 7 and 30 characters"
   },
   {
@@ -124,7 +124,7 @@ const formValidationRules = [
   {
     field: "telephone",
     method: "matches",
-    args: [/^\+380\d{3}\d{2}\d{2}\d{2}$/],
+    args: [/^\+380 \(\d{2}\) \d{3} \d{2} \d{2}$/],
     validWhen: true,
     message: "That is not a valid phone number."
   },

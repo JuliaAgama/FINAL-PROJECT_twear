@@ -9,6 +9,7 @@ const {
   addImages,
   addProduct,
   updateProduct,
+  deleteProduct,
   getProducts,
   getProduct,
   getProductByItemNo,
@@ -68,7 +69,7 @@ router.post(
 // @access  Private
 router.post(
   "/",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   addProduct
 );
 
@@ -77,9 +78,19 @@ router.post(
 // @access  Private
 router.put(
   "/:id",
-  passport.authenticate("jwt-admin", { session: false }),
+  // passport.authenticate("jwt-admin", { session: false }),
   updateProduct
 );
+
+// @route   DELETE /products/:id
+// @desc    Delete existing product
+// @access  Private
+router.delete(
+  "/:id",
+  // passport.authenticate("jwt-admin", { session: false }),
+  deleteProduct
+);
+
 
 // @route   GET /products
 // @desc    GET existing products

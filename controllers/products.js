@@ -23,7 +23,7 @@ exports.addImages = (req, res, next) => {
 exports.addProduct = (req, res, next) => {
   const productFields = _.cloneDeep(req.body);
 
-  productFields.itemNo = rand();
+  // productFields.itemNo = rand();
 
   try {
     productFields.name = productFields.name
@@ -116,6 +116,33 @@ exports.updateProduct = (req, res, next) => {
     );
 };
 
+exports.deleteProduct = (req, res, next) => {
+  Product.findOne({_id: req.params.id }).then(async product => {
+    if (!product) {
+      return res
+      .status(400)
+      .json({
+        message: `Product with id "${req.params.id}" is not found.`
+      });
+    } else {
+      const productToDelete = await Product.findOne({_id: req.params.id });
+
+      Product.deleteOne({_id: req.params.id })
+        .then(deletedCount =>
+          res.status(200).json({
+            message: `Product "${productToDelete.name.toUpperCase()}" witn id "${productToDelete.id}" is successfully deleted from DB.`,
+            deletedProductInfo: productToDelete
+          })
+        )
+        .catch(err =>
+          res.status(400).json({
+            message: `Error happened on server: "${err}" `
+          })
+        );
+    }
+  });
+};
+
 exports.getProducts = (req, res, next) => {
   const perPage = Number(req.query.perPage);
   const startPage = Number(req.query.startPage);
@@ -129,9 +156,9 @@ exports.getProducts = (req, res, next) => {
     .populate("colors.color")
     .populate("colors.sizes.size")
     .populate("colors.sizes.size.sizeType")
+    .sort(sort)
     .skip(startPage * perPage - perPage)
     .limit(perPage)
-    .sort(sort)
     .then(products => res.send(products))
     .catch(err =>
       res.status(400).json({
@@ -205,9 +232,9 @@ exports.getProductsFilterParams = async (req, res, next) => {
       .populate("colors.color")
       .populate("colors.sizes.size")
       .populate("colors.sizes.size.sizeType")
+      .sort(sort)
       .skip(startPage * perPage - perPage)
-      .limit(perPage)
-      .sort(sort);
+      .limit(perPage);
 
     const productsQuantity = await Product.find(mongooseQuery);
 

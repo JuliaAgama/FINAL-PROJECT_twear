@@ -11,7 +11,7 @@ import Footer from '../../../Footer';
 import SettingsButton from '../../../common/buttons/Settings';
 import CategoriesMain from '../../../CatergoriesMain';
 
-export default () => {
+export default props => {
 
     const breakpointValues = {
         xs: 0,
@@ -27,16 +27,14 @@ export default () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <div style={{height: '1500 px'}}>
             <Container maxWidth={false} className={classes.layoutContainer}>
-                <Header/>
-                <CategoriesMain/>
-                <Footer style= {{position: 'absolute', bottom: '0' }}/>
+                <div className={classes.header}><Header/></div>
+                    <div>{props.children}</div>
+                <div className={classes.footer}><Footer/></div>
                 <Link to={`/admin`}>
                     <SettingsButton title='Admin Page' size={2} color='red' />
                 </Link>
             </Container>
-            </div>
-        </ThemeProvider>    
+        </ThemeProvider>
     );
 };

@@ -12,10 +12,12 @@ export default makeStyles(theme => (
         link: {
             minWidth: '25%',
             color: 'rgba(0, 0, 0, 0.87)',
+            textDecoration: 'none'
         },
         mobileLink: {
             minWidth: '50%',
             color: 'rgba(0, 0, 0, 0.87)',
+            textDecoration: 'none'
         },
         border: {
             borderLeft: '1px solid black',
@@ -28,12 +30,14 @@ export default makeStyles(theme => (
             padding: '15px 0',
             width: '100%',
             position: 'absolute',
-            top: '123px',
+            top: '115px',
             [theme.breakpoints.down('sm')]: {
                position: 'static',
                 borderLeft: 'none',
                 borderRight: 'none',
             },
+            zIndex: '100000',
+            backgroundColor: 'white'
         },
         hide: {
             display: 'none'

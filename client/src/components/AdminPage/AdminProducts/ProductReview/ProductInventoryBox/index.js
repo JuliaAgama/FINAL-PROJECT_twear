@@ -1,16 +1,45 @@
-import React, {useMemo} from 'react';
-import { useTable } from 'react-table';
+import React, {useState, useEffect, useMemo} from 'react';
+import { useSelector } from 'react-redux';
+// import { useTable } from 'react-table';
 
-import { Typography, Box, Grid, CssBaseline, MaUTable, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import ProductsApi from '../../../../../services/Products';
 
-import useStyles from './useStyles';
+// import { Typography, Box, Grid, withStyles, CssBaseline, MaUTable, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+
+// import useStyles from './useStyles';
 
 // import makeData from './makeData';
 
 
 export default props => {
 
-    const {product} = props;
+    const {handleNotification} = props;
+    const products = useSelector(state => state.products.productsFiltered.products);
+
+    const [formData, setFormData] = useState({});
+    useEffect(() => {
+        // setFormData(products && products[0] ?
+        //     {
+        //         ...products[0],
+        //         colors: products[0].colors.map(el => {...el, el.sizes: el.sizes.map(elem =>)})
+        //     } : {})
+    }, products);
+
+    const [notify, setNotify] = useState(false);
+    useEffect(() => {
+        if(notify) {
+            (new ProductsApi().updateProduct(formData))
+            .then(res => {
+                handleNotification(formData);
+                setNotify(false);
+            });
+        }
+        return () => {
+            setNotify(null);
+        }
+    },[notify])
+
+
 
     const columns = useMemo(() => [
         {
@@ -24,12 +53,16 @@ export default props => {
         },
         {
             Header: 'Colors',
-            columns: product.colors.map(item =>
-                ({
-                    Header: item.color.name.toUpperCase(),
-                    accessor: item.color.name,
-                })
-            ),
+            columns:
+            //  product.colors && product.colors[0] && product.colors[0].color ?
+            //     product.colors.map(item =>({
+            //         Header: item.color.name.toUpperCase(),
+            //         accessor: item.color.name,
+            //     })) :
+                {
+                    Header: 'No Color',
+                    accessor: 'noColor',
+                }
         }
     ],
     []
@@ -43,7 +76,7 @@ export default props => {
     // const { getTableProps,  getTableHeaderProps,  headerGroups,  rows, prepareRow } = useTable({ columns,  data });
 
 
-    const classes = useStyles();
+    // const classes = useStyles();
 
     return (
         <>

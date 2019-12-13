@@ -37,13 +37,13 @@ exports.createCustomer = (req, res, next) => {
         if (customer.email === req.body.email) {
           return res
             .status(400)
-            .json({ message: `Email ${customer.email} already exists"` });
+            .json({ email: `Email ${customer.email} already exists"` });
         }
 
         if (customer.login === req.body.login) {
           return res
             .status(400)
-            .json({ message: `Login ${customer.login} already exists` });
+            .json({ login: `Login ${customer.login} already exists` });
         }
       }
 
