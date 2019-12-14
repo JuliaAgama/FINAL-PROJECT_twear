@@ -25,6 +25,7 @@ import PersonalCabinet from "../components/PersonalCabinet";
 import PrivateAdminRoute from "./PrivateAdmin";
 // import PrivateRoute from "./PrivateRoute";
 import AccessDenied from "../components/AccessDenied";
+import TopCategoryMenu from "../components/TopCategoryMenu";
 
 
 
@@ -37,6 +38,9 @@ export const Router = () => (
                 <Route exact
                     path="/"
                     component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
+                <Route exact
+                       path="/topcategorymenu/:id?"
+                       component={props => <LayoutMain {...props}><TopCategoryMenu/></LayoutMain>}/>
                 <Route exact
                     path="/personalCabinet"
                     component={props => <LayoutMain {...props}><PersonalCabinet/></LayoutMain>}/>
