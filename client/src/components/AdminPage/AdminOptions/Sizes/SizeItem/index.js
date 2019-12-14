@@ -80,8 +80,8 @@ export default props => {
     // handle deleting size:
     const [productsMatched, setProductsMatched] = useState([]);
     useEffect(() => {
-        (new ProductsApi()).getProductsByMatch({size: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
-            (new ArchivesApi()).getArchivesByMatch({size: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+        (new ProductsApi()).getProductsByMatch({size: item._id}).then(res => setProductsMatched(prodMat =>[...prodMat, ...res]));
+            (new ArchivesApi()).getArchivesByMatch({size: item._id}).then(res => setProductsMatched(prodMat =>[...prodMat, ...res]));
         return () => {
             setProductsMatched([]);
         }

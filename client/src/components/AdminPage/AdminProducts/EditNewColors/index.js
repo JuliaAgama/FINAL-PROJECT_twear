@@ -79,9 +79,6 @@ export default props => {
 
     const ref = useRef(null);
     const timeout = 2000;
-    const handleNotification = item => {
-        ref.current(`Product ${item.name.toUpperCase()} has been updated!`);
-    };
 
     const onSubmitHandler = async event => {
         event.preventDefault();
@@ -89,7 +86,7 @@ export default props => {
         ref.current(`Color images of ${formData.name.toUpperCase()} has been saved!`);
     };
 
-    const cutName = (string, l) => string.length >= l ? string.slice(0, l-3)+'...' : string;
+    const cutName = (string, l) => string.length > l ? string.slice(0, l-3)+'...' : string;
 
     console.log(formData);
 
@@ -113,7 +110,6 @@ export default props => {
                                         key={item._id || Math.random()}
                                         item={item}
                                         onChangeColor={onChangeColor(item)}
-                                        handleNotification={handleNotification}
                                     /> ) : <></>
                             }
                         </Typography> : <Spinner/>

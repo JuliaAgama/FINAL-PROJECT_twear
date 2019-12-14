@@ -149,6 +149,7 @@ export default props => {
                 productsActions.updateProduct(formData)(dispatch);
 
             ref.current(`Product ${formData.name.toUpperCase()} has been saved!`);
+            productsActions.getProductsByFilter(`itemNo=${formData.itemNo}`)(dispatch);
 
             setTimeout(() => {
                 return history.push("/admin/products/"+formData.itemNo);
