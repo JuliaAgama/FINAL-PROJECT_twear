@@ -19,7 +19,7 @@ export default props => {
     const [formData, setFormData] = useState({enabled: false});
     useEffect(() => {
         setFormData(products && products[0] ? products[0]: {enabled: false})
-    }, products);
+    }, [products]);
 
     const [notify, setNotify] = useState(false);
     useEffect(() => {
@@ -33,7 +33,7 @@ export default props => {
         return () => {
             setNotify(null);
         }
-    },[notify])
+    },[notify, formData])
 
     const handleChange =  () => {
         setFormData({

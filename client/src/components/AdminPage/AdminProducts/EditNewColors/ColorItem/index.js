@@ -9,7 +9,7 @@ import useStyles from './useStyles';
 
 export default props => {
 
-    const { item, onChangeColor, handleNotification} = props;
+    const { item, onChangeColor} = props;
 
     const [css, setCss] = useState({color: 'transparent'});
 
@@ -38,7 +38,7 @@ export default props => {
                                 <img
                                     className={classes.img}
                                     src={url}
-                                    //alt="NOT FOUND"
+                                    alt=""
                                 />
 
                             </Box>

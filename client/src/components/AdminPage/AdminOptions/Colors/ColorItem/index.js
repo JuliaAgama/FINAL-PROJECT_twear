@@ -96,8 +96,8 @@ export default props => {
     useEffect(() => {
         // let itemUnmounted = false;
         // if (!itemUnmounted) {
-            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
-            (new ArchivesApi()).getArchivesByMatch({color: item._id}).then(res => setProductsMatched([...productsMatched, ...res]));
+            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(prodMat =>[...prodMat, ...res]));
+            (new ArchivesApi()).getArchivesByMatch({color: item._id}).then(res => setProductsMatched(prodMat =>[...prodMat, ...res]));
         // };
         return () => {
             setProductsMatched([]);
