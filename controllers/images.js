@@ -1,10 +1,25 @@
 const IncomingForm = require('formidable').IncomingForm;
+const cloudinary = require('cloudinary').v2;
+const cloudinaryURI = require("../config/keys").cloudinaryURI;
+const fs = require('fs-extra');
 
 exports.uploadImageCloud = (req, res, next) => {
 
   const form = new IncomingForm();
+  const files = [];
+  const fields = [];
+
+  form.uploadDir = '../public/uploads';
 
   form.on('file', (field, file) => {
+
+    // console.log(field, file.path);
+    files.push([field, file]);
+
+    // files.forEach( el => {
+    //   cloudinary.uploader.upload(el, function(error, result) {console.log(result, error)});
+    // });
+
     // Do something with the file
     // e.g. save it to the database
     // you can access it using file.path
