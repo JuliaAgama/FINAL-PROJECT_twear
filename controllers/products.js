@@ -8,9 +8,20 @@ const filterParser = require("../commonHelpers/filterParser");
 const _ = require("lodash");
 
 exports.addImages = (req, res, next) => {
+  console.log(req.files); // following is req.files example:
+  // [ { fieldname: 'photos',
+  // [0]     originalname: 'IMG_8209-1.jpg',
+  // [0]     encoding: '7bit',
+  // [0]     mimetype: 'image/jpeg',
+  // [0]     destination: './static/images/products/',
+  // [0]     filename: 'IMG_8209-1.jpg',
+  // [0]     path: 'static\\images\\products\\IMG_8209-1.jpg',
+  // [0]     size: 14661237 },]
+
   if (req.files.length > 0) {
+
     res.json({
-      message: "Photos are received"
+      message: "Photos are received",
     });
   } else {
     res.json({
