@@ -34,17 +34,20 @@ function getSetOfProductSizes(product) {
     return sizesSet;
 };
 
-function getCategoryTitle(categoryName) {
+function getCategoryTitle(queryString) {
     let title = "Selected New Arrivals";
-    if (categoryName) {
-        const arr = categoryName.split('-');
-        if (arr[0] === 'men') {
-            title = `Men's ${arr[1]}`
-        } else if (arr[0] === 'women') {
-            title = `Women's ${arr[1]}`
-        } else if (arr[0] === 'unisex') {
-            title = arr[1];
-        }
+    let gender = '';
+    let name = '';
+    if (queryString) {
+        const genderAndName = queryString.split('&');
+        gender = genderAndName[0].split('=')[1];
+        name = genderAndName[1].split('=')[1];
+        if (gender === 'men') {
+            gender = `Men's`;
+        } else if (gender === 'women') {
+            gender = `Women's`
+        } else gender = '';
+        title = gender + " " + name;
     }
     return title;
 }
@@ -52,7 +55,7 @@ function getCategoryTitle(categoryName) {
 
 
 export default function ProductGallery(props) {
-    const {products, categoryName} = props;
+    const {products, queryString} = props;
     const classes = useStyles();
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('sm'));
@@ -85,31 +88,31 @@ export default function ProductGallery(props) {
     if (products.length === 4) {
         if (!matches) {
             productCards.push(<CategoryLink key={Date.now()+ Math.random()}
-                                            categoryLink={`/categories/${categoryName}`}
-                                            categoryName={getCategoryTitle(categoryName)}
+                                            categoryLink={`/categories/${queryString}`}
+                                            categoryName={getCategoryTitle(queryString)}
                                             borderRight={true} />);
             productCards.push(<CategoryLink key={Date.now()+ Math.random()}
-                                            categoryLink={`/categories/${categoryName}`}
-                                            categoryName={getCategoryTitle(categoryName)}
+                                            categoryLink={`/categories/${queryString}`}
+                                            categoryName={getCategoryTitle(queryString)}
                                             borderRight={false} />);
         } else {
             productCards.splice(2,0,<CategoryLink key={Date.now()+ Math.random()}
-                                                  categoryLink={`/categories/${categoryName}`}
-                                                  categoryName={getCategoryTitle(categoryName)}
+                                                  categoryLink={`/categories/${queryString}`}
+                                                  categoryName={getCategoryTitle(queryString)}
                                                   borderRight={false}
                                                   borderBottom={true}  />);
             productCards.push(<CategoryLink key={Date.now()+ Math.random()}
-                                            categoryLink={`/categories/${categoryName}`}
-                                            categoryName={getCategoryTitle(categoryName)}
+                                            categoryLink={`/categories/${queryString}`}
+                                            categoryName={getCategoryTitle(queryString)}
                                             borderRight={false} />);
         }
     }
 
     return (
         <>
-            <CategoryTitle title={getCategoryTitle(categoryName)}/>
+            <CategoryTitle title={getCategoryTitle(queryString)}/>
             {!matches ? <FiltersMenu colors={getSetOfProductsColors(products)}/> : ''}
-            <SortMenu mobile={matches} colors={getSetOfProductsColors(products)}/>
+            <SortMenu mobile={matches} colors={getSetOfProductsColors(products)} queryString = {queryString}/>
             <Container maxWidth={false} className={classes.mainContainer}>
                 {productCards}
             </Container>
