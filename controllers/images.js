@@ -3,30 +3,22 @@ const cloudinary = require("cloudinary").v2;
 
 exports.uploadImageCloud = (req, res, next) => {
   const form = new IncomingForm();
-  let cloudUrls = [];
-  form.uploadDir = __dirname + "/../public/upload";
+  form.uploadDir = __dirname + "/../public/uploads";
 
-  form.parse(req, function(err, fields, files) {
-    for (const file in files) {
-      cloudUrls.push(cloudinary.uploader.upload(files[file]["path"]));
-    }
-    Promise.all(cloudUrls)
+  form.on("file", function(name, file) {
+    cloudinary.uploader
+      .upload(file.path)
       .then(result => {
-        const urls = result.map(el => {
-          let obj = {};
-          obj.public_id = el.public_id;
-          obj.url = el.url;
-          return obj;
-        });
-        res.json(urls);
+        let cloudObj = {};
+        cloudObj.public_id = result.public_id;
+        cloudObj.url = result.url;
+        res.json(cloudObj);
       })
       .catch(err => {
         console.error("Cloudinary error", err);
       });
-    if (err) {
-      console.error(err);
-    }
   });
+  form.parse(req);
 };
 
 exports.deleteImageCloud = (req, res, next) => {
