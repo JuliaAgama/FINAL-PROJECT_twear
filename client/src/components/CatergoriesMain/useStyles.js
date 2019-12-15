@@ -5,6 +5,7 @@ export default makeStyles(theme => ({
     width: "100%",
     margin: "auto"
   },
+  
   Media: {
     height: "100%",
     width: "100%",
