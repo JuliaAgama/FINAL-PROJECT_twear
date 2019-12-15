@@ -4,7 +4,6 @@ import { green, pink, grey } from '@material-ui/core/colors';
 export default makeStyles(theme => (
     {
         paper: {
-            flexGrow: 1,
             maxWidth: '100%',
             margin: `${theme.spacing(2)} auto`,
             borderBottom: `solid 1px #666666`,
