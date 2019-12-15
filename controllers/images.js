@@ -1,47 +1,42 @@
-const IncomingForm = require('formidable').IncomingForm;
-const cloudinary = require('cloudinary').v2;
-const cloudinaryURI = require("../config/keys").cloudinaryURI;
-const fs = require('fs-extra');
+const IncomingForm = require("formidable").IncomingForm;
+const cloudinary = require("cloudinary").v2;
 
 exports.uploadImageCloud = (req, res, next) => {
-
   const form = new IncomingForm();
-  const files = [];
-  const fields = [];
+  let cloudUrls = [];
+  form.uploadDir = __dirname + "/../public/upload";
 
-  form.uploadDir = '../public/uploads';
-
-  form.on('file', (field, file) => {
-
-    // console.log(field, file.path);
-    files.push([field, file]);
-
-    // files.forEach( el => {
-    //   cloudinary.uploader.upload(el, function(error, result) {console.log(result, error)});
-    // });
-
-    // Do something with the file
-    // e.g. save it to the database
-    // you can access it using file.path
-    // The uploaded files are stored in a temporary directory somewhere on your machine. To do something with them, you can copy them from there using the node.js file-system API.
+  form.parse(req, function(err, fields, files) {
+    for (const file in files) {
+      cloudUrls.push(cloudinary.uploader.upload(files[file]["path"]));
+    }
+    Promise.all(cloudUrls)
+      .then(result => {
+        const urls = result.map(el => {
+          let obj = {};
+          obj.public_id = el.public_id;
+          obj.url = el.url;
+          return obj;
+        });
+        res.json(urls);
+      })
+      .catch(err => {
+        console.error("Cloudinary error", err);
+      });
+    if (err) {
+      console.error(err);
+    }
   });
-
-  form.on('end', () => { //This callback is called when the form is completely parsed. In this case, we want to send back a success status code
-    res.json()
-  });
-
-  form.parse(req); // trigger the parsing of the form
-
 };
 
 exports.deleteImageCloud = (req, res, next) => {
-  console.log('hello');
+  console.log("hello");
 };
 
 exports.getImagesLinksCloud = (req, res, next) => {
-  console.log('hello');
+  console.log("hello");
 };
 
 exports.getImageLinkCloud = (req, res, next) => {
-  console.log('hello');
+  console.log("hello");
 };
