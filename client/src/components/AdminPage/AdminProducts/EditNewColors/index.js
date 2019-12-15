@@ -66,6 +66,14 @@ export default props => {
         }
     },[product]);
 
+    const onUploadImgs = color => newImgs => {
+        if(formData && formData.colors) {
+            formData.colors[formData.colors.findIndex(el => el._id === color._id)].impsColor.push(newImgs);
+            setFormData({
+                ...formData
+            });
+        }
+    };
 
     const onChangeColor = color => event => {
         if(formData && formData.colors) {
@@ -110,6 +118,7 @@ export default props => {
                                         key={item._id || Math.random()}
                                         item={item}
                                         onChangeColor={onChangeColor(item)}
+                                        onUploadImgs={onUploadImgs(item)}
                                     /> ) : <></>
                             }
                         </Typography> : <Spinner/>

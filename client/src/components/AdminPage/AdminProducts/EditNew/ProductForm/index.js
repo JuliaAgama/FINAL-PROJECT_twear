@@ -108,6 +108,13 @@ export default props => {
         }
     };
 
+    const onUploadImgs = newImgs => {
+        setFormData({
+            ...formData,
+            imgs: [...formData.imgs, ...newImgs]
+        });
+    };
+
     const onSubmit = event => {
         event.preventDefault();
         onSubmitHandler(formData);
@@ -292,9 +299,9 @@ export default props => {
                     ) : <></>
                 }
                 <Grid item xs={12}>
-                    <UploadFile/>
+                    <UploadFile addUrlsToFormData={onUploadImgs}/>
                 </Grid>
-                <Grid item xs={12}> ВРЕМЕННОЕ РЕДАКТИРОВАНИЕ УРЛОВ ФОТОК (на ворнинг не обращаем внимания):
+                {/* <Grid item xs={12}> ВРЕМЕННОЕ РЕДАКТИРОВАНИЕ УРЛОВ ФОТОК (на ворнинг не обращаем внимания):
                     { [0,1,2,3,4].map((el, ind) =>
                         <TextField
                             key={el}
@@ -308,7 +315,7 @@ export default props => {
                             variant="outlined"
                         />
                     )}
-                </Grid>
+                </Grid> */}
             </Grid>
 
             <Grid item xs={12} container> Colors:
