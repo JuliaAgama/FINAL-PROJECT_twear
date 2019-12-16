@@ -5,7 +5,7 @@ import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
 import { useHistory } from "react-router-dom";
 
-function createSortQuery(queryString) {
+function clearQueryString(queryString) {
     const queryItems = queryString.split('&');
     const withoutSortItem = queryItems.map(item => {
         if (item.startsWith('sort')) {
@@ -20,6 +20,30 @@ function createSortQuery(queryString) {
     return result;
 }
 
+function createSortQueryString(sortingVariantValue, sortQuery) {
+    switch (+sortingVariantValue) {
+        case 1 :
+            sortQuery += "&sort=+name";
+            break;
+        case 2 :
+            sortQuery += "&sort=-name";
+            break;
+        case 3 :
+            sortQuery += "&sort=+price";
+            break;
+        case 4 :
+            sortQuery += "&sort=-price";
+            break;
+        case 5 :
+            sortQuery += "&sort=-date";
+            break;
+        case 6 :
+            sortQuery += "&sort=+date";
+            break;
+    }
+    return sortQuery;
+}
+
 
 export default function SimpleSelect(props) {
     const {mobile, colors, queryString} = props;
@@ -31,27 +55,8 @@ export default function SimpleSelect(props) {
         setColor(event.target.value);
     };
     const handleChangeSortRule = event => {
-        let sortQuery = createSortQuery(queryString);
-        switch (+event.target.value) {
-            case 1 :
-                sortQuery = sortQuery + "&sort=+name";
-                break;
-            case 2 :
-                sortQuery = sortQuery + "&sort=-name";
-                break;
-            case 3 :
-                sortQuery = sortQuery + "&sort=+price";
-                break;
-            case 4 :
-                sortQuery = sortQuery +"&sort=-price";
-                break;
-            case 5 :
-                sortQuery = sortQuery + "&sort=-date";
-                break;
-            case 6 :
-                sortQuery = sortQuery + "&sort=+date";
-                break;
-        }
+        let sortQuery = clearQueryString(queryString);
+        sortQuery = createSortQueryString(event.target.value, sortQuery);
         setSortRule(event.target.value);
         return history.push(`/categories/${sortQuery}`);
     };
