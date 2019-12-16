@@ -108,7 +108,7 @@ export default props => {
                     <Grid item>
                         <Tooltip title="Edit" >
                             <Link to={"/admin/categories/top/"+item.name}>
-                                <IconButton aria-label="edit" className={classes.editBtn} onClick={openConfirm}>
+                                <IconButton aria-label="edit" className={classes.editBtn}>
                                     <EditOutlinedIcon/>
                                 </IconButton>
                             </Link>

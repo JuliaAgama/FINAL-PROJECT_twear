@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-// import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
+// import React, { useState, useRef, useEffect } from 'react';
 
 import ImagesApi from '../../../../services/Images';
 
@@ -9,12 +9,13 @@ import useStyles from './useStyles';
 
 import Dropzone from './Dropzone';
 import ProgressBar from './ProgressBar';
+import WarningModal from '../../messages/WarningModal';
 import ErrorModal from '../../messages/ErrorModal';
 
 
 export default props => {
 
-    const{addUrlsToFormData} = props;
+    const{emptyFields, doublesInDatabase, path, addUrlsToFormData} = props;
 
     const [files, setFiles] = useState([]);
     const [uploading, setUploading] = useState(false);
@@ -34,17 +35,34 @@ export default props => {
     };
     const closeErrorModal = () => setErrorIsOpen(false);
 
-    const uploadFiles = async () => {
-        setUploadProgress({});
-        setUploading(true);
-        const promises = files.map(async file => await (new ImagesApi()).uploadImage(file));
+    // handle warning:
+    const [warningIsOpen, setWarningIsOpen] = useState(false);
+    const [warningText, setWarningText] = useState({title: '', description: ''});
+    const closeWarning =() => setWarningIsOpen(false);
 
-        try {
-            addUrlsToFormData(await Promise.all(promises));
-            setSuccessfullUploaded(true);
-            setUploading(false);
-        } catch (error) {
-            setErrorIsOpen(true);
+    const uploadFiles = async () => {
+        const doubles = await doublesInDatabase();
+
+        if(doubles) {
+            setWarningIsOpen(true);
+            setWarningText({title: 'Images cannot be uploaded', description: `Check itemNo, another product with this itemNo exists in database`});
+
+        } else if (emptyFields) {
+            setWarningIsOpen(true);
+            setWarningText({title: 'Images cannot be uploaded', description: `Check itemNo: it cannot be empty. Check categories: at least one category must be selected`});
+
+        } else {
+            setUploadProgress({});
+            setUploading(true);
+            const promises = files.map(async file => await (new ImagesApi()).uploadImage(file, path));
+
+            try {
+                addUrlsToFormData(await Promise.all(promises));
+                setSuccessfullUploaded(true);
+                setUploading(false);
+            } catch (error) {
+                setErrorIsOpen(true);
+            }
         }
     };
 
@@ -146,6 +164,7 @@ export default props => {
                     <Box className={classes.actions}>{renderActions()}</Box>
                 </Box>
             </Box>
+            <WarningModal modalIsOpen={warningIsOpen} modalText={warningText} closeFunction={closeWarning}/>
             <ErrorModal
                 modalIsOpen={errorIsOpen}
                 modalText={errorModalText}
