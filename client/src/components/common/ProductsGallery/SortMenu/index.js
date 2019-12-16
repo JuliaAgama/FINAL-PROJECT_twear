@@ -20,31 +20,6 @@ function clearQueryString(queryString) {
     return result;
 }
 
-function createSortQueryString(sortingVariantValue, sortQuery) {
-    switch (+sortingVariantValue) {
-        case 1 :
-            sortQuery += "&sort=+name";
-            break;
-        case 2 :
-            sortQuery += "&sort=-name";
-            break;
-        case 3 :
-            sortQuery += "&sort=+price";
-            break;
-        case 4 :
-            sortQuery += "&sort=-price";
-            break;
-        case 5 :
-            sortQuery += "&sort=-date";
-            break;
-        case 6 :
-            sortQuery += "&sort=+date";
-            break;
-    }
-    return sortQuery;
-}
-
-
 export default function SimpleSelect(props) {
     const {mobile, colors, queryString} = props;
     const classes = useStyles();
@@ -56,7 +31,7 @@ export default function SimpleSelect(props) {
     };
     const handleChangeSortRule = event => {
         let sortQuery = clearQueryString(queryString);
-        sortQuery = createSortQueryString(event.target.value, sortQuery);
+        sortQuery += event.target.value;
         setSortRule(event.target.value);
         return history.push(`/categories/${sortQuery}`);
     };
@@ -79,12 +54,12 @@ export default function SimpleSelect(props) {
                     <option value={0} disabled>
                         Sort
                     </option>
-                    <option value={1}>Alphabetically, A-Z</option>
-                    <option value={2}>Alphabetically, Z-A</option>
-                    <option value={3}>Price, low to high</option>
-                    <option value={4}>Price, high to low</option>
-                    <option value={5}>Date, new to old</option>
-                    <option value={6}>Date, old to new</option>
+                    <option value="&sort=+name">Alphabetically, A-Z</option>
+                    <option value="&sort=-name">Alphabetically, Z-A</option>
+                    <option value="&sort=+price">Price, low to high</option>
+                    <option value="&sort=-price">Price, high to low</option>
+                    <option value="&sort=-date">Date, new to old</option>
+                    <option value="&sort=+date">Date, old to new</option>
                 </Select>
             </FormControl>
         </Container>

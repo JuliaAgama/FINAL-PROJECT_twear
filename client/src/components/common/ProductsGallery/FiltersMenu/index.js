@@ -4,12 +4,14 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Container} from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import useStyles from "./useStyles";
 
 export default function FiltersMenu(props) {
-    const {colors} = props;
+    const {colors, queryString} = props;
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
+    const history = useHistory();
 
     const theme = createMuiTheme({
         palette: {
@@ -21,7 +23,9 @@ export default function FiltersMenu(props) {
 
     const colorTabs = Array.from(colors).map((item, index) => <Tab key={index} className={classes.tab} label={item} /> );
     const handleChange = (event, newValue) => {
+        let sortQuery = queryString + '&color=' + Array.from(colors)[newValue-1];
         setValue(newValue);
+        return history.push(`/categories/${sortQuery}`);
     };
 
     return (

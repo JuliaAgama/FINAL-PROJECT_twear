@@ -7,6 +7,7 @@ const queryCreator = require("../commonHelpers/queryCreator");
 const filterParser = require("../commonHelpers/filterParser");
 const getGenderByName = require("../commonHelpers/getGenderByName")
 const getCategoryByName = require("../commonHelpers/getCategoryByName")
+const getColorByName = require("../commonHelpers/getColorByName")
 const _ = require("lodash");
 
 exports.addImages = (req, res, next) => {
@@ -197,9 +198,12 @@ exports.getProductsFilterParams = async (req, res, next) => {
   const perPage = Number(req.query.perPage);
   const startPage = Number(req.query.startPage);
   const sort = req.query.sort;
+  const color = req.query.color;
+  console.log(color);
   try {
     const mongooseIdQuery = await getGenderByName(req.query);
     const category = await getCategoryByName(req.query);
+    const color = await getColorByName(req.query);
     const products = await Product.find({'categories.category': category})
       .populate("categories.category")
       .populate("categories.category.topCategory")

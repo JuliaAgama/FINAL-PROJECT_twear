@@ -111,7 +111,7 @@ export default function ProductGallery(props) {
     return (
         <>
             <CategoryTitle title={getCategoryTitle(queryString)}/>
-            {!matches ? <FiltersMenu colors={getSetOfProductsColors(products)}/> : ''}
+            {!matches ? <FiltersMenu colors={getSetOfProductsColors(products)} queryString = {queryString}/> : ''}
             <SortMenu mobile={matches} colors={getSetOfProductsColors(products)} queryString = {queryString}/>
             <Container maxWidth={false} className={classes.mainContainer}>
                 {productCards}
