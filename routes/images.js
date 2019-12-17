@@ -5,7 +5,7 @@ const passport = require("passport"); // multer for parsing multipart form data 
 //Import controllers
 const {
   uploadImageCloud, //to upload server
-  deleteImageCloud, //from upload server
+  deleteImageCloud //from upload server
 } = require("../controllers/images");
 
 // @route   POST /images
@@ -17,11 +17,11 @@ router.post(
   uploadImageCloud
 );
 
-// @route   DELETE /images/:id
+// @route   DELETE /images/
 // @desc    DELETE existing image from cloud / upload server
 // @access  Private
 router.delete(
-  "/:id",
+  "/",
   // passport.authenticate("jwt-admin", { session: false }),
   deleteImageCloud
 );
