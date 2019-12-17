@@ -120,7 +120,7 @@ export default props => {
         return false;
     };
 
-    const checkDoublesInDataBase = (formData) => {
+    const checkDoublesInDataBase = formData => {
         (new ProductsApi())
         .getProductsByMatch({itemNo: formData.itemNo})
         .then(res => res.filter(el => el._id !== product._id))
@@ -149,6 +149,7 @@ export default props => {
                 productsActions.updateProduct(formData)(dispatch);
 
             ref.current(`Product ${formData.name.toUpperCase()} has been saved!`);
+            productsActions.getProductsByFilter(`itemNo=${formData.itemNo}`)(dispatch);
 
             setTimeout(() => {
                 return history.push("/admin/products/"+formData.itemNo);

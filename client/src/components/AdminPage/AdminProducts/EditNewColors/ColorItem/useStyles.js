@@ -19,7 +19,6 @@ export default makeStyles(theme => (
         colored: {
             margin: theme.spacing(1),
             borderTop: props => `10px solid ${props.color}`,
-            // backgroundColor: props => props.color,
         },
         imgContainer: {
             width: '99%',
@@ -28,10 +27,7 @@ export default makeStyles(theme => (
         },
         img: {
             objectFit: 'cover',
-            // width: '100%',
-            // height: '100%',
             maxHeight: '100%',
-            // maxWidth: '100%',
         },
         textField: {
             margin: `${theme.spacing(1)}`,

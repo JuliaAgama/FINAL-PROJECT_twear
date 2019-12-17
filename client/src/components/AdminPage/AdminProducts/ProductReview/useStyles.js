@@ -37,6 +37,15 @@ export default makeStyles(theme => (
             top: theme.spacing(-4),
             left: theme.spacing(-4),
         },
+        saveBtn: {
+            display: 'block',
+            width: '100px',
+            marginLeft: theme.spacing(2),
+            // margin: '0 auto',
+            borderRadius: '18px',
+            outline: 'none!important',
+            textDecoration: 'none!important',
+        },
         link: {
             display: 'inline-block',
             textDecoration: 'none!important',

@@ -51,10 +51,10 @@ export function getSizesBySearch(searchValue) {
     };
 };
 
-export function getSizesByParentId(topCatId) {
+export function getSizesByParentId(sizeTypeId) {
     return function (dispatch) {
         dispatch(sizesSendRequest());
-        (new SizesApi()).getSizesByMatch({topCategory: topCatId}).then(res => {
+        (new SizesApi()).getSizesByMatch({sizeType: sizeTypeId}).then(res => {
             return dispatch({
                 type: SIZES.SIZES_GET_SIZES_BY_PARENT_ID,
                 data: res

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import { Typography, Grid, TextField, FormLabel, FormControlLabel, FormControl, Radio, RadioGroup, Button } from '@material-ui/core';
+import { Typography, Grid, Box, TextField, FormLabel, FormControlLabel, FormControl, Radio, RadioGroup, Button } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -129,6 +129,16 @@ export default props => {
                 </div>
 
                 <Grid container className={classes.paper}>
+                    <Grid item xs={12}>
+                        <Box className={classes.imgContainer}>
+                            <img
+                                className={classes.img}
+                                src={formData.img}
+                                alt="NOT FOUND"/>
+
+                        </Box>
+                    </Grid>
+
                     <Grid item xs={12}>
                         <UploadFile/>
                     </Grid>

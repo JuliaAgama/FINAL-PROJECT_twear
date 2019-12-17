@@ -1,32 +1,40 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { pink } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
-        root: {
-            padding: theme.spacing(2),
-            backgroundColor: theme.palette.background.paper,
+        saveBtn: {
+            display: 'block',
+            width: '100px',
+            marginLeft: theme.spacing(2),
+            borderRadius: '18px',
+            outline: 'none!important',
+            textDecoration: 'none!important',
         },
         paper: {
-            margin: theme.spacing(1),
-            marginBottom: theme.spacing(3),
-            border: '1px solid #333',
-            padding: theme.spacing(1),
-            alignItems: 'center',
-            minHeight: '200px',
-            position: 'relative',
+            alignItems: 'flex-start',
+            borderLeft: '1px solid #666',
+            textAlign: 'center',
+            marginTop: theme.spacing(2),
         },
-        link: {
-            display: 'inline-block',
-            textDecoration: 'none!important',
+        header: {
+            textTransform: 'capitalize',
+            boxSizing: 'border-box',
+            height: '60px',
+            borderTop: '1px solid #666',
+            borderBottom: '2px solid #666',
+            borderRight: '1px solid #666',
+            padding: theme.spacing(1),
+            minWidth: '60px',
+        },
+        rowTitle: {
+            textTransform: 'capitalize',
+            borderBottom: '1px solid #333',
+            borderRight: '1px solid #333',
             textTransform: 'uppercase',
-            marginTop: theme.spacing(3),
-            marginBottom: theme.spacing(5),
-            color: '#000000',
-            "&:hover": {
-                color: pink[600],
-                textDecoration: 'underline',
-            },
+            height: '50px',
+        },
+        input: {
+            width: '50px',
         },
     }
 ));
