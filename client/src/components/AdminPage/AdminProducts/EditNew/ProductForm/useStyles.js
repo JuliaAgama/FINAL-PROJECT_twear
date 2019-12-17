@@ -12,6 +12,7 @@ export default makeStyles(theme => (
         bottomDivider: {
             borderBottom: '1px solid #999',
             paddingBottom: theme.spacing(2),
+            paddingTop: theme.spacing(1),
             marginBottom: theme.spacing(1),
         },
         input: {
@@ -23,29 +24,8 @@ export default makeStyles(theme => (
             width: '100%',
             backgroundColor: '#fff',
         },
-        formControl: {
-            margin: theme.spacing(2),
-            paddingLeft: theme.spacing(2),
-        },
         container: {
             alignItems: 'center',
-        },
-        imgItem: {
-            height: '150px',
-            flexGrow: 1,
-            alignItems: 'flex-start',
-            textTransform: 'capitalize',
-            justifyContent: 'space-between',
-            padding: theme.spacing(1),
-        },
-        imgContainer: {
-            width: '99%',
-            height: '99%',
-            overflow: 'hidden',
-        },
-        img: {
-            objectFit: 'cover',
-            maxHeight: '100%',
         },
         btn: {
             display: 'block',

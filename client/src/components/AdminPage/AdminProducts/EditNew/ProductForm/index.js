@@ -7,6 +7,7 @@ import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl,
 import useStyles from './useStyles';
 
 import ColorItem from './ColorItem';
+import ImgItem from './ImgItem';
 import Selector from '../../../../common/inputs/Selector';
 import UploadFile from '../../../../common/inputs/UploadFile';
 
@@ -140,6 +141,10 @@ export default props => {
         });
     };
 
+    const openConfirm = event => {
+        event.preventDefault();
+    };
+
     const onSubmit = event => {
         event.preventDefault();
         onSubmitHandler(formData);
@@ -250,9 +255,9 @@ export default props => {
                 </Grid>
             </Grid>
 
-            <Grid item xs={12} container className={classes.bottomDivider}>
-                <Grid item xs={12} sm={6}>
-                    <FormControl component="fieldset" className={classes.formControl}>
+            <Grid item xs={12} container className={classes.bottomDivider} spacing={1}>
+                <Grid item xs={6} sm={6}>
+                    <FormControl component="fieldset" >
                         <FormLabel component="legend">Gender:</FormLabel>
                             <RadioGroup aria-label="genders" name="gender">
                             {gendersBase.map(gender =>
@@ -269,8 +274,8 @@ export default props => {
                             </RadioGroup>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <FormControl component="fieldset" className={classes.formControl}>
+                <Grid item xs={6} sm={6}>
+                    <FormControl component="fieldset" >
                         <FormLabel component="legend">Sizes Set:
                         </FormLabel>
                         { sizeTypeLocked ?
@@ -306,20 +311,13 @@ export default props => {
                 </Grid>
             </Grid>
 
-            <Grid item xs={12} container className={classes.bottomDivider}>
+            <Grid item xs={12} container className={classes.bottomDivider} spacing={4}>
                 <Grid item xs={12}>Product Images</Grid>
                 {formData && formData.imgs ? formData.imgs.map(url =>
-                    <Grid item xs={4} sm={2}
-                        className={classes.imgItem}
+                    <Grid item xs={4} lg={2}
                         key={Math.random()}
                     >
-                        <Box className={classes.imgContainer}>
-                            <img
-                                className={classes.img}
-                                src={url}
-                                alt="NOT FOUND"/>
-
-                        </Box>
+                        <ImgItem item={item} url={url} handleOnDelete={openConfirm}/>
                     </Grid>
                     ) : <></>
                 }

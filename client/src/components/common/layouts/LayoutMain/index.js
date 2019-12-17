@@ -30,9 +30,9 @@ export default props => {
                 <div className={classes.header}><Header/></div>
                     <div>{props.children}</div>
                 <div className={classes.footer}><Footer/></div>
-                <Link to={`/admin`}>
+                {/* <Link to={`/admin`}>
                     <SettingsButton title='Admin Page' size={2} color='red' />
-                </Link>
+                </Link> */}
             </Container>
         </ThemeProvider>
     );
