@@ -83,7 +83,7 @@ export default props => {
                         className={classes.icon}
                         src="/icons/cloud_upload-24px.svg"
                     />
-                    <span>Upload Images</span>
+                    <span>Add Images</span>
                 </Box>
             </Box>
         </Typography>

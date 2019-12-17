@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
+import ProductsApi from '../../../../../services/Products';
+
 import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, OutlinedInput, InputAdornment, InputLabel, Tooltip } from '@material-ui/core';
 
 import useStyles from './useStyles';
@@ -17,6 +19,8 @@ export default props => {
     const [selectedTopCat, setSelectedTopCat] = useState({_id: ''});
     const [categoriesDisplay, setCategoriesDisplay] = useState([]);
     const [sizeTypeLocked, setSizeTypeLocked] = useState(false);
+    const [emptyFields, setEmptyFields] = useState(true);
+    const [cloudinaryPath, setCloudinaryPath] = useState(`/twear/`);
 
     const checkSizeType = id => (
         item && item.colors && item.colors.some(el =>
@@ -25,7 +29,7 @@ export default props => {
         true : false
     );
 
-    useEffect(()=> {
+    useEffect(() => {
         if (item && itemNo !== 'newProduct') {
             setFormData(item);
             setSelectedTopCat(topCatsBase.find(el => el._id === item.categories[0].category.topCategory));
@@ -34,9 +38,30 @@ export default props => {
         }
     },[item, itemNo, topCatsBase]);
 
-    useEffect(()=> {
+    useEffect(() => {
         setCategoriesDisplay(categoriesBase.filter(el => el.topCategory._id === selectedTopCat._id));
     },[selectedTopCat, categoriesBase]);
+
+    const doublesInDatabase = () => {
+        (new ProductsApi())
+        .getProductsByMatch({itemNo: formData.itemNo})
+        .then(res => res.filter(el => el._id !== formData._id))
+        .then(res => res[0] ? true : false)
+    };
+
+    useEffect(() => {
+        if (!formData.itemNo || formData.itemNo === ''|| !formData.categories || formData.categories.length === 0) {
+            setEmptyFields(true);
+        } else {
+            setEmptyFields(false);
+            setCloudinaryPath(`/twear/${topCatsBase.find(el => el._id === formData.categories[0].category.topCategory).name.toLowerCase()}/${formData.categories[0].category.name.toLowerCase()}/${formData.itemNo.toLowerCase()}`);
+        }
+        return () => {
+            setEmptyFields(true)
+        };
+    },[formData])
+
+    // console.log('cloudinaryPath: ', cloudinaryPath);
 
     const onChangeTopCat = id => {
         id && id !== '' ? setSelectedTopCat(topCatsBase.find(el => el._id === id)) : setSelectedTopCat({_id: ''});
@@ -299,9 +324,14 @@ export default props => {
                     ) : <></>
                 }
                 <Grid item xs={12}>
-                    <UploadFile addUrlsToFormData={onUploadImgs}/>
+                    <UploadFile
+                        emptyFields={emptyFields}
+                        doublesInDatabase={doublesInDatabase}
+                        path={cloudinaryPath}
+                        addUrlsToFormData={onUploadImgs}
+                    />
                 </Grid>
-                {/* <Grid item xs={12}> ВРЕМЕННОЕ РЕДАКТИРОВАНИЕ УРЛОВ ФОТОК (на ворнинг не обращаем внимания):
+                <Grid item xs={12}> ВРЕМЕННОЕ РЕДАКТИРОВАНИЕ УРЛОВ ФОТОК (на ворнинг не обращаем внимания):
                     { [0,1,2,3,4].map((el, ind) =>
                         <TextField
                             key={el}
@@ -315,7 +345,7 @@ export default props => {
                             variant="outlined"
                         />
                     )}
-                </Grid> */}
+                </Grid>
             </Grid>
 
             <Grid item xs={12} container> Colors:

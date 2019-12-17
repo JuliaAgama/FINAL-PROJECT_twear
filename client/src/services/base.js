@@ -25,14 +25,14 @@ export default class Base {
             .get(this.getUrl(url));
     }
 
-    post(url, data){
+    post(url, data, headers){
         Base.setAuthToken();
-        return axios.post(this.getUrl(url), data);
+        return axios.post(this.getUrl(url), data, headers);
     }
 
-    put(url, data){
+    put(url, data, headers){
         Base.setAuthToken();
-        return axios.put(this.getUrl(url), data);
+        return axios.put(this.getUrl(url), data, headers);
     }
 
     delete(url){

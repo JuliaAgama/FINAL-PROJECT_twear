@@ -114,11 +114,13 @@ export default props => {
                 <form autoComplete="off">
                     <Grid container className={classes.paper}>
                         <Grid item >
-                            <Box fontSize='body2.fontsize' className={classes.header}>#</Box>
-                            {
-                                sizesBase.map(el => <Box fontSize='body2.fontsize' className={classes.rowTitle} key={el._id}>{el.name}</Box> )
-                            }
-                            <Box fontSize='body2.fontsize' className={classes.header}>Total</Box>
+                            <Box style={{borderTop: `1px solid #666`}}>
+                                <Box fontSize='body2.fontsize' className={classes.header} style={{borderTop: `10px solid #fff`}}>#</Box>
+                                {
+                                    sizesBase.map(el => <Box fontSize='body2.fontsize' className={classes.rowTitle} key={el._id}>{el.name}</Box> )
+                                }
+                                <Box fontSize='body2.fontsize' className={classes.header}>Total</Box>
+                            </Box>
                         </Grid>
                         {formData.colors.map(item =>
                             <Grid item key={item.color._id}>

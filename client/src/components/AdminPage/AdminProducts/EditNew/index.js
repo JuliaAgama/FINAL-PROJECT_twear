@@ -120,7 +120,7 @@ export default props => {
         return false;
     };
 
-    const checkDoublesInDataBase = (formData) => {
+    const checkDoublesInDataBase = formData => {
         (new ProductsApi())
         .getProductsByMatch({itemNo: formData.itemNo})
         .then(res => res.filter(el => el._id !== product._id))
