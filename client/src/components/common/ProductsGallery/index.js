@@ -10,8 +10,18 @@ import useStyles from "./useStyles";
 import FiltersMenu from "./FiltersMenu";
 import SortMenu from "./SortMenu";
 
-function getSetOfProductsColors(products) {
+function getImgByColor(product, color) {
+    const colorObg  = product.colors.filter(item => item.color.name === color);
+    if (colorObg.length > 0) return colorObg[0].imgsColor;
+}
+
+function getSetOfProductsColors(products, queryString) {
     let colorSet = new Set();
+    const color = getChosenColor(queryString);
+    if (color) {
+        colorSet.add(color);
+        return colorSet;
+    }
     products.forEach(card => {
         card.colors.forEach(item => {
             if (item.color) {
@@ -20,6 +30,20 @@ function getSetOfProductsColors(products) {
         })
     });
     return colorSet;
+}
+
+function getChosenColor(queryString) {
+    let color = null;
+    if (queryString) {
+        const queryStringItems = queryString.split('&');
+        queryStringItems.forEach(item => {
+            if (item.startsWith('color')){
+                const tmpStr = item.substring(6);
+                if (tmpStr !== 'undefined') color = tmpStr;
+            }
+        });
+    }
+    return color;
 }
 
 function getSetOfProductSizes(product) {
@@ -62,8 +86,19 @@ export default function ProductGallery(props) {
     let counter = 1;
     let rowElementsCount = 4;
     if (matches) rowElementsCount = 2;
-
+    const color = getChosenColor(queryString);
     const productCards = products.map((product) =>{
+        let img1, img2;
+        if (color) {
+            const imgsColor = getImgByColor(product, color);
+            if (imgsColor) {
+                img1 = imgsColor[0];
+                img2 = imgsColor[1]
+            }
+        } else {
+            img1 = product.imgs[0];
+            img2 = product.imgs[1]
+        }
         let borderRight =true;
         if (counter % rowElementsCount === 0) borderRight = false;
         counter++;
@@ -71,8 +106,8 @@ export default function ProductGallery(props) {
         return <ProductCard name={product.name}
                      price={product.price}
                      sizes={sizes}
-                     srcImg1={product.imgs[0]}
-                     srcImg2={product.imgs[1]}
+                     srcImg1={img1}
+                     srcImg2={img2}
                      key={product._id}
                      borderRight={borderRight}/>;
     });
@@ -111,8 +146,8 @@ export default function ProductGallery(props) {
     return (
         <>
             <CategoryTitle title={getCategoryTitle(queryString)}/>
-            {!matches ? <FiltersMenu colors={getSetOfProductsColors(products)} queryString = {queryString}/> : ''}
-            <SortMenu mobile={matches} colors={getSetOfProductsColors(products)} queryString = {queryString}/>
+            {!matches ? <FiltersMenu colors={getSetOfProductsColors(products, queryString)} queryString = {queryString}/> : ''}
+            <SortMenu mobile={matches} colors={getSetOfProductsColors(products, queryString)} queryString = {queryString}/>
             <Container maxWidth={false} className={classes.mainContainer}>
                 {productCards}
             </Container>
