@@ -4,12 +4,12 @@ import { Box, Grid, TextField } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
-// import UploadFile from '../../../../common/inputs/UploadFile';
+import UploadFile from '../../../../common/inputs/UploadFile';
 
 
 export default props => {
 
-    const { item, onChangeColor} = props;
+    const { item, onChangeColor, onUploadImgs} = props;
 
     const [css, setCss] = useState({color: 'transparent'});
 
@@ -50,7 +50,7 @@ export default props => {
                 <Grid item xs={12} sm={6} lg={8} container className={classes.paper}>
                     <Grid item xs={12}>Редактирование УРЛОВ</Grid>
                     {/* <Grid item xs={12}>
-                        <UploadFile/>
+                    <UploadFile addUrlsToFormData={onUploadImgs}/>
                     </Grid> */}
                     { [0,1,2].map((el, ind) =>
                         <Grid item xs={4} key={el}>

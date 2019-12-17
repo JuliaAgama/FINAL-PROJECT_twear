@@ -40,6 +40,9 @@ app.use(bodyParser.json());
 // DB Config
 const db = require("./config/keys").mongoURI;
 
+// // Cloudinary Config
+// const cloudinaryURI = require("./config/keys").cloudinaryURI;
+
 // Connect to MongoDB
 mongoose
   .set("useCreateIndex", true)

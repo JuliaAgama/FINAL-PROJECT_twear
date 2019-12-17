@@ -22,14 +22,14 @@ export default props => {
 
     useEffect(()=> {
         if (item && optionItem && optionItem.sizes) {
-            optionItem.sizes.some(el => parseInt(el.quantity) > 0) ?
+            optionItem.sizes.some(el => parseInt(el.quantity) > 0) || (optionItem.imgsColor && optionItem.imgsColor.some(el => el && el !== '')) ?
             setColorIsLocked(true) : setColorIsLocked(false);
         }
     },[item, optionItem]);
 
     return (
         colorIsLocked ?
-        <Tooltip title="Cannot change, there are products in storage">
+        <Tooltip title="Cannot unselect, pictures or products in storage exist">
             <FormControlLabel
                 control={
                     <ColoredCheckbox

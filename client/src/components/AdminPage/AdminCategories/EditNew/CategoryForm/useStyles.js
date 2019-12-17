@@ -23,6 +23,15 @@ export default makeStyles(theme => (
             margin: theme.spacing(2),
             paddingLeft: theme.spacing(2),
         },
+        imgContainer: {
+            width: '99%',
+            overflow: 'hidden',
+        },
+        img: {
+            objectFit: 'cover',
+            maxHeight: '300px',
+            maxWidth: '100%',
+        },
         btn: {
             display: 'block',
             width: '25%',
