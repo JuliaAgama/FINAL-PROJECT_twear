@@ -6,7 +6,7 @@ import CategoriesMenuItem from "./CategoryCard";
 import CategoriesMain from "../CatergoriesMain";
 import {Grid} from "@material-ui/core";
 import useStyles from "./useStyles";
-import "./CategoryCard/CategoriesMenuItem.css"
+import "./CategoryCard/categoryCard.css"
 
 
 const TopCategoryMenu = () => {

@@ -25,7 +25,7 @@ import AdminProductsEditNewColors from "../components/AdminPage/AdminProducts/Ed
 import PersonalCabinet from "../components/PersonalCabinet";
 import PrivateRoute from "./PrivateRoute";
 import AccessDenied from "../components/AccessDenied";
-import TopCategoryMenu from "../components/TopCategoryMenu";
+import TopCategoryMenu from "../components/TopCatPage";
 
 export const Router = () => (
 
