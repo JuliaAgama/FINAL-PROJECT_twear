@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getAllProducts} from "../../store/actions/products";
 import ProductGallery from "../common/ProductsGallery";
-import CategoriesHome from "../CatergoriesHome";
+import CategoriesHome from "./CategoriesHome";
 
 
 export default () => {

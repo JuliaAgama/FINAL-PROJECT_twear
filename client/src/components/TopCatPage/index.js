@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesByParentId } from "../../store/actions/categories";
 import CategoryCard from "./CategoryCard";
-import CategoriesHome from "../CatergoriesHome";
+import CategoriesHome from "../HomePage/CategoriesHome";
 import {Grid} from "@material-ui/core";
 import useStyles from "./useStyles";
 import "./CategoryCard/categoryCard.css"

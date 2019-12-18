@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import useStyles from "./useStyles";
 import {Grid, Hidden} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {getAllTopCats} from "../../store/actions/topCats";
+import {getAllTopCats} from "../../../store/actions/topCats";
 import CategoryHomeItem from "./CategoryHomeItem";
 import CategoryHomeItemMobile from "./CategoryHomeItemMobile";
 
