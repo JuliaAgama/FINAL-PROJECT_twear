@@ -9,7 +9,7 @@ const CategoriesMain = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const topCats = useSelector(state => state.topCats.topCats);
-    const topCatsItem = topCats.map((item, index) => <CategoriesMainItem href = {`topcategorymenu/${item._id}`} name = {item.name} id={index+1} key = {item._id}/>);
+    const topCatsItem = topCats.map((item, index) => <CategoriesMainItem href = {`topcategorymenu/${item._id}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>);
 
     useEffect(() => dispatch(getAllTopCats()),
         [

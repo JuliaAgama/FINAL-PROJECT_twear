@@ -5,10 +5,11 @@ import './categoryMainItem.css';
 
 const CategoriesMainItem = (props) => {
 
-    const {name, id, href} = props;
+    const {name, id, href, image} = props;
+
 
     return (
-            <Grid item xs={3} id={`item${id}`} className="category-item-home">
+            <Grid item xs={3} id={`item${id}`} className="category-item-home" style = {{backgroundImage:`url(${image})`}}>
                 <p className="top-cat-name">{name}</p>
                 <Link className="hidden-link" href={href+'&men'}>
                     MEN
