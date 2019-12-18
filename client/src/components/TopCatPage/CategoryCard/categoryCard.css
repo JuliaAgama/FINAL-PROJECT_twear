@@ -1,0 +1,62 @@
+.menuItem :hover {
+  background-color: black;
+}
+
+.hidden-link {
+  display: none;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.top-cat-name {
+  display: block;
+  font-size: 42px;
+  background: white;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.category-item-home {
+  background-size: cover;
+  /* background-image: url("https://www.balenciaga.com/66/41/41809866SC_12_a_g.jpg"); */
+  background-position: center;
+  filter: grayscale(1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  text-decoration: none;
+  transition: all 2s ease;
+  height: 75vh;
+}
+
+.category-item-home > a {
+  font-family: "Roboto";
+  color: black;
+  padding: 20px 30px; 
+}
+
+.category-item-home:hover {
+  filter: grayscale(0);
+  transition: all 1s ease;
+}
+
+.category-item-home:hover .hidden-link {
+  display: block;
+  background-color: white;
+  width: 100%;
+  text-align: center;
+  margin: 30px;
+  text-decoration: none;
+}
+
+.hidden-link:hover {
+  font-weight: 700;
+}
+
+.category-item-home:hover .top-cat-name {
+  display: none;
+} 
