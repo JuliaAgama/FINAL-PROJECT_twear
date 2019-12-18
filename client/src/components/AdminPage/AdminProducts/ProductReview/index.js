@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import * as productsActions from '../../../../store/actions/products';
 
-import { Typography, Box, Grid } from '@material-ui/core';
+import { Typography, Box, Grid, Tooltip } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -76,7 +76,9 @@ export default props => {
                 <Grid container className={classes.paperOne}>
                     {product ?
                         <>
+                        <Tooltip title="Edit Product Info">
                             <Link to={"/admin/products/edit/"+product.itemNo} className={classes.editBtn}> <OpenEditButton/> </Link>
+                        </Tooltip>
                             <ProductBasicBox product={product}/>
                         </> :
                         <Spinner/>
@@ -84,7 +86,9 @@ export default props => {
                 </Grid>
                 <Grid container className={classes.paperTwo}>
                 {product ?
-                    <Link to={"/admin/products/edit/colors/"+product.itemNo} className={classes.editBtn}> <OpenEditButton/> </Link> : <></>
+                    <Tooltip title="Edit Images">
+                        <Link to={"/admin/products/edit/colors/"+product.itemNo} className={classes.editBtn}> <OpenEditButton/> </Link>
+                    </Tooltip> : <></>
                 }
                     <Grid item xs={12}>
                         <Box fontSize="h6.fontSize" ml={6} pt={2} pb={2}>
