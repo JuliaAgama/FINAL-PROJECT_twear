@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
+
 
 export default makeStyles(theme => (
     {
@@ -8,6 +8,12 @@ export default makeStyles(theme => (
             alignItems: 'flex-start',
             textTransform: 'capitalize',
             justifyContent: 'space-between',
+        },
+        bottomDivider: {
+            borderBottom: '1px solid #999',
+            paddingBottom: theme.spacing(2),
+            paddingTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
         },
         input: {
             paddingTop: theme.spacing(1),
@@ -18,9 +24,8 @@ export default makeStyles(theme => (
             width: '100%',
             backgroundColor: '#fff',
         },
-        formControl: {
-            margin: theme.spacing(2),
-            paddingLeft: theme.spacing(2),
+        container: {
+            alignItems: 'center',
         },
         btn: {
             display: 'block',

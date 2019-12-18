@@ -23,6 +23,12 @@ export default makeStyles(theme => (
             margin: theme.spacing(2),
             paddingLeft: theme.spacing(2),
         },
+        imgContainer: {
+            height: '300px',
+            backgroundPosition: 'center',
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+        },
         btn: {
             display: 'block',
             width: '25%',

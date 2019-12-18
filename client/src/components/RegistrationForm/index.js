@@ -1,7 +1,14 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { Field, reduxForm } from 'redux-form';
-import {renderTextField, renderRadioGroup, renderCheckbox, renderPhoneNumber} from "../common/inputFields";
+
+import { registrationAction} from "../../store/actions/customer";
+
+import {Container, Grid, Button, Box, FormControl, FormControlLabel, Radio} from "@material-ui/core";
+
+import useStyles from "./useStyles";
+
+import {renderTextField, renderRadioGroup, renderCheckbox, renderPhoneNumber} from "../common/inputs/inputFields";
 import {
     required,
     minLength,
@@ -12,17 +19,10 @@ import {
     login,
     password
 } from '../common/validators';
-import {loginAction, registrationAction} from "../../store/actions/customer";
-import Grid from "@material-ui/core/Grid";
-import {Container} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
-import 'react-phone-input-2/dist/style.css'
-import useStyles from "./useStyles";
+
 import Spinner from "../common/Spinner";
+
+import 'react-phone-input-2/dist/style.css'
 
 const minLength7 = minLength(7);
 const minLength3 = minLength(3);
@@ -31,7 +31,9 @@ const maxLength25 = maxLength(25);
 const maxLength10 = maxLength(10);
 const maxLength30 = maxLength(30);
 
-const Registration = (props) => {
+
+export default reduxForm({form: 'Registration'}) (props => {
+
     const classes = useStyles();
     const dispatch = useDispatch();
     const { handleSubmit, pristine, invalid, submitting } = props;
@@ -108,7 +110,4 @@ const Registration = (props) => {
             </Grid>
         </React.Fragment>
     );
-};
-export default reduxForm({
-    form: 'Registration'
-})(Registration);
+});

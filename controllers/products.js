@@ -9,9 +9,20 @@ const mongooseQueryCreator = require("../commonHelpers/mongooseQueryCreator")
 const _ = require("lodash");
 
 exports.addImages = (req, res, next) => {
+  console.log(req.files); // following is req.files example:
+  // [ { fieldname: 'photos',
+  // [0]     originalname: 'IMG_8209-1.jpg',
+  // [0]     encoding: '7bit',
+  // [0]     mimetype: 'image/jpeg',
+  // [0]     destination: './static/images/products/',
+  // [0]     filename: 'IMG_8209-1.jpg',
+  // [0]     path: 'static\\images\\products\\IMG_8209-1.jpg',
+  // [0]     size: 14661237 },]
+
   if (req.files.length > 0) {
+
     res.json({
-      message: "Photos are received"
+      message: "Photos are received",
     });
   } else {
     res.json({
@@ -115,6 +126,33 @@ exports.updateProduct = (req, res, next) => {
         message: `Error happened on server: "${err}" `
       })
     );
+};
+
+exports.deleteProduct = (req, res, next) => {
+  Product.findOne({_id: req.params.id }).then(async product => {
+    if (!product) {
+      return res
+      .status(400)
+      .json({
+        message: `Product with id "${req.params.id}" is not found.`
+      });
+    } else {
+      const productToDelete = await Product.findOne({_id: req.params.id });
+
+      Product.deleteOne({_id: req.params.id })
+        .then(deletedCount =>
+          res.status(200).json({
+            message: `Product "${productToDelete.name.toUpperCase()}" witn id "${productToDelete.id}" is successfully deleted from DB.`,
+            deletedProductInfo: productToDelete
+          })
+        )
+        .catch(err =>
+          res.status(400).json({
+            message: `Error happened on server: "${err}" `
+          })
+        );
+    }
+  });
 };
 
 exports.getProducts = (req, res, next) => {

@@ -6,6 +6,7 @@ import * as topCatsActions from '../../../../store/actions/topCats';
 import * as categoriesActions from '../../../../store/actions/categories';
 import * as gendersActions from '../../../../store/actions/genders';
 import * as sizeTypesActions from '../../../../store/actions/sizeTypes';
+import * as colorsActions from '../../../../store/actions/colors';
 import * as productsActions from '../../../../store/actions/products';
 import ProductsApi from '../../../../services/Products';
 
@@ -41,6 +42,9 @@ export default props => {
     const getSizeTypesList = () => {
         sizeTypesActions.getAllSizeTypes()(dispatch);
     };
+    const getColorsList = () => {
+        colorsActions.getAllColors()(dispatch);
+    };
     const getProductByItemNo = () => {
     if(itemNo !== 'newProduct') {productsActions.getProductItemByItemNo(itemNo)(dispatch)}
     };
@@ -51,26 +55,30 @@ export default props => {
         getCategoriesList();
         getGendersList();
         getSizeTypesList();
+        getColorsList();
         return () => {
             getProductByItemNo();
             getTopCatsList();
             getCategoriesList();
             getGendersList();
             getSizeTypesList();
+            getColorsList();
         }
     }, [dispatch]);
 
     const product = itemNo === 'newProduct' ? {name: itemNo} : useSelector(state => state.productItem.productItem);
-    const topCatsBase = (useSelector(state => state.topCats.topCats));
+    const topCatsBase = useSelector(state => state.topCats.topCats);
     const categoriesBase = useSelector(state => state.categories.categories);
     const gendersBase = useSelector(state => state.genders.genders);
     const sizeTypesBase = useSelector(state => state.sizeTypes.sizeTypes);
+    const colorsBase = useSelector(state => state.colors.colors);
 
-    const productLoaded = useSelector(state => state.productItem.loaded)
+    const productLoaded = useSelector(state => state.productItem.loaded);
     const topCatsLoaded = useSelector(state => state.topCats.loaded);
     const categoriesLoaded = useSelector(state => state.categories.loaded);
     const gendersLoaded = useSelector(state => state.genders.loaded);
     const sizeTypesLoaded = useSelector(state => state.sizeTypes.loaded);
+    const colorsLoaded = useSelector(state => state.colors.loaded);
 
     //server errors catching:
     const productError = useSelector(state => state.productItem.error);
@@ -78,12 +86,13 @@ export default props => {
     const categoriesError = useSelector(state => state.categories.error);
     const gendersError = useSelector(state => state.genders.error);
     const sizeTypesError = useSelector(state => state.sizeTypes.error);
+    const colorsError = useSelector(state => state.colors.error);
 
     const [errorIsOpen, setErrorIsOpen] = useState(false);
 
     useEffect(() => {
-        if(productError || topCatsError || categoriesError || gendersError || sizeTypesError) {setErrorIsOpen(true)}
-    },[productError, topCatsError, categoriesError, productError, gendersError, sizeTypesError]
+        if(productError || topCatsError || categoriesError || gendersError || sizeTypesError || colorsError) {setErrorIsOpen(true)}
+    },[productError, topCatsError, categoriesError, gendersError, sizeTypesError, colorsError]
     );
 
     const errorModalText = {
@@ -111,7 +120,7 @@ export default props => {
         return false;
     };
 
-    const checkDoublesInDataBase = (formData) => {
+    const checkDoublesInDataBase = formData => {
         (new ProductsApi())
         .getProductsByMatch({itemNo: formData.itemNo})
         .then(res => res.filter(el => el._id !== product._id))
@@ -127,7 +136,7 @@ export default props => {
 
     const onSubmitHandler = async formData => {
 
-        if(checkEmpty(formData.itemNo) || checkEmpty(formData.name) || checkEmpty(formData.categories) || checkEmpty(formData.gender) || checkEmpty(formData.sizeType)) {
+        if(checkEmpty(formData.itemNo) || checkEmpty(formData.name) || checkEmpty(formData.categories) || checkEmpty(formData.gender) || checkEmpty(formData.sizeType) || checkEmpty(formData.colors) ) {
             return false;
         };
 
@@ -140,6 +149,7 @@ export default props => {
                 productsActions.updateProduct(formData)(dispatch);
 
             ref.current(`Product ${formData.name.toUpperCase()} has been saved!`);
+            productsActions.getProductsByFilter(`itemNo=${formData.itemNo}`)(dispatch);
 
             setTimeout(() => {
                 return history.push("/admin/products/"+formData.itemNo);
@@ -151,7 +161,7 @@ export default props => {
         }
     };
 
-    const cutName = (string, l) => string.length >= l ? string.slice(0, l-3)+'...' : string;
+    const cutName = (string, l) => string.length > l ? string.slice(0, l-3)+'...' : string;
 
     const classes = useStyles();
 
@@ -161,7 +171,7 @@ export default props => {
             <Box color="secondary.main" p={3} borderBottom={1} textAlign="center" fontSize="h6.fontSize">Edit {product.name.toUpperCase()} </Box> : <Spinner/>
         }
             <Box p={2}>
-                {(productLoaded && topCatsLoaded && categoriesLoaded && gendersLoaded && sizeTypesLoaded) || itemNo === 'newProduct' ?
+                {(productLoaded && topCatsLoaded && categoriesLoaded && gendersLoaded && sizeTypesLoaded && colorsLoaded) || itemNo === 'newProduct' ?
                     <Typography component="div" variant="body1" className={classes.wrapper}>
                         <ProductForm
                             itemNo={itemNo}
@@ -170,6 +180,7 @@ export default props => {
                             categoriesBase={categoriesBase}
                             gendersBase={gendersBase}
                             sizeTypesBase={sizeTypesBase}
+                            colorsBase={colorsBase}
                             onSubmitHandler={onSubmitHandler}
                         />
                     </Typography> : <Spinner/>

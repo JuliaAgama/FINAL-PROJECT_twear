@@ -1,7 +1,7 @@
 import React, { useState, createRef } from 'react';
 import clsx from 'clsx';
 
-import { Typography, Box, Grid } from '@material-ui/core';
+import { Typography, Box } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -83,7 +83,7 @@ export default props => {
                         className={classes.icon}
                         src="/icons/cloud_upload-24px.svg"
                     />
-                    <span>Upload Images</span>
+                    <span>Add Images</span>
                 </Box>
             </Box>
         </Typography>

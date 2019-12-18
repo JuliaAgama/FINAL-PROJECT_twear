@@ -1,21 +1,27 @@
 import React, {useState, useEffect} from 'react';
 
-import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, OutlinedInput, InputAdornment, InputLabel } from '@material-ui/core';
+import ProductsApi from '../../../../../services/Products';
+
+import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, OutlinedInput, InputAdornment, InputLabel, Tooltip } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
+import ColorItem from './ColorItem';
+import ImgItem from './ImgItem';
 import Selector from '../../../../common/inputs/Selector';
 import UploadFile from '../../../../common/inputs/UploadFile';
 
 
 export default props => {
 
-    const { itemNo, item, topCatsBase, categoriesBase, gendersBase, sizeTypesBase, onSubmitHandler} = props;
+    const { itemNo, item, topCatsBase, categoriesBase, gendersBase, sizeTypesBase, colorsBase, onSubmitHandler} = props;
 
     const [formData, setFormData] = useState({});
     const [selectedTopCat, setSelectedTopCat] = useState({_id: ''});
     const [categoriesDisplay, setCategoriesDisplay] = useState([]);
     const [sizeTypeLocked, setSizeTypeLocked] = useState(false);
+    const [emptyFields, setEmptyFields] = useState(true);
+    const [cloudinaryPath, setCloudinaryPath] = useState(`/twear/`);
 
     const checkSizeType = id => (
         item && item.colors && item.colors.some(el =>
@@ -24,18 +30,42 @@ export default props => {
         true : false
     );
 
-    useEffect(()=> {
+    useEffect(() => {
         if (item && itemNo !== 'newProduct') {
             setFormData(item);
             setSelectedTopCat(topCatsBase.find(el => el._id === item.categories[0].category.topCategory));
             item.sizeType && checkSizeType(item.sizeType._id) ?
             setSizeTypeLocked(true) : setSizeTypeLocked(false);
         }
-    },[item, itemNo]);
+    },[item, itemNo, topCatsBase]);
 
-    useEffect(()=> {
+    useEffect(() => {
         setCategoriesDisplay(categoriesBase.filter(el => el.topCategory._id === selectedTopCat._id));
-    },[selectedTopCat]);
+    },[selectedTopCat, categoriesBase]);
+
+    const [doubles, setDoubles] = useState(false);
+    const doublesInDatabase = () => {
+        (new ProductsApi())
+        .getProductsByMatch({itemNo: formData.itemNo})
+        .then(res => res.filter(el => el._id !== formData._id))
+        .then(res => res[0] ?setDoubles(true) : setDoubles(false))
+    };
+
+    useEffect( () => {
+        if(formData.itemNo && formData.itemNo !== '') {
+            doublesInDatabase();
+        }
+        if (!formData.itemNo || formData.itemNo === ''|| !formData.categories || formData.categories.length === 0) {
+            setEmptyFields(true);
+        } else {
+            setEmptyFields(false);
+            setCloudinaryPath(`/twear/${topCatsBase.find(el => el._id === formData.categories[0].category.topCategory || el._id === formData.categories[0].category.topCategory._id).name.toLowerCase()}/${formData.categories[0].category.name.toLowerCase()}/${formData.itemNo.toLowerCase()}`);
+        }
+        return () => {
+            setEmptyFields(true);
+            setCloudinaryPath(`/twear/`);
+        };
+    },[formData])
 
     const onChangeTopCat = id => {
         id && id !== '' ? setSelectedTopCat(topCatsBase.find(el => el._id === id)) : setSelectedTopCat({_id: ''});
@@ -43,6 +73,20 @@ export default props => {
             ...formData,
             categories: []
         });
+    };
+
+    const onChangeColor = event => {
+        event.target.checked ?
+        setFormData({
+            ...formData,
+            colors: formData.colors ?
+            [...formData.colors.filter(el => el && el.color && el.color._id !== event.target.value), {color: colorsBase.find(item => item._id === event.target.id)}] :
+            [{color: colorsBase.find(item => item._id === event.target.id)}]
+        }) :
+        setFormData({
+            ...formData,
+            colors: [...formData.colors.filter(el => el && el.color && el.color._id !== event.target.id)]
+        })
     };
 
     const onChange = event => {
@@ -67,18 +111,23 @@ export default props => {
             });
 
         } else if (event.target.name === 'sizeType') {
-            if (sizeTypeLocked === false) {
-                setFormData({
-                    ...formData,
-                    sizeType: sizeTypesBase.find(el => el._id === event.target.value)
-                });
-            }
+            setFormData({
+                ...formData,
+                sizeType: sizeTypesBase.find(el => el._id === event.target.value)
+            });
 
         } else if (event.target.name.includes('imgs')) {
-            let changedUrl = formData.imgs.splice(parseInt(event.target.name), 1, event.target.value)
-            setFormData({
-                ...formData
-            });
+            if(formData.imgs ) {
+                formData.imgs.splice(parseInt(event.target.name), 1, event.target.value);
+                setFormData({
+                    ...formData
+                });
+            } else {
+                setFormData({
+                    ...formData,
+                    imgs: [event.target.value]
+                });
+            }
 
         } else {
             setFormData({
@@ -86,6 +135,17 @@ export default props => {
                 [event.target.name]: event.target.value
             });
         }
+    };
+
+    const onUploadImgs = newImgs => {
+        setFormData({
+            ...formData,
+            imgs: [...formData.imgs, ...newImgs]
+        });
+    };
+
+    const openConfirm = event => {
+        event.preventDefault();
     };
 
     const onSubmit = event => {
@@ -113,7 +173,6 @@ export default props => {
                         variant="outlined"
                     />
                 </Grid>
-
                 <Grid item xs={12} sm={8}>
                     <TextField
                         required
@@ -130,7 +189,7 @@ export default props => {
                 </Grid>
             </Grid>
 
-            <Grid item xs={12} container>
+            <Grid item xs={12} container >
                 <Grid item xs={6}  className={classes.input}>
                     <Box pt={2} pb={1}>Select Categories: </Box>
                 </Grid>
@@ -142,12 +201,14 @@ export default props => {
                         onChange={onChangeTopCat}
                     />
                 </Grid>
-
-                    <FormControl component="fieldset" className={classes.formControl}>
-                        <FormGroup>
-                            <Grid container>
-                            {categoriesDisplay.map(item =>
-                                <Grid item xs={6} lg={4} className={classes.input} key={item._id}>
+                <FormControl component="fieldset" className={classes.formControl}>
+                    <FormGroup>
+                        <Grid container spacing={3}>
+                        {categoriesDisplay.map(item =>
+                            <Grid item xs={6} lg={4}
+                                className={classes.input}
+                                key={item._id}
+                            >
                                 <FormControlLabel
                                     control={
                                         <Checkbox
@@ -159,55 +220,14 @@ export default props => {
                                         />}
                                     label={item.name}
                                 />
-                                </Grid>
-                            )}
                             </Grid>
-                        </FormGroup>
-                    </FormControl>
+                        )}
+                        </Grid>
+                    </FormGroup>
+                </FormControl>
             </Grid>
+
             <Grid item xs={12} container>
-                <Grid item xs={6}>
-                    <FormControl component="fieldset" className={classes.formControl}>
-                        <FormLabel component="legend">Gender:</FormLabel>
-                            <RadioGroup aria-label="genders" name="gender">
-                            {gendersBase.map(gender =>
-                                <FormControlLabel
-                                    key={gender._id}
-                                    id={gender._id}
-                                    value={gender._id}
-                                    control={<Radio />}
-                                    label={gender.name}
-                                    checked={formData.gender && formData.gender._id === gender._id ? true : false}
-                                    onChange={onChange}
-                                />
-                            )}
-                            </RadioGroup>
-                    </FormControl>
-                </Grid>
-
-                <Grid item xs={6}>
-                    <FormControl component="fieldset" className={classes.formControl}>
-                        <FormLabel component="legend">Sizes Set:
-                            { sizeTypeLocked ?
-                            <span> (Cannot change as there are products of its sizes) </span> : <></>
-                            }
-                            </FormLabel>
-                            <RadioGroup aria-label="sizeTypes" name="sizeType">
-                            {sizeTypesBase.map(sizeType =>
-                                <FormControlLabel
-                                    key={sizeType._id}
-                                    id={sizeType._id}
-                                    value={sizeType._id}
-                                    control={<Radio />}
-                                    label={sizeType.name}
-                                    checked={formData.sizeType && formData.sizeType._id === sizeType._id ? true : false}
-                                    onChange={onChange}
-                                />
-                            )}
-                        </RadioGroup>
-                    </FormControl>
-                </Grid>
-
                 <Grid item xs={12}>
                     <TextField
                         id="product-description"
@@ -222,7 +242,6 @@ export default props => {
                         variant="outlined"
                     />
                 </Grid>
-
                 <Grid item xs={5} sm={3}>
                     <FormControl variant="outlined">
                         <InputLabel htmlFor="price">Price</InputLabel>
@@ -239,12 +258,82 @@ export default props => {
                 </Grid>
             </Grid>
 
-            <Grid container className={classes.paper}>
-                <Grid item xs={12}>
-                    <UploadFile/>
+            <Grid item xs={12} container className={classes.bottomDivider} spacing={1}>
+                <Grid item xs={6} sm={6}>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend">Gender:</FormLabel>
+                            <RadioGroup aria-label="genders" name="gender">
+                            {gendersBase.map(gender =>
+                                <FormControlLabel
+                                    key={gender._id}
+                                    id={gender._id}
+                                    value={gender._id}
+                                    control={<Radio />}
+                                    label={gender.name}
+                                    checked={formData.gender && formData.gender._id === gender._id ? true : false}
+                                    onChange={onChange}
+                                />
+                            )}
+                            </RadioGroup>
+                    </FormControl>
                 </Grid>
+                <Grid item xs={6} sm={6}>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend">Sizes Set:
+                        </FormLabel>
+                        { sizeTypeLocked ?
+                        <Tooltip title="Cannot change, there are products in storage">
+                            <RadioGroup aria-label="sizeTypes" name="sizeType">
+                                {sizeTypesBase.map(sizeType =>
+                                    <FormControlLabel
+                                        key={sizeType._id}
+                                        id={sizeType._id}
+                                        value={sizeType._id}
+                                        control={<Radio />}
+                                        label={sizeType.name}
+                                        checked={formData.sizeType && formData.sizeType._id === sizeType._id ? true : false}
+                                    />
+                                )}
+                            </RadioGroup>
+                        </Tooltip> :
+                        <RadioGroup aria-label="sizeTypes" name="sizeType">
+                            {sizeTypesBase.map(sizeType =>
+                                <FormControlLabel
+                                    key={sizeType._id}
+                                    id={sizeType._id}
+                                    value={sizeType._id}
+                                    control={<Radio />}
+                                    label={sizeType.name}
+                                    checked={formData.sizeType && formData.sizeType._id === sizeType._id ? true : false}
+                                    onChange={onChange}
+                                />
+                            )}
+                        </RadioGroup>
+                        }
+                    </FormControl>
+                </Grid>
+            </Grid>
 
-                <Grid item xs={12}> ВРЕМЕННОЕ ДОБАВЛЕНИЕ УРЛОВ ФОТОК (на ворнинг не обращаем внимания пока):
+            {item && itemNo !== 'newProduct' ?
+            <Grid item xs={12} container className={classes.bottomDivider} spacing={4}>
+                <Grid item xs={12}>Product Images</Grid>
+                {formData && formData.imgs ? formData.imgs.map(url =>
+                    <Grid item xs={4} lg={2}
+                        key={Math.random()}
+                    >
+                        <ImgItem item={item} url={url} handleOnDelete={openConfirm}/>
+                    </Grid>
+                    ) : <></>
+                }
+                <Grid item xs={12}>
+                    <UploadFile
+                        emptyFields={emptyFields}
+                        doubles={doubles}
+                        path={cloudinaryPath}
+                        addUrlsToFormData={onUploadImgs}
+                    />
+                </Grid>
+                {/* <Grid item xs={12}> ВРЕМЕННОЕ РЕДАКТИРОВАНИЕ УРЛОВ ФОТОК (на ворнинг не обращаем внимания):
                     { [0,1,2,3,4].map((el, ind) =>
                         <TextField
                             key={el}
@@ -258,16 +347,39 @@ export default props => {
                             variant="outlined"
                         />
                     )}
-                </Grid>
+                </Grid> */}
+            </Grid>
+            : <></>}
 
-                <Grid item xs={12}>
-                    <Button
-                    fullWidth={true}
-                    variant="outlined"
-                    className={classes.btn}
-                    onClick={onSubmit}
-                    > {`SAVE`}</Button>
-                </Grid>
+            <Grid item xs={12} container> Colors:
+                <FormControl component="fieldset" className={classes.formControl}>
+                    <FormGroup>
+                        <Grid container>
+                            {colorsBase.map(item =>
+                                <Grid item xs={6} lg={4}
+                                    className={classes.input}
+                                    key={item._id}
+                                >
+                                    <ColorItem
+                                        item={item}
+                                        formData={formData}
+                                        optionItem={formData.colors && formData.colors[0] ? formData.colors.find(el => el.color._id ===item._id) : null}
+                                        onChange={onChangeColor}
+                                    />
+                                </Grid>
+                            )}
+                        </Grid>
+                    </FormGroup>
+                </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+                <Button
+                fullWidth={true}
+                variant="outlined"
+                className={classes.btn}
+                onClick={onSubmit}
+                > {`SAVE`}</Button>
             </Grid>
         </form>
     )

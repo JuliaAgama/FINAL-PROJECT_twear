@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as colorsActions from '../../../../../store/actions/colors';
 import ColorsApi from '../../../../../services/Colors';
 import ProductsApi from '../../../../../services/Products';
+import ArchivesApi from '../../../../../services/Archives';
 
-import { Typography, Box, Grid, TextField } from '@material-ui/core';
+import { Grid, TextField, Tooltip } from '@material-ui/core';
+import PublishIcon from '@material-ui/icons/Publish';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import useStyles from './useStyles';
 
-import SaveButton from '../../../../common/buttons/Save';
-import DeleteButton from '../../../../common/buttons/Delete';
 import WarningModal from '../../../../common/messages/WarningModal';
 import ConfirmModal from '../../../../common/messages/ConfirmModal';
 
@@ -32,7 +33,7 @@ export default props => {
             setFormData(item);
         // };
         return () => {
-            setFormData(item);
+            setFormData({_id: '', name: ''});
         }
     },[item]);
 
@@ -90,18 +91,17 @@ export default props => {
     };
 
     // handle deleting color:
-    const [productsMatched, setProductsMatched] = useState(null);
+    const [productsMatched, setProductsMatched] = useState([]);
 
     useEffect(() => {
         // let itemUnmounted = false;
         // if (!itemUnmounted) {
-            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(res));
+            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(prodMat =>[...prodMat, ...res]));
+            (new ArchivesApi()).getArchivesByMatch({color: item._id}).then(res => setProductsMatched(prodMat =>[...prodMat, ...res]));
         // };
         return () => {
-            (new ProductsApi()).getProductsByMatch({color: item._id}).then(res => setProductsMatched(res));
+            setProductsMatched([]);
         }
-
-
 
         // пробовала следующее, не сработало (везде примеры только с гет-запросами, а мне нужен пост-запрос).....
 
@@ -127,12 +127,16 @@ export default props => {
         // return () => {
         //     source.cancel();
         // };
-    }, [item._id]);
+    }, [item]);
+    // }, [item, productsMatched]);
 
     const checkMatchingProducts = () => {
-        if(productsMatched && productsMatched[0]) {
+        if(productsMatched[0]) {
             setWarningIsOpen(true);
-            setWarningText({title: `Cannot delete ${formData.name.toUpperCase()} color!`, description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}"`).join(', ')}!`});
+            setWarningText({
+                title: `Cannot delete ${formData.name.toUpperCase()} color!`,
+                description: `It is used in products: ${productsMatched.map(el => `"${(el.name.charAt(0).toUpperCase()+el.name.slice(1))}" (${el.itemNo})`).join(', ')}!`
+            });
             return true;
         };
         return false;
@@ -192,14 +196,15 @@ export default props => {
                     </Grid>
                     <Grid item xs={12} sm container className={classes.container}>
                         <Grid item>
-                            <SaveButton
-                                onClick={saveColor}
-                                size="small"
-                                className={formData.name === item.name && formData.cssValue === item.cssValue ? '' : 'fabGreenFilled' }/>
+                            <Tooltip title="Save" >
+                                <PublishIcon aria-label="save" className={formData.name === item.name && formData.cssValue === item.cssValue ? classes.saveBtn : classes.saveBtnFilled} onClick={saveColor}/>
+                            </Tooltip>
                         </Grid>
                         <Grid item>
                             {item._id ?
-                            <DeleteButton  onClick={openConfirm}  size="small"/> :
+                            <Tooltip title="Delete" >
+                                <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={openConfirm}/>
+                            </Tooltip> :
                             <></>
                             }
                         </Grid>

@@ -1,11 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Grid, Paper } from '@material-ui/core';
 
 import useStyles from './useStyles';
-import {getCustomerAction} from "../../../store/actions/customer";
-import {useDispatch} from "react-redux";
 
 
 export default props => {
@@ -13,8 +11,6 @@ export default props => {
     const {items} = props;
 
     const classes = useStyles();
-    const dispatch = useDispatch();
-    useEffect(() => {dispatch(getCustomerAction())},[]);
 
     return(
         <div className={classes.root}>
@@ -27,7 +23,6 @@ export default props => {
                     </Grid>
                 ))}
             </Grid>
-
             <p>Go to <a href="/">shop</a>.</p>
         </div>
     )

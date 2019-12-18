@@ -10,7 +10,7 @@ const ProductSchema = new Schema(
         enabled: {
             type: Boolean,
             required: true,
-            default: true
+            default: false
         },
         name: {
             type: String,

@@ -154,6 +154,7 @@ export function getCustomerAction() {
 export function logoutAction() {
     return function (dispatch) {
         localStorage.removeItem("token");
+        localStorage.removeItem("isAdmin");
         return dispatch({
             type: Customer.CUSTOMER_LOGOUT
         });

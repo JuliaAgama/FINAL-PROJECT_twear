@@ -9,6 +9,7 @@ const {
   addImages,
   addProduct,
   updateProduct,
+  deleteProduct,
   getProducts,
   getProduct,
   getProductByItemNo,
@@ -21,6 +22,7 @@ const {
 const storage = multer.diskStorage({
   // Destination, where files should be stored (image url)
   destination: function(req, file, cb) {
+    // console.log(req.headers.path);
     var newDestination = req.headers.path; // We sen image url in header ("path"), when making axios request
     fse.mkdirsSync(newDestination); // We creating folder in destination, specified in headers "path"
     cb(null, newDestination); // Saving file
@@ -48,7 +50,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 3 // Max size 5MB
+    fileSize: 1024 * 1024 * 300 // Max size 500 MB
   },
   fileFilter: fileFilter
 });
@@ -58,8 +60,8 @@ const upload = multer({
 // @access  Private
 router.post(
   "/images",
-  passport.authenticate("jwt-admin", { session: false }),
-  upload.array("photos"),
+  // passport.authenticate("jwt-admin", { session: false }),
+  upload.array("photos"), // in request body - {photos: [...]}
   addImages
 );
 
@@ -80,6 +82,16 @@ router.put(
   // passport.authenticate("jwt-admin", { session: false }),
   updateProduct
 );
+
+// @route   DELETE /products/:id
+// @desc    Delete existing product
+// @access  Private
+router.delete(
+  "/:id",
+  // passport.authenticate("jwt-admin", { session: false }),
+  deleteProduct
+);
+
 
 // @route   GET /products
 // @desc    GET existing products

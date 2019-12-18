@@ -98,7 +98,7 @@ const formValidationRules = [
     field: "password",
     method: "isLength",
     validWhen: true,
-    args: [{ min: 7, max: 30 }],
+    args: [{ min: 6, max: 30 }],
     message: "Password must be between 7 and 30 characters"
   },
   {

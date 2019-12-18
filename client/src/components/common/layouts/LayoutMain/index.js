@@ -1,11 +1,14 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
-import {Container} from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { Container } from "@material-ui/core";
 
-import Header from '../../../Header';
-import Footer from '../../../Footer';
 import useStyles from "./useStyles";
+
+import Header from "../../../Header";
+import Footer from "../../../Footer";
+import SettingsButton from "../../../common/buttons/Settings";
 
 export default props => {
 
@@ -27,6 +30,9 @@ export default props => {
                 <div className={classes.header}><Header/></div>
                     <div>{props.children}</div>
                 <div className={classes.footer}><Footer/></div>
+                {/* <Link to={`/admin`}>
+                    <SettingsButton title='Admin Page' size={2} color='red' />
+                </Link> */}
             </Container>
         </ThemeProvider>
     );

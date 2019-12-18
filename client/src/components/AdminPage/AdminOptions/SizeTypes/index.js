@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 
-import { Grid, Box } from '@material-ui/core';
+import { Grid, Box, Tooltip } from '@material-ui/core';
+import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 
 import useStyles from './useStyles';
 
@@ -28,6 +29,11 @@ export default props => {
         setNewSizeType ({name: ''});
     };
 
+    const cancelAdding = event => {
+        event.preventDefault();
+        setNewSizeType(null);
+    };
+
     const classes = useStyles();
 
     return (
@@ -37,11 +43,16 @@ export default props => {
             (
                 <>
                     {newSizeType ?
+                    <>
+                        <Tooltip title="Cancel adding" >
+                            <CancelOutlinedIcon aria-label="cancel" className={classes.cancelBtn} onClick={cancelAdding}/>
+                        </Tooltip>
                         <SizeTypeItem
                             item={newSizeType}
                             key={Math.random()}
                             handleNotification={handleNotification}
-                        /> :
+                        />
+                    </> :
                         <Grid item className={classes.container}>
                             <Box>
                                 <AddWideButton text='NEW SET OF SIZES' color='secondary' onClick={addItem}/>
