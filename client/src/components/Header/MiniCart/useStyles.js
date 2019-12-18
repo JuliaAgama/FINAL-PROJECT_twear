@@ -7,6 +7,7 @@ export default makeStyles(theme => (
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            cursor: 'pointer',
             [theme.breakpoints.down('sm')]: {
                 width: '50px',
                 minWidth: '0',

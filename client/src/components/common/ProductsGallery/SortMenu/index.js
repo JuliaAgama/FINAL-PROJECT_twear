@@ -4,45 +4,36 @@ import Select from '@material-ui/core/Select';
 import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
 import { useHistory } from "react-router-dom";
-
-function clearQueryString(queryString) {
-    const queryItems = queryString.split('&');
-    const withoutSortItem = queryItems.map(item => {
-        if (item.startsWith('sort')) {
-            return ;
-        }
-        return item;
-    });
-    let result = withoutSortItem.join('&');
-    if (result.endsWith('&')) {
-        result = result.slice(0, result.length-1);
-    }
-    return result;
-}
+import {clearQueryString} from "../Helpers"
 
 export default function SimpleSelect(props) {
     const {mobile, colors, queryString} = props;
     const classes = useStyles();
     const history = useHistory();
-    const [color, setColor] = useState('');
+    const [color, setColor] = useState('undefined');
     const [sortRule, setSortRule] = useState(0);
+
     const handleChangeColor = event => {
+        let sortQuery = clearQueryString(queryString, 'color')+ '&color=' + event.target.value;
         setColor(event.target.value);
+        return history.push(`/categories/${sortQuery}`);
+
     };
+
     const handleChangeSortRule = event => {
-        let sortQuery = clearQueryString(queryString);
+        let sortQuery = clearQueryString(queryString, 'sort');
         sortQuery += event.target.value;
         setSortRule(event.target.value);
         return history.push(`/categories/${sortQuery}`);
     };
 
-    const colorsSet = Array.from(colors).map((item, index) => <option key = {index} value={index}>{item}</option>)
+    const colorsSet = Array.from(colors).map((item, index) => <option key = {index} value={item}>{item}</option>)
 
     return (
         <Container maxWidth={false} className={classes.main}>
             <FormControl className={mobile ? classes.formControl : classes.hide}>
                 <Select native value={color} onChange={handleChangeColor} displayEmpty className={classes.selectEmpty}>
-                    <option value="" disabled>
+                    <option value="undefined">
                         All Color
                     </option>
                     {colorsSet}
