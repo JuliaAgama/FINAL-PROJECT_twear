@@ -16,10 +16,17 @@ export default makeStyles(theme => ({
     textAlign: "center",
     fontSize: '2.25rem',
     fontWeight: '700',
-    margin: "70px 0 0 0"
+    marginTop: "70px"
+  },
+  categoriesMainHeaderXS: {
+    textAlign: "center",
+    fontSize: '2.25rem',
+    fontWeight: '700',
+    marginTop: "10px",
+    marginBottom: "10px",
   },
 
-  categoriesMainSUbheader: {
+  categoriesMainSubheader: {
     textAlign: "center",
     fontSize: 14
   }

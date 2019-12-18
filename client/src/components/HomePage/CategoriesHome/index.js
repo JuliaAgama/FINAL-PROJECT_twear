@@ -19,10 +19,17 @@ const CategoriesHome = () => {
 
     return (
         <>
-            <p className={classes.categoriesMainHeader}>
-                Pre Spring 20
-            </p>
-            <p className={classes.categoriesMainSUbheader}>
+            <Hidden smDown>
+                <p className={classes.categoriesMainHeader}>
+                    Pre Spring 20
+                </p>
+            </Hidden>
+            <Hidden mdUp>
+                <p className={classes.categoriesMainHeaderXS}>
+                    Pre Spring 20
+                </p>
+            </Hidden>
+            <p className={classes.categoriesMainSubheader}>
                 Get ready for the festive season with our Pre Party collection —
                 including a lot of new jeans.
             </p>
