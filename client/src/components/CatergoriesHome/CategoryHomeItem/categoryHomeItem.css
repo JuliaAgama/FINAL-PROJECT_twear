@@ -1,18 +1,3 @@
-#item3 {
-  background-image: url("https://cdn3.yoox.biz/cloud/balenciagawp/uploads/2019/10/19.jpg");
-  /* background-image: url("https://www.balenciaga.com/66/41/41936513ht_14_a_g.jpg"); */
-}
-#item4 {
-  background-image: url("https://cdn3.yoox.biz/cloud/balenciagawp/uploads/2019/10/69.jpg");
-}
-#item1 {
-  background-image: url("https://www.balenciaga.com/66/41/41922379IU_12_a_g.jpg");
-}
-#item2 {
-  /* background-image: url("https://www.balenciaga.com/66/41/41809866SC_12_a_g.jpg"); */
-  background-image: url("https://cdn3.yoox.biz/cloud/balenciagawp/uploads/2019/10/56.jpg");
-}
-
 .hidden-link {
   display: none;
   text-decoration: none;

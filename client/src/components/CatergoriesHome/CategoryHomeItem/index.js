@@ -1,9 +1,9 @@
 import React from "react";
 // import useStyles from "./useStyles";
 import {Link, Grid} from "@material-ui/core";
-import './categoryMainItem.css';
+import './categoryHomeItem.css';
 
-const CategoriesMainItem = (props) => {
+const CategoryHomeItem = (props) => {
 
     const {name, id, href, image} = props;
 
@@ -21,4 +21,4 @@ const CategoriesMainItem = (props) => {
     );
 };
 
-export default CategoriesMainItem;
+export default CategoryHomeItem;

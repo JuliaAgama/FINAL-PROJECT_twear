@@ -2,34 +2,36 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesByParentId } from "../../store/actions/categories";
-import CategoriesMenuItem from "./CategoryCard";
-import CategoriesMain from "../CatergoriesMain";
+import CategoryCard from "./CategoryCard";
+import CategoriesHome from "../CatergoriesHome";
 import {Grid} from "@material-ui/core";
 import useStyles from "./useStyles";
 import "./CategoryCard/categoryCard.css"
 
 
-const TopCategoryMenu = () => {
+const TopCatPage = () => {
   const classes = useStyles();
-  const topCatLink = useParams().id;
+  const topCatLink = useParams().name;
   const topCatLinkNoGender = topCatLink.slice(0, topCatLink.indexOf("&"));
   const dispatch = useDispatch();
   const categoriesItem = useSelector(state => state.categories.categories);
 
+  console.log(topCatLink);
+
   const catMenuItem = categoriesItem.map(item => {
     if (
-      item.topCategory._id === topCatLinkNoGender &&
+      item.topCategory.name === topCatLinkNoGender &&
       (item.gender.name === "women" || item.gender.name === "unisex") &&
       topCatLink.includes("&women")
     ) {
-      return <CategoriesMenuItem name={item.name} key={item._id} />;
+      return <CategoryCard name={item.name} key={item._id} image={item.img} />;
     }
     if (
-      item.topCategory._id === topCatLinkNoGender &&
+      item.topCategory.name === topCatLinkNoGender &&
       (item.gender.name === "men" || item.gender.name === "unisex") &&
       topCatLink.includes("&men")
     ) {
-      return <CategoriesMenuItem name={item.name} key={item._id} image={item.img} />;
+      return <CategoryCard name={item.name} key={item._id} image={item.img} />;
     }
   });
 
@@ -44,4 +46,4 @@ const TopCategoryMenu = () => {
   );
 };
 
-export default TopCategoryMenu;
+export default TopCatPage;

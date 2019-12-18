@@ -3,13 +3,15 @@ import useStyles from "./useStyles";
 import {Grid, Hidden} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllTopCats} from "../../store/actions/topCats";
-import CategoriesMainItem from "./CategoryMainItem";
+import CategoryHomeItem from "./CategoryHomeItem";
+import CategoryHomeItemMobile from "./CategoryHomeItemMobile";
 
-const CategoriesMain = () => {
+const CategoriesHome = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const topCats = useSelector(state => state.topCats.topCats);
-    const topCatsItem = topCats.map((item, index) => <CategoriesMainItem href = {`topcategorymenu/${item._id}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>);
+    const topCatsItem = topCats.map((item, index) => <CategoryHomeItem href = {`topcategorymenu/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>);
+    const topCatsItemMobile = topCats.map((item, index) => <CategoryHomeItemMobile href = {`topcategorymenu/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>);
 
     useEffect(() => dispatch(getAllTopCats()),
         [
@@ -32,11 +34,12 @@ const CategoriesMain = () => {
                 </Grid>
             </Hidden>
             <Hidden mdUp>
-                <>
-                </>
+            <Grid container xs={12}>
+               {topCatsItemMobile}
+               </Grid>
             </Hidden>
         </>
     );
 };
 
-export default CategoriesMain;
+export default CategoriesHome;

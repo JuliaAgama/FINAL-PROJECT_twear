@@ -25,7 +25,7 @@ import AdminProductsEditNewColors from "../components/AdminPage/AdminProducts/Ed
 import PersonalCabinet from "../components/PersonalCabinet";
 import PrivateRoute from "./PrivateRoute";
 import AccessDenied from "../components/AccessDenied";
-import TopCategoryMenu from "../components/TopCatPage";
+// import TopCatPage from "../components/TopCatPage";
 
 export const Router = () => (
 
@@ -37,14 +37,11 @@ export const Router = () => (
                     path="/"
                     component={props => <LayoutMain {...props}><HomePage/></LayoutMain>}/>
                 <Route exact
-                       path="/topcategorymenu/:id?"
-                       component={props => <LayoutMain {...props}><TopCategoryMenu/></LayoutMain>}/>
+                       path="/topcategorymenu/:name?"
+                       component={props => <LayoutMain {...props}><TopCatPage/></LayoutMain>}/>
                 <Route exact
                     path="/personalCabinet"
                     component={props => <LayoutMain {...props}><PersonalCabinet/></LayoutMain>}/>
-                <Route exact
-                    path="/top-categories/:topCat?"
-                    component={props => <LayoutMain {...props}><TopCatPage{...props}/></LayoutMain>}/>
                 <Route exact
                     path="/categories/:category?"
                     component={props => <LayoutMain {...props}><CategoryPage/></LayoutMain>}/>
