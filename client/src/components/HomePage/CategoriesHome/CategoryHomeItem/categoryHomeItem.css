@@ -6,16 +6,17 @@
 }
 
 .top-cat-name {
-  font-size: 42px;
+  font-size: calc(0.5em + 1vw);
   background: white;
   width: 100%;
   text-align: center;
 }
 
 .category-item-home {
+  border: 1px solid black;
   background-size: cover;
   background-position: center;
-  filter: grayscale(1);
+  /* filter: grayscale(1); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,6 +27,10 @@
   height: 75vh;
 }
 
+.category-item-home:nth-child(n+2) { 
+  border-left: none;
+}
+
 .category-item-home > a {
   font-family: "Roboto";
   color: black;
@@ -33,7 +38,7 @@
 }
 
 .category-item-home:hover {
-  filter: grayscale(0);
+  /* filter: grayscale(0); */
   transition: all 1s ease;
 }
 

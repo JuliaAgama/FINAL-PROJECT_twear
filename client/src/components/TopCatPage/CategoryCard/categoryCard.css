@@ -8,43 +8,43 @@
   font-size: 16px;
   font-weight: 500;
 }
-
+    
 .top-cat-name {
-  display: block;
-  font-size: 42px;
+  /* display: flex; */
+  font-size: calc(0.5em + 1vw);
   background: white;
+  max-width: 100%;
   width: 100%;
   text-align: center;
   text-transform: uppercase;
 }
 
-.category-item-home {
+.category-item-home2 {
   background-size: cover;
-  /* background-image: url("https://www.balenciaga.com/66/41/41809866SC_12_a_g.jpg"); */
   background-position: center;
-  filter: grayscale(1);
+  /* filter: grayscale(1); */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 40px;
   text-decoration: none;
-  transition: all 2s ease;
-  height: 75vh;
+  transition: all 1.5s ease;
+  height: 50vh;
 }
 
-.category-item-home > a {
+.category-item-home2 > a {
   font-family: "Roboto";
   color: black;
   padding: 20px 30px; 
 }
 
-.category-item-home:hover {
-  filter: grayscale(0);
+.category-item-home2:hover {
+  /* filter: grayscale(0.5); */
   transition: all 1s ease;
 }
 
-.category-item-home:hover .hidden-link {
+.category-item-home2:hover .hidden-link {
   display: block;
   background-color: white;
   width: 100%;
@@ -57,6 +57,6 @@
   font-weight: 700;
 }
 
-.category-item-home:hover .top-cat-name {
+.category-item-home2:hover .top-cat-name {
   display: none;
 } 
