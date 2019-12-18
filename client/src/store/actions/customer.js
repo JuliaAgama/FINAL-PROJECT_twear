@@ -140,8 +140,9 @@ export function getCustomerAction() {
                     });
                 })
                 .catch((error) => {
-                    if (error.response && error.response.status === 401)
-                        console.log('Error', error.message);
+                    // if (error.response && error.response.status === 401)
+                    customerResponseFailed();
+                    console.log('Error', error.message);
                 });
         }
     }

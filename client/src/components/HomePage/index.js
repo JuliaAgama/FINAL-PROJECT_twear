@@ -4,11 +4,10 @@ import {getAllProducts} from "../../store/actions/products";
 import ProductGallery from "../common/ProductsGallery";
 import CategoriesHome from "./CategoriesHome";
 
-
 export default () => {
     const dispatch = useDispatch();
-    useEffect(() => {dispatch(getAllProducts())},[dispatch]);
+    useEffect(() => {dispatch(getAllProducts())},[]);
     let products = useSelector(state => state.products.products);
     products.splice(4);
-    return <div> <CategoriesHome /> <ProductGallery products={products}/></div>
+    return <div> <CategoriesHome /> <ProductGallery products={products} homePage={true}/></div>
 };

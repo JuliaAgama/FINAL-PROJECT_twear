@@ -5,6 +5,7 @@ const rand = uniqueRandom(0, 999999);
 
 const queryCreator = require("../commonHelpers/queryCreator");
 const filterParser = require("../commonHelpers/filterParser");
+const mongooseQueryCreator = require("../commonHelpers/mongooseQueryCreator")
 const _ = require("lodash");
 
 exports.addImages = (req, res, next) => {
@@ -229,12 +230,12 @@ exports.getProductByItemNo = (req, res, next) => {
 };
 
 exports.getProductsFilterParams = async (req, res, next) => {
-  const mongooseQuery = filterParser(req.query);
+  // const mongooseQuery = filterParser(req.query);
   const perPage = Number(req.query.perPage);
   const startPage = Number(req.query.startPage);
   const sort = req.query.sort;
-
   try {
+    const mongooseQuery = await mongooseQueryCreator(req.query);
     const products = await Product.find(mongooseQuery)
       .populate("categories.category")
       .populate("categories.category.topCategory")
@@ -246,9 +247,7 @@ exports.getProductsFilterParams = async (req, res, next) => {
       .sort(sort)
       .skip(startPage * perPage - perPage)
       .limit(perPage);
-
     const productsQuantity = await Product.find(mongooseQuery);
-
     res.json({ products, productsQuantity: productsQuantity.length });
   } catch (err) {
     res.status(400).json({
