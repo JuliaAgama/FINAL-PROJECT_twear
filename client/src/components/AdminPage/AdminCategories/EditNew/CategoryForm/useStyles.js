@@ -24,13 +24,10 @@ export default makeStyles(theme => (
             paddingLeft: theme.spacing(2),
         },
         imgContainer: {
-            width: '99%',
-            overflow: 'hidden',
-        },
-        img: {
-            objectFit: 'cover',
-            maxHeight: '300px',
-            maxWidth: '100%',
+            height: '300px',
+            backgroundPosition: 'center',
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
         },
         btn: {
             display: 'block',

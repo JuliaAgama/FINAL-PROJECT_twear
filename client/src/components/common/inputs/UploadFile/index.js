@@ -142,7 +142,7 @@ export default props => {
         <Typography component="div" className={classes.root} key={Math.random()}>
             <Box className={classes.card}>
                 <Box className={classes.upload}>
-                    <span className={classes.title}>Upload Photos</span>
+                    <span className={classes.title}>Upload Images</span>
                     <Box className={classes.content}>
                         <Dropzone
                             onFilesAdded={onFilesAdded}
