@@ -16,6 +16,7 @@ export default makeStyles(theme => (
             borderBottom: '1px solid black',
             display: 'flex',
             justifyContent: 'space-around',
+            cursor: 'pointer',
         }
     }
 ));

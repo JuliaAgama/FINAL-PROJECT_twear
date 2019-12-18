@@ -7,6 +7,7 @@ import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl,
 import useStyles from './useStyles';
 
 import ColorItem from './ColorItem';
+import ImgItem from './ImgItem';
 import Selector from '../../../../common/inputs/Selector';
 import UploadFile from '../../../../common/inputs/UploadFile';
 
@@ -42,26 +43,29 @@ export default props => {
         setCategoriesDisplay(categoriesBase.filter(el => el.topCategory._id === selectedTopCat._id));
     },[selectedTopCat, categoriesBase]);
 
+    const [doubles, setDoubles] = useState(false);
     const doublesInDatabase = () => {
         (new ProductsApi())
         .getProductsByMatch({itemNo: formData.itemNo})
         .then(res => res.filter(el => el._id !== formData._id))
-        .then(res => res[0] ? true : false)
+        .then(res => res[0] ?setDoubles(true) : setDoubles(false))
     };
 
-    useEffect(() => {
+    useEffect( () => {
+        if(formData.itemNo && formData.itemNo !== '') {
+            doublesInDatabase();
+        }
         if (!formData.itemNo || formData.itemNo === ''|| !formData.categories || formData.categories.length === 0) {
             setEmptyFields(true);
         } else {
             setEmptyFields(false);
-            setCloudinaryPath(`/twear/${topCatsBase.find(el => el._id === formData.categories[0].category.topCategory).name.toLowerCase()}/${formData.categories[0].category.name.toLowerCase()}/${formData.itemNo.toLowerCase()}`);
+            setCloudinaryPath(`/twear/${topCatsBase.find(el => el._id === formData.categories[0].category.topCategory || el._id === formData.categories[0].category.topCategory._id).name.toLowerCase()}/${formData.categories[0].category.name.toLowerCase()}/${formData.itemNo.toLowerCase()}`);
         }
         return () => {
-            setEmptyFields(true)
+            setEmptyFields(true);
+            setCloudinaryPath(`/twear/`);
         };
     },[formData])
-
-    // console.log('cloudinaryPath: ', cloudinaryPath);
 
     const onChangeTopCat = id => {
         id && id !== '' ? setSelectedTopCat(topCatsBase.find(el => el._id === id)) : setSelectedTopCat({_id: ''});
@@ -138,6 +142,10 @@ export default props => {
             ...formData,
             imgs: [...formData.imgs, ...newImgs]
         });
+    };
+
+    const openConfirm = event => {
+        event.preventDefault();
     };
 
     const onSubmit = event => {
@@ -250,9 +258,9 @@ export default props => {
                 </Grid>
             </Grid>
 
-            <Grid item xs={12} container className={classes.bottomDivider}>
-                <Grid item xs={12} sm={6}>
-                    <FormControl component="fieldset" className={classes.formControl}>
+            <Grid item xs={12} container className={classes.bottomDivider} spacing={1}>
+                <Grid item xs={6} sm={6}>
+                    <FormControl component="fieldset" >
                         <FormLabel component="legend">Gender:</FormLabel>
                             <RadioGroup aria-label="genders" name="gender">
                             {gendersBase.map(gender =>
@@ -269,8 +277,8 @@ export default props => {
                             </RadioGroup>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <FormControl component="fieldset" className={classes.formControl}>
+                <Grid item xs={6} sm={6}>
+                    <FormControl component="fieldset" >
                         <FormLabel component="legend">Sizes Set:
                         </FormLabel>
                         { sizeTypeLocked ?
@@ -306,27 +314,21 @@ export default props => {
                 </Grid>
             </Grid>
 
-            <Grid item xs={12} container className={classes.bottomDivider}>
+            {item && itemNo !== 'newProduct' ?
+            <Grid item xs={12} container className={classes.bottomDivider} spacing={4}>
                 <Grid item xs={12}>Product Images</Grid>
                 {formData && formData.imgs ? formData.imgs.map(url =>
-                    <Grid item xs={4} sm={2}
-                        className={classes.imgItem}
+                    <Grid item xs={4} lg={2}
                         key={Math.random()}
                     >
-                        <Box className={classes.imgContainer}>
-                            <img
-                                className={classes.img}
-                                src={url}
-                                alt="NOT FOUND"/>
-
-                        </Box>
+                        <ImgItem item={item} url={url} handleOnDelete={openConfirm}/>
                     </Grid>
                     ) : <></>
                 }
                 <Grid item xs={12}>
                     <UploadFile
                         emptyFields={emptyFields}
-                        doublesInDatabase={doublesInDatabase}
+                        doubles={doubles}
                         path={cloudinaryPath}
                         addUrlsToFormData={onUploadImgs}
                     />
@@ -347,6 +349,7 @@ export default props => {
                     )}
                 </Grid> */}
             </Grid>
+            : <></>}
 
             <Grid item xs={12} container> Colors:
                 <FormControl component="fieldset" className={classes.formControl}>

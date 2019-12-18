@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
 import * as productsActions from '../../../../store/actions/products';
+import TopCatsApi from '../../../../services/TopCats';
 
 import { Typography, Box, Button } from '@material-ui/core';
 
@@ -24,7 +25,7 @@ export default props => {
     const dispatch = useDispatch();
 
     const getProductByItemNo = () => {
-        productsActions.getProductItemByItemNo(itemNo)(dispatch)
+        productsActions.getProductItemByItemNo(itemNo)(dispatch);
     };
 
     const updateProduct = () => {
@@ -40,6 +41,28 @@ export default props => {
 
     const product = useSelector(state => state.productItem.productItem);
     const productLoaded = useSelector(state => state.productItem.loaded);
+
+    const [topCatName, setTopCatName] = useState('');
+    useEffect(() => {
+        if(product && product.categories) {
+            (new TopCatsApi())
+            .getTopCategoryById(product.categories[0].category.topCategory)
+            .then(res => {setTopCatName(res.name.toLowerCase())});
+        }
+        return () => {
+            setTopCatName('');
+        }
+    }, [product]);
+
+    const [productCloudinaryPath, setProductCloudinaryPath] = useState('');
+        useEffect(() => {
+            if(product && product.categories && topCatName !=='') {
+                setProductCloudinaryPath(`/twear/${topCatName}/${product.categories[0].category.name.toLowerCase()}/${product.itemNo.toLowerCase()}/`)
+            }
+            return () => {
+                setProductCloudinaryPath('');
+            }
+        }, [product, topCatName]);
 
     //server errors catching:
     const productError = useSelector(state => state.productItem.error);
@@ -59,7 +82,7 @@ export default props => {
 
     useEffect(()=> {
         if (product) {
-            setFormData(product);
+            setFormData({...product});
         }
         return () => {
             setFormData({})
@@ -68,14 +91,14 @@ export default props => {
 
     const onUploadImgs = color => newImgs => {
         if(formData && formData.colors) {
-            formData.colors[formData.colors.findIndex(el => el._id === color._id)].impsColor.push(newImgs);
+            formData.colors[formData.colors.findIndex(el => el._id === color._id)].imgsColor.push(...newImgs);
             setFormData({
                 ...formData
             });
         }
     };
 
-    const onChangeColor = color => event => {
+    const onChangeLink = color => event => {
         if(formData && formData.colors) {
             formData.colors[formData.colors.findIndex(el => el._id === color._id)].imgsColor.splice(parseInt(event.target.name), 1, event.target.value);
 
@@ -92,11 +115,10 @@ export default props => {
         event.preventDefault();
         await updateProduct();
         ref.current(`Color images of ${formData.name.toUpperCase()} has been saved!`);
+        getProductByItemNo();
     };
 
     const cutName = (string, l) => string.length > l ? string.slice(0, l-3)+'...' : string;
-
-    console.log(formData);
 
     const classes = useStyles();
 
@@ -116,8 +138,9 @@ export default props => {
                                 formData.colors.map(item =>
                                     <ColorItem
                                         key={item._id || Math.random()}
+                                        productCloudinaryPath={productCloudinaryPath}
                                         item={item}
-                                        onChangeColor={onChangeColor(item)}
+                                        onChangeLInk={onChangeLink(item)}
                                         onUploadImgs={onUploadImgs(item)}
                                     /> ) : <></>
                             }

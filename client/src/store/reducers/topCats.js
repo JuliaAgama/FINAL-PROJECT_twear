@@ -35,6 +35,15 @@ export default function (state = initState, action) {
                 }
             };
 
+        case TOPCATS.TOPCAT_GET_TOPCAT_ITEM:
+            return {
+                ...state,
+                ...{
+                    topCats: action.data,
+                    loaded: true
+                }
+            };
+
         case TOPCATS.TOPCATS_ADD_TOPCAT:
             return {
                 ...state,

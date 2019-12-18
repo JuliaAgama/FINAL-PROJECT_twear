@@ -1,15 +1,11 @@
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
-
-import {getCustomerAction} from "../../../store/actions/customer";
-import {openLoginModalAction} from "../../../store/actions/modal";
-import {hideDesktopCategoriesMenuAction, hideMobileMenuAction} from "../../../store/actions/header";
-
-import {Container} from "@material-ui/core";
+import React, {useEffect, useState} from "react";
 import PersonIcon from '@material-ui/icons/Person';
-
+import {Link} from "react-router-dom";
+import {openLoginModalAction} from "../../../store/actions/modal";
+import {useDispatch, useSelector} from "react-redux";
 import useStyles from "./useStyles";
+import {getCustomerAction, logoutAction} from "../../../store/actions/customer";
+import {Container} from "@material-ui/core";
 
 
 export default function Login() {
@@ -17,34 +13,44 @@ export default function Login() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const customer = useSelector(state => state.customers.customer);
-    useEffect(() => {dispatch(getCustomerAction())},[dispatch]);
-    const show  = useSelector(state => state.header.show);
-    const showMobileMenu  = useSelector(state => state.header.showMobileMenu);
+    const [isVisible, setVisibility] = useState(false);
+    useEffect(() => {dispatch(getCustomerAction())},[]);
+
     const clickHandler = () => {
-        if(showMobileMenu) {
-            dispatch(hideMobileMenuAction());
-        } else if (show && showMobileMenu) {
-            dispatch(hideMobileMenuAction());
-        } else if (show) {
-            dispatch(hideDesktopCategoriesMenuAction());
-        }
+        setVisibility(!isVisible);
+    };
+
+    const logOutHandler = () => {
+        setVisibility(!isVisible);
+        dispatch(logoutAction());
     };
 
     return (
         <React.Fragment>
             <Container className={classes.container}
-                    onClick={customer.firstName ? () => {} : () => dispatch(openLoginModalAction())}>
+                    onClick={customer.firstName ? () => clickHandler() : () => dispatch(openLoginModalAction())}>
                 {customer.firstName ?
-                    <Link to='/personalCabinet' onClick={clickHandler} className={classes.linkContainer} >
-                        <div className={classes.link}>
-                            <PersonIcon/>
-                            <span className={classes.name}>My Account</span>
-                        </div>
-                    </Link>
+                    <div className={classes.link}>
+                        <PersonIcon/>
+                        <span className={classes.name}>My Account</span>
+                    </div>
                     :
                     <span className={classes.span}>Log In</span>
                 }
             </Container>
+            {isVisible ?
+                <Container maxWidth={false}  className={classes.subMenu}>
+                    <Container className={`${classes.subMenuItem} ${classes.borderRB}`}>
+                        <Link to='/#' className={classes.linkContainer}>Personal Cabinet</Link>
+                    </Container>
+                    <Container className={classes.subMenuItem}>
+                        {customer.isAdmin ? <Link to={'/admin'} className={classes.linkContainer}>Admin Page</Link> : ''}
+                    </Container>
+                    <Container className={`${classes.subMenuItem} ${classes.borderLT}`}>
+                        <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
+                    </Container>
+                </Container> : ""
+            }
         </React.Fragment>
     );
 }
