@@ -47,22 +47,29 @@ exports.uploadImageCloud = (req, res, next) => {
 exports.deleteImageCloud = (req, res, next) => {
   //this endpoint expects the request to have a body like this:
   // {	"url": "http://res.cloudinary.com/twear/image/upload/v1576617213/test/folder/Time.png"}
-
-  let cloudUrl = new URL(req.body.url);
-  let cloudId = cloudUrl.pathname
-    .split(".")
-    .slice(0, -1)
-    .join(".")
-    .split("/")
-    .slice(5)
-    .join("/");
-
+  let cloudId;
+  try {
+    let cloudUrl = new URL(req.body.url);
+    cloudId = cloudUrl.pathname
+      .split(".")
+      .slice(0, -1)
+      .join(".")
+      .split("/")
+      .slice(5)
+      .join("/");
+    if (!cloudId) {
+      throw new Error();
+    }
+  } catch (e) {
+    console.error(e);
+    res.status(400).send("Malformed URL sent in body");
+  }
   cloudinary.api
     .resource(cloudId)
     .then(
       cloudinary.api
         .delete_resources(cloudId)
-        .then(res.status(204).send("Image Deleted"))
+        .then(res.status(204).send())
         .catch(err => res.status(400).send(err))
     )
     .catch(err => {
