@@ -43,14 +43,18 @@ export default props => {
         setCategoriesDisplay(categoriesBase.filter(el => el.topCategory._id === selectedTopCat._id));
     },[selectedTopCat, categoriesBase]);
 
+    const [doubles, setDoubles] = useState(false);
     const doublesInDatabase = () => {
         (new ProductsApi())
         .getProductsByMatch({itemNo: formData.itemNo})
         .then(res => res.filter(el => el._id !== formData._id))
-        .then(res => res[0] ? true : false)
+        .then(res => res[0] ?setDoubles(true) : setDoubles(false))
     };
 
-    useEffect(() => {
+    useEffect( () => {
+        if(formData.itemNo && formData.itemNo !== '') {
+            doublesInDatabase();
+        }
         if (!formData.itemNo || formData.itemNo === ''|| !formData.categories || formData.categories.length === 0) {
             setEmptyFields(true);
         } else {
@@ -58,11 +62,10 @@ export default props => {
             setCloudinaryPath(`/twear/${topCatsBase.find(el => el._id === formData.categories[0].category.topCategory || el._id === formData.categories[0].category.topCategory._id).name.toLowerCase()}/${formData.categories[0].category.name.toLowerCase()}/${formData.itemNo.toLowerCase()}`);
         }
         return () => {
-            setEmptyFields(true)
+            setEmptyFields(true);
+            setCloudinaryPath(`/twear/`);
         };
     },[formData])
-
-    // console.log('cloudinaryPath: ', cloudinaryPath);
 
     const onChangeTopCat = id => {
         id && id !== '' ? setSelectedTopCat(topCatsBase.find(el => el._id === id)) : setSelectedTopCat({_id: ''});
@@ -325,7 +328,7 @@ export default props => {
                 <Grid item xs={12}>
                     <UploadFile
                         emptyFields={emptyFields}
-                        doublesInDatabase={doublesInDatabase}
+                        doubles={doubles}
                         path={cloudinaryPath}
                         addUrlsToFormData={onUploadImgs}
                     />

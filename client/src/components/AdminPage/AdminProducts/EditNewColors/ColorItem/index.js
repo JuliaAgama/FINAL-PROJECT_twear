@@ -11,18 +11,23 @@ import UploadFile from '../../../../common/inputs/UploadFile';
 
 export default props => {
 
-    const { item, onChangeColor, onUploadImgs} = props;
+    const { productCloudinaryPath, item, onChangeLink, onUploadImgs} = props;
 
     const [css, setCss] = useState({color: 'transparent'});
+    const [cloudinaryPath, setCloudinaryPath] = useState('');
 
     useEffect(() => {
         if (item && item.color) {
             setCss({color: item.color.cssValue});
+            if(productCloudinaryPath && productCloudinaryPath !== '') {
+                setCloudinaryPath(productCloudinaryPath + item.color.name.toLowerCase() + '/');
+            }
         }
         return () => {
-            setCss({})
+            setCss({});
+            setCloudinaryPath('');
         }
-    }, [item]);
+    }, [item, productCloudinaryPath]);
 
     const openConfirm = event => {
         event.preventDefault();
@@ -47,9 +52,14 @@ export default props => {
                     }
                 </Grid>
                 <Grid item xs={12} sm={6} lg={4} container className={classes.paper}>
-                    <Grid item xs={12}>Редактирование УРЛОВ</Grid>
+                    {/* <Grid item xs={12}>Редактирование УРЛОВ</Grid> */}
                     <Grid item xs={12}>
-                    <UploadFile addUrlsToFormData={onUploadImgs}/>
+                        <UploadFile
+                            emptyFields={false}
+                            doubles={false}
+                            path={cloudinaryPath}
+                            addUrlsToFormData={onUploadImgs}
+                        />
                     </Grid>
                     {/* { [0,1,2].map((el, ind) =>
                         <Grid item xs={4} key={el}>
@@ -57,7 +67,7 @@ export default props => {
                                 id={'imgs-'+ind}
                                 label={'imgs-'+(ind+1)}
                                 name={ind+'-imgs'}
-                                onChange={onChangeColor}
+                                onChange={onChangeLink}
                                 value={item && item.imgsColor ? item.imgsColor[ind] : ''}
                                 className={classes.textField}
                                 margin="normal"

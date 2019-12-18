@@ -15,7 +15,7 @@ import ErrorModal from '../../messages/ErrorModal';
 
 export default props => {
 
-    const{emptyFields, doublesInDatabase, path, addUrlsToFormData} = props;
+    const{emptyFields, doubles, path, addUrlsToFormData} = props;
 
     const [files, setFiles] = useState([]);
     const [uploading, setUploading] = useState(false);
@@ -41,7 +41,6 @@ export default props => {
     const closeWarning =() => setWarningIsOpen(false);
 
     const uploadFiles = async () => {
-        const doubles = await doublesInDatabase();
 
         if(doubles) {
             setWarningIsOpen(true);
