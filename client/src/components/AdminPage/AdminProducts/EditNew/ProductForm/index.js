@@ -55,7 +55,7 @@ export default props => {
             setEmptyFields(true);
         } else {
             setEmptyFields(false);
-            setCloudinaryPath(`/twear/${topCatsBase.find(el => el._id === formData.categories[0].category.topCategory).name.toLowerCase()}/${formData.categories[0].category.name.toLowerCase()}/${formData.itemNo.toLowerCase()}`);
+            setCloudinaryPath(`/twear/${topCatsBase.find(el => el._id === formData.categories[0].category.topCategory || el._id === formData.categories[0].category.topCategory._id).name.toLowerCase()}/${formData.categories[0].category.name.toLowerCase()}/${formData.itemNo.toLowerCase()}`);
         }
         return () => {
             setEmptyFields(true)
@@ -311,6 +311,7 @@ export default props => {
                 </Grid>
             </Grid>
 
+            {item && itemNo !== 'newProduct' ?
             <Grid item xs={12} container className={classes.bottomDivider} spacing={4}>
                 <Grid item xs={12}>Product Images</Grid>
                 {formData && formData.imgs ? formData.imgs.map(url =>
@@ -345,6 +346,7 @@ export default props => {
                     )}
                 </Grid> */}
             </Grid>
+            : <></>}
 
             <Grid item xs={12} container> Colors:
                 <FormControl component="fieldset" className={classes.formControl}>
