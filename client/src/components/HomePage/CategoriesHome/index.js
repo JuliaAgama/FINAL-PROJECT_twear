@@ -10,13 +10,11 @@ const CategoriesHome = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const topCats = useSelector(state => state.topCats.topCats);
-    const topCatsItem = topCats.map((item, index) => <CategoryHomeItem href = {`topcategorymenu/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>);
-    const topCatsItemMobile = topCats.map((item, index) => <CategoryHomeItemMobile href = {`topcategorymenu/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>);
+    const topCatsItem = topCats.map((item, index) => <CategoryHomeItem href = {`top-category/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>);
+    const topCatsItemMobile = topCats.map((item, index) => <CategoryHomeItemMobile href = {`top-category/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>);
 
     useEffect(() => dispatch(getAllTopCats()),
-        [
-            //пустой массив говорит что юзефект отработает один раз при любом перерендеринге
-        ]
+        []
     );
 
     return (
@@ -34,9 +32,9 @@ const CategoriesHome = () => {
                 </Grid>
             </Hidden>
             <Hidden mdUp>
-            <Grid container xs={12}>
-               {topCatsItemMobile}
-               </Grid>
+                <Grid container>
+                    {topCatsItemMobile}
+                </Grid>
             </Hidden>
         </>
     );

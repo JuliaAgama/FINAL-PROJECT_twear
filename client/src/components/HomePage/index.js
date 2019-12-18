@@ -10,5 +10,5 @@ export default () => {
     useEffect(() => {dispatch(getAllProducts())},[dispatch]);
     let products = useSelector(state => state.products.products);
     products.splice(4);
-    return <div> <CategoriesHome /> <ProductGallery products={products}/></div> 
+    return <div> <CategoriesHome /> <ProductGallery products={products}/></div>
 };

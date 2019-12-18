@@ -1,25 +1,57 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(theme => ({
-  header: {
-    backgroundColor: "#333",
-    color: "white",
-    fontWeight: 700,
-    fontSize: "16px",
-    margin: "0",
-    padding: "10px",
-  },
-
-  flex: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: "20px"
-  },
-
-  btn: {
-    padding: "50px",
-    margin: "20px",
-    border: "1px solid black"
-  }
+    root: {
+        border: "1px solid black",
+    },
+    header: {
+        backgroundColor: "#fff",
+        paddingTop: "10px",
+        paddingBottom: "5px",
+        textAlign: 'center',
+        fontSize: "16px",
+        color: "#000",
+        textTransform: 'uppercase',
+        textTransform: 'uppercase',
+    },
+    paper: {
+        textAlign: 'center',
+        backgroundImage: props => props.backgroundImage,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        height: '20vh',
+    },
+    link: {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '30px',
+        width: '100%',
+        height: '100%',
+        // filter: 'grayscale(1)',
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        color: '#fff',
+        textShadow: '1px 1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px 0px 0 #000, 0px 1px 0 #000, -1px 0px 0 #000, 0px -1px 0 #000',
+        letterSpacing: '2px',
+        "&:hover": {
+            border: "1px solid black",
+            fontSize: '40px',
+            textDecoration: 'none',
+            // filter: 'grayscale(0)',
+            // backgroundColor: 'rgba(255,255,255,0.1)',
+            backgroundColor: 'transparent',
+            fontWeight: '700',
+            color: '#000',
+            textShadow: '1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff, 1px 0px 0 #fff, 0px 1px 0 #fff, -1px 0px 0 #fff, 0px -1px 0 #fff',
+            // color: '#fff',
+            // textShadow: '1px 1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, -1px -1px 0 #000, 1px 0px 0 #000, 0px 1px 0 #000, -1px 0px 0 #000, 0px -1px 0 #000',
+            // transition: 'filter 1s ease',
+            transition: 'background-color 1s ease',
+        },
+    },
+    btn: {
+        margin: "0 auto",
+        textAlign: 'center',
+        textTransform: 'uppercase',
+    },
 }));

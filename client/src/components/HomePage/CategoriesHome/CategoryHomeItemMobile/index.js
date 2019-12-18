@@ -1,27 +1,41 @@
-import React from "react";
-// import useStyles from "./useStyles";
-import {Link, Grid, Button} from "@material-ui/core";
-import "./categoryHomeItemMobile.css"
+import React, {useState, useEffect} from "react";
+import {Link, Grid, Button, Box} from "@material-ui/core";
 import useStyles from './useStyles';
 
-const CategoryHomeItemMobile = (props) => {
+const CategoryHomeItemMobile = props => {
 
     const {name, id, href, image} = props;
-    const classes = useStyles();
 
+    const [css, setCss] = useState({backgroundImage: 'transparent'});
+    useEffect(() => {
+        if (image) {
+            setCss({backgroundImage: `url(${image})`});
+        }
+        return () => {
+            setCss({});
+        }
+    }, [image]);
+
+    const classes = useStyles(css);
 
     return (
-            <Grid item xs={12} id={`item${id}`} style = {{border:"1px solid black"}}>
-                <p className={classes.header}>{name}</p>
-                <div className={classes.flex}>
-                <Link href={href+'&men'}>
-                    <Button className={classes.btn}>MEN</Button>
-                </Link>
-                <Link href={href+'&women'}>
-                    <Button className={classes.btn}>WOMEN</Button>
-                </Link>
-                </div>
+        <Grid item xs={12} container className={classes.root}>
+            <Grid item xs={12} className={classes.header}>
+                <Box fontSize="h6.fontSize">{name}</Box>
             </Grid>
+            <Grid item xs={12} container id={`item${id}`}  className={classes.paper}>
+                <Grid item xs={6}>
+                    <Link href={href+'&men'} className={classes.link} >
+                        <Box className={classes.btn}>MEN</Box>
+                    </Link>
+                </Grid>
+                <Grid item xs={6}>
+                    <Link href={href+'&women'} className={classes.link}>
+                        <Box className={classes.btn}>WOMEN</Box>
+                    </Link>
+                </Grid>
+            </Grid>
+        </Grid>
     );
 };
 
