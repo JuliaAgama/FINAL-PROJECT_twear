@@ -16,6 +16,7 @@ export default makeStyles(theme => (
             fontSize: '16px',
             fontWeight: '700',
             borderBottom: '1px solid black',
+            cursor: 'pointer'
         },
         linkContainer: {
             color: 'black',
@@ -31,6 +32,46 @@ export default makeStyles(theme => (
         },
         span: {
             padding: '1px 0',
+        },
+        subMenu : {
+            display: 'flex',
+            width: '100%',
+            padding: '0',
+            margin: '0',
+            position: 'absolute',
+            bottom: '-55px',
+            left : '0',
+            border: '1px solid black',
+            borderTop: 'none',
+            [theme.breakpoints.down('sm')]: {
+                flexDirection: 'column',
+                bottom: '-165px'
+            },
+        },
+        subMenuItem: {
+            fontSize: '16px',
+            fontWeight: '700',
+            textAlign: 'center',
+            padding: '16px 0',
+            backgroundColor: 'white',
+            cursor: 'pointer',
+            [theme.breakpoints.down('sm')]: {
+                width: '100%'
+            },
+        },
+        borderRB: {
+            borderRight: '1px solid black',
+            [theme.breakpoints.down('sm')]: {
+                borderRight: 'none',
+                borderBottom: '1px solid black',
+            },
+        },
+        borderLT: {
+            borderLeft: '1px solid black',
+            [theme.breakpoints.down('sm')]: {
+                borderLeft: 'none',
+                borderTop: '1px solid black',
+            },
         }
     }
 ));

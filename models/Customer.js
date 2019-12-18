@@ -45,6 +45,12 @@ const CustomerSchema = new Schema({
     required: true,
     default: false
   },
+  isManager: {
+    type: Boolean,
+    required: true,
+    default: false
+  }
+  ,
   enabled: {
     type: Boolean,
     required: true,

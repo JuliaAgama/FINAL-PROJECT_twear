@@ -3,17 +3,16 @@ import {useParams} from 'react-router-dom';
 
 import ProductsGallery from '../common/ProductsGallery';
 import {useDispatch, useSelector} from "react-redux";
-import {getAllProducts} from "../../store/actions/products";
+import { getProductsByFilter} from "../../store/actions/products";
 
 
 export default () => {
+    const queryString = useParams().category;
     const dispatch = useDispatch();
-    useEffect(() => {dispatch(getAllProducts())},[dispatch]);
-    let products = useSelector(state => state.products.products);
-    
-    const categoryName = useParams().category;
+    let products = useSelector(state => state.products.productsFiltered.products);
+    useEffect(() => {dispatch(getProductsByFilter(queryString))},[queryString]);
 
-    return <ProductsGallery  products={products} categoryName={categoryName}/>
-
-
+    return (
+            products ? <ProductsGallery  products={products} queryString={queryString}/> : ""
+    )
 };
