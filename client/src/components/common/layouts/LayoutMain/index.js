@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
 
-import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
-import {Container} from "@material-ui/core";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { Container } from "@material-ui/core";
 
 import useStyles from "./useStyles";
 
-import Header from '../../../Header';
-import Footer from '../../../Footer';
-import SettingsButton from '../../../common/buttons/Settings';
+import Header from "../../../Header";
+import Footer from "../../../Footer";
+import SettingsButton from "../../../common/buttons/Settings";
 
 export default props => {
 
