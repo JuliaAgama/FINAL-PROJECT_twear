@@ -46,9 +46,9 @@ export function CategoryItems(props) {
     let items = [];
 
     if (isMen) {
-        items = CategoriesFilter(categories, 'men').map(item => <Item key={item._id} url={`/categories/gender=${item.gender.name}&category=${item.name}`} title={item.name} mobile={props.mobile} />)
+        items = CategoriesFilter(categories, 'men').map(item => <Item key={item._id} url={`/categories/page=shop&gender=${item.gender.name}&category=${item.name}`} title={item.name} mobile={props.mobile} />)
     } else if (isWomen) {
-        items = CategoriesFilter(categories, 'women').map(item => <Item key={item._id} url={`/categories/gender=${item.gender.name}&category=${item.name}`} title={item.name} mobile={props.mobile} />)
+        items = CategoriesFilter(categories, 'women').map(item => <Item key={item._id} url={`/categories/page=shop&gender=${item.gender.name}&category=${item.name}`} title={item.name} mobile={props.mobile} />)
     }
 
     return (

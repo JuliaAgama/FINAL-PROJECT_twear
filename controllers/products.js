@@ -230,7 +230,14 @@ exports.getProductByItemNo = (req, res, next) => {
 };
 
 exports.getProductsFilterParams = async (req, res, next) => {
-  const mongooseQuery = filterParser(req.query);
+  let mongooseQuery;
+  if(req.query.page) {
+    mongooseQuery = await mongooseQueryCreator(req.query);
+  } else {
+    mongooseQuery = filterParser(req.query);
+  }
+
+  // const mongooseQuery = filterParser(req.query);
   const perPage = Number(req.query.perPage);
   const startPage = Number(req.query.startPage);
   const sort = req.query.sort;

@@ -70,8 +70,8 @@ export function getCategoryTitle(queryString) {
     let name = '';
     if (queryString) {
         const genderAndName = queryString.split('&');
-        gender = genderAndName[0].split('=')[1];
-        name = genderAndName[1].split('=')[1];
+        gender = genderAndName[1].split('=')[1];
+        name = genderAndName[2].split('=')[1];
         if (gender === 'men') {
             gender = `Men's`;
         } else if (gender === 'women') {

@@ -63,6 +63,7 @@ export default props => {
         }
         return () => {
             setEmptyFields(true);
+            setDoubles(false);
             setCloudinaryPath(`/twear/`);
         };
     },[formData])

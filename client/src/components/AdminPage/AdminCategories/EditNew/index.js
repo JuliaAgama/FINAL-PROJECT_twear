@@ -148,6 +148,7 @@ export default props => {
                     topCatName={topCatName}
                     item={getItem()}
                     displayAdditional={displayAdditional}
+                    catsBase={catsBase}
                     topCatsBase={topCatsBase}
                     gendersBase={gendersBase}
                     onSubmitHandler={onSubmitHandler}
