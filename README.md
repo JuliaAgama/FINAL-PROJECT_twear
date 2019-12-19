@@ -1,5 +1,5 @@
 # FINAL-PROJECT_twear
-DAN-IT. Full Stack course. Front End. FINAL PROJECT. E-commerce - MyShop. Julia Verchyonova &amp; Olexander Shaporda &amp; Olexander Savchenko &amp; Olexander Shtuka &amp; Dmytro Boriskin &amp; Yuriy Lastivka
+DAN-IT. Full Stack course. Front End. FINAL PROJECT. E-commerce - TWEAR Shop. Julia Verchyonova &amp; Olexander Shaporda &amp; Olexander Shtuka &amp;
 
 Technology Stack:
 
@@ -17,7 +17,7 @@ Deployment server: Heroku server;
 
 
 
-Contributors: Julia Verchyonova & Oleksandr Shaporda & Oleksandr Savchenko & Oleksandr Shtuka & Dmytro Boriskin & Yuriy Lastivka
+Contributors: Julia Verchyonova & Oleksandr Shaporda & Oleksandr Shtuka
 
 
 Tasks & Responsibilities:
@@ -57,29 +57,15 @@ Components: Products gallery and card;
 
 
 
-Olexandr Savchenko:
-
-Images upload (Cloudinary vs AS3)
-
-...
-
-...
-
-...
-
-
 Olexandr Shaporda:
+
+Components : 
 
 Footer
 
-...
+Top Categories & Categories Page
 
-...
-
-...
-
-
-
+Product Page
 
 
 
