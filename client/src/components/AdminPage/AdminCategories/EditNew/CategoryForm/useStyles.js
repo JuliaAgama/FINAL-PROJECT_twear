@@ -25,7 +25,10 @@ export default makeStyles(theme => (
             paddingLeft: theme.spacing(2),
         },
         imgContainer: {
+            marginTop: theme.spacing(4),
+            position: 'relative',
             height: '300px',
+            maxWidth: '300px',
             backgroundPosition: 'center',
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',

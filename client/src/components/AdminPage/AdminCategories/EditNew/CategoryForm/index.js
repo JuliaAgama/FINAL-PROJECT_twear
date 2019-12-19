@@ -10,9 +10,11 @@ import UploadFile from '../../../../common/inputs/UploadFile';
 
 export default props => {
 
-    const{categoryName, topCatName, item, topCatsBase, gendersBase, displayAdditional, onSubmitHandler} = props;
+    const{categoryName, topCatName, item, catsBase, topCatsBase, gendersBase, displayAdditional, onSubmitHandler} = props;
 
     let [formData, setFormData] = useState({});
+    const [emptyFields, setEmptyFields] = useState(true);
+    const [cloudinaryPath, setCloudinaryPath] = useState(`/twear/`);
 
     useEffect(()=> {
         if(categoryName) {
@@ -27,6 +29,42 @@ export default props => {
             setFormData({...item});
         }
     },[categoryName, topCatName, item, topCatsBase]);
+
+    const [doubles, setDoubles] = useState(false);
+    const doubleNamesInDatabase = (existingList) => {
+        const listBesidesItem = existingList.filter(el => el._id !== formData._id);
+        if( listBesidesItem.some(el => el.name.toLowerCase() === formData.name.toLowerCase())) {
+            return true;
+        };
+        return false;
+    };
+
+    useEffect( () => {
+        if(formData.name && formData.name !== '') {
+            doubleNamesInDatabase(catsBase) || doubleNamesInDatabase(topCatsBase) ? setDoubles(true) : setDoubles(false);
+        }
+        if (!formData.name || formData.name === '' || (categoryName && (!formData.topCategory || !formData.topCategory.name))) {
+            setEmptyFields(true);
+        } else {
+            setEmptyFields(false);
+            categoryName ?
+                setCloudinaryPath(`/twear/${formData.topCategory.name.toLowerCase()}/${formData.name.toLowerCase()}`) :
+                setCloudinaryPath(`/twear/${formData.name.toLowerCase()}`);
+        }
+        return () => {
+            setEmptyFields(true);
+            setDoubles(false);
+            setCloudinaryPath(`/twear/`);
+        };
+    },[formData]);
+
+    const onUploadImg = newImgs => {
+        setFormData({
+            ...formData,
+            img: newImgs[0]
+        });
+    };
+
 
     const onChange = event => {
         if (event.target.name === 'gender') {
@@ -45,13 +83,6 @@ export default props => {
                 [event.target.name]: event.target.value
             });
         }
-    };
-
-    const onUploadImg = newImg => {
-        setFormData({
-            ...formData,
-            img: newImg
-        });
     };
 
     const handleOnDelete = event => {
@@ -142,18 +173,27 @@ export default props => {
 
                 <Grid container className={classes.paper}>
                     <Grid item xs={12}>
-                        <Box className={classes.imgContainer} style={{backgroundImage: `url(${formData.img})`}}/>
-                        {/* <img src={formData.img}/> */}
-                        }
-                        <Tooltip title="Delete image" >
-                            <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={handleOnDelete}/>
-                        </Tooltip>
+                        <Box className={classes.imgContainer} style={{backgroundImage: `url(${formData.img})`}}>
+                            {formData && formData.img ?
+                                (
+                                    item && item.img === formData.img ? <></> : <Box className={classes.newImg}>New</Box>
+                                ) : <></>
+                            }
+                            <Tooltip title="Delete image" >
+                                <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={handleOnDelete}/>
+                            </Tooltip>
+                        </Box>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <UploadFile/>
+                        <UploadFile
+                            emptyFields={emptyFields}
+                            doubles={doubles}
+                            path={cloudinaryPath}
+                            addUrlsToFormData={onUploadImg}
+                        />
                     </Grid>
-                    <Grid item xs={12}> ВРЕМЕННОЕ ДОБАВЛЕНИЕ УРЛЫ ФОТКИ (на ворнинг не обращаем внимания пока):
+                    {/* <Grid item xs={12}> ВРЕМЕННОЕ ДОБАВЛЕНИЕ УРЛЫ ФОТКИ (на ворнинг не обращаем внимания пока):
                         <TextField
                             id={'img'}
                             label={'img URL'}
@@ -164,14 +204,14 @@ export default props => {
                             margin="normal"
                             variant="outlined"
                         />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}>
-                    <Button
-                        fullWidth={true}
-                        variant="outlined"
-                        className={classes.btn}
-                        onClick={onSubmit}
-                    > {`SAVE`}</Button>
+                        <Button
+                            fullWidth={true}
+                            variant="outlined"
+                            className={classes.btn}
+                            onClick={onSubmit}
+                        > {`SAVE`}</Button>
                     </Grid>
                 </Grid>
             </form>

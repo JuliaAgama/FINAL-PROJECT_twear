@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { List, ListItem, Divider, Hidden } from '@material-ui/core';
+import { List, ListItem, Divider, Hidden, Tooltip } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -44,14 +44,19 @@ export default () => {
                     }
                     <Divider />
                     <ListItem>
-                        <Link to="/admin/categories/top/newTopCategory" className={classes.link}>
-                        <Hidden xsDown>
-                            <AddWideButton text='CREATE NEW TOP CATEGORY' color='secondary'/>
-                        </Hidden>
-                        <Hidden smUp>
-                            <AddWideButton text='NEW TOP CATEGORY' color='secondary'/>
-                        </Hidden>
-                        </Link>
+                        <Tooltip title="NOT ALLOWED TO ADD NEW TOP-CATEGORY">
+                            <Link  className={classes.link}>
+                            {/* <Link to="/admin/categories/top/newTopCategory" className={classes.link}
+                                // style={{pointerEvents: 'none'}}
+                            > */}
+                            <Hidden xsDown>
+                                <AddWideButton text='CREATE NEW TOP CATEGORY' color='secondary'/>
+                            </Hidden>
+                            <Hidden smUp>
+                                <AddWideButton text='NEW TOP CATEGORY' color='secondary'/>
+                            </Hidden>
+                            </Link>
+                        </Tooltip>
                     </ListItem>
                 </List>
                 ) :
