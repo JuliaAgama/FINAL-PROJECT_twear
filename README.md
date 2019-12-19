@@ -19,6 +19,7 @@ Deployment server: Heroku server;
 
 Contributors: Julia Verchyonova & Oleksandr Shaporda & Oleksandr Shtuka 
 
+
 Tasks & Responsibilities:
 
 
@@ -55,6 +56,7 @@ Components: Header;
 Components: Products gallery and card;
 
 ...
+...
 
 
 
@@ -69,9 +71,8 @@ Topcategories & Categories page
 
 Product Page
 
-
-
-
+...
+...
 
 
 
