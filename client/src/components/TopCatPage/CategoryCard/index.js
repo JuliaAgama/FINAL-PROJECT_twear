@@ -13,7 +13,7 @@ function CategoryCard(props) {
     <>
       <Hidden smDown>
         <Grid
-          className="category-item-home"
+          className="category-item-home2"
           item
           xs={3}
           style={{ backgroundImage: `url(${image})` }}

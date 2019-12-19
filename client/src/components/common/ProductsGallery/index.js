@@ -33,6 +33,7 @@ export default function ProductGallery(props) {
                      srcImg1={img1}
                      srcImg2={img2}
                      key={product._id}
+                     href = {`products/${product.itemNo}`}
                      borderRight={borderRight}/>;
     });
 

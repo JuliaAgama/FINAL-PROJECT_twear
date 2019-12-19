@@ -46,7 +46,7 @@ export const Router = () => (
                     component={props => <LayoutMain {...props}><CategoryPage/></LayoutMain>}/>
                 <Route exact
                     path="/products/:product?"
-                    component={props => <LayoutMain {...props}><ProductPage{...props}/></LayoutMain>}/>
+                    component={props => <LayoutMain {...props}><ProductPage {...props}/></LayoutMain>}/>
 
 
                 <Route exact path="/accessDenied" component={AccessDenied} />
