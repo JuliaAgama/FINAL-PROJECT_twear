@@ -230,12 +230,12 @@ exports.getProductByItemNo = (req, res, next) => {
 };
 
 exports.getProductsFilterParams = async (req, res, next) => {
-  // const mongooseQuery = filterParser(req.query);
+  const mongooseQuery = filterParser(req.query);
   const perPage = Number(req.query.perPage);
   const startPage = Number(req.query.startPage);
   const sort = req.query.sort;
   try {
-    const mongooseQuery = await mongooseQueryCreator(req.query);
+    // const mongooseQuery = await mongooseQueryCreator(req.query);
     const products = await Product.find(mongooseQuery)
       .populate("categories.category")
       .populate("categories.category.topCategory")

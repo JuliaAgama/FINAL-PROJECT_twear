@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
-import { Typography, Grid, Box, TextField, FormLabel, FormControlLabel, FormControl, Radio, RadioGroup, Button } from '@material-ui/core';
+import { Typography, Grid, Box, TextField, FormLabel, FormControlLabel, FormControl, Radio, RadioGroup, Button, Tooltip } from '@material-ui/core';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import useStyles from './useStyles';
 
@@ -19,11 +20,11 @@ export default props => {
                 categoryName.slice(categoryName.indexOf('-')+1) :
                 undefined;
             item ?
-                setFormData(item) :
+                setFormData({...item}) :
                 setFormData({topCategory: topCatsBase.find(el => el._id === newInTopCat)})
 
         } else if (topCatName && item) {
-            setFormData(item);
+            setFormData({...item});
         }
     },[categoryName, topCatName, item, topCatsBase]);
 
@@ -44,6 +45,17 @@ export default props => {
                 [event.target.name]: event.target.value
             });
         }
+    };
+
+    const onUploadImg = newImg => {
+        setFormData({
+            ...formData,
+            img: newImg
+        });
+    };
+
+    const handleOnDelete = event => {
+        event.preventDefault();
     };
 
     const onSubmit = event => {
@@ -131,6 +143,11 @@ export default props => {
                 <Grid container className={classes.paper}>
                     <Grid item xs={12}>
                         <Box className={classes.imgContainer} style={{backgroundImage: `url(${formData.img})`}}/>
+                        {/* <img src={formData.img}/> */}
+                        }
+                        <Tooltip title="Delete image" >
+                            <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={handleOnDelete}/>
+                        </Tooltip>
                     </Grid>
 
                     <Grid item xs={12}>
