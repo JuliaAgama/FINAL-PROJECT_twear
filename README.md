@@ -1,5 +1,5 @@
 # FINAL-PROJECT_twear
-DAN-IT. Full Stack course. Front End. FINAL PROJECT. E-commerce - MyShop. Julia Verchyonova &amp; Olexander Shaporda &amp; Olexander Savchenko &amp; Olexander Shtuka &amp; Dmytro Boriskin &amp; Yuriy Lastivka
+DAN-IT. Full Stack course. Front End. FINAL PROJECT. E-commerce - MyShop. Julia Verchyonova &amp; Olexander Shaporda &amp;  Olexander Shtuka &amp; 
 
 Technology Stack:
 
@@ -17,7 +17,7 @@ Deployment server: Heroku server;
 
 
 
-Contributors: Julia Verchyonova & Oleksandr Shaporda & Oleksandr Savchenko & Oleksandr Shtuka & Dmytro Boriskin & Yuriy Lastivka
+Contributors: Julia Verchyonova & Oleksandr Shaporda & Oleksandr Shtuka 
 
 
 Tasks & Responsibilities:
@@ -35,7 +35,9 @@ REST API & Redux setting;
 
 All components of Admin Panel incl., catalogue management, styles;
 
-Commonn components: buttons, messages, sliders, etc.
+Common components: buttons, messages, sliders, etc.
+
+Image Upload.
 
 ...
 
@@ -54,32 +56,23 @@ Components: Header;
 Components: Products gallery and card;
 
 ...
-
-
-
-Olexandr Savchenko:
-
-Images upload (Cloudinary vs AS3)
-
 ...
 
-...
 
-...
 
 
 Olexandr Shaporda:
 
+Components:
+
 Footer
 
-...
+Topcategories & Categories page
+
+Product Page
 
 ...
-
 ...
-
-
-
 
 
 
