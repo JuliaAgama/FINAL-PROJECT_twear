@@ -11,7 +11,7 @@ const CategoryHomeItemMobile = (props) => {
 
 
     return (
-            <Grid item xs={12} id={`item${id}`} style = {{border:"1px solid black"}}>
+            <Grid className={classes.flex} item xs={12} id={`item${id}`} style = {{border:"1px solid black"}}>
                 <p className={classes.header}>{name}</p>
                 <div className={classes.flex}>
                 <Link href={href+'&men'}>
