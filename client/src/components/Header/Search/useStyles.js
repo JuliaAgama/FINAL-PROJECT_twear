@@ -11,6 +11,7 @@ export default makeStyles(theme => (
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            cursor: 'pointer',
             [theme.breakpoints.down('sm')]: {
                 border: '1px solid black',
                 borderTop: 'none',

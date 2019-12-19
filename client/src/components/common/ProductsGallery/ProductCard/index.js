@@ -7,7 +7,7 @@ import useStyles from "./useStyles";
 export default function ProductCard(props) {
     const classes = useStyles();
     const [flipped, set] = useState(false);
-    const {name, price, sizes, srcImg1, srcImg2, borderRight} = props;
+    const {name, price, sizes, srcImg1, srcImg2, borderRight, href} = props;
     const { transform, opacity } = useSpring({
         opacity: flipped ? 1 : 0,
         transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,

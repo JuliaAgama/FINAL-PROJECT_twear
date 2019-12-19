@@ -3,28 +3,37 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
-
+import { useHistory } from "react-router-dom";
+import {clearQueryString} from "../Helpers"
 
 export default function SimpleSelect(props) {
+    const {mobile, colors, queryString} = props;
     const classes = useStyles();
-    const [color, setColor] = useState('');
-    const [sortRule, setSortRule] = useState('');
+    const history = useHistory();
+    const [color, setColor] = useState('undefined');
+    const [sortRule, setSortRule] = useState(0);
+
     const handleChangeColor = event => {
+        let sortQuery = clearQueryString(queryString, 'color')+ '&color=' + event.target.value;
         setColor(event.target.value);
+        return history.push(`/categories/${sortQuery}`);
+
     };
+
     const handleChangeSortRule = event => {
+        let sortQuery = clearQueryString(queryString, 'sort');
+        sortQuery += event.target.value;
         setSortRule(event.target.value);
+        return history.push(`/categories/${sortQuery}`);
     };
 
-
-    const {mobile, colors} = props;
-    const colorsSet = Array.from(colors).map((item, index) => <option key = {index} value={index}>{item}</option>)
+    const colorsSet = Array.from(colors).map((item, index) => <option key = {index} value={item}>{item}</option>)
 
     return (
         <Container maxWidth={false} className={classes.main}>
             <FormControl className={mobile ? classes.formControl : classes.hide}>
                 <Select native value={color} onChange={handleChangeColor} displayEmpty className={classes.selectEmpty}>
-                    <option value="" disabled>
+                    <option value="undefined">
                         All Color
                     </option>
                     {colorsSet}
@@ -33,15 +42,15 @@ export default function SimpleSelect(props) {
 
             <FormControl className={classes.formControl}>
                 <Select native value={sortRule} onChange={handleChangeSortRule} displayEmpty className={classes.selectEmpty}>
-                    <option value="" disabled>
+                    <option value={0} disabled>
                         Sort
                     </option>
-                    <option value={10}>Alphabetically, A-Z</option>
-                    <option value={10}>Alphabetically, Z-A</option>
-                    <option value={20}>Price, low to high</option>
-                    <option value={20}>Price, high to low</option>
-                    <option value={30}>Date, new to old</option>
-                    <option value={30}>Date, old to new</option>
+                    <option value="&sort=+name">Alphabetically, A-Z</option>
+                    <option value="&sort=-name">Alphabetically, Z-A</option>
+                    <option value="&sort=+price">Price, low to high</option>
+                    <option value="&sort=-price">Price, high to low</option>
+                    <option value="&sort=-date">Date, new to old</option>
+                    <option value="&sort=+date">Date, old to new</option>
                 </Select>
             </FormControl>
         </Container>

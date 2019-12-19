@@ -106,3 +106,4 @@ exports.getGender = (req, res, next) => {
       })
     );
 };
+

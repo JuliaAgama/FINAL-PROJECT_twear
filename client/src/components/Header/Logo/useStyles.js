@@ -12,6 +12,7 @@ export default makeStyles(theme => (
         container: {
             borderBottom: '1px solid black',
             textAlign: 'center',
+            cursor: 'pointer',
             [theme.breakpoints.down('sm')]: {
                 width: 'calc(100% - 100px)',
                 borderRight: '1px solid black',
