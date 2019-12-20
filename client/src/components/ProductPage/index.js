@@ -3,29 +3,18 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductItemByItemNo } from "../../store/actions/products";
 import useStyles from "./useStyles";
-import ProductsGallery from "../common/ProductsGallery";
-import AddToCartButton from "../common/buttons/AddToCart";
+// import ProductsGallery from "../common/ProductsGallery";
+// import AddToCartButton from "../common/buttons/AddToCart";
 import ProductPageItem from "./ProductPageItem";    
 
 const ProductPage = () => {
   const classes = useStyles();
   const productLink = useParams().itemNo;
   const dispatch = useDispatch();
-  const products = useSelector(state => state.products.products);
+  const product = useSelector(state => state.productItem.productItem);
 
-  console.log(products);   
+  const {name, } = product;
 
-
-  const productItem = products.map(item => {
-    // if (item.itemNo === productLink) 
-      return (
-        <div>
-          {/* <ProductPageItem name = {item.name}/> */}
-          <p>olo</p>
-        </div>
-        
-      );
-  });
 
   useEffect(() => {
     dispatch(getProductItemByItemNo(productLink));
@@ -33,7 +22,7 @@ const ProductPage = () => {
 
   return (
       <div>
-          {productItem}
+          <ProductPageItem name = {name} />
       </div>
    
   )
