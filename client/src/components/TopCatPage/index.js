@@ -16,6 +16,8 @@ const TopCatPage = () => {
   const dispatch = useDispatch();
   const categoriesItem = useSelector(state => state.categories.categories);
 
+  // console.log(categoriesItem);
+
   const catMenuItem = categoriesItem.map(item => {
     if (
       item.topCategory.name === topCatLinkNoGender &&

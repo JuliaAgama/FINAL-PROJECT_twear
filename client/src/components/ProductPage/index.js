@@ -13,10 +13,10 @@ const ProductPage = () => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.products.products);
 
-    console.log(products)
-    
+    console.log(productLink);
+
   const productItem = products.map(item => {
-    if (item.itemNo === productLink)
+    if (item.itemNo === productLink)    
       return (
         <div>
           <ProductPageItem name = {item.name}/>
@@ -29,7 +29,10 @@ const ProductPage = () => {
   }, [dispatch]);
 
   return (
-   <ProductPageItem/> 
+      <div>
+          {productItem}
+      </div>
+   
   )
 
 };

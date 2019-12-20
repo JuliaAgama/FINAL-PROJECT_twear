@@ -4,7 +4,6 @@ import { Link, Grid, Hidden } from "@material-ui/core";
 // import theme from "../../../theme";
 import useStyles from "./useStyles";
 
-
 function CategoryCard(props) {
   const { name, image } = props;
   const classes = useStyles();
@@ -12,7 +11,7 @@ function CategoryCard(props) {
   return (
     <>
       <Hidden smDown>
-      <p>something</p>
+        <p>{name}</p>
       </Hidden>
     </>
   );
