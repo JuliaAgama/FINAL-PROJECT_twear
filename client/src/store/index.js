@@ -11,7 +11,9 @@ export function configureStore(initState) {
         rootReducer,
         initState,
         // applyMiddleware(thunk, logger),
-        composeWithDevTools(applyMiddleware(thunk, logger))
+        composeWithDevTools(applyMiddleware(thunk, 
+            logger
+            ))
     );
     return store;
 };

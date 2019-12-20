@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductItemByItemNo } from "../../store/actions/products";
@@ -13,14 +13,17 @@ const ProductPage = () => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.products.products);
 
-    console.log(productLink);
+  console.log(products);   
+
 
   const productItem = products.map(item => {
-    if (item.itemNo === productLink)    
+    // if (item.itemNo === productLink) 
       return (
         <div>
-          <ProductPageItem name = {item.name}/>
+          {/* <ProductPageItem name = {item.name}/> */}
+          <p>olo</p>
         </div>
+        
       );
   });
 

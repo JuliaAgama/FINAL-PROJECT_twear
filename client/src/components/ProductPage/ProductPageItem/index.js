@@ -11,7 +11,7 @@ function CategoryCard(props) {
   return (
     <>
       <Hidden smDown>
-        <p>{name}</p>
+        <p> OLOLO </p>
       </Hidden>
     </>
   );

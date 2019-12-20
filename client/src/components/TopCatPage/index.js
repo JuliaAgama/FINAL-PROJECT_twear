@@ -16,7 +16,7 @@ const TopCatPage = () => {
   const dispatch = useDispatch();
   const categoriesItem = useSelector(state => state.categories.categories);
 
-  // console.log(categoriesItem);
+  console.log(topCatLink);
 
   const catMenuItem = categoriesItem.map(item => {
     if (

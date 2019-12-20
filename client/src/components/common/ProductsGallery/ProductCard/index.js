@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Container} from "@material-ui/core";
+import {Container, Link} from "@material-ui/core";
 import { useSpring, animated as a } from 'react-spring'
 import useStyles from "./useStyles";
 
@@ -50,7 +50,7 @@ export default function ProductCard(props) {
                     </div>
                 </a.div>
             }
-            <a href={href}> THIS IS LINK </a>   
+            <Link href={href}> THIS IS LINK </Link>   
         </Container>
     );
 };
