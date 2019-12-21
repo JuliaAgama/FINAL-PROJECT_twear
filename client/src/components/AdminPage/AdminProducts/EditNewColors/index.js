@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import cloneDeep from 'lodash/cloneDeep';
 
 import * as productsActions from '../../../../store/actions/products';
 import TopCatsApi from '../../../../services/TopCats';
@@ -82,7 +83,7 @@ export default props => {
 
     useEffect(()=> {
         if (product) {
-            setFormData({...product});
+            setFormData(cloneDeep(product));
         }
         return () => {
             setFormData({})
@@ -96,6 +97,17 @@ export default props => {
                 ...formData
             });
         }
+    };
+
+    const onDeleteImg = color => imgLink => {
+        // if(formData && formData.colors) {
+        //     setFormData({
+        //         ...formData,
+        //         imgs: formData.imgs.filter(el => el !== imgLink)
+        //     });
+        // }
+        console.log('color.name: ', color.name);
+        console.log( 'imgLink: ', imgLink);
     };
 
     const onChangeLink = color => event => {
@@ -140,8 +152,9 @@ export default props => {
                                         key={item._id || Math.random()}
                                         productCloudinaryPath={productCloudinaryPath}
                                         item={item}
-                                        onChangeLInk={onChangeLink(item)}
+                                        //onChangeLInk={onChangeLink(item)}
                                         onUploadImgs={onUploadImgs(item)}
+                                        handleOnDeleteImg={onDeleteImg(item)}
                                     /> ) : <></>
                             }
                         </Typography> : <Spinner/>

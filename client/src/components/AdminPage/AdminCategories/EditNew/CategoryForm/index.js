@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import cloneDeep from 'lodash/cloneDeep';
 
 import { Typography, Grid, Box, TextField, FormLabel, FormControlLabel, FormControl, Radio, RadioGroup, Button, Tooltip } from '@material-ui/core';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
@@ -22,11 +23,11 @@ export default props => {
                 categoryName.slice(categoryName.indexOf('-')+1) :
                 undefined;
             item ?
-                setFormData({...item}) :
+                setFormData(cloneDeep(item)) :
                 setFormData({topCategory: topCatsBase.find(el => el._id === newInTopCat)})
 
         } else if (topCatName && item) {
-            setFormData({...item});
+            setFormData(cloneDeep(item));
         }
     },[categoryName, topCatName, item, topCatsBase]);
 

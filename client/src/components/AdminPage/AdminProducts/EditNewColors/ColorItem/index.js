@@ -11,7 +11,7 @@ import UploadFile from '../../../../common/inputs/UploadFile';
 
 export default props => {
 
-    const { productCloudinaryPath, item, onChangeLink, onUploadImgs} = props;
+    const { productCloudinaryPath, item, onChangeLink, onUploadImgs, handleOnDeleteImg} = props;
 
     const [css, setCss] = useState({color: 'transparent'});
     const [cloudinaryPath, setCloudinaryPath] = useState('');
@@ -29,8 +29,12 @@ export default props => {
         }
     }, [item, productCloudinaryPath]);
 
-    const openConfirm = event => {
-        event.preventDefault();
+    const onDeleteImg = imgLink => {
+        // setFormData({
+        //     ...formData,
+        //     imgs: formData.imgs.filter(el => el !== imgLink)
+        // });
+        // onDeleteImg(imgUrl);
     };
 
     const classes = useStyles(css);
@@ -45,7 +49,7 @@ export default props => {
                             className={classes.paper}
                             key={Math.random()}
                         >
-                            <ImgItem item={item} url={url} handleOnDelete={openConfirm}/>
+                            <ImgItem item={item} url={url} handleOnDelete={onDeleteImg}/>
                         </Grid>
 
                     ) : <></>

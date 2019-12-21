@@ -20,4 +20,16 @@ export default class Images extends Base {
             return err.response.data;
         })
     }
+
+    deleteImage(path) {
+
+        return super.delete(`images`, {data: {url: path}})
+        .then(res => {
+            return res.data;
+        })
+        .catch(err => {
+            return err.response.data;
+        })
+    }
+
 };

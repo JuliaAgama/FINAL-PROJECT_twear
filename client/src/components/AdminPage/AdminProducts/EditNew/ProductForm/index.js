@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
+import cloneDeep from 'lodash/cloneDeep';
 
 import ProductsApi from '../../../../../services/Products';
+import ImagesApi from '../../../../../services/Images';
 
 import { Box, Button, Grid, TextField, FormLabel, FormControlLabel, FormControl, FormGroup, Radio, RadioGroup, Checkbox, OutlinedInput, InputAdornment, InputLabel, Tooltip } from '@material-ui/core';
 
@@ -32,7 +34,7 @@ export default props => {
 
     useEffect(() => {
         if (item && itemNo !== 'newProduct') {
-            setFormData(item);
+            setFormData(cloneDeep(item));
             setSelectedTopCat(topCatsBase.find(el => el._id === item.categories[0].category.topCategory));
             item.sizeType && checkSizeType(item.sizeType._id) ?
             setSizeTypeLocked(true) : setSizeTypeLocked(false);
@@ -145,12 +147,22 @@ export default props => {
         });
     };
 
-    const openConfirm = event => {
-        event.preventDefault();
+    const onDeleteImg = imgLink => {
+        setFormData({
+            ...formData,
+            imgs: formData.imgs.filter(el => el !== imgLink)
+        });
     };
 
     const onSubmit = event => {
         event.preventDefault();
+        if(item && item.imgs) {
+            item.imgs.forEach(el => {
+                if(!formData.imgs.some(elem => elem === el)) {
+                    (new ImagesApi()).deleteImage(el);
+                }
+            });
+        }
         onSubmitHandler(formData);
     };
 
@@ -322,7 +334,7 @@ export default props => {
                     <Grid item xs={4} lg={2}
                         key={Math.random()}
                     >
-                        <ImgItem item={item} url={url} handleOnDelete={openConfirm}/>
+                        <ImgItem item={item} url={url} handleOnDelete={onDeleteImg}/>
                     </Grid>
                     ) : <></>
                 }

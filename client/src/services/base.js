@@ -35,8 +35,8 @@ export default class Base {
         return axios.put(this.getUrl(url), data, headers);
     }
 
-    delete(url){
+    delete(url, data){
         Base.setAuthToken();
-        return axios.delete(this.getUrl(url));
+        return axios.delete(this.getUrl(url), data);
     }
 };
