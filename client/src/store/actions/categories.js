@@ -109,6 +109,7 @@ export function addCategory(item){
 };
 
 export function updateCategory (item){
+    console.log('categories Api update item:', item)
     return function (dispatch) {
         dispatch(categoriesSendRequest());
         (new CategoriesApi()).updateCategory(item).then(res => {

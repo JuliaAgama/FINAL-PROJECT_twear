@@ -14,7 +14,7 @@ export default function Login() {
     const dispatch = useDispatch();
     const customer = useSelector(state => state.customers.customer);
     const [isVisible, setVisibility] = useState(false);
-    useEffect(() => {dispatch(getCustomerAction())},[]);
+    useEffect(() => {dispatch(getCustomerAction())},[dispatch]);
 
     const clickHandler = () => {
         setVisibility(!isVisible);

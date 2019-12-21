@@ -27,8 +27,11 @@ export default props => {
         return () => {
             setNewImg(false);
         }
-    }, [item, productRedux]);
+    }, [item, productRedux, url]);
 
+    const onDelete = () => {
+        handleOnDelete(url);
+    }
 
 // console.log('ColorItem ', item.color.name, ': ', item);
 // console.log('product in redux: ', product)
@@ -40,7 +43,7 @@ export default props => {
         <Box className={classes.imgContainer} style={{backgroundImage: `url(${url})`}}>
             {newImg ? <Box className={classes.newImg}>New</Box> : <></> }
             <Tooltip title="Delete image" >
-                <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={handleOnDelete}/>
+                <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={onDelete}/>
             </Tooltip>
         </Box>
         )

@@ -119,18 +119,18 @@ export default props => {
                 sizeType: sizeTypesBase.find(el => el._id === event.target.value)
             });
 
-        } else if (event.target.name.includes('imgs')) {
-            if(formData.imgs ) {
-                formData.imgs.splice(parseInt(event.target.name), 1, event.target.value);
-                setFormData({
-                    ...formData
-                });
-            } else {
-                setFormData({
-                    ...formData,
-                    imgs: [event.target.value]
-                });
-            }
+        // } else if (event.target.name.includes('imgs')) {
+        //     if(formData.imgs ) {
+        //         formData.imgs.splice(parseInt(event.target.name), 1, event.target.value);
+        //         setFormData({
+        //             ...formData
+        //         });
+        //     } else {
+        //         setFormData({
+        //             ...formData,
+        //             imgs: [event.target.value]
+        //         });
+        //     }
 
         } else {
             setFormData({
@@ -162,7 +162,7 @@ export default props => {
                     (new ImagesApi()).deleteImage(el);
                 }
             });
-        }
+        };
         onSubmitHandler(formData);
     };
 

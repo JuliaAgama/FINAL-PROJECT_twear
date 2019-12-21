@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import { Box, Grid, TextField, Tooltip } from '@material-ui/core';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import { Box, Grid} from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -11,7 +10,8 @@ import UploadFile from '../../../../common/inputs/UploadFile';
 
 export default props => {
 
-    const { productCloudinaryPath, item, onChangeLink, onUploadImgs, handleOnDeleteImg} = props;
+    const { productCloudinaryPath, item, onUploadImgs, onDeleteImg} = props;
+    // const { productCloudinaryPath, item, onChangeLink, onUploadImgs, onDeleteImg} = props;
 
     const [css, setCss] = useState({color: 'transparent'});
     const [cloudinaryPath, setCloudinaryPath] = useState('');
@@ -29,12 +29,8 @@ export default props => {
         }
     }, [item, productCloudinaryPath]);
 
-    const onDeleteImg = imgLink => {
-        // setFormData({
-        //     ...formData,
-        //     imgs: formData.imgs.filter(el => el !== imgLink)
-        // });
-        // onDeleteImg(imgUrl);
+    const handleOnDelete = imgLink => {
+        onDeleteImg(imgLink);
     };
 
     const classes = useStyles(css);
@@ -49,7 +45,7 @@ export default props => {
                             className={classes.paper}
                             key={Math.random()}
                         >
-                            <ImgItem item={item} url={url} handleOnDelete={onDeleteImg}/>
+                            <ImgItem item={item} url={url} handleOnDelete={handleOnDelete}/>
                         </Grid>
 
                     ) : <></>

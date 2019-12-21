@@ -19,7 +19,6 @@ export default makeStyles(theme => ({
         // color: "#000",
         color: "#fff",
         textTransform: 'uppercase',
-        textTransform: 'uppercase',
     },
     paper: {
         textAlign: 'center',
