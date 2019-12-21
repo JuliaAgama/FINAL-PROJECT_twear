@@ -22,17 +22,17 @@ export default props => {
 
     const {item, handleNotification} = props;
     const itemName = item.name;
-    
+
     // handle archiving or deleting product:
     const [warningIsOpen, setWarningIsOpen] = useState(false);
     const [warningText, setWarningText] = useState({title: '', description: ''});
     const [quantity, setQuantity] = useState(null);
     const [action, setAction] = useState('');
-    
+
     useEffect(() => {
         if(item && item.colors && item.colors[0]) {
             setQuantity(item.colors
-                .map(el => 
+                .map(el =>
                     el.sizes && el.sizes[0] && el.sizes.some(elem => elem.quantity) ?
                     el.sizes.map(elem => parseInt(elem.quantity)) : [0])
                 .flat()
@@ -42,7 +42,7 @@ export default props => {
             setQuantity(null);
         }
     }, [item]);
-    
+
     const checkQuantity = action => {
         if(quantity > 0) {
             setWarningIsOpen(true);
@@ -62,24 +62,24 @@ export default props => {
             setConfirmIsOpen(true);
         }
     };
-    
+
     const confirmText = action => {
         switch(action) {
             case 'archive' :
                 return {
                     title: `Are you sure to ${action.toUpperCase()} ${itemName.toUpperCase()}?`,
                     description: `If you confirm archiving of ${itemName.toUpperCase()} product it will be moved from database to archive. Product will not be accessible for editing before you move it back to database.`,
-                    buttonYes: 'ARCHIVE, I am SURE',
+                    buttonYes: 'Yes, ARCHIVE',
                     buttonNo: "No, don't ARCHIVE"
                 };
             case 'delete' :
                 return {
                     title: `Are you sure to ${action.toUpperCase()} ${itemName.toUpperCase()}?`,
                     description: `If you confirm deletion of ${itemName.toUpperCase()} category from database it cannot be undone`,
-                    buttonYes: 'DELETE, I am SURE',
+                    buttonYes: 'Yes, DELETE',
                     buttonNo: "No, don't DELETE"
                 };
-            default: 
+            default:
                 return {
                     title: `NO ACTION`,
                     description: `NO ACTION`,
@@ -91,7 +91,7 @@ export default props => {
     };
 
     const closeConfirm = () => setConfirmIsOpen(false);
-    
+
     const deleteItem = () => {
         (new ProductsApi()).deleteProduct(item).then(res => {
             setConfirmIsOpen(false);
@@ -99,7 +99,7 @@ export default props => {
             handleNotification(itemName, 'delete');
         })
     };
-    
+
     const archiveItem = () => {
         (new ArchivesApi()).addArchive(item).then(res => {
             setConfirmIsOpen(false);
@@ -107,7 +107,7 @@ export default props => {
             deleteItem();
         })
     };
-    
+
     const cutName = (string, l) => string.length > l ? string.slice(0, l-3)+'...' : string;
 
     const classes = useStyles();

@@ -14,7 +14,7 @@ const CategoriesHome = () => {
     const topCatsItemMobile = topCats.map((item, index) => <CategoryHomeItemMobile href = {`top-category/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>);
 
     useEffect(() => dispatch(getAllTopCats()),
-        []
+        [dispatch]
     );
 
     return (

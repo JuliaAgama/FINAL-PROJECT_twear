@@ -1,9 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import cloneDeep from 'lodash/cloneDeep';
 
 import * as productsActions from '../../../../store/actions/products';
 import TopCatsApi from '../../../../services/TopCats';
+import ImagesApi from '../../../../services/Images';
 
 import { Typography, Box, Button } from '@material-ui/core';
 
@@ -82,7 +84,7 @@ export default props => {
 
     useEffect(()=> {
         if (product) {
-            setFormData({...product});
+            setFormData(cloneDeep(product));
         }
         return () => {
             setFormData({})
@@ -91,28 +93,57 @@ export default props => {
 
     const onUploadImgs = color => newImgs => {
         if(formData && formData.colors) {
-            formData.colors[formData.colors.findIndex(el => el._id === color._id)].imgsColor.push(...newImgs);
+            formData.colors[formData.colors.findIndex(el => el.color._id === color.color._id)].imgsColor.push(...newImgs);
             setFormData({
                 ...formData
             });
         }
     };
 
-    const onChangeLink = color => event => {
+    const onDeleteImg = color => imgLink => {
         if(formData && formData.colors) {
-            formData.colors[formData.colors.findIndex(el => el._id === color._id)].imgsColor.splice(parseInt(event.target.name), 1, event.target.value);
+            formData.colors[formData.colors.findIndex(el => el.color._id === color.color._id)].imgsColor.splice(formData.colors[formData.colors.findIndex(el => el.color._id === color.color._id)].imgsColor.indexOf(imgLink),1)
 
             setFormData({
                 ...formData
             });
         }
     };
+
+    // const onChangeLink = color => event => {
+    //     if(formData && formData.colors) {
+    //         formData.colors[formData.colors.findIndex(el => el._id === color._id)].imgsColor.splice(parseInt(event.target.name), 1, event.target.value);
+
+    //         setFormData({
+    //             ...formData
+    //         });
+    //     }
+    // };
 
     const ref = useRef(null);
     const timeout = 2000;
 
     const onSubmitHandler = async event => {
         event.preventDefault();
+        let productColorImgs = [];
+        if(product && product.colors && product.colors.some(el => el.imgsColor && el.imgsColor[0])) {
+            product.colors.forEach(el => el.imgsColor.forEach(elem => {
+                productColorImgs.push(elem);
+            }));
+        };
+        let formDataColorImgs = [];
+        if(formData && formData.colors && formData.colors.some(el => el.imgsColor && el.imgsColor[0])) {
+            formData.colors.forEach(el => el.imgsColor.forEach(elem => {
+                formDataColorImgs.push(elem);
+            }));
+        };
+
+        productColorImgs.forEach(el => {
+            if (!formDataColorImgs.some(elem => elem === el)) {
+                (new ImagesApi()).deleteImage(el);
+            }
+        });
+
         await updateProduct();
         ref.current(`Color images of ${formData.name.toUpperCase()} has been saved!`);
         getProductByItemNo();
@@ -137,11 +168,12 @@ export default props => {
                             {formData.colors ?
                                 formData.colors.map(item =>
                                     <ColorItem
-                                        key={item._id || Math.random()}
+                                        key={item.color._id || Math.random()}
                                         productCloudinaryPath={productCloudinaryPath}
                                         item={item}
-                                        onChangeLInk={onChangeLink(item)}
+                                        //onChangeLInk={onChangeLink(item)}
                                         onUploadImgs={onUploadImgs(item)}
+                                        onDeleteImg={onDeleteImg(item)}
                                     /> ) : <></>
                             }
                         </Typography> : <Spinner/>

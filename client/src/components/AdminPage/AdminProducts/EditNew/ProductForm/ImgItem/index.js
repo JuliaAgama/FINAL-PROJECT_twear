@@ -12,6 +12,9 @@ export default props => {
 
     const {item, url, handleOnDelete} = props;
 
+    const onDelete = () => {
+        handleOnDelete(url);
+    }
 
     const classes = useStyles();
 
@@ -21,7 +24,7 @@ export default props => {
                 <></> : <Box className={classes.newImg}>New</Box>
             }
             <Tooltip title="Delete image" >
-                <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={handleOnDelete}/>
+                <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={onDelete}/>
             </Tooltip>
         </Box>
         )

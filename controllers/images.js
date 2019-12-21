@@ -50,6 +50,7 @@ exports.deleteImageCloud = (req, res, next) => {
   let cloudId;
   try {
     let cloudUrl = new URL(req.body.url);
+   
     cloudId = cloudUrl.pathname
       .split(".")
       .slice(0, -1)

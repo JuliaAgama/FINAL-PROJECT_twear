@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import cloneDeep from 'lodash/cloneDeep';
+
+import ImagesApi from '../../../../../services/Images';
 
 import { Typography, Grid, Box, TextField, FormLabel, FormControlLabel, FormControl, Radio, RadioGroup, Button, Tooltip } from '@material-ui/core';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+// import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 import useStyles from './useStyles';
 
@@ -22,11 +25,11 @@ export default props => {
                 categoryName.slice(categoryName.indexOf('-')+1) :
                 undefined;
             item ?
-                setFormData({...item}) :
+                setFormData(cloneDeep(item)) :
                 setFormData({topCategory: topCatsBase.find(el => el._id === newInTopCat)})
 
         } else if (topCatName && item) {
-            setFormData({...item});
+            setFormData(cloneDeep(item));
         }
     },[categoryName, topCatName, item, topCatsBase]);
 
@@ -85,12 +88,19 @@ export default props => {
         }
     };
 
-    const handleOnDelete = event => {
-        event.preventDefault();
-    };
+    // const handleOnDelete = event => {
+    //     event.preventDefault();
+    //     setFormData({
+    //         ...formData,
+    //         img: ''
+    //     })
+    // };
 
     const onSubmit = event => {
         event.preventDefault();
+        if (item && item.img && item.img !== formData.img) {
+            (new ImagesApi()).deleteImage(item.img)
+        };
         onSubmitHandler(formData);
     };
 
@@ -175,13 +185,15 @@ export default props => {
                     <Grid item xs={12}>
                         <Box className={classes.imgContainer} style={{backgroundImage: `url(${formData.img})`}}>
                             {formData && formData.img ?
-                                (
-                                    item && item.img === formData.img ? <></> : <Box className={classes.newImg}>New</Box>
-                                ) : <></>
+                                <>
+                                    {
+                                        item && item.img === formData.img ? <></> : <Box className={classes.newImg}>New</Box>
+                                    }
+                                    {/* <Tooltip title="Delete image" >
+                                        <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={handleOnDelete}/>
+                                    </Tooltip> */}
+                                </> : <></>
                             }
-                            <Tooltip title="Delete image" >
-                                <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={handleOnDelete}/>
-                            </Tooltip>
                         </Box>
                     </Grid>
 

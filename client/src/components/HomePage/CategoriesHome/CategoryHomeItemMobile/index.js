@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link, Grid, Button, Box} from "@material-ui/core";
+import {Link, Grid, Box} from "@material-ui/core";
 import useStyles from './useStyles';
 
 const CategoryHomeItemMobile = props => {

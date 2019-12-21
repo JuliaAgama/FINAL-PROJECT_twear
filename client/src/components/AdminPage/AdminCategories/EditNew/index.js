@@ -104,7 +104,7 @@ export default props => {
 
     const onSubmitHandler = formData => {
 
-        if( checkEmpty(formData.name) ) {
+        if (checkEmpty(formData.name) ) {
             return false;
         };
 

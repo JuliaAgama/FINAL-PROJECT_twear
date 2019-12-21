@@ -45,7 +45,7 @@ export default () => {
                     <Divider />
                     <ListItem>
                         <Tooltip title="NOT ALLOWED TO ADD NEW TOP-CATEGORY">
-                            <Link  className={classes.link}>
+                            <Link to="/admin/categories" className={classes.link}>
                             {/* <Link to="/admin/categories/top/newTopCategory" className={classes.link}
                                 // style={{pointerEvents: 'none'}}
                             > */}
