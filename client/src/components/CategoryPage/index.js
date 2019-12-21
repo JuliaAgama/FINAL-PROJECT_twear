@@ -10,7 +10,7 @@ export default () => {
     const queryString = useParams().category;
     const dispatch = useDispatch();
     let products = useSelector(state => state.products.productsFiltered.products);
-    useEffect(() => {dispatch(getProductsByFilter(queryString))},[queryString]);
+    useEffect(() => {dispatch(getProductsByFilter(queryString))},[dispatch, queryString]);
 
     return (
             products ? <ProductsGallery  products={products} queryString={queryString}/> : ""

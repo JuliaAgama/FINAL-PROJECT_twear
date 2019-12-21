@@ -5,22 +5,27 @@ import * as topCatsActions from '../../../../store/actions/topCats';
 import * as categoriesActions from '../../../../store/actions/categories';
 import * as productsActions from '../../../../store/actions/products';
 
-import { withWidth, Typography, Box, Grid, Hidden } from '@material-ui/core';
+import { withWidth, Typography, Box, Grid} from '@material-ui/core';
 
 import useStyles from './useStyles';
 
 import Spinner from '../../../common/Spinner';
 import Selector from '../../../common/inputs/Selector';
-import ProductsList from '../../AdminProducts/ProductsList';
+import ProductsList from './ProductsList';
 
 
 export default withWidth()(() => {
 
+    const topCatsList = useSelector(state => state.topCats.topCats);
+    const categoriesList = useSelector(state => state.categories.categories);
+    const productsList = useSelector(state => state.products.products);
+    const topCatsLoaded = useSelector(state => state.topCats.loaded);
+    const categoriesLoaded = useSelector(state => state.categories.loaded);
+    const productsLoaded = useSelector(state => state.products.loaded);
 
-    const [enabled, setEnabled] = useState(null);
     const [selectedTopCat, setSelectedTopCat] = useState('');
-    const [categoriesDisplay, setCategoriesDisplay] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [categoriesDisplay, setCategoriesDisplay] = useState(categoriesList);
 
     const dispatch = useDispatch();
 
@@ -35,29 +40,10 @@ export default withWidth()(() => {
     };
 
     useEffect(() => {
-        getTopCatsList();
-        getCategoriesList();
-        getProductsList();
-        return () => {
             getTopCatsList();
             getCategoriesList();
             getProductsList();
-        }
-    }, []);
-
-    const topCatsList = useSelector(state => state.topCats.topCats);
-    const categoriesList = useSelector(state => state.categories.categories);
-    const productsList = useSelector(state => state.products.products);
-    const topCatsLoaded = useSelector(state => state.topCats.loaded);
-    const categoriesLoaded = useSelector(state => state.categories.loaded);
-    const productsLoaded = useSelector(state => state.products.loaded);
-
-    useEffect(() => {
-        setCategoriesDisplay(categoriesList);
-        return () => {
-            setCategoriesDisplay([]);
-        }
-    }, [categoriesList]);
+    }, [dispatch]);
 
     const onChangeTopCat = (id) => {
         setSelectedTopCat(id);
@@ -69,24 +55,13 @@ export default withWidth()(() => {
         id && id !== '' ? setSelectedCategory(id) : setSelectedCategory('');
     };
 
-    const productsDisplay = () => {
-
-        let productsToDisplay = selectedCategory && selectedCategory !== '' ?
-            productsList.filter(item =>
-                item.categories.some(elem =>
-                    elem.category._id === selectedCategory)
-            ) :
-            productsList.filter(item =>
-                item.categories.some(elem =>
-                    elem.category._id === categoriesDisplay
-                        .map(el => el._id)
-                        .find(el => el === elem.category._id)
-                )
-            );
-        if(enabled !== null) {
-            return productsToDisplay.filter(item => item.enabled === enabled);
-        }
-
+    const productsToDisplay = () => {
+        let productsToDisplay;
+        if (selectedCategory && selectedCategory !== '') {
+            productsToDisplay = productsList.filter(item => item.categories.some(elem => elem.category._id === selectedCategory))
+        } else if (selectedTopCat && selectedTopCat !== '') {
+            productsToDisplay = productsList.filter(item => item.categories.some(elem => elem.category.topCategory === selectedTopCat))
+        } else productsToDisplay = productsList;
         return productsToDisplay;
     };
 
@@ -121,7 +96,7 @@ export default withWidth()(() => {
                 }
             </Box>
             <Box p={2} textAlign="center" className={classes.paper} >
-                {productsLoaded ? <ProductsList productsList={productsDisplay()} /> : <Spinner/> }
+                {productsLoaded ? <ProductsList productsList={productsToDisplay()} /> : <Spinner/> }
             </Box>
         </Typography>
     )
