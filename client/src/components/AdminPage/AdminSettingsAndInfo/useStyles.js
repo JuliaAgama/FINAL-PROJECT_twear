@@ -5,15 +5,13 @@ export default makeStyles(theme => (
         paper: {
             width: '100%',
             marginBottom: theme.spacing(3),
-            alignItems: 'center',
             justifyContent: 'space-between',
             padding: theme.spacing(2),
             backgroundColor: theme.palette.background.paper,
         },
         container: {
             flexGrow: 1,
-            alignItems: 'center',
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
         },
         expand: {
             transform: 'rotate(0deg)',
@@ -29,6 +27,15 @@ export default makeStyles(theme => (
         },
         expanded: {
             marginLeft: theme.spacing(1)
+        },
+        btn: {
+            display: 'block',
+            width: '25%',
+            margin: '0 auto',
+            marginTop: theme.spacing(2),
+            borderRadius: '18px',
+            outline: 'none!important',
+            textDecoration: 'none!important',
         }
     }
 ));

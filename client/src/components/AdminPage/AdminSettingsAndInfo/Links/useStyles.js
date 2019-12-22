@@ -26,5 +26,14 @@ export default makeStyles(theme => (
                 textDecoration: 'none !important'
             },
         },
+        btn: {
+            display: 'block',
+            width: '25%',
+            margin: '0 auto',
+            marginTop: theme.spacing(2),
+            borderRadius: '18px',
+            outline: 'none!important',
+            textDecoration: 'none!important',
+        }
     }
 ));

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Typography, Grid} from '@material-ui/core';
+import {Typography, Grid, Button} from '@material-ui/core';
 import useStyles from './useStyles';
 import Selector from "../../../common/inputs/Selector";
 import {getAllCategories} from "../../../../store/actions/categories";
@@ -20,14 +20,26 @@ export default props => {
     const [menCategory, setMenCategory] = useState('');
     const womenCategories = CategoriesFilter(categories, 'women');
     const menCategories = CategoriesFilter(categories, 'men');
+    useEffect(() => {
+        let data = localStorage.getItem('Links');
+        if (data) {
+            data = JSON.parse(data);
+            setWomenCategory(data.womenLinkID);
+            setMenCategory(data.menLinkID)
+        }
+    }, []);
 
     const onChangeWomenLink = (id) => {
-
+        setWomenCategory(id);
     };
 
     const onChangeMenLink = (id) => {
-
+        setMenCategory(id);
     };
+
+    const save = () => {
+        localStorage.setItem("Links", JSON.stringify({womenLinkID: womenCategory, menLinkID: menCategory}))
+    }
 
     return (
         <Typography component="div" variant="body1" className={classes.wrapper}>
@@ -47,6 +59,14 @@ export default props => {
                         selectedItem={menCategory}
                         onChange={onChangeMenLink}
                     />
+                </Grid>
+                <Grid item xs={12}>
+                    <Button
+                        fullWidth={true}
+                        variant="outlined"
+                        className={classes.btn}
+                        onClick={save}
+                    > {`SAVE`}</Button>
                 </Grid>
             </Grid>
         </Typography>
