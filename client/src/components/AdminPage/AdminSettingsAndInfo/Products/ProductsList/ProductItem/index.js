@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { Typography, Box, Grid, ListItem, Divider, Hidden} from '@material-ui/core';
 import useStyles from './useStyles';
 import Checkbox from "@material-ui/core/Checkbox";
@@ -7,39 +7,31 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 export default props => {
 
-    const {item} = props;
-    const [checked, setChecked] = useState(false);
-    const handleChange = event => {
-        setChecked(event.target.checked);
-    };
+    const {item, checked, setChecked, setCountOfChosenProducts} = props;
     const cutName = (string, l) => string.length > l ? string.slice(0, l-3)+'...' : string;
+    let isChecked = false;
+    if (checked) {
+        isChecked = checked.some(el => el.itemNo === item.itemNo);
+    }
 
-    useEffect(() => {
-        let data = localStorage.getItem('checkedProduct');
-            if (data) {
-                data = JSON.parse(data);
-                // const checkedEl = data.find(el => el.itemID === item._id);
-                // if (checkedEl) {
-                //     data.splice( data.indexOf(checkedEl), 1 );
-                // } else if (data.length < 4) {
-                //
-                // }
-                data.push({itemID: item._id, checked: checked})
-            } else {
-                const checkedProduct = [];
-                checkedProduct.push({itemID: item._id, checked: checked});
-                localStorage.setItem('checkedProduct', JSON.stringify(checkedProduct));
+    const checkedHandler = event => {
+        if (event.target.checked){
+            if (checked && checked.length < 4){
+                checked.push({itemNo: item.itemNo, checked: event.target.checked});
+                setCountOfChosenProducts(checked.length);
+                setChecked([...checked])
+            } else if (checked && checked.length === 4) {
+
             }
-    });
-
-    // useEffect(() => {
-    //    let data = localStorage.getItem('checkedProduct');
-    //    if (data) {
-    //        data = JSON.parse(data);
-    //        const checkedElement = data.find(el => el.itemID === item._id);
-    //        if (checkedElement) setChecked(checkedElement.checked)
-    //    }
-    // });
+            else {
+                setChecked([{itemNo: item.itemNo, checked: event.target.checked}]);
+            }
+        } else {
+            let elToDel = checked.find(el => el.itemNo === item.itemNo);
+            checked.splice(checked.indexOf(elToDel), 1);
+            setChecked([...checked]);
+        }
+    };
 
     const classes = useStyles();
 
@@ -70,8 +62,8 @@ export default props => {
                     </Grid>
                     <Grid item>
                         <Checkbox
-                            checked={checked}
-                            onChange={handleChange}
+                            checked={isChecked}
+                            onChange={checkedHandler}
                             color="primary"
                             inputProps={{ 'aria-label': 'secondary checkbox' }}
                         />
