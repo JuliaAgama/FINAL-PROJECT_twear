@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
@@ -14,6 +15,9 @@ export default makeStyles(theme => (
             justifyContent: 'center',
             alignItems: 'center',
             cursor: 'pointer',
+            '&:hover': {
+                backgroundColor: grey[200],
+            },
             [theme.breakpoints.down('sm')]: {
                 border: '1px solid black',
                 borderTop: 'none',

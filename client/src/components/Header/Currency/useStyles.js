@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
@@ -19,6 +20,9 @@ export default makeStyles(theme => (
             display: 'flex',
             justifyContent: 'space-around',
             cursor: 'pointer',
+            '&:hover': {
+                backgroundColor: grey[200],
+            },
         }
     }
 ));

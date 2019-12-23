@@ -17,7 +17,7 @@ import Currency from "./Currency";
 import CategoriesMenu from "./CategoriesMenu";
 import Login from "./Login";
 import DropDownMenu from "./DropDownMenu";
-import {CategoryItems} from "./CategoryItems";
+import {CategoryItems} from "./CategoriesMenu/CategoryItems";
 import Modal from '../common/Modal'
 
 export default withWidth()( () => {

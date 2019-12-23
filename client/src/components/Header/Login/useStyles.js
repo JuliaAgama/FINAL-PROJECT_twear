@@ -10,6 +10,9 @@ export default makeStyles(theme => (
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
+            '&:hover': {
+                backgroundColor: grey[200],
+            },
             [theme.breakpoints.down('sm')]: {
                 width: '50%',
                 padding: '14px 0',
@@ -44,9 +47,9 @@ export default makeStyles(theme => (
             position: 'absolute',
             bottom: '-100%',
             left : '0',
+            borderTop: '1px solid black',
             borderLeft: '1px solid black',
             [theme.breakpoints.down('sm')]: {
-                borderTop: '1px solid black',
                 flexDirection: 'column',
                 marginLeft: '-1px',
                 marginBottom: '-45px',
@@ -57,10 +60,13 @@ export default makeStyles(theme => (
             fontWeight: '700',
             textAlign: 'center',
             padding: '16px 0',
-            backgroundColor: 'transparent',
+            backgroundColor: grey[50],
             borderRight: '1px solid black',
             borderBottom: '1px solid black',
             cursor: 'pointer',
+            '&:hover': {
+                backgroundColor: grey[200],
+            },
             [theme.breakpoints.down('sm')]: {
                 backgroundColor: 'white',
                 width: '100%'
