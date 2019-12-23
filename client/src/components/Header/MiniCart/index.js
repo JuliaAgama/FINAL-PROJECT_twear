@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 
 import {Link} from "react-router-dom";
 
@@ -8,7 +9,26 @@ import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
 import useStyles from "./useStyles";
 
 
-export default function MiniCart() {
+export default () => {
+
+    const [skus, setSkus] = useState(0);
+    const [invisible, setInvisible] = useState(true);
+
+    const cart = useSelector(state => state.cart.cart);
+
+    useEffect(() => {
+        if(cart && cart.products) {
+            setSkus(cart.products.length);
+            setInvisible(false);
+        } else if ( !cart && localStorage.getItem('cart') && localStorage.getItem('cart').products) {
+            setSkus(localStorage.getItem('cart').products.length);
+            setInvisible(false);
+        }
+        return () => {
+            setSkus(0);
+            setInvisible(true);
+        }
+    }, [cart, localStorage.getItem('cart')]);
 
     const classes = useStyles();
 
@@ -18,9 +38,10 @@ export default function MiniCart() {
                 <Link to='/cart' className={classes.link}>
                     <Hidden smDown>
                         <Badge
-                            badgeContent={4}
+                            badgeContent={parseInt(skus)}
                             color="secondary"
                             overlap="circle"
+                            invisible={invisible}
                             //anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
                             className={classes.badge}
                         >

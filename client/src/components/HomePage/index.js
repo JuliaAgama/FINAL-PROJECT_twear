@@ -12,7 +12,7 @@ import CategoriesHome from "./CategoriesHome";
 export default () => {
     const dispatch = useDispatch();
 
-    useEffect(() => {dispatch(getAllProducts())},[]);
+    useEffect(() => {dispatch(getAllProducts())},[dispatch]);
 
     let products = useSelector(state => state.products.products);
 

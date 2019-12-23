@@ -22,7 +22,7 @@ export default () => {
             <Grid item xs={6} md={3} className={classes.paperBtn}>
                 <Box>Women</Box>
             </Grid>
-            <Grid item item xs={6} md={3} className={classes.paperBtn}>
+            <Grid item xs={6} md={3} className={classes.paperBtn}>
                 <Box>Men</Box>
             </Grid>
         </Grid>

@@ -11,7 +11,7 @@ export function cartSendRequest() {
 export function getCart() {
     return function (dispatch) {
         dispatch(cartSendRequest());
-        (new CartApi()).getCart.then(res => {
+        (new CartApi()).getCart().then(res => {
             return dispatch({
                 type: CART.CART_GET_CART,
                 data: res
