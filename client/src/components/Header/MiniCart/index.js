@@ -1,10 +1,11 @@
 import React from "react";
-import Badge from "@material-ui/core/Badge";
-import Typography from "@material-ui/core/Typography";
-import Hidden from "@material-ui/core/Hidden";
+
+import {Link} from "react-router-dom";
+
+import {Container, Typography, Badge, Hidden} from "@material-ui/core";
 import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
+
 import useStyles from "./useStyles";
-import {Container} from "@material-ui/core";
 
 
 export default function MiniCart() {
@@ -14,14 +15,29 @@ export default function MiniCart() {
     return (
         <React.Fragment>
             <Container className={classes.container}>
-                <Hidden smDown>
-                    <Badge color="default" badgeContent={4} className={classes.badge}>
-                        <Typography className={classes.padding}>Shopping Bag</Typography>
-                    </Badge>
-                </Hidden>
-                <Hidden mdUp>
-                    <LocalMallOutlinedIcon/>
-                </Hidden>
+                <Link to='/cart' className={classes.link}>
+                    <Hidden smDown>
+                        <Badge
+                            badgeContent={4}
+                            color="secondary"
+                            overlap="circle"
+                            //anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+                            className={classes.badge}
+                        >
+                            <p className={classes.padding}>Shopping Bag</p>
+                        </Badge>
+                    </Hidden>
+                    <Hidden mdUp>
+                        <Badge
+                            badgeContent={4}
+                            color="secondary"
+                            overlap="circle"
+                            className={classes.badge}
+                        >
+                            <LocalMallOutlinedIcon/>
+                        </Badge>
+                    </Hidden>
+                </Link>
             </Container>
         </React.Fragment>
     );

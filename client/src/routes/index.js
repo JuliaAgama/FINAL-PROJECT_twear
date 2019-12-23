@@ -12,6 +12,7 @@ import HomePage from "../components/HomePage";
 import TopCatPage from "../components/TopCatPage";
 import CategoryPage from "../components/CategoryPage";
 import ProductPage from "../components/ProductPage";
+import CartPage from "../components/CartPage";
 
 import AdminPage from "../components/AdminPage";
 import AdminCategories from "../components/AdminPage/AdminCategories";
@@ -47,6 +48,9 @@ export const Router = () => (
                 <Route exact
                     path="/products/:product?"
                     component={props => <LayoutMain {...props}><ProductPage {...props}/></LayoutMain>}/>
+                <Route exact
+                    path="/cart"
+                    component={props => <LayoutMain {...props}><CartPage {...props}/></LayoutMain>}/>
 
 
                 <Route exact path="/accessDenied" component={AccessDenied} />

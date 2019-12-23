@@ -10,6 +10,8 @@ export default makeStyles(theme => (
             marginTop: '6px'
         },
         container: {
+            boxSizing: 'border-box',
+            height: '60px',
             borderBottom: '1px solid black',
             textAlign: 'center',
             cursor: 'pointer',

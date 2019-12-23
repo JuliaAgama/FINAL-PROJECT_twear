@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => (
     {
         mainContainer: {
+            boxSizing: 'border-box',
+            height: '60px',
             display: 'flex',
             flexWrap: 'wrap',
             width: '100%',

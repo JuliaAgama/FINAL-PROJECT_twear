@@ -60,12 +60,19 @@ exports.addProduct = (req, res, next) => {
 
   newProduct
     .populate("categories.category")
-    .populate("categories.category.topCategory")
+    // .populate({
+    //   path: "categories.category",
+    //   populate: {
+    //     path: "categories.category.topCategory",
+    //     model: "TopCat"
+    //   }
+    // })
+    .populate("categories.category.topCategory")// is not populated, doesn't work this way
     .populate("gender")
     .populate("sizeType")
     .populate("colors.color")
     .populate("colors.sizes.size")
-    .populate("colors.sizes.size.sizeType")
+    .populate("colors.sizes.size.sizeType")// is not populated, doesn't work this way
     .execPopulate();
 
   newProduct
@@ -107,12 +114,12 @@ exports.updateProduct = (req, res, next) => {
           { new: true }
         )
           .populate("categories.category")
-          .populate("categories.category.topCategory")
+          .populate("categories.category.topCategory")// is not populated, doesn't work this way
           .populate("gender")
           .populate("sizeType")
           .populate("colors.color")
           .populate("colors.sizes.size")
-          .populate("colors.sizes.size.sizeType")
+          .populate("colors.sizes.size.sizeType")// is not populated, doesn't work this way
           .then(product => res.json(product))
           .catch(err =>
             res.status(400).json({
@@ -162,12 +169,12 @@ exports.getProducts = (req, res, next) => {
 
   Product.find()
     .populate("categories.category")
-    .populate("categories.category.topCategory")
+    .populate("categories.category.topCategory")// is not populated, doesn't work this way
     .populate("gender")
     .populate("sizeType")
     .populate("colors.color")
     .populate("colors.sizes.size")
-    .populate("colors.sizes.size.sizeType")
+    .populate("colors.sizes.size.sizeType")// is not populated, doesn't work this way
     .sort(sort)
     .skip(startPage * perPage - perPage)
     .limit(perPage)
@@ -182,12 +189,20 @@ exports.getProducts = (req, res, next) => {
 exports.getProduct = (req, res, next) => {
   Product.findOne({ _id: req.params.id })
     .populate("categories.category")
-    .populate("categories.category.topCategory")
+    // .populate({
+    //   path: "categories.category",
+    //   populate: {
+    //     path: "topCategory",
+    //     // path: "categories.category.topCategory",
+    //     model: "TopCat"
+    //   }
+    // })
+    .populate("categories.category.topCategory")// is not populated, doesn't work this way
     .populate("gender")
     .populate("sizeType")
     .populate("colors.color")
     .populate("colors.sizes.size")
-    .populate("colors.sizes.size.sizeType")
+    .populate("colors.sizes.size.sizeType")// is not populated, doesn't work this way
     .then(product => {
       if (!product) {
         res.status(400).json({
@@ -207,12 +222,12 @@ exports.getProduct = (req, res, next) => {
 exports.getProductByItemNo = (req, res, next) => {
   Product.findOne({ itemNo: req.params.itemNo })
     .populate("categories.category")
-    .populate("categories.category.topCategory")
+    .populate("categories.category.topCategory")// is not populated, doesn't work this way
     .populate("gender")
     .populate("sizeType")
     .populate("colors.color")
     .populate("colors.sizes.size")
-    .populate("colors.sizes.size.sizeType")
+    .populate("colors.sizes.size.sizeType")// is not populated, doesn't work this way
     .then(product => {
       if (!product) {
         res.status(400).json({
@@ -245,12 +260,12 @@ exports.getProductsFilterParams = async (req, res, next) => {
     // const mongooseQuery = await mongooseQueryCreator(req.query);
     const products = await Product.find(mongooseQuery)
       .populate("categories.category")
-      .populate("categories.category.topCategory")
+      .populate("categories.category.topCategory")// is not populated, doesn't work this way
       .populate("gender")
       .populate("sizeType")
       .populate("colors.color")
       .populate("colors.sizes.size")
-      .populate("colors.sizes.size.sizeType")
+      .populate("colors.sizes.size.sizeType")// is not populated, doesn't work this way
       .sort(sort)
       .skip(startPage * perPage - perPage)
       .limit(perPage);
@@ -280,12 +295,12 @@ exports.searchProducts = async (req, res, next) => {
   // Finding ALL products, that have at least one match
   let matchedProducts = await Product.find({$text: { $search: query }})
     .populate("categories.category")
-    .populate("categories.category.topCategory")
+    .populate("categories.category.topCategory")// is not populated, doesn't work this way
     .populate("gender")
     .populate("sizeType")
     .populate("colors.color")
     .populate("colors.sizes.size")
-    .populate("colors.sizes.size.sizeType")
+    .populate("colors.sizes.size.sizeType")// is not populated, doesn't work this way
 
   res.send(matchedProducts);
 };
@@ -294,39 +309,39 @@ exports.searchProducts = async (req, res, next) => {
     try {
       const productsMatch = await Product.find(req.body)
         .populate("categories.category")
-        .populate("categories.category.topCategory")
+        .populate("categories.category.topCategory")// is not populated, doesn't work this way
         .populate("gender")
         .populate("sizeType")
         .populate("colors.color")
         .populate("colors.sizes.size")
-        .populate("colors.sizes.size.sizeType");
+        .populate("colors.sizes.size.sizeType");// is not populated, doesn't work this way
 
       const productsMatchCategory = await Product.find({categories: {$elemMatch: req.body}})
         .populate("categories.category")
-        .populate("categories.category.topCategory")
+        .populate("categories.category.topCategory")// is not populated, doesn't work this way
         .populate("gender")
         .populate("sizeType")
         .populate("colors.color")
         .populate("colors.sizes.size")
-        .populate("colors.sizes.size.sizeType");
+        .populate("colors.sizes.size.sizeType");// is not populated, doesn't work this way
 
       const productsMatchColor = await Product.find({colors: {$elemMatch: req.body}})
         .populate("categories.category")
-        .populate("categories.category.topCategory")
+        .populate("categories.category.topCategory")// is not populated, doesn't work this way
         .populate("gender")
         .populate("sizeType")
         .populate("colors.color")
         .populate("colors.sizes.size")
-        .populate("colors.sizes.size.sizeType");
+        .populate("colors.sizes.size.sizeType");// is not populated, doesn't work this way
 
       const productsMatchSize = await Product.find({'colors.sizes.size': req.body.size})
         .populate("categories.category")
-        .populate("categories.category.topCategory")
+        .populate("categories.category.topCategory")// is not populated, doesn't work this way
         .populate("gender")
         .populate("sizeType")
         .populate("colors.color")
         .populate("colors.sizes.size")
-        .populate("colors.sizes.size.sizeType");
+        .populate("colors.sizes.size.sizeType");// is not populated, doesn't work this way
 
       const products = [...productsMatch, ...productsMatchCategory, ...productsMatchColor, ...productsMatchSize];
       res.json(products);

@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => (
     {
         container: {
+            boxSizing: 'border-box',
+            height: '60px',
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
@@ -18,10 +20,13 @@ export default makeStyles(theme => (
             fontWeight: '700',
             borderBottom: '1px solid black'
         },
+        link: {
+            color: 'inherit',
+            textDecoration: 'none',
+        },
         badge: {
-            margin: theme.spacing(2),
+            marginTop: theme.spacing(1),
             fontWeight: '700'
-
         },
         padding: {
             padding: theme.spacing(0, 2),
