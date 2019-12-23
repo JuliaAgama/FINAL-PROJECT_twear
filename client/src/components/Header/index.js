@@ -37,45 +37,46 @@ export default withWidth()( () => {
         }
     };
 
-    return (<>
-                <ClickAwayListener onClickAway={handleClickAway}>
-                    <div>
-                        <Hidden smDown>
-                            <Container maxWidth={false} className={classes.mainContainer}>
-                                <Container maxWidth={false} className={classes.container}>
-                                    <Search/>
-                                    <Currency/>
-                                </Container>
-                                <Container maxWidth={false} className={`${classes.container} ${classes.logoContainer}`}>
-                                    <Logo/>
-                                    <CategoriesMenu title='Women' border={true}/>
-                                    <CategoriesMenu title='Men' isMen={true}/>
-                                </Container>
-                                <Container maxWidth={false} className={classes.container}>
-                                    <MiniCart/>
-                                    <Login/>
-                                </Container>
-                                <CategoryItems/>
-                            </Container>
-                        </Hidden>
-                        <Hidden mdUp>
-                            <Container maxWidth={false} className={classes.mainContainerMobile}>
-                                <DropDownMenu/>
-                                <Logo/>
-                                <MiniCart/>
+    return (
+        <>
+            <ClickAwayListener onClickAway={handleClickAway}>
+                <div>
+                    <Hidden smDown>
+                        <Container maxWidth={false} className={classes.mainContainer}>
+                            <Container maxWidth={false} className={classes.container}>
                                 <Search/>
-                                <Container maxWidth={false} className={showMobileMenu ? classes.mobileMenuContainer : classes.hide}>
-                                    <CategoriesMenu title='Women' border={true}/>
-                                    <CategoriesMenu title='Men' isMen={true}/>
-                                    <CategoryItems mobile={true}/>
-                                    <Currency/>
-                                    <Login/>
-                                </Container>
+                                <Currency/>
                             </Container>
-                        </Hidden>
-                        <Modal/>
-                    </div>
-                </ClickAwayListener>
+                            <Container maxWidth={false} className={`${classes.container} ${classes.logoContainer}`}>
+                                <Logo/>
+                                <CategoriesMenu title='Women' border={true}/>
+                                <CategoriesMenu title='Men' isMen={true}/>
+                            </Container>
+                            <Container maxWidth={false} className={classes.container}>
+                                <MiniCart/>
+                                <Login/>
+                            </Container>
+                            <CategoryItems/>
+                        </Container>
+                    </Hidden>
+                    <Hidden mdUp>
+                        <Container maxWidth={false} className={classes.mainContainerMobile}>
+                            <DropDownMenu/>
+                            <Logo/>
+                            <MiniCart/>
+                            <Search/>
+                            <Container maxWidth={false} className={showMobileMenu ? classes.mobileMenuContainer : classes.hide}>
+                                <CategoriesMenu title='Women' border={true}/>
+                                <CategoriesMenu title='Men' isMen={true}/>
+                                <CategoryItems mobile={true}/>
+                                <Currency/>
+                                <Login/>
+                            </Container>
+                        </Container>
+                    </Hidden>
+                    <Modal/>
+                </div>
+            </ClickAwayListener>
         </>
     );
 });

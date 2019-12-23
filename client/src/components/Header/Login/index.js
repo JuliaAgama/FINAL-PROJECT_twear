@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from "react";
-import PersonIcon from '@material-ui/icons/Person';
-import {Link} from "react-router-dom";
-import {openLoginModalAction} from "../../../store/actions/modal";
 import {useDispatch, useSelector} from "react-redux";
-import useStyles from "./useStyles";
+import {Link} from "react-router-dom";
+
+import {openLoginModalAction} from "../../../store/actions/modal";
 import {getCustomerAction, logoutAction} from "../../../store/actions/customer";
-import {Container} from "@material-ui/core";
+
+import {Container, Grid} from "@material-ui/core";
+import PersonIcon from '@material-ui/icons/Person';
+
+import useStyles from "./useStyles";
 
 
 export default function Login() {
@@ -39,18 +42,30 @@ export default function Login() {
                 }
             </Container>
             {isVisible ?
-                <Container maxWidth={false}  className={classes.subMenu}>
-                    <Container className={`${classes.subMenuItem} ${classes.borderRB}`}>
-                        <Link to='/#' className={classes.linkContainer}>Personal Cabinet</Link>
-                    </Container>
-                    <Container className={classes.subMenuItem}>
-                        {customer.isAdmin ? <Link to={'/admin'} className={classes.linkContainer}>Admin Page</Link> : ''}
-                    </Container>
-                    <Container className={`${classes.subMenuItem} ${classes.borderLT}`}>
-                        <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
-                    </Container>
-                </Container> : ""
+                <Grid container className={classes.subMenu}>
+                    {customer.isAdmin ?
+                    <>
+                        <Grid item xs={12} md={3} className={classes.subMenuItem}>
+                            <Link to='/#' className={classes.linkContainer}>Personal Cabinet</Link>
+                        </Grid>
+                        <Grid item xs={12} md={6} className={classes.subMenuItem}>
+                            <Link to={'/admin'} className={classes.linkContainer}>Admin Page</Link>
+                        </Grid>
+                        <Grid item xs={12} md={3} className={classes.subMenuItem}>
+                            <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
+                        </Grid>
+                    </> :
+                    <>
+                        <Grid item xs={12} md={6} className={classes.subMenuItem}>
+                            <Link to='/#' className={classes.linkContainer}>Personal Cabinet</Link>
+                        </Grid>
+                        <Grid item xs={12} md={6} className={classes.subMenuItem}>
+                            <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
+                        </Grid>
+                    </>
+                    }
+                </Grid> : <></>
             }
         </React.Fragment>
     );
-}
+};

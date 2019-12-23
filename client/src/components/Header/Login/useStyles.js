@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
@@ -39,15 +40,16 @@ export default makeStyles(theme => (
             display: 'flex',
             width: '100%',
             padding: '0',
-            margin: '0',
+            marginBottom: '-55px',
             position: 'absolute',
-            bottom: '-55px',
+            bottom: '-100%',
             left : '0',
-            border: '1px solid black',
-            borderTop: 'none',
+            borderLeft: '1px solid black',
             [theme.breakpoints.down('sm')]: {
+                borderTop: '1px solid black',
                 flexDirection: 'column',
-                bottom: '-165px'
+                marginLeft: '-1px',
+                marginBottom: '-45px',
             },
         },
         subMenuItem: {
@@ -55,25 +57,14 @@ export default makeStyles(theme => (
             fontWeight: '700',
             textAlign: 'center',
             padding: '16px 0',
-            backgroundColor: 'white',
+            backgroundColor: 'transparent',
+            borderRight: '1px solid black',
+            borderBottom: '1px solid black',
             cursor: 'pointer',
             [theme.breakpoints.down('sm')]: {
+                backgroundColor: 'white',
                 width: '100%'
             },
         },
-        borderRB: {
-            borderRight: '1px solid black',
-            [theme.breakpoints.down('sm')]: {
-                borderRight: 'none',
-                borderBottom: '1px solid black',
-            },
-        },
-        borderLT: {
-            borderLeft: '1px solid black',
-            [theme.breakpoints.down('sm')]: {
-                borderLeft: 'none',
-                borderTop: '1px solid black',
-            },
-        }
     }
 ));
