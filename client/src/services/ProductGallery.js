@@ -9,25 +9,25 @@ export default class ProductGallery extends Base {
     }
 
     getProductGalleryById(customId) {
-        return super.get(`productGallery/${customId}`)
+        return super.get(`productsGallery/${customId}`)
             .then(res => res.data)
         //.catch(err => err.response.data);
     }
 
     addProductGallery(productGallery) {
-        return super.post(`productGallery`, productGallery)
+        return super.post(`productsGallery`, productGallery)
             .then(res => res.data)
         // .catch(err => err.response.data);
     }
 
     updateProductGallery(productGallery){
-        return super.put(`productGallery/${productGallery.customId}`, productGallery)
+        return super.put(`productsGallery/${productGallery.customId}`, productGallery)
             .then(res => res.data)
         // .catch(err => err.response.data);
     }
 
     deleteProductGallery(productGallery){
-        return super.delete(`productGallery/${productGallery.customId}`, productGallery)
+        return super.delete(`productsGallery/${productGallery.customId}`, productGallery)
             .then(res => res.data)
         // .catch(err => err.response.data);
     }

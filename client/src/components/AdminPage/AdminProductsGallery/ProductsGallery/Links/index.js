@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Typography, Grid, Button} from '@material-ui/core';
 import useStyles from './useStyles';
-import Selector from "../../../common/inputs/Selector";
-import {getAllCategories} from "../../../../store/actions/categories";
+import Selector from "../../../../common/inputs/Selector";
+import {getAllCategories} from "../../../../../store/actions/categories";
 import {useDispatch, useSelector} from "react-redux";
 
 function CategoriesFilter(categories, gender) {
@@ -12,6 +12,7 @@ function CategoriesFilter(categories, gender) {
 
 export default props => {
 
+    const {setExpanded} = props;
     const classes = useStyles();
     const dispatch = useDispatch();
     useEffect(() => getAllCategories()(dispatch), [dispatch]);
@@ -39,6 +40,7 @@ export default props => {
 
     const save = () => {
         localStorage.setItem("Links", JSON.stringify({womenLinkID: womenCategory, menLinkID: menCategory}))
+        setExpanded({links: false})
     }
 
     return (

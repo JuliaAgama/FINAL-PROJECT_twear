@@ -3,23 +3,23 @@ import {Typography, Grid, TextField, Button} from '@material-ui/core';
 import useStyles from './useStyles';
 
 export default props => {
-
-    const [title, setTitle] = useState("");
+    const {setExpanded} = props;
+    const [name, setName] = useState("");
 
     useEffect(() => {
-        let data = localStorage.getItem('Title');
+        let data = localStorage.getItem('CustomId');
         if (data) {
-            setTitle(data)
+            setName(data)
         }
     }, []);
 
     const onChange = event => {
-        setTitle(event.target.value)
+        setName(event.target.value)
     };
 
-    const onSubmit = event => {
-        event.preventDefault();
-        localStorage.setItem('Title', title)
+    const save = () => {
+        localStorage.setItem('CustomId', name)
+        setExpanded({'product gallery name': false})
     };
 
     const classes = useStyles();
@@ -31,12 +31,12 @@ export default props => {
                     <Grid className={classes.justify}>
                         <TextField
                             required
-                            id="title"
-                            label="Title"
-                            name='title'
+                            id="name"
+                            label="Name"
+                            name='name'
                             autoFocus
                             onChange={onChange}
-                            value={title}
+                            value={name}
                             className={classes.textField}
                             margin="normal"
                             variant="outlined"
@@ -47,7 +47,7 @@ export default props => {
                             fullWidth={true}
                             variant="outlined"
                             className={classes.btn}
-                            onClick={onSubmit}
+                            onClick={save}
                         > {`SAVE`}</Button>
                     </Grid>
                 </Grid>

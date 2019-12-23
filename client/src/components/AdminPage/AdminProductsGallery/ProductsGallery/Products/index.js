@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import * as topCatsActions from '../../../../store/actions/topCats';
-import * as categoriesActions from '../../../../store/actions/categories';
-import * as productsActions from '../../../../store/actions/products';
+import * as topCatsActions from '../../../../../store/actions/topCats';
+import * as categoriesActions from '../../../../../store/actions/categories';
+import * as productsActions from '../../../../../store/actions/products';
 
-import { withWidth, Typography, Box, Grid} from '@material-ui/core';
+import {withWidth, Typography, Box, Grid, Button} from '@material-ui/core';
 
 import useStyles from './useStyles';
 
-import Spinner from '../../../common/Spinner';
-import Selector from '../../../common/inputs/Selector';
+import Spinner from '../../../../common/Spinner';
+import Selector from '../../../../common/inputs/Selector';
 import ProductsList from './ProductsList';
 
 
-export default withWidth()(() => {
-
+export default withWidth()(props => {
+    const {setExpanded} = props;
     const topCatsList = useSelector(state => state.topCats.topCats);
     const categoriesList = useSelector(state => state.categories.categories);
     const productsList = useSelector(state => state.products.products);
@@ -65,6 +65,10 @@ export default withWidth()(() => {
         return productsToDisplay;
     };
 
+    const close = () => {
+        setExpanded({products: false})
+    };
+
     const classes = useStyles();
 
     return (
@@ -98,6 +102,14 @@ export default withWidth()(() => {
             <Box p={2} textAlign="center" className={classes.paper} >
                 {productsLoaded ? <ProductsList productsList={productsToDisplay()} /> : <Spinner/> }
             </Box>
+            <Grid item xs={12}>
+                <Button
+                    fullWidth={true}
+                    variant="outlined"
+                    className={classes.btn}
+                    onClick={close}
+                > {`CLOSE`}</Button>
+            </Grid>
         </Typography>
     )
 });

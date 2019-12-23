@@ -1,10 +1,13 @@
 const ProductGallery = require("../models/HomePageProductsGallery");
+const queryCreator = require("../commonHelpers/queryCreator");
+const _ = require("lodash");
 
 exports.addProductGallery = (req, res, next) => {
     ProductGallery.findOne({ customId: req.body.customId }).then(productGallery => {
         if (productGallery) {
-            return res.status(400).json({
-                message: `ProductGallery with customId "${productGallery.customId}" already exists`
+            return res
+                .status(400)
+                .json({message: `ProductGallery with customId "${productGallery.customId}" already exists`
             });
         } else {
             const productGallery = _.cloneDeep(req.body);

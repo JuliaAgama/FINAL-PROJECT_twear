@@ -14,6 +14,15 @@ export default makeStyles(theme => (
         input: {
             paddingTop: theme.spacing(1),
             paddingBottom: theme.spacing(2,)
+        },
+        btn: {
+            display: 'block',
+            width: '25%',
+            margin: '0 auto',
+            marginTop: theme.spacing(2),
+            borderRadius: '18px',
+            outline: 'none!important',
+            textDecoration: 'none!important',
         }
     }
 ));

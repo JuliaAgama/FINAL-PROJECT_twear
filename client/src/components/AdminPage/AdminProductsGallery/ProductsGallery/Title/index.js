@@ -4,22 +4,23 @@ import useStyles from './useStyles';
 
 export default props => {
 
-    const [name, setName] = useState("");
+    const {setExpanded} = props;
+    const [title, setTitle] = useState("");
 
     useEffect(() => {
-        let data = localStorage.getItem('CustomId');
+        let data = localStorage.getItem('Title');
         if (data) {
-            setName(data)
+            setTitle(data)
         }
     }, []);
 
     const onChange = event => {
-        setName(event.target.value)
+        setTitle(event.target.value)
     };
 
-    const onSubmit = event => {
-        event.preventDefault();
-        localStorage.setItem('CustomId', name)
+    const save = () => {
+        localStorage.setItem('Title', title)
+        setExpanded({title: false})
     };
 
     const classes = useStyles();
@@ -31,12 +32,12 @@ export default props => {
                     <Grid className={classes.justify}>
                         <TextField
                             required
-                            id="name"
-                            label="Name"
-                            name='name'
+                            id="title"
+                            label="Title"
+                            name='title'
                             autoFocus
                             onChange={onChange}
-                            value={name}
+                            value={title}
                             className={classes.textField}
                             margin="normal"
                             variant="outlined"
@@ -47,7 +48,7 @@ export default props => {
                             fullWidth={true}
                             variant="outlined"
                             className={classes.btn}
-                            onClick={onSubmit}
+                            onClick={save}
                         > {`SAVE`}</Button>
                     </Grid>
                 </Grid>
