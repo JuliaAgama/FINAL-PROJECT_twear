@@ -14,10 +14,10 @@ export default () => {
     return (
         <Container className={classes.root} maxWidth="lg">
             <Hidden smDown>
-                <Typography className={classes.header} variant="h4">shopping bag</Typography>
+                <Typography className={classes.header} variant="h4" component="h4">shopping bag</Typography>
             </Hidden>
             <Hidden mdUp>
-                <Typography className={classes.headerXS} variant="h2">shopping bag</Typography>
+                <Typography className={classes.headerXS} variant="h4" component="h4">shopping bag</Typography>
         </Hidden>
         </Container>
     )

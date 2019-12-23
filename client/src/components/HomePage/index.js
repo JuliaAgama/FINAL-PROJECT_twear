@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getAllProducts} from "../../store/actions/products";
 
-import {Grid, Hidden} from "@material-ui/core";
+import {Typography, Hidden} from "@material-ui/core";
 
 import useStyles from "./useStyles";
 
@@ -23,14 +23,14 @@ export default () => {
     return (
         <>
         <Hidden smDown>
-            <p className={classes.header}>
+            <Typography className={classes.header} variant="h4" component="h4">
                 Pre Spring 20
-            </p>
+            </Typography>
         </Hidden>
         <Hidden mdUp>
-            <p className={classes.headerXS}>
+            <Typography className={classes.headerXS} variant="h4" component="h4">
                 Pre Spring 20
-            </p>
+            </Typography>
         </Hidden>
         <p className={classes.subHeader}>
             Get ready for the festive season with our Pre Party collection —

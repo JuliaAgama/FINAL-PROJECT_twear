@@ -3,17 +3,18 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles(theme => (
     {
         header: {
+            textTransform: 'capitalize',
             textAlign: "center",
-            fontSize: '2.25rem',
             fontWeight: '700',
-            paddingTop: theme.spacing(10),
+            marginTop: theme.spacing(16),
+            marginBottom: theme.spacing(1),
         },
         headerXS: {
+            textTransform: 'capitalize',
             textAlign: "center",
-            fontSize: '2.25rem',
             fontWeight: '700',
-            marginTop: "10px",
-            marginBottom: "10px",
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
         },
         subHeader: {
             textAlign: "center",
