@@ -1,9 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
         root: {
-            height: '100vh',
+            minHeight: '70vh',
         },
         header: {
             textTransform: 'capitalize',
@@ -18,6 +19,36 @@ export default makeStyles(theme => (
             fontWeight: '700',
             marginTop: theme.spacing(1),
             marginBottom: theme.spacing(1),
+        },
+        btnRegular: {
+            ...theme.typography.button,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxSizing: 'border-box',
+            height: '80px',
+            border: '1px solid #000',
+            backgroundColor: theme.palette.background.paper,
+            color: '#000',
+            "&:hover": {
+                backgroundColor: grey[200],
+            },
+        },
+        btnImportant: {
+            ...theme.typography.button,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxSizing: 'border-box',
+            height: '80px',
+            border: '1px solid #000',
+            backgroundColor: grey[900],
+            color: '#fff',
+            "&:hover": {
+                backgroundColor: '#000',
+            },
         },
     }
 ));

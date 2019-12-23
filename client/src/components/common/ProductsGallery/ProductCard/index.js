@@ -14,7 +14,7 @@ export default function ProductCard(props) {
         config: { mass: 5, tension: 200, friction: 80 }
     });
 
-    const cutName = (string, l) => string.length > l ? string.slice(0, l-3)+'...' : string;
+    const cutName = (string, l) => string.length > l ? string.slice(0, l-2)+'..' : string;
 
     return (
         <Container
@@ -32,7 +32,7 @@ export default function ProductCard(props) {
                             alt="NOT FOUND"/>
                     </div>
                     <div className={classes.textContainer}>
-                        <p className={classes.title}>{cutName(name, 25)}</p>
+                        <p className={classes.title}>{cutName(name, 16)}</p>
                         <p className={classes.value}>$ {price}</p>
                     </div>
                 </a.div>

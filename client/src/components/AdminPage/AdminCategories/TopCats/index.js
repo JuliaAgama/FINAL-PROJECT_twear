@@ -43,12 +43,9 @@ export default () => {
                         )
                     }
                     <Divider />
-                    <ListItem>
+                    {/* <ListItem>
                         <Tooltip title="NOT ALLOWED TO ADD NEW TOP-CATEGORY">
                             <Link to="/admin/categories" className={classes.link}>
-                            {/* <Link to="/admin/categories/top/newTopCategory" className={classes.link}
-                                // style={{pointerEvents: 'none'}}
-                            > */}
                             <Hidden xsDown>
                                 <AddWideButton text='CREATE NEW TOP CATEGORY' color='secondary'/>
                             </Hidden>
@@ -57,7 +54,7 @@ export default () => {
                             </Hidden>
                             </Link>
                         </Tooltip>
-                    </ListItem>
+                    </ListItem> */}
                 </List>
                 ) :
                 <Spinner/>

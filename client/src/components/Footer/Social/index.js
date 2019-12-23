@@ -3,25 +3,25 @@ import useStyles from "./useStyles";
 import { Link, Grid, Box } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
 
-export default function Company() {
+export default () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.borderNoTop}>
+    <div>
         <Hidden smDown>
           <Grid container className={classes.flexBetween}>
             <div style={{ display: "flex", flex: "1" }}>
               <Link
                 href="#"
                 color={"textPrimary"}
-                style={{padding: '10px 25px'}}  
+                style={{paddingRight: '25px'}}  
               >
                 Instagram
               </Link>
               <Link
                 href="#"
                 color={"textPrimary"}
-                style={{padding: '10px 5px'}}
+                style={{paddingRight: '5px'}}
               >
                 Facebook
               </Link>
@@ -37,13 +37,15 @@ export default function Company() {
             <div>
               <Link
                 href="#"
-                style={{ padding: "0 30px", fontSize: 14 }}
+                color={"textPrimary"}
+                style={{ paddingRight: "30px", fontSize: 14 }}
               >
                 Instagram
               </Link>
               <Link
                 href="#"
-                style={{ padding: "0 5 px", fontSize: 14 }}
+                color={"textPrimary"}
+                style={{ paddingRight: "5 px", fontSize: 14 }}
               >
                 Facebook
               </Link>
@@ -51,8 +53,8 @@ export default function Company() {
             <div>
               <Box
                 fontFamily="Monospace"
-                fontSize="h7.fontSize"
-                style={{ padding: "10px 20px" }}
+                fontSize="h6.fontSize"
+                style={{ padding: "0 20px" }}
               >
                 © 2019 TWEAR
               </Box>
@@ -61,4 +63,4 @@ export default function Company() {
         </Hidden>
     </div>
   );
-}
+};

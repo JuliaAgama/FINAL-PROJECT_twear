@@ -1,107 +1,52 @@
 import React from "react";
+
+import { Box, Grid, Hidden } from "@material-ui/core";
 import useStyles from "./useStyles";
-import { Link, Grid } from "@material-ui/core";
-import Hidden from "@material-ui/core/Hidden";
 
-export default function Company() {
-  const classes = useStyles();
 
-  return (
-    <>
-      <Hidden smDown>
-        <div className={classes.border}>
-            <h4 className={classes.pl10}>Company</h4>
-            <div>
-              <Grid container>
-                <Grid
-                  item
-                  xs={6}
-                  className={classes.pl10}
-                  style={{ fontSize: "12px" }}
-                >
-                  <p>
-                    <Link 
-                    href="#">
-                      Contact
-                    </Link>
-                  </p>
-                  <p>
-                    <Link href="#">
-                      Sustainability
-                    </Link>
-                  </p>
-                  <p>
-                    <Link href="#">
-                      About
-                    </Link>
-                  </p>
-                  <p>
-                    <Link href="#">
-                      Careers
-                    </Link>
-                  </p>
+export default () => {
+    const classes = useStyles();
+
+    return (
+        <>
+            <Hidden smDown>
+            <Box fontSize="body2.fontSize" mb={2}>Company</Box>
+                <Grid container className={classes.container} direction="column" justify="flex-start" spacing={1}>
+                    <Grid item className={classes.paper}>
+                        <a href="/" className={classes.link}>Contact</a>
+                    </Grid>
+                    <Grid item className={classes.paper}>
+                        <a href="/" className={classes.link}>Sustainability</a>
+                    </Grid>
+                    <Grid item className={classes.paper}>
+                        <a href="/" className={classes.link}>About</a>
+                    </Grid>
+                    <Grid item className={classes.paper}>
+                        <a href="/" className={classes.link}>Careers</a>
+                    </Grid>
+                    <Grid item className={classes.paper}>
+                        <a href="/" className={classes.link}>Stores</a>
+                    </Grid>
+                    <Grid item className={classes.paper}>
+                        <a href="/" className={classes.link}>Press</a>
+                    </Grid>
+                    <Grid item className={classes.paper}>
+                        <a href="/" className={classes.link}>B2B</a>
+                    </Grid>
                 </Grid>
-                <Grid item xs={6} style={{ fontSize: "12px" }}>
-                  <p>
-                    <Link href="#">
-                      Stores
-                    </Link>
-                  </p>
-                  <p>
-                    <Link href="#">
-                      Press
-                    </Link>
-                  </p>
-                  <p>
-                    <Link href="#">
-                      B2B
-                    </Link>
-                  </p>
-                </Grid>
-              </Grid>
-            </div>
-        </div>
-      </Hidden>
-      <Hidden mdUp>
-        <Grid container className={classes.flexToBot14px}>
-          <h4 className={classes.subHeader}>Company</h4>
-          <p>
-            <Link href="#">
-              Contact{" "}
-            </Link>
-          </p>
-          <p>
-            <Link href="#">
-              Sustainability
-            </Link>
-          </p>
-          <p>
-            <Link href="#">
-              About{" "}
-            </Link>
-          </p>
-          <p>
-            <Link href="#">
-              Careers{" "}
-            </Link>
-          </p>
-          <p>
-            <Link href="#">
-              Stores
-            </Link>
-          </p>
-          <p>
-            <Link href="#">
-              Press
-            </Link>
-          </p>
-          <p>
-            <Link href="#">
-              B2B
-            </Link>
-          </p>
-        </Grid>
-      </Hidden>
-    </>
-  );
-}
+            </Hidden>
+            <Hidden mdUp>
+                <Box fontSize="body2.fontSize" textAlign='center' mb={2}>Company</Box>
+                <Box textAlign='center'>
+                    <a href="/" className={classes.link}>Contact</a>
+                    <a href="/" className={classes.link}>Sustainability</a>
+                    <a href="/" className={classes.link}>About</a>
+                    <a href="/" className={classes.link}>Careers</a>
+                    <a href="/" className={classes.link}>Stores</a>
+                    <a href="/" className={classes.link}>Press</a>
+                    <a href="/" className={classes.link}>B2B</a>
+                </Box>
+            </Hidden>
+        </>
+    );
+};
