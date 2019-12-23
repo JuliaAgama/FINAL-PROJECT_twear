@@ -4,6 +4,7 @@ export default makeStyles(theme => (
     {
         container: {
             boxSizing: 'border-box',
+            height: '60px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',

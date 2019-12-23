@@ -6,6 +6,8 @@ export default makeStyles(theme => (
             borderRight: '1px solid black'
         },
         container : {
+            boxSizing: 'border-box',
+            height: '60px',
             width: '50%',
             padding: '16px',
             [theme.breakpoints.down('sm')]: {
