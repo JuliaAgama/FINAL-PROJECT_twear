@@ -20,21 +20,20 @@ export default () => {
     // }, [dispatch]);
 
     const cart = useSelector(state => state.cart.cart);
+    const customerError = useSelector(state => state.customers.error);
 
     const [formData, setFormData] = useState({});
 
     useEffect(() => {
-        if(cart) {
+        if (customerError) {
+            localStorage.getItem('cart') ? setFormData(cloneDeep(localStorage.getItem('cart'))) : setFormData({products: []});
+        } else if (cart) {
             setFormData(cloneDeep(cart));
-        } else if ( !cart && localStorage.getItem('cart')) {
-            setFormData(cloneDeep(localStorage.getItem('cart')));
-        } else {
-            setFormData({products: []});
         }
         return () => {
             setFormData({});
         }
-    }, [cart, localStorage.getItem('cart')]);
+    }, [customerError, cart, localStorage.getItem('cart')]);
 
     console.log('formData of cart: ', formData);
 
@@ -51,7 +50,7 @@ export default () => {
                 <Box className={classes.productList}>
                 {formData.products.length > 0 ?
                     formData.products.map(el =>
-                        <Box key={Math.random()}>some products</Box>
+                        <Grid container key={Math.random()}>some products</Grid>
                     ) :
                     <Box> No products in your cart. Go shopping!</Box>
                 }
