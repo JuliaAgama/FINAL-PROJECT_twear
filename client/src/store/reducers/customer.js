@@ -14,9 +14,9 @@ export default function (state = initState, action) {
         case CUSTOMER.CUSTOMER_SEND_REQUEST:
             return {
                 ...state,
-                // ...{
-                //     loaded : false
-                // }
+                ...{
+                    loaded : false
+                }
             };
 
         case CUSTOMER.CUSTOMER_RESPONSE_FAILED:

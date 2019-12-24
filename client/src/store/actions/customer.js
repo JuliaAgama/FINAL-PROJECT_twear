@@ -4,10 +4,12 @@ import Base from '../../services/base';
 import CartApi from "../../services/Cart";
 import CustomerApi from "../../services/Customer";
 import * as Customer from "../constants/customer";
+import * as Cart from "../constants/cart";
 
 import {closeModalAction} from "./modal";
 
 export function getCustomer(){
+    Base.setAuthToken();
     return new CustomerApi().getCustomer();
 }
 
@@ -26,6 +28,12 @@ export function newCart(customer){
 export function customerSendRequest() {
     return {
         type: Customer.CUSTOMER_SEND_REQUEST
+    };
+}
+
+export function cleanCart() {
+    return {
+        type: Cart.CART_CLEAN_CART
     };
 }
 
@@ -96,6 +104,7 @@ export function loginAction(customer){
             .then(res => {
                 if (res.success) {
                     localStorage.setItem("token", res.token);
+                    Base.setAuthToken();
                 }
                 return dispatch({
                     type: Customer.CUSTOMER_LOGIN,
@@ -162,7 +171,8 @@ export function getCustomerAction() {
 export function logoutAction() {
     return function (dispatch) {
         localStorage.removeItem("token");
-        localStorage.removeItem("isAdmin");
+        Base.setAuthToken();
+        dispatch(cleanCart());
         return dispatch({
             type: Customer.CUSTOMER_LOGOUT
         });
