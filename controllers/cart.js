@@ -21,14 +21,14 @@ exports.getCart = (req, res, next) => {
 };
 
 exports.createCart = (req, res, next) => {
-  Cart.findOne({ customerId: req.user._id }).then(cart => {
+  Cart.findOne({ customerId: req.body.customerId }).then(cart => {
     if (cart) {
       return res
         .status(400)
         .json({ message: `Cart for this customer already exists` });
     } else {
       const initialQuery = _.cloneDeep(req.body);
-      initialQuery.customerId = req.user._id;
+      initialQuery.customerId = req.body.customerId;
 
       const newCart = new Cart(queryCreator(initialQuery));
       newCart

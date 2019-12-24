@@ -38,6 +38,7 @@ export default reduxForm({form: 'Registration'}) (props => {
     const dispatch = useDispatch();
     const { handleSubmit, pristine, invalid, submitting } = props;
     const {loaded}  = useSelector(state => state.customers);
+
     const submit = (values) => dispatch(registrationAction(values));
 
     const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' +

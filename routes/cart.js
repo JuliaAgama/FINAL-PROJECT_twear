@@ -22,7 +22,9 @@ router.get("/", passport.authenticate("jwt", { session: false }), getCart);
 // @route   POST /cart
 // @desc    Create cart
 // @access  Private
-router.post("/", passport.authenticate("jwt", { session: false }), createCart);
+router.post("/",
+  // passport.authenticate("jwt", { session: false }),
+  createCart);
 
 // @route   PUT /cart
 // @desc    Update cart when adding / deleting products in cart

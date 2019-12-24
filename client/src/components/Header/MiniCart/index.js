@@ -17,10 +17,10 @@ export default () => {
     const cart = useSelector(state => state.cart.cart);
 
     useEffect(() => {
-        if(cart && cart.products) {
+        if(cart && cart.products && cart.products.length > 0) {
             setSkus(cart.products.length);
             setInvisible(false);
-        } else if ( !cart && localStorage.getItem('cart') && localStorage.getItem('cart').products) {
+        } else if ( !cart && localStorage.getItem('cart') && localStorage.getItem('cart').products && localStorage.getItem('cart').products.length > 0) {
             setSkus(localStorage.getItem('cart').products.length);
             setInvisible(false);
         }

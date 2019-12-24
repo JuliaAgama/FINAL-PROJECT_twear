@@ -14,32 +14,33 @@ export default function (state = initState, action) {
         case CUSTOMER.CUSTOMER_SEND_REQUEST:
             return {
                 ...state,
-                ...{
-                    loaded : true
-                }
+                // ...{
+                //     loaded : false
+                // }
             };
 
         case CUSTOMER.CUSTOMER_RESPONSE_FAILED:
             return {
                 ...state,
                 ...{
-                    loaded : false
+                    error : true
                 }
             };
 
-        case CUSTOMER.CUSTOMER_REGISTRATION:
-            return {
-                ...state,
-                ...{
+            case CUSTOMER.CUSTOMER_REGISTRATION:
+                return {
+                    ...state,
+                    ...{
                     customer: action.data
                 }
             };
 
-        case CUSTOMER.CUSTOMER_LOGIN:
-            return {
-                ...state,
-                ...{
-                    isAuth: action.data.success
+            case CUSTOMER.CUSTOMER_LOGIN:
+                return {
+                    ...state,
+                    ...{
+                    isAuth: action.data.success,
+                    loaded: true
                 }
             };
 

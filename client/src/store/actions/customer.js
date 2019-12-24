@@ -1,8 +1,11 @@
+import { SubmissionError } from 'redux-form';
+
+import Base from '../../services/base';
+import CartApi from "../../services/Cart";
 import CustomerApi from "../../services/Customer";
 import * as Customer from "../constants/customer";
-import { SubmissionError } from 'redux-form';
+
 import {closeModalAction} from "./modal";
-import Base from '../../services/base';
 
 export function getCustomer(){
     return new CustomerApi().getCustomer();
@@ -14,6 +17,10 @@ export function getToken(customerInfo){
 
 export function newCustomer(customer){
     return new CustomerApi().registration(customer);
+}
+
+export function newCart(customer){
+    return new CartApi().createCart({customerId: customer._id, products: []});
 }
 
 export function customerSendRequest() {
@@ -35,6 +42,7 @@ export function registrationAction(customer){
 
         await newCustomer(customer)
             .then(res => {
+                newCart(res);
                 return dispatch({
                     type: Customer.CUSTOMER_REGISTRATION,
                     data: res
