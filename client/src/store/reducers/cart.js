@@ -53,6 +53,14 @@ export default function (state = initState, action) {
                     }
                 };
 
+        case CART.CART_CLEAN_CART:
+            return {
+                ...state,
+                ...{
+                    cart: {}
+                }
+            };
+
             // case CART.CART_DELETE_CART:
             //     return {
             //         ...state,

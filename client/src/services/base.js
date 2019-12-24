@@ -20,23 +20,19 @@ export default class Base {
     }
 
     get(url) {
-        Base.setAuthToken();
         return axios
             .get(this.getUrl(url));
     }
 
     post(url, data, headers){
-        Base.setAuthToken();
         return axios.post(this.getUrl(url), data, headers);
     }
 
     put(url, data, headers){
-        Base.setAuthToken();
         return axios.put(this.getUrl(url), data, headers);
     }
 
     delete(url, data){
-        Base.setAuthToken();
         return axios.delete(this.getUrl(url), data);
     }
 };
