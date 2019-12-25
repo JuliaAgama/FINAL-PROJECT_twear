@@ -18,6 +18,16 @@
   text-align: center;
   text-transform: uppercase;
 }
+    
+.top-cat-name-xs {
+  /* display: flex; */
+  font-size: 6vw;
+  background: white;
+  max-width: 100%;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+}
 
 .category-item-home2 {
   background-size: cover;

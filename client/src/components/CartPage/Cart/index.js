@@ -21,8 +21,8 @@ export default props => {
     const [subtotal, setSubtotal] = useState(0);
 
     useEffect(() => {
-        if (customerError) {
-            localStorage.getItem('cart') ? setFormData(cloneDeep(localStorage.getItem('cart'))) : setFormData({products: []});
+        if (customerError || !cartLoaded) {
+            localStorage.getItem('cart') ? setFormData(cloneDeep(JSON.parse(localStorage.getItem('cart')))) : setFormData({products: []});
         } else if (cartLoaded) {
             setFormData(cloneDeep(cart));
         }

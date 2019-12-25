@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {  useHistory } from 'react-router-dom';
 
@@ -30,10 +30,10 @@ export default () => {
 
     const updateCart = formData => {
         if (newData) {
-            if (customerError) {
-                localStorage.setItem('cart', formData)
+            if (customerError || !customerLoaded) {
+                localStorage.setItem('cart', JSON.stringify(formData));
             } else if (customerLoaded) {
-                cartActions.updateCart(formData)(dispatch)
+                cartActions.updateCart(formData)(dispatch);
             }
         }
     };
@@ -55,12 +55,7 @@ export default () => {
     return (
         <div className={classes.root}>
             <Typography component="div">
-                <Hidden smDown>
-                    <Typography className={classes.header} variant="h4" component="h4">shopping bag</Typography>
-                </Hidden>
-                <Hidden mdUp>
-                    <Typography className={classes.headerXS} variant="h4" component="h4">shopping bag</Typography>
-                </Hidden>
+                <Typography className={classes.header} variant="h4" component="h4">shopping bag</Typography>
             </Typography>
 
             <Cart
