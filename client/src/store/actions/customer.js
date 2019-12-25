@@ -1,10 +1,12 @@
 import { SubmissionError } from 'redux-form';
 
 import Base from '../../services/base';
-import CartApi from "../../services/Cart";
 import CustomerApi from "../../services/Customer";
 import * as Customer from "../constants/customer";
 import * as Cart from "../constants/cart";
+
+import CartApi from "../../services/Cart";
+// import * as cartActions from '../actions/cart';
 
 import {closeModalAction} from "./modal";
 
@@ -21,9 +23,15 @@ export function newCustomer(customer){
     return new CustomerApi().registration(customer);
 }
 
-export function newCart(customer){
-    return new CartApi().createCart({customerId: customer._id, products: []});
-}
+const createNewCart = customer => {
+    const localCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : {products: []};
+    return new CartApi().createCart({customerId: customer._id, products: localCart.products});
+};
+
+const concatCart = () => {
+    const localCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : {products: []};
+    return new CartApi().updateCart({products: localCart.products});
+};
 
 export function customerSendRequest() {
     return {
@@ -50,7 +58,9 @@ export function registrationAction(customer){
 
         await newCustomer(customer)
             .then(res => {
-                newCart(res);
+                createNewCart(res);
+                // cartActions.createCart(res);
+                // console.log('registrationAction', res);
                 return dispatch({
                     type: Customer.CUSTOMER_REGISTRATION,
                     data: res

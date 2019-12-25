@@ -12,8 +12,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers';
 
 const persistConfig = {
-    key: 'root',
+    key: 'cart',
     storage: storage,
+    whitelist: ['cart'],
     stateReconciler: autoMergeLevel2
 };
 

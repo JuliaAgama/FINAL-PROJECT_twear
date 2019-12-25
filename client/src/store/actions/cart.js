@@ -26,10 +26,16 @@ export function getCart() {
     };
 };
 
-export function createCart(newCart) {
+export function createCart(customer) {
     return function (dispatch) {
-        dispatch(cartSendRequest());
-        (new CartApi()).createCart(newCart).then(res => {
+        const newCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : {products: []};
+        console.log('CartAction.createCart newCart: ', newCart)
+        // dispatch(cartSendRequest());
+
+        (new CartApi())
+        .createCart({customerId: customer._id, products: newCart.products})
+        .then(res => {
+            console.log('CartAction.createCart res: ', res)
             return dispatch({
                 type: CART.CART_CREATE_CART,
                 data: res
