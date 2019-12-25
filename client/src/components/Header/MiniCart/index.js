@@ -50,9 +50,10 @@ export default () => {
                     </Hidden>
                     <Hidden mdUp>
                         <Badge
-                            badgeContent={4}
+                            badgeContent={parseInt(skus)}
                             color="secondary"
                             overlap="circle"
+                            invisible={invisible}
                             className={classes.badge}
                         >
                             <LocalMallOutlinedIcon/>

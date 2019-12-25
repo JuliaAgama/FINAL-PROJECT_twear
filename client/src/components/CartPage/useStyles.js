@@ -4,7 +4,8 @@ import { grey } from '@material-ui/core/colors';
 export default makeStyles(theme => (
     {
         root: {
-            minHeight: '70vh',
+            minHeight: '50vh',
+            marginBottom: theme.spacing(5),
         },
         header: {
             textTransform: 'capitalize',
