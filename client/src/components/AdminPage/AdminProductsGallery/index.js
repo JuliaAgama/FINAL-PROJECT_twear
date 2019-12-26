@@ -9,14 +9,16 @@ import {
     Grid,
     IconButton,
     Collapse,
-    Button
+    Button, Hidden
 } from '@material-ui/core';
+import Switch from '@material-ui/core/Switch';
 import clsx from "clsx";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ProductsGallery from './ProductsGallery';
 import useStyles from './useStyles';
 import {useDispatch, useSelector} from "react-redux";
 import {getAllProductsGallery} from '../../../store/actions/productsGallery'
+import AddWideButton from "../../common/buttons/AddWide";
 
 
 export default withWidth()(() => {
@@ -26,12 +28,17 @@ export default withWidth()(() => {
     useEffect(() => getAllProductsGallery()(dispatch), [dispatch]);
     const productsGalleries  = useSelector(state => state.productsGallery.productsGalleries);
     const optionsList = productsGalleries.map(item => {return {name: item.customId}});
+    let galleryForShowState = {}
+    productsGalleries.forEach(item => galleryForShowState[item.customId] = false);
 
-
+    const [galleryForShow, setGalleryForShow] = useState(galleryForShowState);
+    const handleChange = name => event => {
+        setGalleryForShow({ ...galleryForShow, [name]: event.target.checked });
+    };
 
     const [expanded, setExpanded] = useState({});
-
     const handleExpandClick = itemName => setExpanded({...expanded, [itemName]: (!expanded[itemName])});
+
     // const save = () => {
     //     const homePageProductGallery = {
     //         customId: localStorage.getItem('CustomId'),
@@ -59,6 +66,12 @@ export default withWidth()(() => {
                                 <Grid container className={classes.container}>
                                     <Grid item> {el.name.toUpperCase()} </Grid>
                                     <Grid item>
+                                        <Switch
+                                            checked={galleryForShow[el.name]}
+                                            onChange={handleChange(el.name)}
+                                            value={el.name}
+                                            inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                        />
                                         <IconButton
                                             className={clsx(classes.expand, {[classes.expandOpen]: expanded[el.name]})}
                                             onClick={() => handleExpandClick(el.name)}
@@ -76,13 +89,18 @@ export default withWidth()(() => {
                                     <ProductsGallery    name={el.name}
                                                         expandedMain={expanded}
                                                         setExpandedMain={setExpanded}
-                                                        productsGallery={productsGalleries.find(item => el.name === item.customId)}/>
+                                                        productsGallery={productsGalleries.find(item => el.name === item.customId)}
+
+                                    />
                                 </Box>
                             </Collapse>
                         </Box>
                     ))}
                     <Divider/>
                 </List>
+            </Box>
+            <Box p={2} textAlign="center" className={classes.paper}>
+                <AddWideButton text='CREATE NEW PRODUCTS GALLERY' color='secondary'/>
             </Box>
         </Typography>
     )
