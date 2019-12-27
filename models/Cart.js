@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const CartSchema = new Schema(
   {
-    customerId: {
+    customer: {
       type: Schema.Types.ObjectId,
       ref: "customers",
       required: true
@@ -14,7 +14,15 @@ const CartSchema = new Schema(
           type: Schema.Types.ObjectId,
           ref: "products"
         },
-        cartQuantity: {
+        color: {
+          type: Schema.Types.ObjectId,
+          ref: "colors"
+        },
+        size: {
+          type: Schema.Types.ObjectId,
+          ref: "sizes",
+        },
+        quantity: {
           type: Number
         }
       }
@@ -27,4 +35,4 @@ const CartSchema = new Schema(
   { strict: false }
 );
 
-module.exports = Cart = mongoose.model("cart", CartSchema, "cart");
+module.exports = Cart = mongoose.model("carts", CartSchema, "carts");

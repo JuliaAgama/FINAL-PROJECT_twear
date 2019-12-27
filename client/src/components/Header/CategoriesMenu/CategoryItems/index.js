@@ -4,8 +4,8 @@ import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
-import {getAllCategories} from "../../../store/actions/categories";
-import {hideDesktopCategoriesMenuAction, hideMobileMenuAction} from "../../../store/actions/header";
+import {getAllCategories} from "../../../../store/actions/categories";
+import {hideDesktopCategoriesMenuAction, hideMobileMenuAction} from "../../../../store/actions/header";
 
 export function Item(props) {
     const classes = useStyles();

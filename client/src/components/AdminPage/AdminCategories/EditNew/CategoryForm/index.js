@@ -3,8 +3,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import ImagesApi from '../../../../../services/Images';
 
-import { Typography, Grid, Box, TextField, FormLabel, FormControlLabel, FormControl, Radio, RadioGroup, Button, Tooltip } from '@material-ui/core';
-// import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import { Typography, Grid, Box, TextField, FormLabel, FormControlLabel, FormControl, Radio, RadioGroup, Button } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -87,14 +86,6 @@ export default props => {
             });
         }
     };
-
-    // const handleOnDelete = event => {
-    //     event.preventDefault();
-    //     setFormData({
-    //         ...formData,
-    //         img: ''
-    //     })
-    // };
 
     const onSubmit = event => {
         event.preventDefault();
@@ -189,9 +180,6 @@ export default props => {
                                     {
                                         item && item.img === formData.img ? <></> : <Box className={classes.newImg}>New</Box>
                                     }
-                                    {/* <Tooltip title="Delete image" >
-                                        <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={handleOnDelete}/>
-                                    </Tooltip> */}
                                 </> : <></>
                             }
                         </Box>

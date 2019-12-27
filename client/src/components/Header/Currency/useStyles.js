@@ -1,8 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
         container: {
+            boxSizing: 'border-box',
+            height: '60px',
             width: '100%',
             [theme.breakpoints.down('sm')]: {
                 width: '50%',
@@ -17,6 +20,9 @@ export default makeStyles(theme => (
             display: 'flex',
             justifyContent: 'space-around',
             cursor: 'pointer',
+            '&:hover': {
+                backgroundColor: grey[200],
+            },
         }
     }
 ));

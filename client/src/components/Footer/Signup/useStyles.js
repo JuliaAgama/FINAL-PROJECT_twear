@@ -1,34 +1,38 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
-const useStyles = makeStyles(theme => (
+export default makeStyles(theme => (
     {
-
-        border: {
-            border: '1px solid black',  
+        container: {
+            borderTop: "1px solid black",
+            borderLeft: "1px solid black",
         },
-
-        borderNoBottom: {
-            borderLeft: '1px solid black',  
-            borderTop: '1px solid black',  
-            borderRight: '1px solid black'  
-        },
-
-        pl10: {
-            paddingLeft: '10px'
-        },
-
-        flexMid: {
+        paper: {
+            height: '56px',
+            borderRight: "1px solid black",
+            borderBottom: "1px solid black",
             display: 'flex',
-            justifyContent: 'center',
             alignItems: 'center',
-            textAlign: 'center'
+            justifyContent: 'center',
+            textAlign: 'center',
         },
-
-        signupSize: {
-            height: "158.531px", 
-            padding: "20px"
-        }
+        input: {
+            padding: theme.spacing(1),
+            fontSize: '14px',
+        },
+        paperBtn: {
+            height: '56px',
+            cursor: 'pointer',
+            borderRight: "1px solid black",
+            borderBottom: "1px solid black",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            textTransform: 'uppercase',
+            '&:hover': {
+                backgroundColor: grey[200],
+            },
+        },
     }
 ));
-
-export default useStyles

@@ -15,7 +15,8 @@ export default function (state = initState, action) {
             return {
                 ...state,
                 ...{
-                    loaded : true
+                    loaded : false,
+                    error : false
                 }
             };
 
@@ -23,23 +24,28 @@ export default function (state = initState, action) {
             return {
                 ...state,
                 ...{
-                    loaded : false
+                    loaded: false,
+                    error : true
                 }
             };
 
-        case CUSTOMER.CUSTOMER_REGISTRATION:
-            return {
-                ...state,
-                ...{
-                    customer: action.data
+            case CUSTOMER.CUSTOMER_REGISTRATION:
+                return {
+                    ...state,
+                    ...{
+                    customer: action.data,
+                    loaded: false,
+                    error : false
                 }
             };
 
-        case CUSTOMER.CUSTOMER_LOGIN:
-            return {
-                ...state,
-                ...{
-                    isAuth: action.data.success
+            case CUSTOMER.CUSTOMER_LOGIN:
+                return {
+                    ...state,
+                    ...{
+                    isAuth: action.data.success,
+                    loaded: true,
+                    error : false
                 }
             };
 
@@ -49,7 +55,8 @@ export default function (state = initState, action) {
                 ...{
                     customer: action.data,
                     isAuth: action.data.success,
-                    loaded: true
+                    loaded: true,
+                    error : false
                 }
             };
 
@@ -58,7 +65,9 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     isAuth: false,
-                    customer: {}
+                    customer: {},
+                    loaded: false,
+                    error : false
                 }
             };
 

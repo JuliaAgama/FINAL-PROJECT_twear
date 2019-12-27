@@ -38,6 +38,7 @@ export default reduxForm({form: 'Registration'}) (props => {
     const dispatch = useDispatch();
     const { handleSubmit, pristine, invalid, submitting } = props;
     const {loaded}  = useSelector(state => state.customers);
+
     const submit = (values) => dispatch(registrationAction(values));
 
     const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' +
@@ -81,9 +82,9 @@ export default reduxForm({form: 'Registration'}) (props => {
                         <Box className={classes.inputContainer}>
                             <Field name="firstName" component={renderTextField} type='text' label="First Name*" validate={[required, name, minLength2, maxLength25]} className={classes.inputField}/>
                             <Field name="lastName" component={renderTextField} type='text' label="Last Name*" validate={[required, name, minLength2, maxLength25]} className={classes.inputField}/>
-                            <Field name="login" component={renderTextField} type='text' label="Login" validate={[required, login, minLength3, maxLength10]} className={classes.inputField}/>
+                            <Field name="login" component={renderTextField} type='text' label="Login" validate={[required, login, minLength3, maxLength30]} className={classes.inputField}/>
                             <Field name="email" component={renderTextField} type='email' label="Email*" validate={[required, email]} className={classes.inputField}/>
-                            <Field name="password" component={renderTextField} type='password' label="Password*" validate={[required, password, minLength7, maxLength30]} className={classes.inputField} />
+                            <Field name="password" component={renderTextField} type='password' label="Password*" validate={[required, password, minLength3, maxLength30]} className={classes.inputField} />
                             <Field name="telephone" component={renderPhoneNumber} style={classes.phoneSpan}  validate={[phoneNumber]} className={classes.inputPhone}/>
                         </Box>
                         <p className={classes.text}>The data fields with an asterisk (*) must be completed in order to complete your registration

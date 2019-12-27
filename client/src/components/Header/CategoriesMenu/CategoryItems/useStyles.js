@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
@@ -7,7 +8,11 @@ export default makeStyles(theme => (
             cursor: 'pointer',
             textAlign: 'center',
             fontSize: '16px',
-            fontWeight: '700'
+            fontWeight: '700',
+            textTransform: 'capitalize',
+            '&:hover': {
+                backgroundColor: grey[200],
+            },
         },
         link: {
             minWidth: '25%',
@@ -32,7 +37,7 @@ export default makeStyles(theme => (
             position: 'absolute',
             top: '115px',
             [theme.breakpoints.down('sm')]: {
-               position: 'static',
+                position: 'static',
                 borderLeft: 'none',
                 borderRight: 'none',
             },

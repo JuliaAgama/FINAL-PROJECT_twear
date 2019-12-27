@@ -27,7 +27,12 @@ const ProductSchema = new Schema(
             category: {
                 type: Schema.Types.ObjectId,
                 ref: "categories",
-                required: true
+                required: true,
+                // topCategory: {
+                //     type: Schema.Types.ObjectId,
+                //     ref: "topCats",
+                //     required: true,
+                // },
             }
         }],
         gender: {

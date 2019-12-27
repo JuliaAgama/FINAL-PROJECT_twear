@@ -1,33 +1,24 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
-const useStyles = makeStyles(theme => (
+export default makeStyles(theme => (
     {
-        bold: {
-            fontWeight: '700'
+        container: {
+            height: '150px',
         },
-
-        borderBotTop: {
-            borderTop: '1px solid black',
-            borderBottom: "1px solid black"
+        paper: {
+            boxSizing: 'border-box',
+            maxWidth: '60%',
+            paddingRight: theme.spacing(1),
         },
-
-        pl10: {
-            paddingLeft: '10px'
+        link: {
+            display: 'block',
+            fontSize: '12px',
+            color: '#000',
+            textDecoration: 'none',
+            '&:hover': {
+                color: grey[700]
+            },
         },
-
-        flexToBot14px: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '12px'
-        },
-
-        subHeader: {
-            fontSize: '16px',
-            fontWeight: 700
-        }
     }
 ));
-
-export default useStyles

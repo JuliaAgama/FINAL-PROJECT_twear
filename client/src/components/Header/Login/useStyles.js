@@ -1,12 +1,18 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
         container: {
+            boxSizing: 'border-box',
+            height: '60px',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
+            '&:hover': {
+                backgroundColor: grey[200],
+            },
             [theme.breakpoints.down('sm')]: {
                 width: '50%',
                 padding: '14px 0',
@@ -35,17 +41,22 @@ export default makeStyles(theme => (
         },
         subMenu : {
             display: 'flex',
-            width: '100%',
+            width: 'calc(100% + 2px)',
             padding: '0',
-            margin: '0',
+            marginBottom: '-55px',
             position: 'absolute',
-            bottom: '-55px',
+            top: '119px',
+            // bottom: '-100%',
             left : '0',
-            border: '1px solid black',
-            borderTop: 'none',
+            borderTop: '1px solid black',
+            borderLeft: '1px solid black',
             [theme.breakpoints.down('sm')]: {
+                // top: '119px',
+                bottom: '',
                 flexDirection: 'column',
-                bottom: '-165px'
+                marginLeft: '-1px',
+                marginRight: '-1px',
+                marginBottom: '-45px',
             },
         },
         subMenuItem: {
@@ -53,25 +64,17 @@ export default makeStyles(theme => (
             fontWeight: '700',
             textAlign: 'center',
             padding: '16px 0',
-            backgroundColor: 'white',
+            backgroundColor: grey[50],
+            borderRight: '1px solid black',
+            borderBottom: '1px solid black',
             cursor: 'pointer',
+            '&:hover': {
+                backgroundColor: grey[200],
+            },
             [theme.breakpoints.down('sm')]: {
+                backgroundColor: 'white',
                 width: '100%'
             },
         },
-        borderRB: {
-            borderRight: '1px solid black',
-            [theme.breakpoints.down('sm')]: {
-                borderRight: 'none',
-                borderBottom: '1px solid black',
-            },
-        },
-        borderLT: {
-            borderLeft: '1px solid black',
-            [theme.breakpoints.down('sm')]: {
-                borderLeft: 'none',
-                borderTop: '1px solid black',
-            },
-        }
     }
 ));
