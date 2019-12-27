@@ -10,7 +10,7 @@ export default class Carts extends Base {
     createCart(newCart) {
     // @desc expects newCart as:
     // const newCart = {
-    //     customerId: '5da463678cca382250dd7bc7'
+    //     customer: '5da463678cca382250dd7bc7'
     //     products: []
     //   };
         return super.post('cart/', newCart)

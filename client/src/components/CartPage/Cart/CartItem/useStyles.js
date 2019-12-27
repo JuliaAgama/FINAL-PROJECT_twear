@@ -24,6 +24,7 @@ export default makeStyles(theme => (
         btnQuantity: {
             cursor: 'pointer',
             color: '#000',
+            marginBottom: theme.spacing(-1),
             "&:hover": {
                 color: grey[700],
             },
@@ -37,6 +38,10 @@ export default makeStyles(theme => (
             color: '#000',
             "&:hover": {
                 backgroundColor: grey[200],
+            },
+            [theme.breakpoints.down('xs')]: {
+                borderTop: 'none',
+                borderBottom: 'none',
             },
         },
     }

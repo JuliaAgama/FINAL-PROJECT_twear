@@ -30,7 +30,7 @@ export default function Login() {
 
     return (
         <React.Fragment>
-            <Container className={classes.container}
+            <div className={classes.container}
                     onClick={customer.firstName ? () => clickHandler() : () => dispatch(openLoginModalAction())}>
                 {customer.firstName ?
                     <div className={classes.link}>
@@ -40,13 +40,13 @@ export default function Login() {
                     :
                     <span className={classes.span}>Log In</span>
                 }
-            </Container>
+            </div>
             {isVisible ?
                 <Grid container className={classes.subMenu}>
                     {customer.isAdmin ?
                     <>
                         <Grid item xs={12} md={3} className={classes.subMenuItem}>
-                            <Link to='/#' className={classes.linkContainer}>Personal Cabinet</Link>
+                            <Link to='/#' className={classes.linkContainer}>Personal Cabinet ({customer.firstName.toUpperCase()})</Link>
                         </Grid>
                         <Grid item xs={12} md={6} className={classes.subMenuItem}>
                             <Link to={'/admin'} className={classes.linkContainer}>Admin Page</Link>
@@ -57,7 +57,7 @@ export default function Login() {
                     </> :
                     <>
                         <Grid item xs={12} md={6} className={classes.subMenuItem}>
-                            <Link to='/#' className={classes.linkContainer}>Personal Cabinet</Link>
+                            <Link to='/#' className={classes.linkContainer}>Personal Cabinet  ({customer.firstName.toUpperCase()}) </Link>
                         </Grid>
                         <Grid item xs={12} md={6} className={classes.subMenuItem}>
                             <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>

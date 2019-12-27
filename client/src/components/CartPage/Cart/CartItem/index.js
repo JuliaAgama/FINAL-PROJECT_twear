@@ -62,7 +62,7 @@ export default props => {
                         <Box className={classes.btnQuantity}
                             onClick={onDecrease}
                         ><RemoveOutlinedIcon fontSize="small"/></Box>
-                        <Box fontSize='h6.fontSize' mb={1} px={1}>{item.quantity}</Box>
+                        <Box fontSize='h6.fontSize' px={1}>{item.quantity}</Box>
                         <Box className={classes.btnQuantity}
                             onClick={onIncrease}
                         ><AddOutlinedIcon fontSize="small"/></Box>

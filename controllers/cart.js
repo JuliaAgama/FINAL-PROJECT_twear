@@ -6,11 +6,11 @@ const _ = require("lodash");
 
 exports.getCart = (req, res, next) => {
   // console.log(req.user._id);
-  Cart.findOne({ customerId: req.user._id })
+  Cart.findOne({ customer: req.user._id })
     .populate("products.product")
     .populate("products.color")
     .populate("products.size")
-    .populate("customerId")
+    .populate("customer")
     .then(cart => res.json(cart))
     // .then(cart => {console.log(cart); return res.json(cart)})
     .catch(err =>
@@ -21,21 +21,22 @@ exports.getCart = (req, res, next) => {
 };
 
 exports.createCart = (req, res, next) => {
-  Cart.findOne({ customerId: req.body.customerId }).then(cart => {
+  
+  Cart.findOne({ customer: req.body.customer }).then(cart => {
     if (cart) {
       return res
         .status(400)
         .json({ message: `Cart for this customer already exists` });
     } else {
       const initialQuery = _.cloneDeep(req.body);
-      initialQuery.customerId = req.body.customerId;
+      initialQuery.customer = req.body.customer;
 
       const newCart = new Cart(queryCreator(initialQuery));
       newCart
         .populate("products.product")
         .populate("products.color")
         .populate("products.size")
-        .populate("customerId")
+        .populate("customer")
         .execPopulate();
       newCart
         .save()
@@ -50,18 +51,18 @@ exports.createCart = (req, res, next) => {
 };
 
 exports.updateCart = (req, res, next) => {
-  Cart.findOne({ customerId: req.user._id })
+  Cart.findOne({ customer: req.user._id })
     .then(cart => {
       if (!cart) {
         const initialQuery = _.cloneDeep(req.body);
-        initialQuery.customerId = req.user._id;
+        initialQuery.customer = req.user._id;
 
         const newCart = new Cart(queryCreator(initialQuery));
         newCart
           .populate("products.product")
           .populate("products.color")
           .populate("products.size")
-          .populate("customerId")
+          .populate("customer")
           .execPopulate();
         newCart
           .save()
@@ -76,14 +77,14 @@ exports.updateCart = (req, res, next) => {
         const updatedCart = queryCreator(initialQuery);
 
         Cart.findOneAndUpdate(
-          { customerId: req.user._id },
+          { customer: req.user._id },
           { $set: updatedCart },
           { new: true }
         )
           .populate("products.product")
           .populate("products.color")
           .populate("products.size")
-          .populate("customerId")
+          .populate("customer")
           .then(cart => res.json(cart))
           .catch(err =>
             res.status(400).json({
@@ -100,15 +101,15 @@ exports.updateCart = (req, res, next) => {
 };
 
 exports.deleteCart = (req, res, next) => {
-  Cart.findOne({ customerId: req.user._id }).then(async cart => {
+  Cart.findOne({ customer: req.user._id }).then(async cart => {
     if (!cart) {
       return res
         .status(400)
         .json({ message: `Cart for this customer is not found.` });
     } else {
-      const cartToDelete = await Cart.findOne({ customerId: req._user.id });
+      const cartToDelete = await Cart.findOne({ customer: req._user.id });
 
-      Cart.deleteOne({ customerId: req.user._id })
+      Cart.deleteOne({ customer: req.user._id })
         .then(deletedCount =>
           res.status(200).json({
             message: `Cart witn id "${cartToDelete._id}" is successfully deleted from DB `
@@ -155,11 +156,11 @@ exports.addProductToCart = async (req, res, next) => {
     });
 
   } else {
-    Cart.findOne({ customerId: req.user._id })
+    Cart.findOne({ customer: req.user._id })
       .then(cart => {
         if (!cart) {
           const cartData = {};
-          cartData.customerId = req.user._id;
+          cartData.customer = req.user._id;
           cartData.products = [].concat({
             product: productId,
             color: colorId,
@@ -171,7 +172,7 @@ exports.addProductToCart = async (req, res, next) => {
             .populate("products.product")
             .populate("products.color")
             .populate("products.size")
-            .populate("customerId")
+            .populate("customer")
             .execPopulate();
           newCart
             .save()
@@ -205,14 +206,14 @@ exports.addProductToCart = async (req, res, next) => {
           }
           const updatedCart = queryCreator(cartData);
           Cart.findOneAndUpdate(
-            { customerId: req.user._id },
+            { customer: req.user._id },
             { $set: updatedCart },
             { new: true }
           )
             .populate("products.product")
             .populate("products.color")
             .populate("products.size")
-            .populate("customerId")
+            .populate("customer")
             .then(cart => res.json(cart))
             .catch(err =>
               res.status(400).json({
@@ -235,7 +236,7 @@ exports.decreaseCartProductQuantity = async (req, res, next) => {
   let colorId = req.params.productSku.split('&')[1];
   let sizeId = req.params.productSku.split('&')[2];
 
-  Cart.findOne({ customerId: req.user._id })
+  Cart.findOne({ customer: req.user._id })
     .then(cart => {
       if (!cart) {
         res.status(400).json({ message: "Cart does not exist" });
@@ -262,14 +263,14 @@ exports.decreaseCartProductQuantity = async (req, res, next) => {
           });
         }
         Cart.findOneAndUpdate(
-          { customerId: req.user._id },
+          { customer: req.user._id },
           { $set: cartData },
           { new: true }
         )
           .populate("products.product")
           .populate("products.color")
           .populate("products.size")
-          .populate("customerId")
+          .populate("customer")
           .then(cart => res.json(cart))
           .catch(err =>
             res.status(400).json({
@@ -291,7 +292,7 @@ exports.deleteProductFromCart = async (req, res, next) => {
   let colorId = req.params.productSku.split('&')[1];
   let sizeId = req.params.productSku.split('&')[2];
 
-  Cart.findOne({ customerId: req.user._id })
+  Cart.findOne({ customer: req.user._id })
     .then(cart => {
       if (!cart) {
         res.status(400).json({ message: `Cart does not exist` });
@@ -315,12 +316,12 @@ exports.deleteProductFromCart = async (req, res, next) => {
         const updatedCart = queryCreator(cartData);
 
         Cart.findOneAndUpdate(
-          { customerId: req.user._id },
+          { customer: req.user._id },
           { $set: updatedCart },
           { new: true }
         )
           .populate("products.product")
-          .populate("customerId")
+          .populate("customer")
           .then(cart => res.json(cart))
           .catch(err =>
             res.status(400).json({

@@ -34,7 +34,7 @@ export default function (state = initState, action) {
                     ...state,
                     ...{
                     customer: action.data,
-                    loaded: true,
+                    loaded: false,
                     error : false
                 }
             };

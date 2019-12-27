@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const CartSchema = new Schema(
   {
-    customerId: {
+    customer: {
       type: Schema.Types.ObjectId,
       ref: "customers",
       required: true

@@ -29,10 +29,10 @@ exports.placeOrder = async (req, res, next) => {
       order.paymentInfo = JSON.parse(req.body.paymentInfo);
     }
 
-    if (req.body.customerId) {
-      order.customerId = req.body.customerId;
+    if (req.body.customer) {
+      order.customer = req.body.customer;
 
-      cartProducts = await subtractProductsFromCart(order.customerId);
+      cartProducts = await subtractProductsFromCart(order.customer);
     }
 
     if (!req.body.products && cartProducts.length < 1) {
@@ -90,8 +90,8 @@ exports.placeOrder = async (req, res, next) => {
 
       const newOrder = new Order(order);
 
-      if (order.customerId) {
-        newOrder.populate("customerId").execPopulate();
+      if (order.customer) {
+        newOrder.populate("customer").execPopulate();
       }
 
       newOrder
@@ -140,8 +140,8 @@ exports.updateOrder = (req, res, next) => {
         order.paymentInfo = JSON.parse(req.body.paymentInfo);
       }
 
-      if (req.body.customerId) {
-        order.customerId = req.body.customerId;
+      if (req.body.customer) {
+        order.customer = req.body.customer;
       }
 
       if (req.body.products) {
@@ -195,7 +195,7 @@ exports.updateOrder = (req, res, next) => {
         { $set: order },
         { new: true }
       )
-        .populate("customerId")
+        .populate("customer")
         .then(async order => {
           const mailResult = await sendMail(
             subscriberMail,
@@ -252,7 +252,7 @@ exports.cancelOrder = (req, res, next) => {
         { canceled: true },
         { new: true }
       )
-        .populate("customerId")
+        .populate("customer")
         .then(async order => {
           const mailResult = await sendMail(
             subscriberMail,
@@ -296,8 +296,8 @@ exports.deleteOrder = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  Order.find({ customerId: req.user.id })
-    .populate("customerId")
+  Order.find({ customer: req.user.id })
+    .populate("customer")
     .then(orders => res.json(orders))
     .catch(err =>
       res.status(400).json({
@@ -308,7 +308,7 @@ exports.getOrders = (req, res, next) => {
 
 exports.getOrder = (req, res, next) => {
   Order.findOne({ orderNo: req.params.orderNo })
-    .populate("customerId")
+    .populate("customer")
     .then(order => res.json(order))
     .catch(err =>
       res.status(400).json({
