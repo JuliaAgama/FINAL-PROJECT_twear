@@ -21,6 +21,7 @@ import products from './products';
 import productItem from './productItem';
 import archives from './archives';
 import archiveItem from './archiveItem';
+import productsGallery from './productsGallery';
 
 export default combineReducers({
     cart,
@@ -43,5 +44,6 @@ export default combineReducers({
     productItem,
     archives,
     archiveItem,
+    productsGallery,
     form: reduxFormReducer
 });
