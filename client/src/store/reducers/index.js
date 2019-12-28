@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import cart from './cart';
 import topCats from './topCats';
@@ -22,7 +24,14 @@ import productItem from './productItem';
 import archives from './archives';
 import archiveItem from './archiveItem';
 
-export default combineReducers({
+const persistConfig = {
+    key: 'cart',
+    storage,
+    whiteList: ['cart']
+};
+
+
+const rootReducer = combineReducers({
     cart,
     topCats,
     categories,
@@ -45,3 +54,5 @@ export default combineReducers({
     archiveItem,
     form: reduxFormReducer
 });
+
+export default persistReducer(persistConfig, rootReducer);
