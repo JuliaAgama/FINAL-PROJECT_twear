@@ -69,7 +69,7 @@ export default withWidth()(() => {
                                 <Grid container className={classes.container}>
                                     <Grid item> {el.name.toUpperCase()} </Grid>
                                     <Grid item>
-                                        <DeleteOutlineOutlinedIcon aria-label="delete" onClick={deleteHandler(el)} className={classes.deleteBtn}/>
+                                        <DeleteOutlineOutlinedIcon aria-label="delete" onClick={() => deleteHandler(el)} className={classes.deleteBtn}/>
                                         <Switch
                                             checked={galleryForShow[el.name]}
                                             onChange={handleChange(el.name)}
