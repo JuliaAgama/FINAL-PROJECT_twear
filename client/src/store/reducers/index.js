@@ -26,10 +26,10 @@ import archiveItem from './archiveItem';
 
 const persistConfig = {
     key: 'cart',
-    storage,
-    whiteList: ['cart']
+    storage: storage,
+    whitelist: ['cart'],
+    // stateReconciler: autoMergeLevel2
 };
-
 
 const rootReducer = combineReducers({
     cart,
