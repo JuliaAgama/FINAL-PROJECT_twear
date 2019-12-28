@@ -27,9 +27,11 @@ const sizeTypes = require("./routes/sizeTypes");
 const slides = require("./routes/slides");
 const subscribers = require("./routes/subscribers");
 const topCats = require("./routes/topCats");
-const images = require('./routes/images');
+const images = require("./routes/images");
 const wishlist = require("./routes/wishlist");
 const mainRoute = require("./routes/index");
+
+// console.log("WORKS");
 
 const app = express();
 
@@ -55,10 +57,12 @@ mongoose
   .catch(err => console.log(err));
 
 // Passport middleware
-app.use(cors({
-  origin: '*',
-  successStatus: 200,
-}));
+app.use(
+  cors({
+    origin: "*",
+    successStatus: 200
+  })
+);
 app.use(passport.initialize());
 
 // Passport Config
@@ -99,11 +103,10 @@ if (process.env.NODE_ENV === "production") {
   });
 } else {
   app.use("/", mainRoute);
-};
+}
 
 const port = process.env.PORT || 5000;
 
 app.listen(port, () =>
   console.log(`Server running on port ${port}`, process.env.NODE_ENV)
 );
-
