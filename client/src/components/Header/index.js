@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {hideDesktopCategoriesMenuAction} from "../../store/actions/header";
 import {hideMobileMenuAction} from "../../store/actions/header";
 
-import {withWidth, Container, Hidden} from '@material-ui/core';
+import {withWidth, Container, Hidden, Grid} from '@material-ui/core';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 import useStyles from './useStyles';
@@ -60,19 +60,19 @@ export default withWidth()( () => {
                         </Container>
                     </Hidden>
                     <Hidden mdUp>
-                        <Container maxWidth={false} className={classes.mainContainerMobile}>
+                        <div className={classes.mainContainerMobile}>
                             <DropDownMenu/>
                             <Logo/>
                             <MiniCart/>
                             <Search/>
-                            <Container maxWidth={false} className={showMobileMenu ? classes.mobileMenuContainer : classes.hide}>
+                            <div className={showMobileMenu ? classes.mobileMenuContainer : classes.hide}>
                                 <CategoriesMenu title='Women' border={true}/>
                                 <CategoriesMenu title='Men' isMen={true}/>
                                 <CategoryItems mobile={true}/>
                                 <Currency/>
                                 <Login/>
-                            </Container>
-                        </Container>
+                            </div>
+                        </div>
                     </Hidden>
                     <Modal/>
                 </div>

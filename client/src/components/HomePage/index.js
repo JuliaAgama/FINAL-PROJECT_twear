@@ -22,16 +22,9 @@ export default () => {
 
     return (
         <Box>
-            <Hidden smDown>
-                <Typography className={classes.header} variant="h4" component="h4">
-                    Pre Spring 20
-                </Typography>
-            </Hidden>
-            <Hidden mdUp>
-                <Typography className={classes.headerXS} variant="h4" component="h4">
-                    Pre Spring 20
-                </Typography>
-            </Hidden>
+            <Typography className={classes.header} variant="h4" component="h4">
+                Pre Spring 20
+            </Typography>
             <p className={classes.subHeader}>
                 Get ready for the festive season with our Pre Party collection —
                 including a lot of new jeans.

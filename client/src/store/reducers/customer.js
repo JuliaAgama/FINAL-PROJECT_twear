@@ -15,7 +15,8 @@ export default function (state = initState, action) {
             return {
                 ...state,
                 ...{
-                    loaded : false
+                    loaded : false,
+                    error : false
                 }
             };
 
@@ -23,6 +24,7 @@ export default function (state = initState, action) {
             return {
                 ...state,
                 ...{
+                    loaded: false,
                     error : true
                 }
             };
@@ -31,7 +33,9 @@ export default function (state = initState, action) {
                 return {
                     ...state,
                     ...{
-                    customer: action.data
+                    customer: action.data,
+                    loaded: false,
+                    error : false
                 }
             };
 
@@ -40,7 +44,8 @@ export default function (state = initState, action) {
                     ...state,
                     ...{
                     isAuth: action.data.success,
-                    loaded: true
+                    loaded: true,
+                    error : false
                 }
             };
 
@@ -50,7 +55,8 @@ export default function (state = initState, action) {
                 ...{
                     customer: action.data,
                     isAuth: action.data.success,
-                    loaded: true
+                    loaded: true,
+                    error : false
                 }
             };
 
@@ -59,7 +65,9 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     isAuth: false,
-                    customer: {}
+                    customer: {},
+                    loaded: false,
+                    error : false
                 }
             };
 

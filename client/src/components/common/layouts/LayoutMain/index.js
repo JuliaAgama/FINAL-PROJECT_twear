@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 // import { Link } from "react-router-dom";
 
-import * as cartActions from '../../../../store/actions/cart';
+// import * as cartActions from '../../../../store/actions/cart';
 
 import { Container } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
@@ -14,15 +14,15 @@ import Footer from "../../../Footer";
 
 export default props => {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    const customerLoaded = useSelector(state => state.customers.loaded);
+    // const customerLoaded = useSelector(state => state.customers.loaded);
 
-    useEffect(() => {
-        if(customerLoaded) {
-            cartActions.getCart()(dispatch);
-        }
-    }, [customerLoaded, dispatch]);
+    // useEffect(() => {
+    //     if(customerLoaded) {
+    //         cartActions.getCart()(dispatch);
+    //     }
+    // }, [customerLoaded, dispatch]);
 
     //styling layout:
     const breakpointValues = {

@@ -4,20 +4,20 @@ const queryCreator = require("../commonHelpers/queryCreator");
 const _ = require("lodash");
 
 exports.createWishlist = (req, res, next) => {
-  Wishlist.findOne({ customerId: req.user.id }).then(wishlist => {
+  Wishlist.findOne({ customer: req.user.id }).then(wishlist => {
     if (wishlist) {
       return res
         .status(400)
         .json({ message: `Wishlist for this customer is already exists` });
     } else {
       const wishlistData = _.cloneDeep(req.body);
-      wishlistData.customerId = req.user.id;
+      wishlistData.customer = req.user.id;
 
       const newWishlist = new Wishlist(queryCreator(wishlistData));
 
       newWishlist
         .populate("products")
-        .populate("customerId")
+        .populate("customer")
         .execPopulate();
 
       newWishlist
@@ -33,17 +33,17 @@ exports.createWishlist = (req, res, next) => {
 };
 
 exports.updateWishlist = (req, res, next) => {
-  Wishlist.findOne({ customerId: req.user.id })
+  Wishlist.findOne({ customer: req.user.id })
     .then(wishlist => {
       if (!wishlist) {
         const wishlistData = _.cloneDeep(req.body);
-        wishlistData.customerId = req.user.id;
+        wishlistData.customer = req.user.id;
 
         const newWishlist = new Wishlist(queryCreator(wishlistData));
 
         newWishlist
           .populate("products")
-          .populate("customerId")
+          .populate("customer")
           .execPopulate();
 
         newWishlist
@@ -59,12 +59,12 @@ exports.updateWishlist = (req, res, next) => {
         const updatedWishlist = queryCreator(wishlistData);
 
         Wishlist.findOneAndUpdate(
-          { customerId: req.user.id },
+          { customer: req.user.id },
           { $set: updatedWishlist },
           { new: true }
         )
           .populate("products")
-          .populate("customerId")
+          .populate("customer")
           .then(wishlist => res.json(wishlist))
           .catch(err =>
             res.status(400).json({
@@ -96,17 +96,17 @@ exports.addProductToWishlist = async (req, res, next) => {
       message: `Product with _id (ObjectId) "${req.params.productId}" does not exist`
     });
   } else {
-    Wishlist.findOne({ customerId: req.user.id })
+    Wishlist.findOne({ customer: req.user.id })
       .then(wishlist => {
         if (!wishlist) {
           const wishlistData = {};
-          wishlistData.customerId = req.user.id;
+          wishlistData.customer = req.user.id;
           wishlistData.products = [].concat(req.params.productId);
           const newWishlist = new Wishlist(queryCreator(wishlistData));
 
           newWishlist
             .populate("products")
-            .populate("customerId")
+            .populate("customer")
             .execPopulate();
 
           newWishlist
@@ -125,12 +125,12 @@ exports.addProductToWishlist = async (req, res, next) => {
           const updatedWishlist = queryCreator(wishlistData);
 
           Wishlist.findOneAndUpdate(
-            { customerId: req.user.id },
+            { customer: req.user.id },
             { $set: updatedWishlist },
             { new: true }
           )
             .populate("products")
-            .populate("customerId")
+            .populate("customer")
             .then(wishlist => res.json(wishlist))
             .catch(err =>
               res.status(400).json({
@@ -148,7 +148,7 @@ exports.addProductToWishlist = async (req, res, next) => {
 };
 
 exports.deleteProductFromWishlish = async (req, res, next) => {
-  Wishlist.findOne({ customerId: req.user.id })
+  Wishlist.findOne({ customer: req.user.id })
     .then(wishlist => {
       if (!wishlist) {
         res.status(400).json({ message: `Wishlist does not exist` });
@@ -169,12 +169,12 @@ exports.deleteProductFromWishlish = async (req, res, next) => {
         const updatedWishlist = queryCreator(wishlistData);
 
         Wishlist.findOneAndUpdate(
-          { customerId: req.user.id },
+          { customer: req.user.id },
           { $set: updatedWishlist },
           { new: true }
         )
           .populate("products")
-          .populate("customerId")
+          .populate("customer")
           .then(wishlist => res.json(wishlist))
           .catch(err =>
             res.status(400).json({
@@ -191,17 +191,17 @@ exports.deleteProductFromWishlish = async (req, res, next) => {
 };
 
 exports.deleteWishlist = (req, res, next) => {
-  Wishlist.findOne({ customerId: req.user.id }).then(async wishlist => {
+  Wishlist.findOne({ customer: req.user.id }).then(async wishlist => {
     if (!wishlist) {
       return res
         .status(400)
         .json({ message: `Wishlist for this customer is not found.` });
     } else {
       const wishlistToDelete = await Wishlist.findOne({
-        customerId: req.user.id
+        customer: req.user.id
       });
 
-      Wishlist.deleteOne({ customerId: req.user.id })
+      Wishlist.deleteOne({ customer: req.user.id })
         .then(deletedCount =>
           res.status(200).json({
             message: `Wishlist witn id "${wishlistToDelete._id}" is successfully deletes from DB `
@@ -217,9 +217,9 @@ exports.deleteWishlist = (req, res, next) => {
 };
 
 exports.getWishlist = (req, res, next) => {
-  Wishlist.findOne({ customerId: req.user.id })
+  Wishlist.findOne({ customer: req.user.id })
     .populate("products")
-    .populate("customerId")
+    .populate("customer")
     .then(wishlist => res.json(wishlist))
     .catch(err =>
       res.status(400).json({

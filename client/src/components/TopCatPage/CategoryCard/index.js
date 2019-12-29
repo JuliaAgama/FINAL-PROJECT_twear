@@ -20,14 +20,14 @@ function CategoryCard(props) {
           <p className="top-cat-name">{name}</p>
         </Grid>
       </Hidden>
-      <Hidden smUp>
+      <Hidden mdUp>
         <Grid
           className="category-item-home"
           item
           xs={12}
           style={{ backgroundImage: `url(${image})`, height: "50vh" }}
         >
-          <p className="top-cat-name">{name}</p>
+          <p className="top-cat-name-xs">{name}</p>
         </Grid>
       </Hidden>
     </>

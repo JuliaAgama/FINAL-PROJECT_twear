@@ -40,10 +40,10 @@ router.delete(
 // @access  Public
 router.get("/", getComments);
 
-// @route   GET /comments/:customerId
+// @route   GET /comments/:customer
 // @desc    GET existing comments of particular customer
 // @access  Public
-router.get("/customer/:customerId", getCustomerComments);
+router.get("/customer/:customer", getCustomerComments);
 
 // @route   GET /comments/:productId
 // @desc    GET existing comments of particular product

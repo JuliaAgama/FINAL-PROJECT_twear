@@ -98,7 +98,7 @@ exports.getComments = (req, res, next) => {
 };
 
 exports.getCustomerComments = (req, res, next) => {
-  Comment.find({ customer: req.params.customerId })
+  Comment.find({ customer: req.params.customer })
     .populate("product")
     .populate("category")
     .populate("customer")
