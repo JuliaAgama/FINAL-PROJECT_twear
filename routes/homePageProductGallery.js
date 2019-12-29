@@ -20,20 +20,20 @@ router.post(
     addProductGallery
 );
 
-// @route   PUT /productGallery/:customId
+// @route   PUT /productGallery/:name
 // @desc    Update existing productGallery
 // @access  Private
 router.put(
-    "/:customId",
+    "/:name",
     passport.authenticate("jwt-admin", { session: false }),
     updateProductGallery
 );
 
-// @route   DELETE /productGallery/:customId
+// @route   DELETE /productGallery/:name
 // @desc    DELETE existing productGallery
 // @access  Private
 router.delete(
-    "/:customId",
+    "/:id",
     passport.authenticate("jwt-admin", { session: false }),
     deleteProductGallery
 );
@@ -43,9 +43,9 @@ router.delete(
 // @access  Public
 router.get("/", getProductsGallery);
 
-// @route   GET /productGallery/:customId
+// @route   GET /productGallery/:name
 // @desc    GET existing productGallery
 // @access  Public
-router.get("/:customId", getProductGalleryById);
+router.get("/:name", getProductGalleryById);
 
 module.exports = router;

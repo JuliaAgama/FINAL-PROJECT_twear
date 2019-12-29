@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const HomePageProductsGallerySchema = new Schema(
     {
-        customId: {
+        name: {
             type: String,
             required: true
         },

@@ -9,7 +9,6 @@ import {
     Grid,
     IconButton,
     Collapse,
-    Button, Hidden
 } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import clsx from "clsx";
@@ -28,11 +27,12 @@ export default withWidth()(() => {
     const dispatch = useDispatch();
     useEffect(() => getAllProductsGallery()(dispatch), [dispatch]);
     const productsGalleries  = useSelector(state => state.productsGallery.productsGalleries);
-    const optionsList = productsGalleries.map(item => {return {name: item.customId}});
+    const optionsList = productsGalleries.map(item => {return {name: item.name, _id : item._id}});
     let galleryForShowState = {}
-    productsGalleries.forEach(item => galleryForShowState[item.customId] = false);
+    productsGalleries.forEach(item => galleryForShowState[item.name] = false);
 
     const [galleryForShow, setGalleryForShow] = useState(galleryForShowState);
+    const [isShow, setIsShow] = useState(false);
     const handleChange = name => event => {
         setGalleryForShow({ ...galleryForShow, [name]: event.target.checked });
     };
@@ -41,10 +41,14 @@ export default withWidth()(() => {
     const handleExpandClick = itemName => setExpanded({...expanded, [itemName]: (!expanded[itemName])});
    const deleteHandler = (el) => {
        dispatch(deleteProductsGallery(el));
+   };
+
+   const showForm = () => {
+       setIsShow(!isShow);
    }
     // const save = () => {
     //     const homePageProductGallery = {
-    //         customId: localStorage.getItem('CustomId'),
+    //         name: localStorage.getItem('CustomId'),
     //         title: localStorage.getItem('Title'),
     //         checkedProduct: JSON.parse(localStorage.getItem('checkedProduct')),
     //         links: JSON.parse(localStorage.getItem('Links'))
@@ -93,7 +97,7 @@ export default withWidth()(() => {
                                     <ProductsGallery    name={el.name}
                                                         expandedMain={expanded}
                                                         setExpandedMain={setExpanded}
-                                                        productsGallery={productsGalleries.find(item => el.name === item.customId)}
+                                                        productsGallery={productsGalleries.find(item => el.name === item.name)}
 
                                     />
                                 </Box>
@@ -104,8 +108,9 @@ export default withWidth()(() => {
                 </List>
             </Box>
             <Box p={2} textAlign="center" className={classes.paper}>
-                <AddWideButton text='CREATE NEW PRODUCTS GALLERY' color='secondary'/>
+                <AddWideButton text='CREATE NEW PRODUCTS GALLERY' color='secondary' onClick={showForm}/>
             </Box>
+            {isShow ? <ProductsGallery /> : '' }
         </Typography>
     )
 });

@@ -20,20 +20,20 @@ router.post(
   addConfig
 );
 
-// @route   PUT /configs/:customId
+// @route   PUT /configs/:name
 // @desc    Update existing config
 // @access  Private
 router.put(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   updateConfig
 );
 
-// @route   DELETE /configs/:customId
+// @route   DELETE /configs/:name
 // @desc    DELETE existing config
 // @access  Private
 router.delete(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   deleteConfig
 );
@@ -43,9 +43,9 @@ router.delete(
 // @access  Public
 router.get("/", getConfigs);
 
-// @route   GET /configs/:customId
+// @route   GET /configs/:name
 // @desc    GET existing configs
 // @access  Public
-router.get("/:customId", getConfigById);
+router.get("/:name", getConfigById);
 
 module.exports = router;

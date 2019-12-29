@@ -27,7 +27,8 @@ export default class ProductGallery extends Base {
     }
 
     deleteProductGallery(productGallery){
-        return super.delete(`productsGallery/${productGallery.name}`)
+        console.log(productGallery._id)
+        return super.delete(`productsGallery/${productGallery._id}`, productGallery)
             .then(res => res.data)
         // .catch(err => err.response.data);
     }

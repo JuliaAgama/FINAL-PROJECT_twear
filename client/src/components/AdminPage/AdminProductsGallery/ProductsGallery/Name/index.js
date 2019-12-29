@@ -7,7 +7,7 @@ export default props => {
     const [name, setName] = useState("");
 
     useEffect(() => {
-        let data = localStorage.getItem('CustomId');
+        let data = localStorage.getItem('Name');
         if (data) {
             setName(data)
         }
@@ -18,7 +18,7 @@ export default props => {
     };
 
     const save = () => {
-        localStorage.setItem('CustomId', name)
+        localStorage.setItem('Name', name)
         setExpanded({'product gallery name': false})
     };
 
