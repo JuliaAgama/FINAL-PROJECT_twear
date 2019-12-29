@@ -1,26 +1,40 @@
 import React, {useEffect, useState} from 'react';
 import {Typography, Grid, TextField, Button} from '@material-ui/core';
 import useStyles from './useStyles';
+import {useDispatch, useSelector} from "react-redux";
+import {createProductsGallery} from '../../../../../store/actions/productsGallery'
 
 export default props => {
 
-    const {setExpanded} = props;
-    const [title, setTitle] = useState("");
+    const {setExpanded, newProductsGallery} = props;
+    const dispatch = useDispatch();
+    const [isEmpty, setIsEmpty] = useState(false);
 
-    useEffect(() => {
-        let data = localStorage.getItem('Title');
-        if (data) {
-            setTitle(data)
-        }
-    }, []);
+    const newGallery = useSelector(state => state.productsGallery.newProductsGallery);
+    const currentGallery = useSelector(state => state.productsGallery.currentProductsGallery);
+
+    let productsGalleryTitle = '';
+    if (newProductsGallery) {
+        productsGalleryTitle = newGallery.title;
+    } else {
+        productsGalleryTitle = currentGallery.title;
+    }
+
+    const [title, setTitle] = useState(productsGalleryTitle);
+
 
     const onChange = event => {
+        setIsEmpty(false);
         setTitle(event.target.value)
     };
 
     const save = () => {
-        localStorage.setItem('Title', title)
-        setExpanded({title: false})
+        if (title && title !== "") {
+            dispatch(createProductsGallery({field: 'title', value: title}));
+            setExpanded({title: false})
+        } else {
+            setIsEmpty(true);
+        }
     };
 
     const classes = useStyles();
@@ -41,6 +55,8 @@ export default props => {
                             className={classes.textField}
                             margin="normal"
                             variant="outlined"
+                            error={isEmpty}
+                            helperText={isEmpty ? `Field can't be empty` : ''}
                         />
                     </Grid>
                     <Grid item xs={12}>

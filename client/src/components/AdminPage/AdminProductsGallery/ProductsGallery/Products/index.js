@@ -15,7 +15,7 @@ import ProductsList from './ProductsList';
 
 
 export default withWidth()(props => {
-    const {setExpanded} = props;
+    const {setExpanded, newProductsGallery} = props;
     const topCatsList = useSelector(state => state.topCats.topCats);
     const categoriesList = useSelector(state => state.categories.categories);
     const productsList = useSelector(state => state.products.products);
@@ -100,7 +100,7 @@ export default withWidth()(props => {
                 }
             </Box>
             <Box p={2} textAlign="center" className={classes.paper} >
-                {productsLoaded ? <ProductsList productsList={productsToDisplay()} /> : <Spinner/> }
+                {productsLoaded ? <ProductsList newProductsGallery={newProductsGallery} productsList={productsToDisplay()} /> : <Spinner/> }
             </Box>
             <Grid item xs={12}>
                 <Button

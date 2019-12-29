@@ -29,7 +29,7 @@ import productsGallery from './productsGallery';
 const persistConfig = {
     key: 'cart',
     storage,
-    whitelist: ['cart'],
+    whitelist: ['cart', 'productsGallery'],
     // stateReconciler: autoMergeLevel2
 };
 

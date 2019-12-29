@@ -4,6 +4,7 @@ import useStyles from './useStyles';
 import Selector from "../../../../common/inputs/Selector";
 import {getAllCategories} from "../../../../../store/actions/categories";
 import {useDispatch, useSelector} from "react-redux";
+import {createProductsGallery} from '../../../../../store/actions/productsGallery'
 
 function CategoriesFilter(categories, gender) {
     return categories.filter(category => category.gender.name === gender || category.gender.name === 'unisex');
@@ -12,23 +13,27 @@ function CategoriesFilter(categories, gender) {
 
 export default props => {
 
-    const {setExpanded} = props;
+    const {setExpanded, newProductsGallery} = props;
     const classes = useStyles();
     const dispatch = useDispatch();
     useEffect(() => getAllCategories()(dispatch), [dispatch]);
     const categories  = useSelector(state => state.categories.categories);
-    const [womenCategory, setWomenCategory] = useState('');
-    const [menCategory, setMenCategory] = useState('');
     const womenCategories = CategoriesFilter(categories, 'women');
     const menCategories = CategoriesFilter(categories, 'men');
-    useEffect(() => {
-        let data = localStorage.getItem('Links');
-        if (data) {
-            data = JSON.parse(data);
-            setWomenCategory(data.womenLinkID);
-            setMenCategory(data.menLinkID)
-        }
-    }, []);
+
+    const newGallery = useSelector(state => state.productsGallery.newProductsGallery);
+    const currentGallery = useSelector(state => state.productsGallery.currentProductsGallery);
+
+    let productsGalleryLinks = {};
+    if (newProductsGallery) {
+        productsGalleryLinks = newGallery.links;
+    } else {
+        productsGalleryLinks = currentGallery.links;
+    }
+
+    const [womenCategory, setWomenCategory] = useState(productsGalleryLinks.womenLinkID);
+    const [menCategory, setMenCategory] = useState(productsGalleryLinks.menLinkID);
+
 
     const onChangeWomenLink = (id) => {
         setWomenCategory(id);
@@ -39,7 +44,8 @@ export default props => {
     };
 
     const save = () => {
-        localStorage.setItem("Links", JSON.stringify({womenLinkID: womenCategory, menLinkID: menCategory}))
+        dispatch(createProductsGallery({field: 'links', value: {womenLinkID: womenCategory, menLinkID: menCategory}}));
+        // localStorage.setItem("Links", JSON.stringify({womenLinkID: womenCategory, menLinkID: menCategory}))
         setExpanded({links: false})
     }
 

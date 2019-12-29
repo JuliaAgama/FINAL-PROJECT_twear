@@ -45,20 +45,8 @@ export default withWidth()(() => {
 
    const showForm = () => {
        setIsShow(!isShow);
-   }
-    // const save = () => {
-    //     const homePageProductGallery = {
-    //         name: localStorage.getItem('CustomId'),
-    //         title: localStorage.getItem('Title'),
-    //         checkedProduct: JSON.parse(localStorage.getItem('checkedProduct')),
-    //         links: JSON.parse(localStorage.getItem('Links'))
-    //     }
-    //     dispatch(addProductsGallery(homePageProductGallery));
-    // };
-    // const download = () => {
-    //     dispatch(getProductsGallery(localStorage.getItem('CustomId')));
-    //     dispatch(getAllProductsGallery());
-    // };
+   };
+
     return (
         <Typography component="div" variant="body1">
 
@@ -110,7 +98,7 @@ export default withWidth()(() => {
             <Box p={2} textAlign="center" className={classes.paper}>
                 <AddWideButton text='CREATE NEW PRODUCTS GALLERY' color='secondary' onClick={showForm}/>
             </Box>
-            {isShow ? <ProductsGallery /> : '' }
+            {isShow ? <ProductsGallery setIsShow={setIsShow} newProductsGallery={true} /> : '' }
         </Typography>
     )
 });

@@ -97,3 +97,25 @@ export function deleteProductsGallery(productsGallery){
             })
     };
 };
+
+export function createProductsGallery(productsGallery){
+    return function (dispatch) {
+        return dispatch({
+                    type: PRODUCTS_GALLERY.PRODUCTS_GALLERY_CREATE_PRODUCT_GALLERY,
+                    data: productsGallery,
+                });
+        // dispatch(productsGallerySendRequest());
+        // (new ProductsGalleryApi()).deleteProductGallery(productsGallery).then(res => {
+        //     return dispatch({
+        //         type: PRODUCTS_GALLERY.PRODUCTS_GALLERY_DELETE_PRODUCT_GALLERY,
+        //         data: res,
+        //     });
+        // })
+        //     .catch(err => {
+        //         return dispatch({
+        //             type: PRODUCTS_GALLERY.PRODUCTS_GALLERY_RESPONSE_FAILED,
+        //             error: err.response.data
+        //         })
+        //     })
+    };
+};

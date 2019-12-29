@@ -1,7 +1,8 @@
 import * as PRODUCTS_GALLERY from '../constants/productGallery';
 
 const initState = {
-    productsGallery: {},
+    currentProductsGallery: {},
+    newProductsGallery: {},
     productsGalleries: [],
     loaded: false,
     error: null
@@ -33,6 +34,14 @@ export default function (state = initState, action) {
                 ...{
                     productsGallery: action.data,
                     loaded: true
+                }
+            };
+
+        case PRODUCTS_GALLERY.PRODUCTS_GALLERY_CREATE_PRODUCT_GALLERY:
+            return {
+                ...state,
+                ...{
+                    newProductsGallery: {...state.newProductsGallery, [action.data.field] : action.data.value}
                 }
             };
 

@@ -1,29 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { Typography, Grid, List } from '@material-ui/core';
 import ProductItem from './ProductItem';
+import {useSelector} from "react-redux";
+
 
 export default props => {
 
-    const {productsList} = props;
-    const [checked, setChecked] = useState(null);
-    const [countOfChosenProducts, setCountOfChosenProducts] = useState('0');
-    useEffect(() => {
-        let data = localStorage.getItem('checkedProduct');
-        if (data) {
-            data = JSON.parse(data);
-            setChecked(data)
-        }
-    }, []);
+    const {productsList, newProductsGallery} = props;
 
-    useEffect(() => {
-        if (checked) {
-            localStorage.setItem('checkedProduct', JSON.stringify(checked));
-            if (checked.length === 4) {
-                setCountOfChosenProducts(`You chosen 4 product's and can't choose more!`)
-            } else setCountOfChosenProducts(`You chosen ${checked.length} products`)
-        }
-    });
 
+    const newGallery = useSelector(state => state.productsGallery.newProductsGallery);
+    const currentGallery = useSelector(state => state.productsGallery.currentProductsGallery);
+
+    let productsGalleryCheckedProducts = [];
+    if (newProductsGallery) {
+        productsGalleryCheckedProducts = newGallery.checkedProduct;
+    } else {
+        productsGalleryCheckedProducts = currentGallery.checkedProduct;
+    }
+
+    const initialCount = productsGalleryCheckedProducts.length;
+
+    const [checked, setChecked] = useState(productsGalleryCheckedProducts);
+    const [countOfChosenProducts, setCountOfChosenProducts] = useState(initialCount);
 
     return (
         <>

@@ -2,12 +2,15 @@ import React from 'react';
 import { Typography, Box, Grid, ListItem, Divider, Hidden} from '@material-ui/core';
 import useStyles from './useStyles';
 import Checkbox from "@material-ui/core/Checkbox";
+import {useDispatch} from "react-redux";
+import {createProductsGallery} from '../../../../../../../store/actions/productsGallery'
 
 
 
 export default props => {
 
     const {item, checked, setChecked, setCountOfChosenProducts} = props;
+    const dispatch = useDispatch();
     const cutName = (string, l) => string.length > l ? string.slice(0, l-3)+'...' : string;
     let isChecked = false;
     if (checked) {
@@ -19,16 +22,21 @@ export default props => {
             if (checked && checked.length < 4){
                 checked.push({itemNo: item.itemNo, checked: event.target.checked});
                 setCountOfChosenProducts(checked.length);
+                dispatch(createProductsGallery({field: 'checkedProduct', value: checked}));
                 setChecked([...checked])
             } else if (checked && checked.length === 4) {
-
+                setCountOfChosenProducts(`You chosen 4 product's and can't choose more!`)
             }
             else {
                 setChecked([{itemNo: item.itemNo, checked: event.target.checked}]);
+                setCountOfChosenProducts(1);
+                dispatch(createProductsGallery({field: 'checkedProduct', value: {itemNo: item.itemNo, checked: event.target.checked}}));
             }
         } else {
             let elToDel = checked.find(el => el.itemNo === item.itemNo);
             checked.splice(checked.indexOf(elToDel), 1);
+            setCountOfChosenProducts(checked.length);
+            dispatch(createProductsGallery({field: 'checkedProduct', value: checked}));
             setChecked([...checked]);
         }
     };
