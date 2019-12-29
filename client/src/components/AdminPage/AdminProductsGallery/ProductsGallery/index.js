@@ -19,15 +19,10 @@ import Name from "./Name";
 import Products from "./Products";
 import useStyles from './useStyles';
 import {useDispatch, useSelector} from "react-redux";
-import {addProductsGallery, getProductsGallery, getAllProductsGallery} from '../../../../store/actions/productsGallery'
+import {addProductsGallery} from '../../../../store/actions/productsGallery'
 import ErrorModal from "../../../common/messages/ErrorModal";
 
-function setProductsGallery(productsGallery) {
-    localStorage.setItem('Name', productsGallery.name);
-    localStorage.setItem('Title', productsGallery.title);
-    localStorage.setItem('checkedProduct', JSON.stringify(productsGallery.checkedProduct));
-    localStorage.setItem('Links', JSON.stringify(productsGallery.links));
-}
+
 
 function checkProductsGallery(productsGallery) {
     let response = '';
@@ -49,8 +44,8 @@ function checkProductsGallery(productsGallery) {
 
 export default withWidth()(props => {
     const classes = useStyles();
-    const {name, expandedMain, setExpandedMain, productsGallery, newProductsGallery, setIsShow} = props;
-    if (productsGallery) setProductsGallery(productsGallery);
+    const {name, expandedMain, setExpandedMain, newProductsGallery, setIsShow} = props;
+
     const dispatch = useDispatch();
     const newGallery = useSelector(state => state.productsGallery.newProductsGallery);
     const optionsList = [{name: 'product gallery name'},{name: 'title'}, {name: 'products'}, {name: 'links'}];
@@ -101,16 +96,16 @@ export default withWidth()(props => {
                             <Collapse in={expanded[el.name]} timeout="auto" unmountOnExit>
                                 <Box className={classes.expanded}>
                                     {el.name === 'product gallery name' ?
-                                        <Name setExpanded={setExpanded} newProductsGallery={newProductsGallery} /> : <></>
+                                        <Name setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name} /> : <></>
                                     }
                                     {el.name === 'title' ?
-                                        <Title setExpanded={setExpanded} newProductsGallery={newProductsGallery}/> : <></>
+                                        <Title setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name}/> : <></>
                                     }
                                     {el.name === 'products' ?
-                                        <Products setExpanded={setExpanded} newProductsGallery={newProductsGallery}/> : <></>
+                                        <Products setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name}/> : <></>
                                     }
                                     {el.name === 'links' ?
-                                        <Links setExpanded={setExpanded} newProductsGallery={newProductsGallery}/> : <></>
+                                        <Links setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name}/> : <></>
                                     }
                                 </Box>
                             </Collapse>
@@ -119,12 +114,13 @@ export default withWidth()(props => {
                     <Divider/>
                 </List>
             </Box>
-            <Button
-                fullWidth={true}
-                variant="outlined"
-                className={classes.btn}
-                onClick={save}
-            > {`SAVE`}</Button>
+            {newProductsGallery ?
+                <Button
+                    fullWidth={true}
+                    variant="outlined"
+                    className={classes.btn}
+                    onClick={save}>SAVE
+                </Button> : ''}
             <ErrorModal
                 modalIsOpen={errorIsOpen}
                 modalText={errorModalText}

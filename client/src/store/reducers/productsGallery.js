@@ -1,7 +1,6 @@
 import * as PRODUCTS_GALLERY from '../constants/productGallery';
 
 const initState = {
-    currentProductsGallery: {},
     newProductsGallery: {},
     productsGalleries: [],
     loaded: false,
@@ -59,13 +58,14 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     productsGalleries : [...state.productsGalleries, action.data],
+                    newProductsGallery: {},
                     loaded : true
                 }
             };
 
         case PRODUCTS_GALLERY.PRODUCTS_GALLERY_UPDATE_PRODUCT_GALLERY:
             let updatedProductGallery = state.productsGalleries.map(el => {
-                if(el.customId === action.data.customId){
+                if(el._id === action.data._id){
                     return action.data
                 }
                 return el;

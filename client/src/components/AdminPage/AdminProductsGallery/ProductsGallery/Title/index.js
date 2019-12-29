@@ -2,16 +2,16 @@ import React, {useEffect, useState} from 'react';
 import {Typography, Grid, TextField, Button} from '@material-ui/core';
 import useStyles from './useStyles';
 import {useDispatch, useSelector} from "react-redux";
-import {createProductsGallery} from '../../../../../store/actions/productsGallery'
+import {createProductsGallery, updateProductsGallery} from '../../../../../store/actions/productsGallery'
 
 export default props => {
 
-    const {setExpanded, newProductsGallery} = props;
+    const {setExpanded, newProductsGallery, galleryName} = props;
     const dispatch = useDispatch();
     const [isEmpty, setIsEmpty] = useState(false);
 
     const newGallery = useSelector(state => state.productsGallery.newProductsGallery);
-    const currentGallery = useSelector(state => state.productsGallery.currentProductsGallery);
+    const currentGallery = useSelector(state => state.productsGallery.productsGalleries).find(item => item.name === galleryName);
 
     let productsGalleryTitle = '';
     if (newProductsGallery) {
@@ -29,11 +29,20 @@ export default props => {
     };
 
     const save = () => {
-        if (title && title !== "") {
-            dispatch(createProductsGallery({field: 'title', value: title}));
-            setExpanded({title: false})
+        if (newProductsGallery) {
+            if (title && title !== "") {
+                dispatch(createProductsGallery({field: 'title', value: title}));
+                setExpanded({title: false})
+            } else {
+                setIsEmpty(true);
+            }
         } else {
-            setIsEmpty(true);
+            if (title && title !== "") {
+                dispatch(updateProductsGallery({...currentGallery, title: title}));
+                setExpanded({title: false})
+            } else {
+                setIsEmpty(true);
+            }
         }
     };
 

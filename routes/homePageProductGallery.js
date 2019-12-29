@@ -24,7 +24,7 @@ router.post(
 // @desc    Update existing productGallery
 // @access  Private
 router.put(
-    "/:name",
+    "/:id",
     passport.authenticate("jwt-admin", { session: false }),
     updateProductGallery
 );

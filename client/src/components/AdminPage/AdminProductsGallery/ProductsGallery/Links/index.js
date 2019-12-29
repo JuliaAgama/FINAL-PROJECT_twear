@@ -4,7 +4,7 @@ import useStyles from './useStyles';
 import Selector from "../../../../common/inputs/Selector";
 import {getAllCategories} from "../../../../../store/actions/categories";
 import {useDispatch, useSelector} from "react-redux";
-import {createProductsGallery} from '../../../../../store/actions/productsGallery'
+import {createProductsGallery, updateProductsGallery} from '../../../../../store/actions/productsGallery'
 
 function CategoriesFilter(categories, gender) {
     return categories.filter(category => category.gender.name === gender || category.gender.name === 'unisex');
@@ -13,7 +13,7 @@ function CategoriesFilter(categories, gender) {
 
 export default props => {
 
-    const {setExpanded, newProductsGallery} = props;
+    const {setExpanded, newProductsGallery, galleryName} = props;
     const classes = useStyles();
     const dispatch = useDispatch();
     useEffect(() => getAllCategories()(dispatch), [dispatch]);
@@ -22,7 +22,7 @@ export default props => {
     const menCategories = CategoriesFilter(categories, 'men');
 
     const newGallery = useSelector(state => state.productsGallery.newProductsGallery);
-    const currentGallery = useSelector(state => state.productsGallery.currentProductsGallery);
+    const currentGallery = useSelector(state => state.productsGallery.productsGalleries).find(item => item.name === galleryName);
 
     let productsGalleryLinks = {};
     if (newProductsGallery) {
@@ -44,9 +44,13 @@ export default props => {
     };
 
     const save = () => {
-        dispatch(createProductsGallery({field: 'links', value: {womenLinkID: womenCategory, menLinkID: menCategory}}));
-        // localStorage.setItem("Links", JSON.stringify({womenLinkID: womenCategory, menLinkID: menCategory}))
-        setExpanded({links: false})
+        if (newProductsGallery) {
+            dispatch(createProductsGallery({field: 'links', value: {womenLinkID: womenCategory, menLinkID: menCategory}}));
+            setExpanded({links: false})
+        } else {
+            dispatch(updateProductsGallery({...currentGallery, links: {womenLinkID: womenCategory, menLinkID: menCategory}}));
+            setExpanded({links: false})
+        }
     }
 
     return (

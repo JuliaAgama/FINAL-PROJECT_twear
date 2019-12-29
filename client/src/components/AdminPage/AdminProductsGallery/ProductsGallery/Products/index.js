@@ -12,20 +12,36 @@ import useStyles from './useStyles';
 import Spinner from '../../../../common/Spinner';
 import Selector from '../../../../common/inputs/Selector';
 import ProductsList from './ProductsList';
+import {updateProductsGallery} from "../../../../../store/actions/productsGallery";
+import ErrorModal from "../../../../common/messages/ErrorModal";
+
+function checkChosenProducts(productsGallery) {
+    let response = '';
+    const {checkedProduct} = productsGallery;
+    if (checkedProduct && checkedProduct.length < 4) {
+        response += `You must choose 4 products. Now chosen ${checkedProduct.length} products. `;
+    } else if (!checkedProduct) {
+        response += `You must choose 4 products. `;
+    }
+    return response;
+}
 
 
 export default withWidth()(props => {
-    const {setExpanded, newProductsGallery} = props;
+    const {setExpanded, newProductsGallery, galleryName} = props;
     const topCatsList = useSelector(state => state.topCats.topCats);
     const categoriesList = useSelector(state => state.categories.categories);
     const productsList = useSelector(state => state.products.products);
     const topCatsLoaded = useSelector(state => state.topCats.loaded);
     const categoriesLoaded = useSelector(state => state.categories.loaded);
     const productsLoaded = useSelector(state => state.products.loaded);
+    const currentGallery = useSelector(state => state.productsGallery.productsGalleries).find(item => item.name === galleryName);
 
     const [selectedTopCat, setSelectedTopCat] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [categoriesDisplay, setCategoriesDisplay] = useState(categoriesList);
+    const [errorIsOpen, setErrorIsOpen] = useState(false);
+    const [errorModalText, setErrorModalText] = useState({title: `ERROR`, description: ``, button: 'Continue create'});
 
     const dispatch = useDispatch();
 
@@ -65,8 +81,19 @@ export default withWidth()(props => {
         return productsToDisplay;
     };
 
-    const close = () => {
-        setExpanded({products: false})
+    const closeErrorModal = () => setErrorIsOpen(false);
+
+    const save = () => {
+        if (galleryName) {
+            const errorDescription = checkChosenProducts(currentGallery);
+            if (errorDescription !== '') {
+                setErrorModalText({...errorModalText, description: errorDescription})
+                setErrorIsOpen(true);
+            } else {
+                dispatch(updateProductsGallery({...currentGallery}));
+                setExpanded({products: false})
+            }
+        }
     };
 
     const classes = useStyles();
@@ -100,15 +127,23 @@ export default withWidth()(props => {
                 }
             </Box>
             <Box p={2} textAlign="center" className={classes.paper} >
-                {productsLoaded ? <ProductsList newProductsGallery={newProductsGallery} productsList={productsToDisplay()} /> : <Spinner/> }
+                {productsLoaded ? <ProductsList newProductsGallery={newProductsGallery} productsList={productsToDisplay()} galleryName={galleryName} /> : <Spinner/> }
             </Box>
             <Grid item xs={12}>
-                <Button
-                    fullWidth={true}
-                    variant="outlined"
-                    className={classes.btn}
-                    onClick={close}
-                > {`CLOSE`}</Button>
+                {galleryName ?
+                    <Button
+                        fullWidth={true}
+                        variant="outlined"
+                        className={classes.btn}
+                        onClick={save}>
+                        {`SAVE`}
+                    </Button>  : ''}
+                <ErrorModal
+                    modalIsOpen={errorIsOpen}
+                    modalText={errorModalText}
+                    doFunction={closeErrorModal}
+                    closeFunction={closeErrorModal}
+                />
             </Grid>
         </Typography>
     )

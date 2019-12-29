@@ -85,8 +85,6 @@ export default withWidth()(() => {
                                     <ProductsGallery    name={el.name}
                                                         expandedMain={expanded}
                                                         setExpandedMain={setExpanded}
-                                                        productsGallery={productsGalleries.find(item => el.name === item.name)}
-
                                     />
                                 </Box>
                             </Collapse>

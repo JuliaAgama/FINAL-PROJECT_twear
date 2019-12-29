@@ -6,20 +6,28 @@ import {useSelector} from "react-redux";
 
 export default props => {
 
-    const {productsList, newProductsGallery} = props;
+    const {productsList, newProductsGallery, galleryName} = props;
 
 
     const newGallery = useSelector(state => state.productsGallery.newProductsGallery);
-    const currentGallery = useSelector(state => state.productsGallery.currentProductsGallery);
+    const currentGallery = useSelector(state => state.productsGallery.productsGalleries).find(item => item.name === galleryName);
+
 
     let productsGalleryCheckedProducts = [];
     if (newProductsGallery) {
         productsGalleryCheckedProducts = newGallery.checkedProduct;
-    } else {
+    } else if (currentGallery){
         productsGalleryCheckedProducts = currentGallery.checkedProduct;
+    } else {
+        productsGalleryCheckedProducts = null;
     }
 
-    const initialCount = productsGalleryCheckedProducts.length;
+    let initialCount;
+    if (productsGalleryCheckedProducts) {
+        initialCount = productsGalleryCheckedProducts.length
+    } else {
+        initialCount = 0;
+    }
 
     const [checked, setChecked] = useState(productsGalleryCheckedProducts);
     const [countOfChosenProducts, setCountOfChosenProducts] = useState(initialCount);

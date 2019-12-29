@@ -21,13 +21,12 @@ export default class ProductGallery extends Base {
     }
 
     updateProductGallery(productGallery){
-        return super.put(`productsGallery/${productGallery.customId}`, productGallery)
+        return super.put(`productsGallery/${productGallery._id}`, productGallery)
             .then(res => res.data)
         // .catch(err => err.response.data);
     }
 
     deleteProductGallery(productGallery){
-        console.log(productGallery._id)
         return super.delete(`productsGallery/${productGallery._id}`, productGallery)
             .then(res => res.data)
         // .catch(err => err.response.data);
