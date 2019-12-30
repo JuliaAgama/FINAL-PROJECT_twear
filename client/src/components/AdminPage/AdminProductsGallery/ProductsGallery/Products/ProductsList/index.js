@@ -44,6 +44,8 @@ export default props => {
                             checked = {checked}
                             setChecked={setChecked}
                             setCountOfChosenProducts={setCountOfChosenProducts}
+                            newProductsGallery={newProductsGallery}
+                            currentGallery={currentGallery}
                         />
                     )}
                 </Grid>

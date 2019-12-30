@@ -78,10 +78,26 @@ export default function (state = initState, action) {
                 }
             };
 
+        case PRODUCTS_GALLERY.PRODUCTS_GALLERY_LOCAL_UPDATE_PRODUCT_GALLERY:
+            let localUpdatedProductGallery = state.productsGalleries.map(el => {
+                if(el._id === action.data._id){
+                    return action.data
+                }
+                return el;
+            });
+            return{
+                ...state,
+                ...{
+                    productsGalleries : localUpdatedProductGallery,
+                    loaded : true
+                }
+            };
+
         case PRODUCTS_GALLERY.PRODUCTS_GALLERY_DELETE_PRODUCT_GALLERY:
             let updated = state.productsGalleries.filter(el => {
-                return el.customId !== action.data.customId
+                return el._id !== action.data._id
             });
+            console.log(action.data);
             return {
                 ...state,
                 ...{

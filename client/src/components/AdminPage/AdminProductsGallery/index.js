@@ -10,12 +10,13 @@ import {
     IconButton,
     Collapse,
 } from '@material-ui/core';
+import {useHistory} from "react-router-dom";
 import Switch from '@material-ui/core/Switch';
 import clsx from "clsx";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ProductsGallery from './ProductsGallery';
 import {useDispatch, useSelector} from "react-redux";
-import {getAllProductsGallery, deleteProductsGallery} from '../../../store/actions/productsGallery'
+import {getAllProductsGallery, deleteProductsGallery, updateProductsGallery} from '../../../store/actions/productsGallery'
 import AddWideButton from "../../common/buttons/AddWide";
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import useStyles from './useStyles';
@@ -23,24 +24,40 @@ import useStyles from './useStyles';
 
 export default withWidth()(() => {
     const classes = useStyles();
+    const history = useHistory();
 
     const dispatch = useDispatch();
     useEffect(() => getAllProductsGallery()(dispatch), [dispatch]);
     const productsGalleries  = useSelector(state => state.productsGallery.productsGalleries);
     const optionsList = productsGalleries.map(item => {return {name: item.name, _id : item._id}});
-    let galleryForShowState = {}
-    productsGalleries.forEach(item => galleryForShowState[item.name] = false);
 
+
+    let galleryForShowState = {}
+    productsGalleries.forEach(item => galleryForShowState[item.name] = item.isShow);
     const [galleryForShow, setGalleryForShow] = useState(galleryForShowState);
-    const [isShow, setIsShow] = useState(false);
-    const handleChange = name => event => {
-        setGalleryForShow({ ...galleryForShow, [name]: event.target.checked });
+    const handleChange = name => () => {
+        productsGalleries.forEach(item => {
+            if (item.isShow && item.name !== name) {
+                item.isShow = false;
+                // dispatch(updateProductsGallery(item))
+            }
+            if (item.name === name) {
+                item.isShow = true;
+                // dispatch(updateProductsGallery(item))
+            }
+        });
+        productsGalleries.forEach(item => galleryForShowState[item.name] = item.isShow);
+        setGalleryForShow({ ...galleryForShowState});
     };
+
+
+    const [isShow, setIsShow] = useState(false);
 
     const [expanded, setExpanded] = useState({});
     const handleExpandClick = itemName => setExpanded({...expanded, [itemName]: (!expanded[itemName])});
    const deleteHandler = (el) => {
        dispatch(deleteProductsGallery(el));
+       history.push("/admin/productsGallery");
    };
 
    const showForm = () => {

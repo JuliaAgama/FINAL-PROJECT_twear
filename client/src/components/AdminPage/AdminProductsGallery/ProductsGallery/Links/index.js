@@ -26,7 +26,11 @@ export default props => {
 
     let productsGalleryLinks = {};
     if (newProductsGallery) {
-        productsGalleryLinks = newGallery.links;
+        if (newGallery.links && newGallery.links) {
+            productsGalleryLinks = newGallery.links;
+        } else {
+            productsGalleryLinks = {womenLinkID: "", menLinkID: ""}
+        }
     } else {
         productsGalleryLinks = currentGallery.links;
     }

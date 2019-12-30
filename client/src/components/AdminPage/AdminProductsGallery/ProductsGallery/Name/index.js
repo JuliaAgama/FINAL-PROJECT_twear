@@ -13,7 +13,9 @@ export default props => {
 
     let productsGalleryName = '';
     if (newProductsGallery) {
-        productsGalleryName = newGallery.name;
+        if (newGallery.name) {
+            productsGalleryName = newGallery.name;
+        }
     } else {
         productsGalleryName = currentGallery.name;
     }
@@ -26,7 +28,8 @@ export default props => {
         setName(event.target.value)
     };
 
-    const save = () => {
+    const save = event => {
+        event.preventDefault();
         if (newProductsGallery) {
             if (name && name !== "") {
                 dispatch(createProductsGallery({field: 'name', value: name}));
@@ -53,9 +56,7 @@ export default props => {
                     <Grid className={classes.justify}>
                         <TextField
                             required
-                            id="name"
                             label="Name"
-                            name='name'
                             autoFocus
                             onChange={onChange}
                             value={name}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Typography, Grid, TextField, Button} from '@material-ui/core';
 import useStyles from './useStyles';
 import {useDispatch, useSelector} from "react-redux";
@@ -15,7 +15,7 @@ export default props => {
 
     let productsGalleryTitle = '';
     if (newProductsGallery) {
-        productsGalleryTitle = newGallery.title;
+        if (newGallery.title) productsGalleryTitle = newGallery.title;
     } else {
         productsGalleryTitle = currentGallery.title;
     }
@@ -28,7 +28,8 @@ export default props => {
         setTitle(event.target.value)
     };
 
-    const save = () => {
+    const save = event => {
+        event.preventDefault();
         if (newProductsGallery) {
             if (title && title !== "") {
                 dispatch(createProductsGallery({field: 'title', value: title}));
