@@ -20,7 +20,7 @@ export default props => {
 
     // useEffect(() => {
     //     if(customerLoaded) {
-    //         cartActions.getCart()(dispatch);
+    //         cartActions.getCart(cart)(dispatch);
     //     }
     // }, [customerLoaded, dispatch]);
 

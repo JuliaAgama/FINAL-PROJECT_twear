@@ -54,7 +54,8 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     customer: action.data,
-                    isAuth: action.data.success,
+                    isAuth: true,
+                    // isAuth: action.data.success,
                     loaded: true,
                     error : false
                 }

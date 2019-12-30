@@ -1,11 +1,15 @@
 import React from "react";
-import useStyles from "./useStyles";
 import {Link} from "react-router-dom";
+
 import {Container} from "@material-ui/core";
+import useStyles from "./useStyles";
+
+import ModalQR from '../../common/ModalQR';
+import ModalTeam from '../../common/ModalTeam';
 
 
+export default () => {
 
-export default function Logo() {
     const classes = useStyles();
 
     return (
@@ -14,6 +18,8 @@ export default function Logo() {
                 <Link to='/'>
                     <img className={classes.img} src='/img/twear_logo_grey-on-transparent.png' alt='NOT FOUND'/>
                 </Link>
+                <ModalTeam/>
+                <ModalQR/>
             </Container>
         </React.Fragment>
     );
