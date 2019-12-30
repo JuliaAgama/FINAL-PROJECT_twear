@@ -99,7 +99,8 @@ export function getImgsUrl(queryString, product) {
 }
 
 export function createHomePage(productCards, matches, productsGallery) {
-    const links = productsGallery.links;
+    let links = {womenLinkID: '', menLinkID: ''};
+    if (productsGallery.links) links = productsGallery.links;
     if (!matches) {
         productCards.push(<CategoryLink key={Date.now()+ Math.random()}
                                         categoryLink={`/categories/page=shop&gender=women&category=${links.womenLinkID}`}
