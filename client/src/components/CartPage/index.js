@@ -1,11 +1,8 @@
-import React, {useState} from 'react';
-// import React, {useState, useEffect} from 'react';
-import {useSelector} from "react-redux";
-// import {useDispatch, useSelector} from "react-redux";
+import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import {  useHistory } from 'react-router-dom';
 
-// import * as cartActions from '../../store/actions/cart';
-import cartApi from '../../services/Cart';
+import * as cartActions from '../../store/actions/cart';
 
 import { Typography, Box, Grid, Hidden } from '@material-ui/core';
 
@@ -15,47 +12,39 @@ import useStyles from './useStyles';
 
 export default () => {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const [checkoutAvailable, setCheckoutAvailable] = useState(false);
-    // const [newData, setNewData] = useState(null);
+    const [checkoutModalIsOpen, setCheckoutModalIsOpen] = useState(false);
 
-    // const customerError = useSelector(state => state.customers.error);
     const customerLoaded = useSelector(state => state.customers.loaded);
+    const {cart} = useSelector(state => state.cart);
+
+    useEffect(() => {
+        if (customerLoaded) {
+            dispatch(cartActions.getCart(cart));
+        }
+    }, [customerLoaded]);
 
     const enableCheckout = state => {
         setCheckoutAvailable(state);
     };
 
-    // const handleSetNewData = formData => {
-    //     setNewData(formData);
-    // };
-
     const handleUpdateCart = formData => {
-        // if (newData) {
-            localStorage.setItem('cart', JSON.stringify(formData));
-            // if (customerError || !customerLoaded) {
-                //     localStorage.setItem('cart', JSON.stringify(formData));
-            // } else if (customerLoaded) {
-                // cartActions.updateCart(formData)(dispatch);
-            if (customerLoaded) {
-                (new cartApi()).updateCart({products: formData.products});
-            }
-        // }
+        dispatch(cartActions.updateCart({products: formData.products}))
     };
 
     const history = useHistory();
 
     const onContinue = () => {
-        handleUpdateCart(JSON.parse(localStorage.getItem('cart')));
-        // handleUpdateCart(newData);
+        handleUpdateCart(cart);
         history.push('/');
     };
 
     const onCheckout = () => {
-        handleUpdateCart(JSON.parse(localStorage.getItem('cart')));
-        // handleUpdateCart(newData);
-        // history.push('/checkout');
+        handleUpdateCart(cart);
+        customerLoaded ? console.log('go to checkout') : setCheckoutModalIsOpen(true);
+        // customerLoaded ? history.push('/checkout') : setCheckoutModalIsOpen(true);
     };
 
     const classes = useStyles();
@@ -68,7 +57,6 @@ export default () => {
 
             <Cart
                 enableCheckout={enableCheckout}
-                //handleSetNewData={handleSetNewData}
                 handleUpdateCart={handleUpdateCart}
             />
 

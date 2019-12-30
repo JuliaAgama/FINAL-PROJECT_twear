@@ -14,22 +14,28 @@ import {required, minLength, maxLength, emptyString, password} from '../common/v
 import {renderTextField} from "../common/inputs/inputFields";
 import Spinner from '../common/Spinner'
 
-
 const minLength6 = minLength(6);
 const minLength3 = minLength(3);
 const maxLength30 = maxLength(30);
 
-const Login = (props) => {
-    const {loaded}  = useSelector(state => state.customers);
-    const { handleSubmit, pristine, invalid, submitting } = props;
-    const classes = useStyles();
+
+export default reduxForm({form: 'Login'}) (props => {
+
     const dispatch = useDispatch();
-    const clickHandler = (event) => {
+
+    const { handleSubmit, pristine, invalid, submitting } = props;
+
+    const {loaded}  = useSelector(state => state.customers);
+    const {cart}  = useSelector(state => state.cart);
+
+    const clickHandler = event => {
         event.preventDefault();
         dispatch(openRegistrationModalAction());
     };
 
-    const submit = (values) => dispatch(loginAction(values));
+    const submit = values => dispatch(loginAction(values, cart));
+
+    const classes = useStyles();
 
     return (
         <React.Fragment>
@@ -60,8 +66,4 @@ const Login = (props) => {
             </Grid>
         </React.Fragment>
     );
-}
-
-export default reduxForm({
-    form: 'Login'
-})(Login);
+});

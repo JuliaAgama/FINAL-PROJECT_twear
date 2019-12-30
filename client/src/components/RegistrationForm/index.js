@@ -24,25 +24,25 @@ import Spinner from "../common/Spinner";
 
 import 'react-phone-input-2/dist/style.css'
 
-const minLength7 = minLength(7);
-const minLength3 = minLength(3);
 const minLength2 = minLength(2);
+const minLength3 = minLength(3);
 const maxLength25 = maxLength(25);
-const maxLength10 = maxLength(10);
 const maxLength30 = maxLength(30);
 
 
 export default reduxForm({form: 'Registration'}) (props => {
 
-    const classes = useStyles();
     const dispatch = useDispatch();
+
     const { handleSubmit, pristine, invalid, submitting } = props;
+    const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' + 'and for customizing my user experience to my interests or my shopping habits.';
+
     const {loaded}  = useSelector(state => state.customers);
+    const {cart}  = useSelector(state => state.cart);
 
-    const submit = (values) => dispatch(registrationAction(values));
+    const submit = values => dispatch(registrationAction(values, cart));
 
-    const checkboxText = 'I consent to the processing of my personal data by TWEAR for customer satisfaction purposes\n' +
-        'and for customizing my user experience to my interests or my shopping habits.';
+    const classes = useStyles();
 
     return (
         <React.Fragment>

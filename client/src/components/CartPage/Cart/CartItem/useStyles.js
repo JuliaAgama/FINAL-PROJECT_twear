@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { grey } from '@material-ui/core/colors';
+import { grey, red, pink } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
@@ -21,6 +21,11 @@ export default makeStyles(theme => (
             color: grey[700],
             fontStyle: 'italic',
         },
+        infoRed: {
+            color: red[700],
+            fontStyle: 'italic',
+            fontWeight: 'bold',
+        },
         btnQuantity: {
             cursor: 'pointer',
             color: '#000',
@@ -38,6 +43,22 @@ export default makeStyles(theme => (
             color: '#000',
             "&:hover": {
                 backgroundColor: grey[200],
+            },
+            [theme.breakpoints.down('xs')]: {
+                borderTop: 'none',
+                borderBottom: 'none',
+            },
+        },
+        btnRemoveRed: {
+            cursor: 'pointer',
+            margin: '0 auto',
+            border: '1px solid #000',
+            textTransform: 'uppercase',
+            textAlign: 'center',
+            color: '#fff',
+            backgroundColor: pink[500],
+            "&:hover": {
+                backgroundColor: grey[500],
             },
             [theme.breakpoints.down('xs')]: {
                 borderTop: 'none',

@@ -40,17 +40,24 @@ export default props => {
                         <Box px={2}>Color: {item.color.name.toUpperCase()}</Box>
                         <Box px={2}>Size: {item.size.name.toUpperCase()}</Box>
                         {
-                            item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity === 1 ?
-                                <Box px={2} className={classes.info}fontSize={12}>
+                            item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity === 0 ?
+                                <Box px={2} className={classes.infoRed} fontSize={12}>
                                     <InfoOutlinedIcon fontSize="small"/>
-                                    <span>Last available item in this size and color</span>
+                                    <span>PRODUCT OF THIS SIZE AND COLOR IS OUT OF STOCK</span>
                                 </Box> :
                                 <> {
-                                    item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity < 4 ?
-                                        <Box px={2} className={classes.info} fontSize={12}>
-                                            <InfoOutlinedIcon fontSize="small"/>
-                                            <span>{`Only ${item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity} items left in this size and color`}</span>
-                                        </Box> : <></>
+                                item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity === 1 ?
+                                    <Box px={2} className={classes.info}fontSize={12}>
+                                        <InfoOutlinedIcon fontSize="small"/>
+                                        <span>Last available item in this size and color</span>
+                                    </Box> :
+                                    <> {
+                                        item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity < 4 ?
+                                            <Box px={2} className={classes.info} fontSize={12}>
+                                                <InfoOutlinedIcon fontSize="small"/>
+                                                <span>{`Only ${item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity} items left in this size and color`}</span>
+                                            </Box> : <></>
+                                    } </>
                                 } </>
                         }
                         <Box p={2} >Price: ${item.product.price}</Box>
@@ -59,19 +66,26 @@ export default props => {
 
                 <Grid item xs={12} sm={4} md={3} lg={2} container alignItems='center'className={classes.container}>
                     <Grid item xs={4} sm={12} container alignItems='center' justify='center'>
-                        <Box className={classes.btnQuantity}
-                            onClick={onDecrease}
-                        ><RemoveOutlinedIcon fontSize="small"/></Box>
-                        <Box fontSize='h6.fontSize' px={1}>{item.quantity}</Box>
-                        <Box className={classes.btnQuantity}
-                            onClick={onIncrease}
-                        ><AddOutlinedIcon fontSize="small"/></Box>
+                    {
+                        item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity === 0 ?
+                        <Box fontSize='h6.fontSize' px={1} className={classes.infoRed}>{item.quantity}</Box> :
+                        <>
+                            <Box className={classes.btnQuantity}
+                                onClick={onDecrease}
+                            ><RemoveOutlinedIcon fontSize="small"/></Box>
+                            <Box fontSize='h6.fontSize' px={1}>{item.quantity}</Box>
+                            <Box className={classes.btnQuantity}
+                                onClick={onIncrease}
+                            ><AddOutlinedIcon fontSize="small"/></Box>
+                        </>
+                    }
                     </Grid>
                     <Grid item xs={4} sm={12}>
-                        <Box className={classes.btnRemove} fontSize='body2.fontSize' p={1}
-                            onClick={onRemove}
-                        >remove
-                        </Box>
+                    {
+                        item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity === 0 ?
+                        <Box className={classes.btnRemoveRed} fontSize='body2.fontSize' p={1} onClick={onRemove}>remove</Box> :
+                        <Box className={classes.btnRemove} fontSize='body2.fontSize' p={1} onClick={onRemove}>remove</Box>
+                    }
                     </Grid>
                     <Grid item xs={4} sm={12}>
                         <Box px={2} fontSize='h6.fontSize' textAlign='center'>${item.quantity * item.product.price}</Box>
