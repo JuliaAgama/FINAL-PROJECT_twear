@@ -5,7 +5,7 @@ export default makeStyles(theme => (
         btnQR: {
             position: 'absolute',
             top: '1px',
-            right: '1px',
+            left: '1px',
             width: '57px',
             height: '57px',
             backgroundPosition: 'center',
@@ -17,7 +17,7 @@ export default makeStyles(theme => (
             },
             [theme.breakpoints.down('xs')]: {
                 top: '50%',
-                right: '10px',
+                left: '10px',
                 transform: 'translateY(-50%)',
                 width: '25px',
                 height: '25px',
@@ -28,22 +28,30 @@ export default makeStyles(theme => (
                 display: 'none'
             },
         },
-        imageQR: {
-            width: '400px',
-            height: '400px',
-            margin: '0 auto',
-            marginBottom: theme.spacing(2),
+        personContainer: {
+            // borderBottom: '1px solid #000',
+        },
+        photo: {
+            height: '20vh',
+            width: '20vh',
+            // margin: '0 auto',
+            borderRadius: '50%',
             backgroundPosition: 'center',
-            backgroundSize: 'contain',
+            backgroundSize: 'cover',
+            // backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             [theme.breakpoints.down('sm')]: {
-                width: '300px',
-                height: '300px',
+                height: '15vh',
+                width: '15vh',
+                // width: '300px',
+                // height: '300px',
             },
             [theme.breakpoints.down('xs')]: {
-                marginTop: theme.spacing(2),
-                width: '200px',
-                height: '200px',
+                // height: '20vh',
+                // width: '20vh',
+                // marginTop: theme.spacing(2),
+                // width: '200px',
+                // height: '200px',
             },
         },
     }
