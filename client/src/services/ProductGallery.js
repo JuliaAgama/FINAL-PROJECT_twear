@@ -8,8 +8,8 @@ export default class ProductGallery extends Base {
         //.catch(err => err.response.data);
     }
 
-    getProductGalleryById(customId) {
-        return super.get(`productsGallery/${customId}`)
+    getProductGalleryForShow(isShow) {
+        return super.get(`productsGallery/${isShow}`)
             .then(res => res.data)
         //.catch(err => err.response.data);
     }

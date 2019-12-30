@@ -1,9 +1,10 @@
 const ProductGallery = require("../models/HomePageProductsGallery");
 const queryCreator = require("../commonHelpers/queryCreator");
+const getProductsByItemNoArr = require("../commonHelpers/getProductsByItemNoArr");
+const getCategoriesByIdArr = require("../commonHelpers/getGategoriesByIdArr");
 const _ = require("lodash");
 
 exports.addProductGallery = (req, res, next) => {
-    console.log(req.body)
     ProductGallery.findOne({ name: req.body.name }).then(productGallery => {
         if (productGallery) {
             return res
@@ -93,9 +94,23 @@ exports.getProductsGallery = (req, res, next) => {
         );
 };
 
-exports.getProductGalleryById = (req, res, next) => {
-    ProductGallery.findOne({ _id: req.params.id })
-        .then(productGallery => res.status(200).json(productGallery))
+exports.getProductGalleryForShow = (req, res, next) => {
+    let result;
+    ProductGallery.findOne({ isShow: req.params.isShow })
+        .then(productGallery => {
+          const itemNoArr = [];
+          result = productGallery;
+          productGallery.checkedProduct.forEach(item => itemNoArr.push(item.itemNo));
+          return itemNoArr;
+        })
+        .then(itemNoArr => getProductsByItemNoArr(itemNoArr))
+        .then(data => result.checkedProduct = data)
+        .then(() => getCategoriesByIdArr([result.links.womenLinkID, result.links.menLinkID]))
+        .then(data => {
+            result.links.womenLinkID = data[0].name;
+            result.links.menLinkID = data[1].name;
+        })
+        .then(() => res.status(200).json(result))
         .catch(err =>
             res.status(400).json({
                 message: `Error happened on server: "${err}" `

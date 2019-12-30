@@ -3,6 +3,7 @@ import * as PRODUCTS_GALLERY from '../constants/productGallery';
 const initState = {
     newProductsGallery: {},
     productsGalleries: [],
+    productsGalleryForShow: {},
     loaded: false,
     error: null
 };
@@ -31,7 +32,7 @@ export default function (state = initState, action) {
             return {
                 ...state,
                 ...{
-                    productsGallery: action.data,
+                    productsGalleryForShow: action.data,
                     loaded: true
                 }
             };

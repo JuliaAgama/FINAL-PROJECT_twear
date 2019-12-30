@@ -8,7 +8,7 @@ const {
     updateProductGallery,
     deleteProductGallery,
     getProductsGallery,
-    getProductGalleryById
+    getProductGalleryForShow
 } = require("../controllers/homePageProductGallery");
 
 // @route   POST /productGallery
@@ -46,6 +46,6 @@ router.get("/", getProductsGallery);
 // @route   GET /productGallery/:name
 // @desc    GET existing productGallery
 // @access  Public
-router.get("/:name", getProductGalleryById);
+router.get("/:isShow", getProductGalleryForShow);
 
 module.exports = router;

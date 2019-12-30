@@ -21,6 +21,13 @@ import AddWideButton from "../../common/buttons/AddWide";
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import useStyles from './useStyles';
 
+function isEmpty(obj) {
+    for (const key in obj) {
+        return false;
+    }
+    return true;
+}
+
 
 export default withWidth()(() => {
     const classes = useStyles();
@@ -34,16 +41,17 @@ export default withWidth()(() => {
 
     let galleryForShowState = {}
     productsGalleries.forEach(item => galleryForShowState[item.name] = item.isShow);
+    if (isEmpty(galleryForShowState)) galleryForShowState = "";
     const [galleryForShow, setGalleryForShow] = useState(galleryForShowState);
     const handleChange = name => () => {
         productsGalleries.forEach(item => {
             if (item.isShow && item.name !== name) {
                 item.isShow = false;
-                // dispatch(updateProductsGallery(item))
+                dispatch(updateProductsGallery(item))
             }
             if (item.name === name) {
                 item.isShow = true;
-                // dispatch(updateProductsGallery(item))
+                dispatch(updateProductsGallery(item))
             }
         });
         productsGalleries.forEach(item => galleryForShowState[item.name] = item.isShow);
@@ -82,7 +90,6 @@ export default withWidth()(() => {
                                         <Switch
                                             checked={galleryForShow[el.name]}
                                             onChange={handleChange(el.name)}
-                                            value={el.name}
                                             inputProps={{ 'aria-label': 'secondary checkbox' }}
                                         />
                                         <IconButton

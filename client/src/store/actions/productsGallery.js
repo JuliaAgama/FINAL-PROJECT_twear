@@ -26,10 +26,10 @@ export function getAllProductsGallery() {
     };
 };
 
-export function getProductsGallery(customId) {
+export function getProductsGalleryForShow(isShow) {
     return function (dispatch) {
         dispatch(productsGallerySendRequest());
-        (new ProductsGalleryApi()).getProductGalleryById(customId).then(res => {
+        (new ProductsGalleryApi()).getProductGalleryForShow(isShow).then(res => {
             return dispatch({
                 type: PRODUCTS_GALLERY.PRODUCTS_GALLERY_GET_PRODUCT_GALLERY,
                 data: res

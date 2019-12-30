@@ -9,6 +9,7 @@ import useStyles from "./useStyles";
 import FiltersMenu from "./FiltersMenu";
 import SortMenu from "./SortMenu";
 import {getSetOfProductsColors, getSetOfProductSizes, getCategoryTitle, getImgsUrl, createHomePage} from "./Helpers";
+import {useSelector} from "react-redux";
 
 export default function ProductGallery(props) {
     const {products, queryString, homePage} = props;
@@ -18,6 +19,8 @@ export default function ProductGallery(props) {
     let counter = 1;
     let rowElementsCount = 4;
     if (matches) rowElementsCount = 2;
+    const productsGallery = useSelector(state => state.productsGallery.productsGalleryForShow);
+    const title = productsGallery.title;
 
     const productCards = products.map((product) =>{
         const imgUrls = getImgsUrl(queryString, product);
@@ -47,12 +50,12 @@ export default function ProductGallery(props) {
     }
 
     if (homePage) {
-        createHomePage(productCards, matches);
+        createHomePage(productCards, matches, productsGallery);
     }
 
     return (
         <>
-            <CategoryTitle title={getCategoryTitle(queryString)}/>
+            <CategoryTitle title={homePage ? title : getCategoryTitle(queryString)}/>
             {!homePage ? !matches ? <FiltersMenu colors={getSetOfProductsColors(products, queryString)} queryString = {queryString}/> : '' : ''}
             {!homePage ?  <SortMenu mobile={matches} colors={getSetOfProductsColors(products, queryString)} queryString = {queryString}/> : ''}
             <Container maxWidth={false} className={classes.mainContainer}>
