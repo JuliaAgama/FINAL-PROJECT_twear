@@ -16,7 +16,7 @@ export default props => {
     const [subtotal, setSubtotal] = useState(0);
 
     useEffect(() => {
-        if (cart.products.length > 0 && cart.products.reduce(((sum, el) => sum + el.quantity), 0) > 0) {
+        if (cart.products && cart.products.length > 0 && cart.products.reduce(((sum, el) => sum + el.quantity), 0) > 0) {
             enableCheckout(true);
             setSubtotal(cart.products.reduce(((sum, el) => sum + el.product.price * el.quantity), 0));
         } else {
@@ -57,7 +57,7 @@ export default props => {
 
     return (
         <Box mb={3}>
-            {cart.products.length > 0 ?
+            {cart.products && cart.products.length > 0 ?
             <>
                 <Box className={classes.cart}>
                     {cart.products.map(item =>

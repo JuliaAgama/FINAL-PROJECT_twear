@@ -60,7 +60,7 @@ export default function (state = initState, action) {
             return {
                 ...state,
                 ...{
-                    cart: {},
+                    cart: {products: []},
                     error: null
                 }
             };
