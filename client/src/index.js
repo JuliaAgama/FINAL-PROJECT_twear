@@ -8,22 +8,18 @@ import { Provider } from 'react-redux';
 
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
-import { persistor, pStore, store } from './store';
+import { persistor, store } from './store';
 
 import {Router} from './routes/';
 import Spinner from './components/common/Spinner';
 
 ReactDOM.render(
     <Provider store={store}>
-    {/* <Provider store={pStore}> */}
-        <PersistGate loading={<Spinner />} persistor={persistor}>
-            <BrowserRouter>
+        <BrowserRouter>
+            <PersistGate loading={<Spinner />} persistor={persistor}>
                 <Router/>
-            </BrowserRouter>
-        </PersistGate>
-        {/* <BrowserRouter>
-            <Router/>
-        </BrowserRouter> */}
+            </PersistGate>
+        </BrowserRouter>
     </Provider>,
     document.getElementById('root')
 );

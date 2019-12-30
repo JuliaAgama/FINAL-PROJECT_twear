@@ -1,7 +1,7 @@
 import * as CART from '../constants/cart';
 
 const initState = {
-    cart: {},
+    cart: {products: []},
     loaded: false,
     error: null
 };
@@ -31,7 +31,8 @@ export default function (state = initState, action) {
                     ...state,
                     ...{
                         cart: action.data,
-                        loaded: true
+                        loaded: true,
+                        error: null
                     }
                 };
 
@@ -40,7 +41,8 @@ export default function (state = initState, action) {
                     ...state,
                     ...{
                         cart: action.data,
-                        loaded: true
+                        loaded: true,
+                        error: null
                     }
                 };
 
@@ -49,7 +51,8 @@ export default function (state = initState, action) {
                     ...state,
                     ...{
                         cart: action.data,
-                        loaded: true
+                        loaded: true,
+                        error: null
                     }
                 };
 
@@ -57,7 +60,8 @@ export default function (state = initState, action) {
             return {
                 ...state,
                 ...{
-                    cart: {}
+                    cart: {},
+                    error: null
                 }
             };
 
@@ -75,7 +79,8 @@ export default function (state = initState, action) {
                     ...state,
                     ...{
                         cart: action.data,
-                        loaded: true
+                        loaded: true,
+                        error: null
                     }
                 };
 
@@ -84,7 +89,8 @@ export default function (state = initState, action) {
                     ...state,
                     ...{
                         cart: action.data,
-                        loaded: true
+                        loaded: true,
+                        error: null
                     }
                 };
 
@@ -93,7 +99,8 @@ export default function (state = initState, action) {
                     ...state,
                     ...{
                         cart: action.data,
-                        loaded: true
+                        loaded: true,
+                        error: null
                     }
                 };
 
