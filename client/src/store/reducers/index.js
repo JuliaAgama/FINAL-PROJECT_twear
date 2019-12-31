@@ -24,6 +24,7 @@ import products from './products';
 import productItem from './productItem';
 import archives from './archives';
 import archiveItem from './archiveItem';
+import productsGallery from './productsGallery';
 
 const migrations = {
     0: (state) => {
@@ -46,7 +47,8 @@ const persistConfig = {
     key: 'cart',
     version: 0, //New version 0, default or previous version -1
     storage,
-    whitelist: ['cart'],
+    whitelist: ['cart', 'productsGallery'],
+    // stateReconciler: autoMergeLevel2
     stateReconciler: autoMergeLevel2,
     migrate: createMigrate(migrations, { debug: true }),
 };
@@ -72,6 +74,7 @@ const rootReducer = combineReducers({
     productItem,
     archives,
     archiveItem,
+    productsGallery,
     form: reduxFormReducer
 });
 

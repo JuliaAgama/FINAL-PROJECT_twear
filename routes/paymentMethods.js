@@ -20,20 +20,20 @@ router.post(
   addPaymentMethod
 );
 
-// @route   PUT /payment-methods/:customId
+// @route   PUT /payment-methods/:name
 // @desc    Update existing payment method
 // @access  Private
 router.put(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   updatePaymentMethod
 );
 
-// @route   DELETE /payment-methods/:customId
+// @route   DELETE /payment-methods/:name
 // @desc    DELETE existing payment method
 // @access  Private
 router.delete(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   deletePaymentMethod
 );
@@ -43,9 +43,9 @@ router.delete(
 // @access  Public
 router.get("/", getPaymentMethods);
 
-// @route   GET /payment-methods/:customId
-// @desc    GET existing payment methods by customId
+// @route   GET /payment-methods/:name
+// @desc    GET existing payment methods by name
 // @access  Public
-router.get("/:customId", getPaymentMethodById);
+router.get("/:name", getPaymentMethodById);
 
 module.exports = router;

@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getAllProducts} from "../../store/actions/products";
+import {getProductsGalleryForShow} from "../../store/actions/productsGallery";
 
-import {Typography, Hidden, Box} from "@material-ui/core";
+import {Typography, Box} from "@material-ui/core";
 
 import useStyles from "./useStyles";
 
@@ -12,11 +12,10 @@ import CategoriesHome from "./CategoriesHome";
 export default () => {
     const dispatch = useDispatch();
 
-    useEffect(() => {dispatch(getAllProducts())},[dispatch]);
+    useEffect(() => {dispatch(getProductsGalleryForShow(true))},[dispatch]);
 
-    let products = useSelector(state => state.products.products);
-
-    products.splice(4);
+    let products = useSelector(state => state.productsGallery.productsGalleryForShow);
+    products = products.checkedProduct;
 
     const classes = useStyles();
 
