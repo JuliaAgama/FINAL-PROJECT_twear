@@ -37,7 +37,7 @@ export default props => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container maxWidth="lg" className={classes.layoutContainer}>
+            <Container maxWidth={false} className={classes.layoutContainer}>
                 <div className={classes.header}><Header/></div>
                 <div>{props.children}</div>
                 <div className={classes.footer}><Footer/></div>

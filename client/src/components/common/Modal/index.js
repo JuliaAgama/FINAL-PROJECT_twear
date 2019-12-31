@@ -7,9 +7,10 @@ import {closeModalAction} from "../../../store/actions/modal";
 import Registration from "../../RegistrationForm";
 import {Dialog} from "@material-ui/core";
 import useStyles from "./useStyles";
+import Box from "@material-ui/core/Box";
 
 
-export default function TransitionsModal() {
+export default function TransitionsModal(props) {
     const classes = useStyles();
     const {open, login}  = useSelector(state => state.modal);
     const dispatch = useDispatch();
@@ -32,7 +33,8 @@ export default function TransitionsModal() {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        {login ? <Login/> : <Registration/>}
+                        {/*{login ? <Login/> : <Registration/>}*/}
+                        <div>{props.children}</div>
                     </div>
                 </Fade>
             </Dialog>

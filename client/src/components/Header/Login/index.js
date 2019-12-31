@@ -8,6 +8,8 @@ import { hideDesktopCategoriesMenuAction } from "../../../store/actions/header";
 
 import { Grid} from "@material-ui/core";
 import PersonIcon from '@material-ui/icons/Person';
+import TransitionsModal from '../../common/Modal'
+import LoginForm from '../../LoginForm'
 
 import useStyles from "./useStyles";
 
@@ -54,7 +56,7 @@ export default () => {
                     {customer.isAdmin ?
                     <>
                         <Grid item xs={12} md={3} className={classes.subMenuItem}>
-                            <Link to='/#' className={classes.linkContainer}>Personal Cabinet ({customer.firstName.toUpperCase()})</Link>
+                            <Link to='/personalCabinet' className={classes.linkContainer}>Personal Cabinet ({customer.firstName.toUpperCase()})</Link>
                         </Grid>
                         <Grid item xs={12} md={6} className={classes.subMenuItem}>
                             <Link to={'/admin'} className={classes.linkContainer}>Admin Page</Link>
@@ -65,7 +67,7 @@ export default () => {
                     </> :
                     <>
                         <Grid item xs={12} md={6} className={classes.subMenuItem}>
-                            <Link to='/#' className={classes.linkContainer}>Personal Cabinet  ({customer.firstName.toUpperCase()}) </Link>
+                            <Link to='/personalCabinet' className={classes.linkContainer}>Personal Cabinet  ({customer.firstName.toUpperCase()}) </Link>
                         </Grid>
                         <Grid item xs={12} md={6} className={classes.subMenuItem}>
                             <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
@@ -74,6 +76,9 @@ export default () => {
                     }
                 </Grid> : <></>
             }
+            <TransitionsModal>
+                <LoginForm/>
+            </TransitionsModal>
         </React.Fragment>
     );
 };
