@@ -98,25 +98,27 @@ export function getImgsUrl(queryString, product) {
     return [img1, img2];
 }
 
-export function createHomePage(productCards, matches) {
+export function createHomePage(productCards, matches, productsGallery) {
+    let links = {womenLinkID: '', menLinkID: ''};
+    if (productsGallery.links) links = productsGallery.links;
     if (!matches) {
         productCards.push(<CategoryLink key={Date.now()+ Math.random()}
-                                        categoryLink={`/categories/gender=women&category=dresses`}
-                                        categoryName={`Women's Dresses`}
+                                        categoryLink={`/categories/page=shop&gender=women&category=${links.womenLinkID}`}
+                                        categoryName={`Women's ${links.womenLinkID}`}
                                         borderRight={true} />);
         productCards.push(<CategoryLink key={Date.now()+ Math.random()}
-                                        categoryLink={`/categories/gender=unisex&category=Jeans`}
-                                        categoryName={`Men's Jeans`}
+                                        categoryLink={`/categories/page=shop&gender=unisex&category=${links.menLinkID}`}
+                                        categoryName={`Men's ${links.menLinkID}`}
                                         borderRight={false} />);
     } else {
         productCards.splice(2,0,<CategoryLink key={Date.now()+ Math.random()}
-                                              categoryLink={`/categories/gender=women&category=dresses`}
-                                              categoryName={`Women's Dresses`}
+                                              categoryLink={`/categories/page=shop&gender=women&category=${links.womenLinkID}`}
+                                              categoryName={`Women's ${links.womenLinkID}`}
                                               borderRight={false}
                                               borderBottom={true}  />);
         productCards.push(<CategoryLink key={Date.now()+ Math.random()}
-                                        categoryLink={`/categories/gender=unisex&category=Jeans`}
-                                        categoryName={`Men's Jeans`}
+                                        categoryLink={`/categories/page=shop&gender=unisex&category=${links.menLinkID}`}
+                                        categoryName={`Men's ${links.menLinkID}`}
                                         borderRight={false} />);
     }
 }

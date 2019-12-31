@@ -23,7 +23,7 @@ router.post(
 // @desc    Update existing page
 // @access  Private
 router.put(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   updatePage
 );
@@ -32,7 +32,7 @@ router.put(
 // @desc    Delete existing page
 // @access  Private
 router.delete(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   deletePage
 );
@@ -40,6 +40,6 @@ router.delete(
 // @route   GET /pages
 // @desc    GET existing page
 // @access  Public
-router.get("/:customId", getPage);
+router.get("/:name", getPage);
 
 module.exports = router;

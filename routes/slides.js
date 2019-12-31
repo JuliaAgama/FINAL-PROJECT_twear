@@ -23,7 +23,7 @@ router.post(
 // @desc    Update existing slide
 // @access  Private
 router.put(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   updateSlide
 );
@@ -32,7 +32,7 @@ router.put(
 // @desc    Delete existing slide
 // @access  Private
 router.delete(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   deleteSlide
 );

@@ -12,6 +12,7 @@ const manageList = [
     {name: 'products', url: 'products'},
     {name: 'categories', url: 'categories'},
     {name: 'colors & sizes', url: 'options'},
+    {name: 'products gallery', url: 'productsGallery'},
     {name: 'info & settings', url: 'settings'}
 ];
 
