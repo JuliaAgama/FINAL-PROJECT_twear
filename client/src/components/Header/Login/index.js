@@ -8,8 +8,7 @@ import { hideDesktopCategoriesMenuAction } from "../../../store/actions/header";
 
 import { Grid} from "@material-ui/core";
 import PersonIcon from '@material-ui/icons/Person';
-import TransitionsModal from '../../common/Modal'
-import LoginForm from '../../LoginForm'
+
 
 import useStyles from "./useStyles";
 
@@ -76,9 +75,6 @@ export default () => {
                     }
                 </Grid> : <></>
             }
-            <TransitionsModal>
-                <LoginForm/>
-            </TransitionsModal>
         </React.Fragment>
     );
 };

@@ -59,9 +59,9 @@ export default reduxForm({form: 'Login'}) (props => {
                             </Link>
                         </div>
                     </form>
-                    {/*<Container className={classes.spinnerContainer}>*/}
-                    {/*    {loaded ? <Spinner/> : ''}*/}
-                    {/*</Container>*/}
+                    <Container className={classes.spinnerContainer}>
+                        {loaded ? <Spinner/> : ''}
+                    </Container>
                 </Container>
             </Grid>
         </React.Fragment>
