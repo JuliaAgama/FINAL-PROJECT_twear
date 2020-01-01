@@ -19,8 +19,8 @@ import Name from "./Name";
 import Products from "./Products";
 import useStyles from './useStyles';
 import {useDispatch, useSelector} from "react-redux";
-import {addProductsGallery} from '../../../../store/actions/productsGallery'
-import ErrorModal from "../../../common/messages/ErrorModal";
+import {addProductsGallery} from '../../../../../store/actions/productsGallery'
+import ErrorModal from "../../../../common/messages/ErrorModal";
 
 
 

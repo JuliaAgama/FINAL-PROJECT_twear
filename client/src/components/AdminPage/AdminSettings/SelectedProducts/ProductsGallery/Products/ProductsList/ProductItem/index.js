@@ -3,8 +3,7 @@ import { Typography, Box, Grid, ListItem, Divider, Hidden} from '@material-ui/co
 import useStyles from './useStyles';
 import Checkbox from "@material-ui/core/Checkbox";
 import {useDispatch} from "react-redux";
-import {createProductsGallery, localUpdateProductsGallery} from '../../../../../../../store/actions/productsGallery'
-
+import {createProductsGallery, localUpdateProductsGallery} from '../../../../../../../../store/actions/productsGallery';
 
 
 export default props => {

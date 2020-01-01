@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import * as topCatsActions from '../../../../../store/actions/topCats';
-import * as categoriesActions from '../../../../../store/actions/categories';
-import * as productsActions from '../../../../../store/actions/products';
+import * as topCatsActions from '../../../../../../store/actions/topCats';
+import * as categoriesActions from '../../../../../../store/actions/categories';
+import * as productsActions from '../../../../../../store/actions/products';
+import {updateProductsGallery} from "../../../../../../store/actions/productsGallery";
 
 import {withWidth, Typography, Box, Grid, Button} from '@material-ui/core';
 
 import useStyles from './useStyles';
 
-import Spinner from '../../../../common/Spinner';
-import Selector from '../../../../common/inputs/Selector';
+import Spinner from '../../../../../common/Spinner';
+import Selector from '../../../../../common/inputs/Selector';
 import ProductsList from './ProductsList';
-import {updateProductsGallery} from "../../../../../store/actions/productsGallery";
-import ErrorModal from "../../../../common/messages/ErrorModal";
+import ErrorModal from "../../../../../common/messages/ErrorModal";
 
 function checkChosenProducts(productsGallery) {
     let response = '';
