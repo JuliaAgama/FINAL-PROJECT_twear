@@ -12,6 +12,8 @@
     "bootstrap": "^4.3.1",
     "jss": "^10.0.0",
     "lodash": "^4.17.15",
+    "lodash-es": "^4.17.15",
+    "lodash-move": "^1.1.1",
     "lorem-ipsum": "^2.0.3",
     "namor": "^2.0.2",
     "node-sass": "^4.13.0",
@@ -32,13 +34,15 @@
     "react-spring": "^8.0.27",
     "react-table": "^7.0.0-beta.26",
     "react-ticker": "^1.2.1",
+    "react-with-gesture": "^4.0.8",
     "redux": "^4.0.4",
     "redux-form": "^8.2.6",
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.3",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "vec-la": "^1.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
