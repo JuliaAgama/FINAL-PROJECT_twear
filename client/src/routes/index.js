@@ -26,6 +26,7 @@ import AdminProductsGallery from "../components/AdminPage/AdminProductsGallery";
 
 import PersonalCabinet from "../components/PersonalCabinet";
 import PrivateRoute from "./PrivateRoute";
+import CustomerRoute from "./CustomerRoute";
 import AccessDenied from "../components/AccessDenied";
 
 export const Router = () => (
@@ -41,9 +42,6 @@ export const Router = () => (
                         path="/top-category/:name?"
                         component={props => <LayoutMain {...props}><TopCatPage/></LayoutMain>}/>
                 <Route exact
-                    path="/personalCabinet"
-                    component={props => <LayoutMain {...props}><PersonalCabinet/></LayoutMain>}/>
-                <Route exact
                     path="/categories/:category?"
                     component={props => <LayoutMain {...props}><CategoryPage/></LayoutMain>}/>
                 <Route exact
@@ -55,6 +53,9 @@ export const Router = () => (
 
 
                 <Route exact path="/accessDenied" component={AccessDenied} />
+
+                <CustomerRoute exact path="/personalCabinet"
+                       component={props => <LayoutMain {...props}><PersonalCabinet/></LayoutMain>}/>
 
                 <PrivateRoute exact path="/admin"
                     component={props => ( <LayoutAdmin {...props}> <AdminPage /> </LayoutAdmin> )} />
