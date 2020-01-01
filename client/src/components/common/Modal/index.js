@@ -8,14 +8,12 @@ import Registration from "../../RegistrationForm";
 import {Dialog} from "@material-ui/core";
 import useStyles from "./useStyles";
 
-
 export default function TransitionsModal() {
     const classes = useStyles();
     const {open, login}  = useSelector(state => state.modal);
     const dispatch = useDispatch();
 
     return (
-        <div>
             <Dialog
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -36,6 +34,5 @@ export default function TransitionsModal() {
                     </div>
                 </Fade>
             </Dialog>
-        </div>
     );
 }

@@ -20,20 +20,20 @@ router.post(
   addShippingMethod
 );
 
-// @route   PUT /shipping-methods/:customId
+// @route   PUT /shipping-methods/:name
 // @desc    Update existing shipping method
 // @access  Private
 router.put(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   updateShippingMethod
 );
 
-// @route   DELETE /shipping-methods/:customId
+// @route   DELETE /shipping-methods/:name
 // @desc    DELETE existing shipping method
 // @access  Private
 router.delete(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   deleteShippingMethod
 );
@@ -43,9 +43,9 @@ router.delete(
 // @access  Public
 router.get("/", getShippingMethods);
 
-// @route   GET /shipping-methods/:customId
-// @desc    GET existing shipping methods by customId
+// @route   GET /shipping-methods/:name
+// @desc    GET existing shipping methods by name
 // @access  Public
-router.get("/:customId", getShippingMethodById);
+router.get("/:name", getShippingMethodById);
 
 module.exports = router;

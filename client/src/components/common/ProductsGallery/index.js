@@ -9,6 +9,7 @@ import useStyles from "./useStyles";
 import FiltersMenu from "./FiltersMenu";
 import SortMenu from "./SortMenu";
 import {getSetOfProductsColors, getSetOfProductSizes, getCategoryTitle, getImgsUrl, createHomePage} from "./Helpers";
+import {useSelector} from "react-redux";
 
 export default function ProductGallery(props) {
     const {products, queryString, homePage} = props;
@@ -18,24 +19,28 @@ export default function ProductGallery(props) {
     let counter = 1;
     let rowElementsCount = 4;
     if (matches) rowElementsCount = 2;
-
-    const productCards = products.map((product) =>{
-        const imgUrls = getImgsUrl(queryString, product);
-        const img1 = imgUrls[0];
-        const img2 = imgUrls[1];
-        let borderRight =true;
-        if (counter % rowElementsCount === 0) borderRight = false;
-        counter++;
-        let sizes = getSetOfProductSizes(product);
-        return <ProductCard name={product.name}
-                     price={product.price}
-                     sizes={sizes}
-                     srcImg1={img1}
-                     srcImg2={img2}
-                     key={product._id}
-                     href = {`products/${product.itemNo}`}
-                     borderRight={borderRight}/>;
-    });
+    const productsGallery = useSelector(state => state.productsGallery.productsGalleryForShow);
+    const title = productsGallery.title;
+    let productCards = [];
+    if (products) {
+            productCards = products.map((product) =>{
+            const imgUrls = getImgsUrl(queryString, product);
+            const img1 = imgUrls[0];
+            const img2 = imgUrls[1];
+            let borderRight =true;
+            if (counter % rowElementsCount === 0) borderRight = false;
+            counter++;
+            let sizes = getSetOfProductSizes(product);
+            return <ProductCard name={product.name}
+                                price={product.price}
+                                sizes={sizes}
+                                srcImg1={img1}
+                                srcImg2={img2}
+                                key={product._id}
+                                href = {`products/${product.itemNo}`}
+                                borderRight={borderRight}/>;
+        });
+    }
 
     const lastRowElementsCount = productCards.length % rowElementsCount;
 
@@ -47,12 +52,12 @@ export default function ProductGallery(props) {
     }
 
     if (homePage) {
-        createHomePage(productCards, matches);
+        createHomePage(productCards, matches, productsGallery);
     }
 
     return (
         <>
-            <CategoryTitle title={getCategoryTitle(queryString)}/>
+            <CategoryTitle title={homePage ? title : getCategoryTitle(queryString)}/>
             {!homePage ? !matches ? <FiltersMenu colors={getSetOfProductsColors(products, queryString)} queryString = {queryString}/> : '' : ''}
             {!homePage ?  <SortMenu mobile={matches} colors={getSetOfProductsColors(products, queryString)} queryString = {queryString}/> : ''}
             <Container maxWidth={false} className={classes.mainContainer}>

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
-import { persistReducer } from 'redux-persist';
+import { persistReducer, createMigrate } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-// import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 import cart from './cart';
 import topCats from './topCats';
@@ -24,12 +24,33 @@ import products from './products';
 import productItem from './productItem';
 import archives from './archives';
 import archiveItem from './archiveItem';
+import productsGallery from './productsGallery';
+
+const migrations = {
+    0: (state) => {
+        return {
+            ...state,
+            cart: {
+                ...state.cart,
+            },
+            loaded: {
+                ...state.loaded,
+            },
+            error: {
+                ...state.error,
+            },
+        }
+    }
+};
 
 const persistConfig = {
     key: 'cart',
+    version: 0, //New version 0, default or previous version -1
     storage,
-    whitelist: ['cart'],
+    whitelist: ['cart', 'productsGallery'],
     // stateReconciler: autoMergeLevel2
+    stateReconciler: autoMergeLevel2,
+    migrate: createMigrate(migrations, { debug: true }),
 };
 
 const rootReducer = combineReducers({
@@ -53,6 +74,7 @@ const rootReducer = combineReducers({
     productItem,
     archives,
     archiveItem,
+    productsGallery,
     form: reduxFormReducer
 });
 

@@ -3,23 +3,23 @@ import React, {useState} from "react";
 import { ClickAwayListener, Container } from "@material-ui/core/";
 import useStyles from "./useStyles";
 
-import ModalQR from '../../common/ModalQR';
+// import ModalQR from '../../common/ModalQR';
 
 export default () => {
 
     const classes = useStyles();
     const [isVisible, setVisibility] = useState(false);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    // const [modalIsOpen, setModalIsOpen] = useState(false);
     const handleClickAway = () => setVisibility(false);
 
     const handleClickOpen = () => {
         setVisibility(true)
-        setModalIsOpen(true);
+        // setModalIsOpen(true);
     };
 
-    const closeModal = () => {
-        setModalIsOpen(false)
-    };
+    // const closeModal = () => {
+    //     setModalIsOpen(false)
+    // };
 
 
     return (
@@ -36,10 +36,10 @@ export default () => {
                     }
                 </Container>
             </ClickAwayListener>
-            <ModalQR
+            {/* <ModalQR
                 modalIsOpen={modalIsOpen}
                 closeModal={closeModal}
-            />
+            /> */}
         </React.Fragment>
     );
 };

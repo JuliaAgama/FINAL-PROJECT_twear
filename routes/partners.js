@@ -19,20 +19,20 @@ router.post(
   addPartner
 );
 
-// @route   PUT /partners/:customId
+// @route   PUT /partners/:name
 // @desc    Update existing partner
 // @access  Private
 router.put(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   updatePartner
 );
 
-// @route   DELETE /partners/:customId
+// @route   DELETE /partners/:name
 // @desc    DELETE existing partner
 // @access  Private
 router.delete(
-  "/:customId",
+  "/:name",
   passport.authenticate("jwt-admin", { session: false }),
   deletePartner
 );

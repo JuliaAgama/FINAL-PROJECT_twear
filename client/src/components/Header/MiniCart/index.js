@@ -18,7 +18,7 @@ export default () => {
     const {cart} = useSelector(state => state.cart);
 
     useEffect(() => {
-        if(cart.products.length > 0 && cart.products.reduce(((sum, el) => sum + el.quantity), 0) > 0) {
+        if(cart.products && cart.products.length > 0 && cart.products.reduce(((sum, el) => sum + el.quantity), 0) > 0) {
             setSkus(cart.products.length);
             setInvisible(false);
         } else {
