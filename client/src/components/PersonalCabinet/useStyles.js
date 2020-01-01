@@ -3,10 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(theme => (
     {
         container: {
-            display: 'flex',
             width: '100%',
-            border: '1px solid black',
-            borderTop: 'none',
+            borderLeft: '1px solid black',
+            borderRight: '1px solid black',
+            padding: '0',
+            marginTop: '60px',
+            [theme.breakpoints.down('sm')]: {
+                marginTop: '-14px',
+            },
         }
     }
 ));
