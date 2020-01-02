@@ -43,7 +43,10 @@ function Product() {
                     </Container>
                 </animated.div>
             </Container>
-            <Container maxWidth={false} className={classes.container}>DDDDDD</Container>
+            <Container maxWidth={false} className={classes.container}>
+                <p className={classes.productName}>{product.name}</p>
+                <p className={classes.productPrice}>{product.price} usa</p>
+            </Container>
         </Container>
     );
 }
