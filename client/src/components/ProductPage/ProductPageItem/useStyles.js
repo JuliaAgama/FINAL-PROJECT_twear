@@ -13,7 +13,7 @@ export default makeStyles(theme => (
         container : {
             width: '50%',
             borderLeft: '1px solid black',
-            padding: '50px 30px',
+            padding: '30px 20px',
             margin: '0',
         },
         imgContainer : {
@@ -26,16 +26,11 @@ export default makeStyles(theme => (
             width: '100%',
             padding: '0',
             margin: '0',
-            transition: '0.5s',
-            "&:hover": {
-                transform: 'scale(1.9)',
-                cursor: 'pointer'
-            },
-        },
-        img: {
-            "&:hover": {
-                transform: 'scale(1.2)',
-            },
+            // transition: '0.5s',
+            // "&:hover": {
+            //     transform: 'scale(1.9)',
+            //     cursor: 'pointer'
+            // },
         },
         productName: {
             fontSize: '25px',
@@ -47,7 +42,29 @@ export default makeStyles(theme => (
             fontSize: '18px',
             fontWeight: '700',
             textTransform: 'uppercase',
-            margin: '8px 0'
+            margin: '8px 0 20px'
+        },
+        option: {
+            fontWeight: '600',
+            marginRight: '50px'
+        },
+        btn: {
+            margin: '30px 0'
+        },
+        addInfo: {
+            display: 'flex',
+            width: '100%',
+            padding: '0',
+            justifyContent: 'space-between',
+            fontSize: '14px',
+            fontWeight: '700'
+        },
+        delivery: {
+            textDecoration: 'underline',
+            margin: '0'
+        },
+        details: {
+            margin: '0'
         }
     }
 ));
