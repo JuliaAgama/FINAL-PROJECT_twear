@@ -14,6 +14,8 @@ import CategoryPage from "../components/CategoryPage";
 import ProductPage from "../components/ProductPage";
 import CartPage from "../components/CartPage";
 
+import PersonalCabinet from "../components/PersonalCabinet";
+
 import AdminPage from "../components/AdminPage";
 import AdminCategories from "../components/AdminPage/AdminCategories";
 import AdminCategoriesEditNew from "../components/AdminPage/AdminCategories/EditNew";
@@ -22,12 +24,13 @@ import AdminProducts from "../components/AdminPage/AdminProducts";
 import AdminProductReview from "../components/AdminPage/AdminProducts/ProductReview";
 import AdminProductsEditNew from "../components/AdminPage/AdminProducts/EditNew";
 import AdminProductsEditNewColors from "../components/AdminPage/AdminProducts/EditNewColors";
-import AdminProductsGallery from "../components/AdminPage/AdminProductsGallery";
+import AdminSettings from "../components/AdminPage/AdminSettings";
+import AdminSelectedProducts from "../components/AdminPage/AdminSettings/SelectedProducts";
 
-import PersonalCabinet from "../components/PersonalCabinet";
 import PrivateRoute from "./PrivateRoute";
 import CustomerRoute from "./CustomerRoute";
 import AccessDenied from "../components/AccessDenied";
+
 
 export const Router = () => (
 
@@ -86,8 +89,12 @@ export const Router = () => (
                 <PrivateRoute exact path="/admin/products/edit/colors/:itemNo?"
                     component={props => ( <LayoutAdmin {...props}> <AdminProductsEditNewColors {...props} /> </LayoutAdmin> )}
                 />
-                <PrivateRoute exact path="/admin/productsGallery"
-                              component={props => ( <LayoutAdmin {...props}> <AdminProductsGallery {...props}/> </LayoutAdmin> )}
+                <PrivateRoute exact path="/admin/settings"
+                    component={props => ( <LayoutAdmin {...props}> <AdminSettings {...props}/> </LayoutAdmin> )}
+                />
+                />
+                <PrivateRoute exact path="/admin/selectedProducts"
+                    component={props => ( <LayoutAdmin {...props}> <AdminSelectedProducts {...props}/> </LayoutAdmin> )}
                 />
                 <Route path="*" component={NotFound} />
             </Switch>

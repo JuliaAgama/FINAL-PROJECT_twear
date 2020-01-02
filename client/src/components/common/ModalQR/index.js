@@ -38,7 +38,7 @@ export default props => {
             >
                 <DialogTitle id="alert-dialog-title" className={classes.title}>{"https://twear.herokuapp.com/"}</DialogTitle>
                 <DialogContent>
-                    <Box style={{backgroundImage:`url(img/qr-code.png)`}}className={classes.imageQR}/>>
+                    <Box style={{backgroundImage:`url(img/qr-code.png)`}}className={classes.imageQR}/>
                 </DialogContent>
             </Dialog>
         </div>

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Typography, Grid, Button} from '@material-ui/core';
 import useStyles from './useStyles';
-import Selector from "../../../../common/inputs/Selector";
-import {getAllCategories} from "../../../../../store/actions/categories";
+import Selector from "../../../../../common/inputs/Selector";
+import {getAllCategories} from "../../../../../../store/actions/categories";
 import {useDispatch, useSelector} from "react-redux";
-import {createProductsGallery, updateProductsGallery} from '../../../../../store/actions/productsGallery'
+import {createProductsGallery, updateProductsGallery} from '../../../../../../store/actions/productsGallery'
 
 function CategoriesFilter(categories, gender) {
     return categories.filter(category => category.gender.name === gender || category.gender.name === 'unisex');

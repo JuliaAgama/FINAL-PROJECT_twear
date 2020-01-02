@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Typography, Grid, TextField, Button} from '@material-ui/core';
 import useStyles from './useStyles';
 import {useDispatch, useSelector} from "react-redux";
-import {createProductsGallery, updateProductsGallery} from '../../../../../store/actions/productsGallery'
+import {createProductsGallery, updateProductsGallery} from '../../../../../../store/actions/productsGallery'
 
 export default props => {
     const {setExpanded, newProductsGallery, galleryName} = props;

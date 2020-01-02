@@ -16,8 +16,8 @@ import clsx from "clsx";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ProductsGallery from './ProductsGallery';
 import {useDispatch, useSelector} from "react-redux";
-import {getAllProductsGallery, deleteProductsGallery, updateProductsGallery} from '../../../store/actions/productsGallery'
-import AddWideButton from "../../common/buttons/AddWide";
+import {getAllProductsGallery, deleteProductsGallery, updateProductsGallery} from '../../../../store/actions/productsGallery'
+import AddWideButton from "../../../common/buttons/AddWide";
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import useStyles from './useStyles';
 
