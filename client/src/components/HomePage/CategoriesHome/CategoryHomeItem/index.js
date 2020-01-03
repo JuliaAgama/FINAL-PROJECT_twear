@@ -1,21 +1,25 @@
 import React from "react";
-// import useStyles from "./useStyles";
-import {Link, Grid} from "@material-ui/core";
+
+import {Link, Grid, Box} from "@material-ui/core";
+
+import useStyles from "./useStyles";
+
 import './categoryHomeItem.css';
 
-const CategoryHomeItem = (props) => {
+const CategoryHomeItem = props => {
 
     const {name, id, href, image} = props;
 
+    const classes = useStyles();
 
     return (
-            <Grid item xs={3} id={`item${id}`} className="category-item-home" style = {{backgroundImage:`url(${image})`}}>
+            <Grid item xs={6} md={3} id={`item${id}`} className="category-item-home" style = {{backgroundImage:`url(${image})`}}>
                 <p className="top-cat-name">{name}</p>
-                <Link className="hidden-link" href={href+'&men'}>
-                    MEN
+                <Link className='hidden-link' href={href+'&men'}>
+                    <Box className={classes.gender}>MEN</Box>
                 </Link>
-                <Link className="hidden-link" href={href+'&women'}>
-                    WOMEN
+                <Link className='hidden-link' href={href+'&women'}>
+                    <Box className={classes.gender}>WOMEN</Box>
                 </Link>
             </Grid>
     );

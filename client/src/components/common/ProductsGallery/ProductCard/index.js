@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
-import {Container} from "@material-ui/core";
+import {Link} from "react-router-dom";
+
+import {Container, Box} from "@material-ui/core";
 import { useSpring, animated as a } from 'react-spring'
+
 import useStyles from "./useStyles";
 
 
@@ -45,12 +48,12 @@ export default function ProductCard(props) {
                             alt="NOT FOUND"/>
                     </div>
                     <div className={classes.textContainer}>
-                        <p className={classes.title}>Size</p>
+                        <p className={classes.title}>Sizes</p>
                         <p className={classes.value}>{sizes}</p>
                     </div>
                 </a.div>
             }
-            <a href={href}> THIS IS LINK </a>   
+            <Link to={href} className={classes.link}><Box fontSize='body1.fontSize'>VIEW PRODUCT</Box></Link>
         </Container>
     );
 };

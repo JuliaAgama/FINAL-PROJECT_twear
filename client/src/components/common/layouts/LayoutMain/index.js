@@ -14,16 +14,6 @@ import Footer from "../../../Footer";
 
 export default props => {
 
-    // const dispatch = useDispatch();
-
-    // const customerLoaded = useSelector(state => state.customers.loaded);
-
-    // useEffect(() => {
-    //     if(customerLoaded) {
-    //         cartActions.getCart(cart)(dispatch);
-    //     }
-    // }, [customerLoaded, dispatch]);
-
     //styling layout:
     const breakpointValues = {
         xs: 0,
@@ -31,13 +21,14 @@ export default props => {
         md: 768,
         lg: 992,
         xl: 1200,
+        xxl: 1500,
     };
     const theme = createMuiTheme({ breakpoints: { values: breakpointValues } });
     const classes = useStyles();
 
     return (
         <ThemeProvider theme={theme}>
-            <Container maxWidth='lg' className={classes.layoutContainer} >
+            <Container maxWidth='xxl' className={classes.layoutContainer} >
                 <div className={classes.header}><Header/></div>
                 <div>{props.children}</div>
                 <div className={classes.footer}><Footer/></div>

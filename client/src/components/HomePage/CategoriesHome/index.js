@@ -9,8 +9,12 @@ import CategoryHomeItemMobile from "./CategoryHomeItemMobile";
 const CategoriesHome = () => {
     const dispatch = useDispatch();
     const topCats = useSelector(state => state.topCats.topCats);
-    const topCatsItem = topCats.map((item, index) => <CategoryHomeItem href = {`top-category/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>);
-    const topCatsItemMobile = topCats.map((item, index) => <CategoryHomeItemMobile href = {`top-category/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>);
+    const topCatsItem = topCats.map((item, index) =>
+        <CategoryHomeItem href = {`top-category/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>
+    );
+    const topCatsItemMobile = topCats.map((item, index) =>
+        <CategoryHomeItemMobile href = {`top-category/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>
+    );
 
     useEffect(() => dispatch(getAllTopCats()),
     [dispatch]
@@ -20,16 +24,19 @@ const CategoriesHome = () => {
 
     return (
         <>
-        <Hidden smDown>
+        {/* <Hidden smDown> */}
             <Grid container className={classes.Media}>
-                {topCatsItem}
+                {topCats.map((item, index) =>
+                    <CategoryHomeItem href = {`top-category/${item.name}`} name = {item.name} id={index+1} key = {item._id} image = {item.img}/>
+                )}
+                {/* {topCatsItem} */}
             </Grid>
-        </Hidden>
-        <Hidden mdUp>
+        {/* </Hidden> */}
+        {/* <Hidden mdUp>
             <Grid container>
                 {topCatsItemMobile}
             </Grid>
-        </Hidden>
+        </Hidden> */}
         </>
     );
 };

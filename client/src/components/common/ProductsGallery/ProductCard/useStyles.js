@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { pink } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
@@ -33,7 +34,8 @@ export default makeStyles(theme => (
             maxWidth: '100%',
         },
         textContainer: {
-            fontWeight: '700'
+            fontWeight: '700',
+            textTransform: 'capitalize',
         },
         title: {
             margin: '0',
@@ -42,9 +44,18 @@ export default makeStyles(theme => (
         value: {
             paddingBottom: '18%',
             margin: '0',
+            textTransform: 'uppercase',
         },
         borderRight: {
             borderRight: 'none'
-        }
+        },
+        link: {
+            color: 'inherit',
+            textDecoration: 'none',
+            '&:hover' : {
+                color: pink[700],
+            },
+        },
     }
 ));
+
