@@ -2,6 +2,7 @@ import * as PRODUCTS from '../constants/products';
 
 const initState = {
     products: [],
+    product: {},
     productsFiltered: {},
     loaded: false,
     error: null
@@ -62,6 +63,15 @@ export default function (state = initState, action) {
                         loaded: true
                     }
                 };
+
+        case PRODUCTS.PRODUCT_GET_PRODUCT_ITEM_BY_ITEMNO:
+            return {
+                ...state,
+                ...{
+                    product: action.data,
+                    loaded: true
+                }
+            };
 
         case PRODUCTS.PRODUCTS_ADD_PRODUCT:
             return {
