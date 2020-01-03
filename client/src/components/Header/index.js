@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {hideDesktopCategoriesMenuAction} from "../../store/actions/header";
 import {hideMobileMenuAction} from "../../store/actions/header";
 
-import {withWidth, Container, Hidden, Grid} from '@material-ui/core';
+import {withWidth, Container, Hidden} from '@material-ui/core';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 import useStyles from './useStyles';
@@ -18,7 +18,7 @@ import CategoriesMenu from "./CategoriesMenu";
 import Login from "./Login";
 import DropDownMenu from "./DropDownMenu";
 import {CategoryItems} from "./CategoriesMenu/CategoryItems";
-import Modal from '../common/Modal'
+import Modal from '../common/modals/Modal'
 
 export default withWidth()( () => {
 

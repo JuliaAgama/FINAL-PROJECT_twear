@@ -4,8 +4,8 @@ import {Link} from "react-router-dom";
 import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
 
-import ModalQR from '../../common/ModalQR';
-import ModalTeam from '../../common/ModalTeam';
+import ModalQR from '../../common/modals/ModalQR';
+import ModalTeam from '../../common/modals/ModalTeam';
 
 
 export default () => {
