@@ -9,15 +9,32 @@ export default makeStyles(theme => (
             marginTop: '120px',
             marginBottom: '60px',
             border: '1px solid black',
+            [theme.breakpoints.down('sm')]: {
+                flexDirection: 'column',
+                marginTop: '59px',
+            },
         },
         container : {
             width: '50%',
             borderLeft: '1px solid black',
             padding: '30px 20px',
             margin: '0',
+            [theme.breakpoints.down('sm')]: {
+                width: '100%',
+                borderLeft: 'none',
+            }
+        },
+        mobileContainer: {
+            width: '100%',
+            borderLeft: 'none',
+            padding: '30px 20px 0 20px',
+            margin: '0',
         },
         imgContainer : {
             width: '50%',
+            [theme.breakpoints.down('sm')]: {
+                width: '100%',
+            },
             padding: '0',
             margin: '0',
             overflow: 'hidden'
@@ -46,7 +63,7 @@ export default makeStyles(theme => (
         },
         option: {
             fontWeight: '600',
-            marginRight: '50px'
+            // marginRight: '50px'
         },
         btn: {
             margin: '30px 0'
@@ -65,6 +82,11 @@ export default makeStyles(theme => (
         },
         details: {
             margin: '0'
+        },
+        filter: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding:'0'
         }
     }
 ));
