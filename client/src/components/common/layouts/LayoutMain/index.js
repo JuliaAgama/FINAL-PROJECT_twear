@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 // import * as cartActions from '../../../../store/actions/cart';
 
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import useStyles from "./useStyles";
@@ -13,16 +13,6 @@ import Header from "../../../Header";
 import Footer from "../../../Footer";
 
 export default props => {
-
-    // const dispatch = useDispatch();
-
-    // const customerLoaded = useSelector(state => state.customers.loaded);
-
-    // useEffect(() => {
-    //     if(customerLoaded) {
-    //         cartActions.getCart(cart)(dispatch);
-    //     }
-    // }, [customerLoaded, dispatch]);
 
     //styling layout:
     const breakpointValues = {
@@ -37,10 +27,12 @@ export default props => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container maxWidth={false} className={classes.layoutContainer}>
-                <div className={classes.header}><Header/></div>
-                <div>{props.children}</div>
-                <div className={classes.footer}><Footer/></div>
+            <Container maxWidth='xl' className={classes.layoutContainer} >
+                <Grid container>
+                    <Header/>
+                    <Grid item xs={12}>{props.children}</Grid>
+                    <Footer/>
+                </Grid>
             </Container>
         </ThemeProvider>
     );

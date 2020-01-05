@@ -18,7 +18,7 @@ export default makeStyles(theme => (
             [theme.breakpoints.down('xs')]: {
                 top: '50%',
                 right: '10px',
-                transform: 'translateY(-50%)',
+                transform: 'translateY(-40%)',
                 width: '25px',
                 height: '25px',
             },

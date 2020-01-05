@@ -5,7 +5,7 @@ export default makeStyles(theme => (
     {
         container: {
             boxSizing: 'border-box',
-            height: '60px',
+            height: '100%',
             width: '100%',
             display: 'flex',
             justifyContent: 'center',
@@ -17,12 +17,12 @@ export default makeStyles(theme => (
             [theme.breakpoints.down('sm')]: {
                 width: '50px',
                 minWidth: '0',
-                borderRight: '1px solid black'
+                // borderRight: '1px solid black'
             },
             padding: '0',
             fontSize: '16px',
             fontWeight: '700',
-            borderBottom: '1px solid black'
+            // borderBottom: '1px solid black'
         },
         link: {
             color: 'inherit',

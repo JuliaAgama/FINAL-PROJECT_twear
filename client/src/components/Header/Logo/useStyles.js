@@ -12,14 +12,15 @@ export default makeStyles(theme => (
         container: {
             position: 'relative',
             boxSizing: 'border-box',
-            height: '60px',
-            borderBottom: '1px solid black',
+            height: '100%',
+            // borderBottom: '1px solid black',
             textAlign: 'center',
             cursor: 'pointer',
             [theme.breakpoints.down('sm')]: {
-                width: 'calc(100% - 100px)',
-                borderRight: '1px solid black',
-                borderLeft: '1px solid black'
+                paddingTop: '5px',
+                // width: 'calc(100% - 100px)',
+                // borderRight: '1px solid black',
+                // borderLeft: '1px solid black'
             },
         }
     }

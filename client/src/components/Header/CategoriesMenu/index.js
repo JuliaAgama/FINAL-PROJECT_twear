@@ -5,13 +5,16 @@ import {
     showMenCategoriesAction,
     showWomenCategoriesAction
 } from "../../../store/actions/header";
-import useStyles from "./useStyles";
-import {Container} from "@material-ui/core";
 
-export default function CategoriesMenu(props) {
+import {Container, Box} from "@material-ui/core";
+import useStyles from "./useStyles";
+
+
+export default props => {
     const classes = useStyles();
     const show  = useSelector(state => state.header.show);
     const dispatch = useDispatch();
+
     const clickHandler = () => {
         if (props.isMen){
             if (!show){
@@ -31,11 +34,14 @@ export default function CategoriesMenu(props) {
 
     return (
         <React.Fragment>
-            <Container className={props.border ? `${classes.container} ${classes.containerBorder}`: classes.container}
+            <Box className={classes.genderContainer}
+            //<Box className={props.border ? `${classes.container} ${classes.containerBorder}`: classes.container}
+            //<Container className={props.border ? `${classes.container} ${classes.containerBorder}`: classes.container}
                     onClick={clickHandler}
             >
                 {props.title}
-            </Container>
+            {/* </Container> */}
+            </Box>
         </React.Fragment>
     );
-}
+};

@@ -1,11 +1,12 @@
 import React from 'react';
+import clsx from 'clsx';
 
 import {useDispatch, useSelector} from "react-redux";
 
 import {hideDesktopCategoriesMenuAction} from "../../store/actions/header";
 import {hideMobileMenuAction} from "../../store/actions/header";
 
-import {withWidth, Container, Hidden, Grid} from '@material-ui/core';
+import {withWidth, Hidden, Grid, Box} from '@material-ui/core';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 import useStyles from './useStyles';
@@ -18,7 +19,7 @@ import CategoriesMenu from "./CategoriesMenu";
 import Login from "./Login";
 import DropDownMenu from "./DropDownMenu";
 import {CategoryItems} from "./CategoriesMenu/CategoryItems";
-import Modal from '../common/Modal'
+import Modal from '../common/modals/Modal'
 
 export default withWidth()( () => {
 
@@ -38,45 +39,104 @@ export default withWidth()( () => {
     };
 
     return (
-        <>
+        <React.Fragment>
             <ClickAwayListener onClickAway={handleClickAway}>
-                <div>
-                    <Hidden smDown>
-                        <Container maxWidth={false} className={classes.mainContainer}>
-                            <Container maxWidth={false} className={classes.container}>
-                                <Search/>
-                                <Currency/>
-                            </Container>
-                            <Container maxWidth={false} className={`${classes.container} ${classes.logoContainer}`}>
-                                <Logo/>
-                                <CategoriesMenu title='Women' border={true}/>
-                                <CategoriesMenu title='Men' isMen={true}/>
-                            </Container>
-                            <Container maxWidth={false} className={classes.container}>
-                                <MiniCart/>
-                                <Login/>
-                            </Container>
-                            <CategoryItems/>
-                        </Container>
-                    </Hidden>
-                    <Hidden mdUp>
-                        <div className={classes.mainContainerMobile}>
-                            <DropDownMenu/>
-                            <Logo/>
-                            <MiniCart/>
+                <>
+                <Hidden smDown>
+                    {/* <Container maxWidth={false} className={classes.mainContainer}>
+                        <Container maxWidth={false} className={classes.container}>
                             <Search/>
-                            <div className={showMobileMenu ? classes.mobileMenuContainer : classes.hide}>
+                            <Currency/>
+                        </Container>
+                        <Container maxWidth={false} className={`${classes.container} ${classes.logoContainer}`}>
+                            <Logo/>
+                            <CategoriesMenu title='Women' border={true}/>
+                            <CategoriesMenu title='Men' isMen={true}/>
+                        </Container>
+                        <Container maxWidth={false} className={classes.container}>
+                            <MiniCart/>
+                            <Login/>
+                        </Container>
+                        <CategoryItems/>
+                    </Container> */}
+                    <Grid item xs={3} className={clsx(classes.headerItem, classes.sticky, classes.leftBorder)}>
+                        <Box zIndex='modal'>
+                        <Search/>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={6} className={clsx(classes.headerItem, classes.topBorder)}>
+                        <Logo/>
+                    </Grid>
+                    <Grid item xs={3} className={clsx(classes.headerItem, classes.sticky)}>
+                        <MiniCart/>
+                    </Grid>
+                    <Grid item xs={3} className={clsx(classes.headerItem, classes.bottomBorder, classes.leftBorder)}>
+                        <Currency/>
+                    </Grid>
+                    <Grid item xs={3} className={clsx(classes.headerItem, classes.sticky)}>
+                        <CategoriesMenu title='Women'/>
+                    </Grid>
+                    <Grid item xs={3} className={clsx(classes.headerItem, classes.sticky)}>
+                        <CategoriesMenu title='Men' isMen={true}/>
+                    </Grid>
+                    <Grid item xs={3} className={clsx(classes.headerItem, classes.bottomBorder)}>
+                        <Login/>
+                    </Grid>
+                    <Grid item xs={12} >
+                        <CategoryItems/>
+                    </Grid>
+                </Hidden>
+                {/* <div> */}
+                <Hidden mdUp>
+                    <Grid item xs={2} sm={1} className={clsx(classes.headerItemXS, classes.leftBorder, classes.topBorder)}>
+                        <DropDownMenu/>
+                    </Grid>
+                    <Grid item xs={8} sm={10} className={clsx(classes.headerItemXS, classes.topBorder)}>
+                        <Logo/>
+                    </Grid>
+                    <Grid item xs={2} sm={1} className={clsx(classes.headerItemXS, classes.topBorder)}>
+                        <MiniCart/>
+                    </Grid>
+                    <Grid item xs={12} className={clsx(classes.headerItemXS, classes.leftBorder)}>
+                        <Search/>
+                    </Grid>
+                    <Box className={showMobileMenu ? classes.mobileMenuContainer : classes.hide}>
+                        <Grid item xs={12} container style={{borderBottom: '1px solid #000', height: '60px'}}>
+                            <Grid item xs={6} style={{borderRight: '1px solid #000'}}>
                                 <CategoriesMenu title='Women' border={true}/>
+                            </Grid>
+                            <Grid item xs={6}>
                                 <CategoriesMenu title='Men' isMen={true}/>
-                                <CategoryItems mobile={true}/>
+                            </Grid>
+                            <CategoryItems mobile={true}/>
+                        </Grid>
+                        <Grid item xs={12} container style={{borderBottom: '1px solid #000', height: '60px'}}>
+                            <Grid item xs={6} style={{borderRight: '1px solid #000'}}>
                                 <Currency/>
+                            </Grid>
+                            <Grid item xs={6}>
                                 <Login/>
-                            </div>
-                        </div>
-                    </Hidden>
-                    <Modal/>
-                </div>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                    {/* <div className={classes.mainContainerMobile}> */}
+                        {/* <DropDownMenu/>
+                        <Logo/>
+                        <MiniCart/>
+                        <Search/> */}
+                        {/* <div className={showMobileMenu ? classes.mobileMenuContainer : classes.hide}>
+                            <CategoriesMenu title='Women' border={true}/>
+                            <CategoriesMenu title='Men' isMen={true}/>
+                            <CategoryItems mobile={true}/>
+                            <Currency/>
+                            <Login/>
+                        </div> */}
+                    {/* </div> */}
+                </Hidden>
+                <Modal/>
+                {/* </div> */}
+                </>
             </ClickAwayListener>
-        </>
+        </React.Fragment>
     );
 });

@@ -4,6 +4,7 @@ import { grey } from '@material-ui/core/colors';
 export default makeStyles(theme => (
     {
         root: {
+            width: '100%',
             minHeight: '50vh',
             marginBottom: theme.spacing(5),
         },
