@@ -31,14 +31,14 @@ export default () => {
             (item.gender.name === "women" || item.gender.name === "unisex") &&
             topCatLink.includes("&women")
         ) {
-            return <CategoryCard name={item.name} key={item._id} image={item.img} />;
+            return <CategoryCard name={item.name} key={item._id} image={item.img} gender={item.gender.name} />;
         }
         if (
             item.topCategory.name === topCatLinkNoGender &&
             (item.gender.name === "men" || item.gender.name === "unisex") &&
             topCatLink.includes("&men")
         ) {
-            return <CategoryCard name={item.name} key={item._id} image={item.img} />;
+            return <CategoryCard name={item.name} key={item._id} image={item.img} gender={item.gender.name} />;
         }
     });
     const classes = useStyles();
