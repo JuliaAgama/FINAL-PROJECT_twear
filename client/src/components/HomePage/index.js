@@ -91,7 +91,7 @@ export default () => {
         <main>
             <Box position='relative'>
                 <Hidden smDown>
-                    <Box position='absolute' top='-90px' width='100%'><Marquee text={mainAnnouncement.texts.join(' ... !!! ... sale ... !!! ... ')} styles={mainAnnouncement.styles}/></Box>
+                    <Box position='absolute' top='-70px' width='100%'><Marquee text={mainAnnouncement.texts.join(' ... !!! ... sale ... !!! ... ')} styles={mainAnnouncement.styles}/></Box>
                 </Hidden>
                 <Box className={classes.header} fontSize='h4.fontSize'>
                     Pre Spring 2020
