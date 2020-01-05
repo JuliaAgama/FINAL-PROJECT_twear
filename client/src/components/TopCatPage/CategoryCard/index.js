@@ -10,10 +10,6 @@ function CategoryCard(props) {
   const history = useHistory();
   // const classes = useStyles();
 
-    const clickHandler = () => {
-        console.log(name + " " + gender)
-    }
-
   return (
     <>
       <Hidden smDown>
@@ -44,6 +40,3 @@ function CategoryCard(props) {
 
 export default CategoryCard;
 
-// categories/page=shop&gender=unisex&category=Jeans
-// return history.push("/admin/products/"+formData.itemNo);
-// to={`/categories/page=shop&gender=${gender}&category=${name}`}

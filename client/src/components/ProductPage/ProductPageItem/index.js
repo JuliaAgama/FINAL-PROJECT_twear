@@ -8,11 +8,20 @@ import Button from "@material-ui/core/Button";
 import CarouselProductPage from './Carusel'
 import NameAndPrice from "./NameAndPrice";
 import {setColors, setImgs, setSizes} from "./Helpers";
+import BlackTicker from '../../common/BlackTicker'
 import useStyles from "./useStyles";
+import ProductsGallery from "../../common/ProductsGallery";
+
 
 function Product() {
   const classes = useStyles();
   const product = useSelector(state => state.products.product);
+  let products = useSelector(state => state.products.productsFiltered.products);
+  if (products && product.itemNo) {
+      products = products.filter(item => item.itemNo !== product.itemNo)
+      products.splice(4);
+  }
+
   let imgs =[];
     const [color, setColor] = useState('Color');
     const [size, setSize] = useState('Size');
@@ -36,6 +45,7 @@ function Product() {
     }
 
     return (
+        <>
         <Container maxWidth={false} className={classes.mainContainer} >
 
             <Hidden mdUp>
@@ -102,6 +112,14 @@ function Product() {
 
             </Container>
         </Container>
+
+        <Hidden smDown>
+            <BlackTicker/>
+        </Hidden>
+            {products ? <ProductsGallery  products={products} productPage={true} /> : ""}
+        </>
+
+
     );
 }
 
