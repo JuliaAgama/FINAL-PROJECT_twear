@@ -1,11 +1,13 @@
 import React, {useState} from "react";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 // import clamp from 'lodash-es/clamp'
 // import { useSpring, animated } from 'react-spring'
 // import { useGesture } from 'react-with-gesture'
+
+import * as cartActions from '../../../store/actions/cart';
 
 import {Container, FormControl, NativeSelect, FormHelperText, Button} from "@material-ui/core";
 import useStyles from "./useStyles";
@@ -63,8 +65,10 @@ const setImgs = (product, color) => {
 
 export default () => {
 
+    const dispatch = useDispatch();
+
     const product = useSelector(state => state.productItem.productItem);
-    const cart = useSelector(state => state.cart.cart);
+    const {cart} = useSelector(state => state.cart);
 
 
     let imgs =[];
@@ -102,6 +106,9 @@ export default () => {
         // нужно, чтобы color и size были не просто названиями, а полноценными объектами, как в базе, или, как минимум с id.
         // т.к. для добавления продукта нужен объект sku, в котором у каждого свойства есть _id.
         // это лучше реализовать здесь, в самом компоненте - помостри Selector - в common создан, а также реализован в Admin ProductPage
+
+        // вот такой будет вызов добавления продукта:
+        // dispatch(cartActions.addProductToCart(cart, sku));
     };
 
 
