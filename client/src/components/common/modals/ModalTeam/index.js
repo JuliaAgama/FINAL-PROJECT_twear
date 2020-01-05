@@ -24,6 +24,7 @@ const collaborators = [
             'Images upload to Cloudinary',
             'Common components: buttons, modals, messages, sliders, inputs',
             'Consumer cart component and functionality',
+            'Code review and troubleshooting'
         ],
     },
     {
@@ -33,6 +34,7 @@ const collaborators = [
             'Authentification routes and logics',
             'Login & Registration',
             'Header',
+            'Category page',
             'Products gallery and card',
             'Product page',
             'Admin Panel: settings for home page',
@@ -43,7 +45,7 @@ const collaborators = [
         imgUrl: 'team/oshaporda.jpg',
         tasks: [
             'Footer',
-            'Topcategory and Category pages',
+            'Topcategory page',
             'Main page',
             'General styles guru',
         ],

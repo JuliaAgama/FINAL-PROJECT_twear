@@ -94,7 +94,7 @@ export default () => {
                     <Box position='absolute' top='-90px' width='100%'><Marquee text={mainAnnouncement.texts.join(' ... !!! ... sale ... !!! ... ')} styles={mainAnnouncement.styles}/></Box>
                 </Hidden>
                 <Box className={classes.header} fontSize='h4.fontSize'>
-                    Pre Spring 20
+                    Pre Spring 2020
                 </Box>
                 <Box className={classes.subHeader}>
                     Get ready for the festive season with our Pre Party collection —
