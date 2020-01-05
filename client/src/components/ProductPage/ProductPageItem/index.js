@@ -1,17 +1,17 @@
 import React, {useState} from "react";
 import {useSelector} from "react-redux";
-import {Container} from "@material-ui/core";
+
 import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 // import clamp from 'lodash-es/clamp'
 // import { useSpring, animated } from 'react-spring'
 // import { useGesture } from 'react-with-gesture'
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import FormControl from "@material-ui/core/FormControl";
-import NativeSelect from "@material-ui/core/NativeSelect";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Spinner from '../../common/Spinner'
+
+import {Container, FormControl, NativeSelect, FormHelperText, Button} from "@material-ui/core";
 import useStyles from "./useStyles";
-import Button from "@material-ui/core/Button";
+
+import Spinner from '../../common/Spinner';
+
 
 const setColors = (product) => {
     if (product.colors) {
@@ -49,8 +49,8 @@ const setImgs = (product, color) => {
                 if (item.color.name === color){
                     item.imgsColor.forEach(img => {
                         imgs.push(<img key={img}
-                                       src={img}
-                                       alt="Img not found"
+                                        src={img}
+                                        alt="Img not found"
                         />)
                     })
                 }
@@ -60,12 +60,16 @@ const setImgs = (product, color) => {
     }
 };
 
-function Product() {
-  const classes = useStyles();
-  const product = useSelector(state => state.products.product);
-  let imgs =[];
-    const [color, setColor] = useState('Color');
-    const [size, setSize] = useState('Size');
+
+export default () => {
+
+    const product = useSelector(state => state.productItem.productItem);
+    const cart = useSelector(state => state.cart.cart);
+
+
+    let imgs =[];
+        const [color, setColor] = useState('Color');
+        const [size, setSize] = useState('Size');
 
     // const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }));
     // const bind = useGesture(({ down, delta, velocity }) => {
@@ -73,9 +77,9 @@ function Product() {
     //     set({ xy: down ? delta : [0, 0], config: { mass: velocity, tension: 500 * velocity, friction: 50 } })
     // })
 
-  if(product.imgs) {
-      imgs = setImgs(product, color)
-  }
+    if(product.imgs) {
+        imgs = setImgs(product, color)
+    }
 
     const handleColorChange = event => {
         setColor(event.target.value);
@@ -88,8 +92,20 @@ function Product() {
     setColors(product);
 
     const addToProductCart = () => {
+        const sku = {
+            product: product,
+            color: color,
+            size: size,
+        };
+        console.log('chosen sku:', sku);
         // some logic
-    }
+        // нужно, чтобы color и size были не просто названиями, а полноценными объектами, как в базе, или, как минимум с id.
+        // т.к. для добавления продукта нужен объект sku, в котором у каждого свойства есть _id.
+        // это лучше реализовать здесь, в самом компоненте - помостри Selector - в common создан, а также реализован в Admin ProductPage
+    };
+
+
+    const classes = useStyles();
 
     return (
         <Container maxWidth={false} className={classes.mainContainer} >
@@ -100,10 +116,10 @@ function Product() {
                 {/*<animated.div {...bind()} style={{ transform: xy.interpolate((x, y) => `translate3d(${x}px,${y}px,0)`) }}>*/}
                     <Container maxWidth={false} className={classes.imgScale}>
                         <Carousel showThumbs={false}
-                                  showArrows={true}
-                                  showStatus={false}
-                                  // axis="vertical"
-                                  infiniteLoop={true}>
+                                showArrows={true}
+                                showStatus={false}
+                                // axis="vertical"
+                                infiniteLoop={true}>
                             {imgs[0] ? imgs : <Spinner/>}
                         </Carousel>
                     </Container>
@@ -163,5 +179,3 @@ function Product() {
         </Container>
     );
 }
-
-export default Product;

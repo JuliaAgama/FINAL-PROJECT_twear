@@ -1,19 +1,19 @@
 import React, {useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
 import { getProductItemByItemNo } from "../../store/actions/products";
-import ProductPageItem from "./ProductPageItem";    
 
-const ProductPage = () => {
-  const productLink = useParams().product;
-  const dispatch = useDispatch();
-  const product = useSelector(state => state.products.product);
+import ProductPageItem from "./ProductPageItem";
 
-  useEffect(() => dispatch(getProductItemByItemNo(productLink)), [dispatch]);
+export default() => {
+    const productLink = useParams().product;
+    const dispatch = useDispatch();
+    // const product = useSelector(state => state.productItem.productItem);
 
-  return <ProductPageItem />
+    useEffect(() => dispatch(getProductItemByItemNo(productLink)), [dispatch]);
 
-
+    return <ProductPageItem />
 };
 
-export default ProductPage;

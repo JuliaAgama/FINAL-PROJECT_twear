@@ -116,8 +116,11 @@ export function deleteCart() {
 export function addProductToCart(cart, newItem) {
     return function (dispatch) {
         dispatch(cartSendRequest());
+        console.log('cartActions.addProductToCart request cart: ', cart);
+        console.log('cartActions.addProductToCart request newItem: ', newItem);
 
             (new CartApi()).addProductToCart(cart, newItem).then(res => {
+                console.log('cartActions.addProductToCart inside API: ', res);
                 return dispatch({
                     type: CART.CART_ADD_PRODUCT,
                     data: {products: res.products},

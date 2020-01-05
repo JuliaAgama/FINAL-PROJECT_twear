@@ -128,7 +128,12 @@ export default class Carts extends Base {
 
 
     async addProductToCart(cart, newItem) {
-        //  @desc expects current cart object from store and newItem object = {product, color, size}
+        // @desc expects current cart object from reduxStore and
+        // newItem = {
+        //     product: {_id: "5da463678cca382250dd7bc7"},
+        //     color: {_id: "2cb493678cca483200dd7bb6"},
+        //     size: {_id: "1dc443658dca863550dd1ab4"},
+        // }
 
         if (localStorage.getItem('token')) {
             return super.put(`cart/:${newItem.product._id}&${newItem.color._id}&${newItem.size._id}`)
@@ -140,9 +145,29 @@ export default class Carts extends Base {
 
             const existingCartItem = cart.products.find(el => el.product._id === product._id && el.color._id === color._id && el.size._id === size._id);
 
-            if (existingCartItem) {
-// write logics for adding product as quantity not additional product to cart
+            const quantityIsAvailable = () => {
+                const skuQuantityAvailable = product.colors.find(el => el.color._id === color._id).sizes.find(el => el.size._id === size._id).quantity;
+                if (existingCartItem) {
+                    return skuQuantityAvailable > existingCartItem.quantity ? true : false;
+                } else {
+                    return skuQuantityAvailable > 0 ? true : false;
+                }
+            };
+
+            if (quantityIsAvailable && existingCartItem) {
+                let updatedCart = cart.map(item => {
+                    return {
+                        product: item.product,
+                        color: item.color,
+                        size: item.size,
+                        quantity: item.product._id === newItem.product._id && item.color._id === newItem.color._id && item.size._id === newItem.size._id ? item.quantity++ : item.quantity
+                    }
+                });
+                return updatedCart;
+            } else if (quantityIsAvailable) {
+                cart.push(newItem);
             }
+            return cart;
         }
     }
 
