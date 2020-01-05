@@ -103,8 +103,8 @@ export default props => {
                                 <Grid item container direction="column" className={classes.tasksContainer}>
                                     <List>
                                         {item.tasks.map(el => (
-                                            <Grid item>
-                                                <ListItem key={Math.random()} className={classes.listItem}><span>
+                                            <Grid item key={Math.random()}>
+                                                <ListItem className={classes.listItem}><span>
                                                     {/* <CheckCircleOutlineIcon/> */}
                                                     <KeyboardArrowRightIcon/>
                                                 </span>{el}</ListItem>

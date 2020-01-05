@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 // import * as cartActions from '../../../../store/actions/cart';
 
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import useStyles from "./useStyles";
@@ -21,17 +21,18 @@ export default props => {
         md: 768,
         lg: 992,
         xl: 1200,
-        xxl: 1500,
     };
     const theme = createMuiTheme({ breakpoints: { values: breakpointValues } });
     const classes = useStyles();
 
     return (
         <ThemeProvider theme={theme}>
-            <Container maxWidth='xxl' className={classes.layoutContainer} >
-                <div className={classes.header}><Header/></div>
-                <div>{props.children}</div>
-                <div className={classes.footer}><Footer/></div>
+            <Container maxWidth='xl' className={classes.layoutContainer} >
+                <Grid container>
+                    <Header/>
+                    <Grid item xs={12}>{props.children}</Grid>
+                    <Footer/>
+                </Grid>
             </Container>
         </ThemeProvider>
     );
