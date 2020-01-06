@@ -41,7 +41,12 @@ function Product() {
     setColors(product);
 
     const addToProductCart = () => {
-        // some logic
+        const newItem = {
+            product: {_id : product._id},
+            color : {_id : color},
+            size : {_id : size}
+        }
+        console.log(newItem)
     }
 
     return (
