@@ -51,6 +51,9 @@ export default () => {
             size : {_id : size}
         }
         console.log('chosen sku:', sku);
+        
+        // нужно, чтобы color и size были не просто названиями, а полноценными объектами, как в базе, или, как минимум с id.
+        // т.к. для добавления продукта нужен объект sku, в котором у каждого свойства есть _id.
 
         dispatch(cartActions.addProductToCart(cart, sku));
     };
