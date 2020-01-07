@@ -5,16 +5,18 @@ import {getProductItemByItemNo, getProductsByFilter} from "../../store/actions/p
 import ProductPageItem from "./ProductPageItem";
 
 const ProductPage = () => {
-  const productLink = useParams().product;
+  const itemNo = useParams().product;
+  // const productLink = useParams().product;
   const dispatch = useDispatch();
 
-  const category = productLink.split('&')[0].split('=')[1];
-  const itemNo = productLink.split('&')[1].split('=')[1];
+  // const category = productLink.split('&')[0].split('=')[1];
+  // const itemNo = productLink.split('&')[1].split('=')[1];
 
   useEffect(() => {
     dispatch(getProductItemByItemNo(itemNo));
-    dispatch(getProductsByFilter(`page=shop&category=${category}`))
-  }, [dispatch, itemNo, category]);
+    // dispatch(getProductsByFilter(`page=shop&category=${category}`))
+  // }, [dispatch, itemNo, category]);
+  }, [dispatch, itemNo]);
 
   return <ProductPageItem />
 
