@@ -46,9 +46,9 @@ export default () => {
 
     const addToProductCart = () => {
         const sku = {
-            product: {_id : product._id},
-            color : {_id : color},
-            size : {_id : size}
+            product: product,
+            color : JSON.parse(color),
+            size : JSON.parse(size)
         }
         console.log('chosen sku:', sku);
         
@@ -134,7 +134,5 @@ export default () => {
         </Hidden>
             {products ? <ProductsGallery  products={products} productPage={true} /> : ""}
         </>
-
-
     );
 }
