@@ -25,6 +25,7 @@ import productItem from './productItem';
 import archives from './archives';
 import archiveItem from './archiveItem';
 import productsGallery from './productsGallery';
+import currency from './currency';
 
 const migrations = {
     0: (state) => {
@@ -75,6 +76,7 @@ const rootReducer = combineReducers({
     archives,
     archiveItem,
     productsGallery,
+    currency,
     form: reduxFormReducer
 });
 
