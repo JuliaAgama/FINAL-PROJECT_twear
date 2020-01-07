@@ -1,34 +1,38 @@
 import React, {useState} from "react";
-import {useSelector} from "react-redux";
-import {Container, Hidden} from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
-import NativeSelect from "@material-ui/core/NativeSelect";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Button from "@material-ui/core/Button";
+import {useSelector, useDispatch} from "react-redux";
+
+import * as cartActions from '../../../store/actions/cart';
+
+import {Container, Hidden, FormControl, NativeSelect, FormHelperText, Button} from "@material-ui/core";
+import useStyles from "./useStyles";
+
+import {setColors, setImgs, setSizes} from "./Helpers";
 import CarouselProductPage from './Carusel'
 import NameAndPrice from "./NameAndPrice";
-import {setColors, setImgs, setSizes} from "./Helpers";
 import BlackTicker from '../../common/BlackTicker'
-import useStyles from "./useStyles";
 import ProductsGallery from "../../common/ProductsGallery";
 
 
-function Product() {
-    const classes = useStyles();
-    const product = useSelector(state => state.products.product);
+export default () => {
+
+    const dispatch = useDispatch();
+
+    const product = useSelector(state => state.productItem.productItem);
+    const {cart} = useSelector(state => state.cart);
     let products = useSelector(state => state.products.productsFiltered.products);
+
     if (products && product.itemNo) {
         products = products.filter(item => item.itemNo !== product.itemNo)
         products.splice(4);
-    }
+    };
 
     let imgs =[];
-        const [color, setColor] = useState('Color');
-        const [size, setSize] = useState('Size');
+    const [color, setColor] = useState('Color');
+    const [size, setSize] = useState('Size');
 
     if(product.imgs) {
         imgs = setImgs(product, color)
-    }
+    };
 
     const handleColorChange = event => {
         setColor(event.target.value);
@@ -49,7 +53,9 @@ function Product() {
         console.log('chosen sku:', sku);
 
         dispatch(cartActions.addProductToCart(cart, sku));
-    }
+    };
+
+    const classes = useStyles();
 
     return (
         <>
