@@ -1,9 +1,9 @@
-import axios from 'axios';
+import Base from './base';
 
-export default class Currency {
+export default class Currency extends Base {
 
     getCurrency() {
-        return axios.get(`https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`)
+        return super.get('currency')
             .then(res => res.data)
     }
 };
