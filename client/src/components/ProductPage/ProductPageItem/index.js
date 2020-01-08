@@ -19,7 +19,7 @@ export default () => {
 
     const product = useSelector(state => state.productItem.productItem);
     const {cart} = useSelector(state => state.cart);
-    let products = useSelector(state => state.products.productsFiltered.products);
+    let {products} = useSelector(state => state.products);
 
     if (products && product.itemNo) {
         products = products.filter(item => item.itemNo !== product.itemNo)
@@ -48,13 +48,9 @@ export default () => {
         const sku = {
             product: product,
             color : JSON.parse(color),
-            size : JSON.parse(size)
-        }
-        console.log('chosen sku:', sku);
-        
-        // нужно, чтобы color и size были не просто названиями, а полноценными объектами, как в базе, или, как минимум с id.
-        // т.к. для добавления продукта нужен объект sku, в котором у каждого свойства есть _id.
-
+            size : JSON.parse(size),
+            quantity: 1
+        };
         dispatch(cartActions.addProductToCart(cart, sku));
     };
 
@@ -135,4 +131,4 @@ export default () => {
             {products ? <ProductsGallery  products={products} productPage={true} /> : ""}
         </>
     );
-}
+};

@@ -25,7 +25,7 @@ export function getCart(cart) {
         .catch(err => {
             return dispatch({
                 type: CART.CART_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -46,7 +46,7 @@ export function createCart(customer, cart) {
         .catch(err => {
             return dispatch({
                 type: CART.CART_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -88,7 +88,7 @@ export function concatCart (localCart) {
         // .catch(err => {
         //     return dispatch({
         //         type: CART.CART_RESPONSE_FAILED,
-        //         error: err.response.data
+        //         error: err.message
         //     })
         // })
     };
@@ -106,7 +106,7 @@ export function deleteCart() {
         .catch(err => {
             return dispatch({
                 type: CART.CART_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -129,7 +129,7 @@ export function addProductToCart(cart, newItem) {
             .catch(err => {
                 return dispatch({
                     type: CART.CART_RESPONSE_FAILED,
-                    error: err.response.data
+                    error: err.message
                 })
             })
 
@@ -148,7 +148,7 @@ export function addProductToCart(cart, newItem) {
 //         .catch(err => {
 //             return dispatch({
 //                 type: CART.CART_RESPONSE_FAILED,
-//                 error: err.response.data
+//                 error: err.message
 //             })
 //         })
 //     };
@@ -166,7 +166,7 @@ export function deleteProductFromCart(product, color, size) {
         .catch(err => {
             return dispatch({
                 type: CART.CART_RESPONSE_FAILED,
-                error: err.response.data
+                error: err
             })
         })
     };

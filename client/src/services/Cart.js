@@ -133,6 +133,7 @@ export default class Carts extends Base {
         //     product: {_id: "5da463678cca382250dd7bc7"},
         //     color: {_id: "2cb493678cca483200dd7bb6"},
         //     size: {_id: "1dc443658dca863550dd1ab4"},
+        //     quantity: 1;
         // }
 
         if (localStorage.getItem('token')) {
@@ -165,7 +166,12 @@ export default class Carts extends Base {
                 });
                 return updatedCart;
             } else if (quantityIsAvailable) {
-                cart.push(newItem);
+                cart.products.push({
+                    product: newItem.product,
+                    color: newItem.color,
+                    size: newItem.size,
+                    quantity: newItem.quantity ? newItem.quantity : 1
+                });
             }
             return cart;
         }

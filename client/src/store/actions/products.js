@@ -26,7 +26,7 @@ export function getAllProducts() {
         .catch(err => {
             return dispatch({
                 type: PRODUCTS.PRODUCTS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -44,7 +44,7 @@ export function getProductsByFilter(filter) {
         .catch(err => {
             return dispatch({
                 type: PRODUCTS.PRODUCTS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -62,7 +62,7 @@ export function getProductsBySearch(searchValue) {
         .catch(err => {
             return dispatch({
                 type: PRODUCTS.PRODUCTS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -71,7 +71,7 @@ export function getProductsBySearch(searchValue) {
 export function getProductsByParentId(CategoryId) {
     return function (dispatch) {
         dispatch(productsSendRequest());
-        (new ProductsApi()).getProductsByMatch({Category: CategoryId}).then(res => {
+        (new ProductsApi()).getProductsByMatch({category: CategoryId}).then(res => {
             return dispatch({
                 type: PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_PARENT_ID,
                 data: res
@@ -80,7 +80,7 @@ export function getProductsByParentId(CategoryId) {
         .catch(err => {
             return dispatch({
                 type: PRODUCTS.PRODUCTS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -98,7 +98,7 @@ export function getProductItem(id) {
         .catch(err => {
             return dispatch({
                 type: PRODUCTS.PRODUCT_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -116,7 +116,7 @@ export function getProductItemByItemNo(itemNo) {
         .catch(err => {
             return dispatch({
                 type: PRODUCTS.PRODUCT_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -134,7 +134,7 @@ export function addProduct(item){
         .catch(err => {
             return dispatch({
                 type: PRODUCTS.PRODUCTS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -152,7 +152,7 @@ export function updateProduct (item){
         .catch(err => {
             return dispatch({
                 type: PRODUCTS.PRODUCTS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -170,7 +170,7 @@ export function deleteProduct(item){
         .catch(err => {
             return dispatch({
                 type: PRODUCTS.PRODUCTS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
