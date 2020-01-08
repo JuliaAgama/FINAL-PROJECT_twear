@@ -34,6 +34,10 @@ export default () => {
         dispatch(cartActions.updateCart({products: formData.products}))
     };
 
+    const handleRemoveItem = (cart, item) => {
+        dispatch(cartActions.deleteProductFromCart(cart, item))
+    };
+
     const history = useHistory();
 
     const onContinue = () => {
@@ -58,6 +62,7 @@ export default () => {
             <Cart
                 enableCheckout={enableCheckout}
                 handleUpdateCart={handleUpdateCart}
+                handleRemoveItem={handleRemoveItem}
             />
 
             <Grid container spacing={2} justify="flex-end">

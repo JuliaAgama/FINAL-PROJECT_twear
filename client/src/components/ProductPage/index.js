@@ -12,7 +12,7 @@ export default () => {
 
     useEffect(() => {
         dispatch(productsActions.getProductItemByItemNo(itemNo));
-    }, [itemNo]);
+    }, [dispatch, itemNo]);
 
     const product = useSelector(state => state.productItem.productItem);
 
@@ -20,7 +20,7 @@ export default () => {
         if (product && product.categories) {
             dispatch(productsActions.getProductsByParentId(product.categories[0].category._id))
         }
-    },[product])
+    },[dispatch, product])
 
     return <ProductPageItem />
 };
