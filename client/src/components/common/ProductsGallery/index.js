@@ -36,7 +36,7 @@ export default props => {
         if (counter % rowElementsCount === 0) borderRight = false;
         counter++;
         let sizes = getSetOfProductSizes(product);
-        const category = product.categories[0].category.name;
+
         return <ProductCard
             itemNo = {product.itemNo}
             name={product.name}
@@ -45,8 +45,6 @@ export default props => {
             srcImg1={img1}
             srcImg2={img2}
             key={product._id}
-            //href = {`products/${product.itemNo.toLowerCase()}`}
-            //href = {`products/category=${category}&itemNo=${product.itemNo}`}
             borderRight={borderRight}
             />;
         });

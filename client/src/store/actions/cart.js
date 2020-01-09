@@ -1,8 +1,5 @@
 import * as CART from '../constants/cart';
 import CartApi from '../../services/Cart';
-import ProductsApi from '../../services/Products';
-import ColorsApi from '../../services/Colors';
-import SizesApi from '../../services/Sizes';
 
 
 export function cartSendRequest() {
@@ -53,12 +50,10 @@ export function createCart(customer, cart) {
 };
 
 export function updateCart(updatedCart) {
-    console.log('updateCart action , updatedCart: ', updatedCart)
     return function (dispatch) {
         dispatch(cartSendRequest());
 
         (new CartApi()).updateCart({products: updatedCart.products}).then(res => {
-            console.log('updateCart action , CartApi.updateCart res: ', res)
             return dispatch({
                 type: CART.CART_UPDATE_CART,
                 data: {products: res.products},

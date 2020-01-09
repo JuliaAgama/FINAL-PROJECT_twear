@@ -34,26 +34,11 @@ export default withWidth()(() => {
 
     const dispatch = useDispatch();
 
-    const getTopCatsList = () => {
-        topCatsActions.getAllTopCats()(dispatch);
-    };
-    const getCategoriesList = () => {
-        categoriesActions.getAllCategories()(dispatch);
-    };
-    const getProductsList = () => {
-        productsActions.getAllProducts()(dispatch);
-    };
-
     useEffect(() => {
-        getTopCatsList();
-        getCategoriesList();
-        getProductsList();
-        return () => {
-            getTopCatsList();
-            getCategoriesList();
-            getProductsList();
-        }
-    }, []);
+        dispatch(topCatsActions.getAllTopCats());
+        dispatch(categoriesActions.getAllCategories());
+        dispatch(productsActions.getAllProducts());
+    }, [dispatch]);
 
     const topCatsList = useSelector(state => state.topCats.topCats);
     const categoriesList = useSelector(state => state.categories.categories);

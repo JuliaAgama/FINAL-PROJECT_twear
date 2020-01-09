@@ -10,6 +10,8 @@ exports.getCart = (req, res, next) => {
   // console.log(req.user._id);
   Cart.findOne({ customer: req.user._id })
     .populate("products.product")
+    .populate("products.product.colors.color")// is not populated, doesn't work this way
+    .populate("products.product.colors.sizes.size")// is not populated, doesn't work this way
     .populate("products.color")
     .populate("products.size")
     .populate("customer")
@@ -35,6 +37,8 @@ exports.createCart = (req, res, next) => {
       const newCart = new Cart(queryCreator(initialQuery));
       newCart
         .populate("products.product")
+        .populate("products.product.colors.color")// is not populated, doesn't work this way
+        .populate("products.product.colors.sizes.size")// is not populated, doesn't work this way
         .populate("products.color")
         .populate("products.size")
         .populate("customer")
@@ -61,6 +65,8 @@ exports.updateCart = (req, res, next) => {
         const newCart = new Cart(queryCreator(initialQuery));
         newCart
           .populate("products.product")
+          .populate("products.product.colors.color")// is not populated, doesn't work this way
+          .populate("products.product.colors.sizes.size")// is not populated, doesn't work this way
           .populate("products.color")
           .populate("products.size")
           .populate("customer")
@@ -83,6 +89,8 @@ exports.updateCart = (req, res, next) => {
           { new: true }
         )
           .populate("products.product")
+          .populate("products.product.colors.color")// is not populated, doesn't work this way
+          .populate("products.product.colors.sizes.size")// is not populated, doesn't work this way
           .populate("products.color")
           .populate("products.size")
           .populate("customer")
@@ -173,6 +181,8 @@ exports.addProductToCart = async (req, res, next) => {
         const newCart = new Cart(queryCreator(cartData));
         newCart
         .populate("products.product")
+        .populate("products.product.colors.color")// is not populated, doesn't work this way
+        .populate("products.product.colors.sizes.size")// is not populated, doesn't work this way
         .populate("products.color")
         .populate("products.size")
         .populate("customer")
@@ -216,6 +226,8 @@ exports.addProductToCart = async (req, res, next) => {
             { new: true }
           )
             .populate("products.product")
+            .populate("products.product.colors.color")// is not populated, doesn't work this way
+            .populate("products.product.colors.sizes.size")// is not populated, doesn't work this way
             .populate("products.color")
             .populate("products.size")
             .populate("customer")

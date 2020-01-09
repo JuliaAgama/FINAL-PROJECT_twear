@@ -35,10 +35,7 @@ export default props => {
     };
 
     useEffect(() => {
-        getProductByItemNo();
-        return () => {
-            getProductByItemNo();
-        }
+        dispatch(productsActions.getProductItemByItemNo(itemNo));
     }, [dispatch]);
 
     const product = useSelector(state => state.productItem.productItem);

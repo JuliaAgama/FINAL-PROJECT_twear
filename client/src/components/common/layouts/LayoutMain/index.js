@@ -1,8 +1,4 @@
-import React, {useState, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-// import { Link } from "react-router-dom";
-
-// import * as cartActions from '../../../../store/actions/cart';
+import React from "react";
 
 import { Container, Grid } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
@@ -14,7 +10,6 @@ import Footer from "../../../Footer";
 
 export default props => {
 
-    //styling layout:
     const breakpointValues = {
         xs: 0,
         sm: 576,
@@ -22,7 +17,9 @@ export default props => {
         lg: 992,
         xl: 1200,
     };
+
     const theme = createMuiTheme({ breakpoints: { values: breakpointValues } });
+
     const classes = useStyles();
 
     return (

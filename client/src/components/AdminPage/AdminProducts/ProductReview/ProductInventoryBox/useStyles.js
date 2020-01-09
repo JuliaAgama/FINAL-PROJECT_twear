@@ -27,7 +27,6 @@ export default makeStyles(theme => (
             minWidth: '60px',
         },
         rowTitle: {
-            textTransform: 'capitalize',
             borderBottom: '1px solid #333',
             borderRight: '1px solid #333',
             textTransform: 'uppercase',

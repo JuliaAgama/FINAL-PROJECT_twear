@@ -24,7 +24,7 @@ export default () => {
         if (customerLoaded) {
             dispatch(cartActions.getCart(cart));
         }
-    }, [customerLoaded]);
+    }, [dispatch, cart, customerLoaded]);
 
     const enableCheckout = state => {
         setCheckoutAvailable(state);
@@ -32,10 +32,6 @@ export default () => {
 
     const handleUpdateCart = formData => {
         dispatch(cartActions.updateCart({products: formData.products}))
-    };
-
-    const handleRemoveItem = (cart, item) => {
-        dispatch(cartActions.deleteProductFromCart(cart, item))
     };
 
     const history = useHistory();
@@ -62,7 +58,6 @@ export default () => {
             <Cart
                 enableCheckout={enableCheckout}
                 handleUpdateCart={handleUpdateCart}
-                handleRemoveItem={handleRemoveItem}
             />
 
             <Grid container spacing={2} justify="flex-end">

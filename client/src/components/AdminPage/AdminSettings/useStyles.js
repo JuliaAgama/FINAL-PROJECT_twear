@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { pink, green } from '@material-ui/core/colors';
+import { pink } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {

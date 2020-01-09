@@ -9,7 +9,7 @@ import CartItem from './CartItem';
 
 export default props => {
 
-    const {enableCheckout, handleUpdateCart, handleRemoveItem} = props;
+    const {enableCheckout, handleUpdateCart} = props;
 
     const {cart} = useSelector(state => state.cart);
 
@@ -45,9 +45,6 @@ export default props => {
         }
     };
 
-    // const onRemove = item => () => {
-    //     handleRemoveItem(cart, item);
-    // };
     const onRemove = item => () => {
         handleUpdateCart({
             products: cart.products.filter(el => !(el.product._id === item.product._id && el.color._id === item.color._id && el.size._id === item.size._id))

@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 
 import { Dialog, DialogContent, DialogTitle, DialogActions, Box, Tooltip, useMediaQuery, Grid, List, ListItem, Avatar, Button } from '@material-ui/core';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 import { useTheme } from '@material-ui/core/styles';
@@ -107,7 +106,6 @@ export default props => {
                                         {item.tasks.map(el => (
                                             <Grid item key={Math.random()}>
                                                 <ListItem className={classes.listItem}><span>
-                                                    {/* <CheckCircleOutlineIcon/> */}
                                                     <KeyboardArrowRightIcon/>
                                                 </span>{el}</ListItem>
                                             </Grid>
