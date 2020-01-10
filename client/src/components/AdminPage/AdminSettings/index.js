@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import { Typography, Box, Grid, List, ListItem, Divider } from '@material-ui/core';
+import { Typography, Box, List, ListItem, Divider } from '@material-ui/core';
 
 import useStyles from './useStyles';
 

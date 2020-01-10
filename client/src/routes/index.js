@@ -49,9 +49,6 @@ export const Router = () => (
             <Route exact path="/products/:product?"
                 component={props => <LayoutMain {...props}><ProductPage {...props}/></LayoutMain>}
             />
-            <Route exact path="/categories/products/:product?"
-                component={props => <LayoutMain {...props}><ProductPage {...props}/></LayoutMain>}
-            />
             <Route exact path="/cart"
                 component={props => <LayoutMain {...props}><CartPage {...props}/></LayoutMain>}
             />

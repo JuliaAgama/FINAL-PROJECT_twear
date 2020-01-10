@@ -24,9 +24,9 @@ export default props => {
             {item && item.product && item.color && item.size ?
             <>
                 <Grid item xs={12} sm={8} md={9} lg={10} className={classes.container} container>
-                    {item.product.colors.find(el => el.color === item.color._id).imgsColor && item.product.colors.find(el => el.color === item.color._id).imgsColor[0] ?
+                    {item.product.colors.find(el => el.color._id === item.color._id || el.color === item.color._id).imgsColor && item.product.colors.find(el => el.color._id === item.color._id || el.color === item.color._id).imgsColor[0] ?
                         <Grid item xs={4} lg={3} className={classes.imgContainer}
-                            style={{backgroundImage:`url(${item.product.colors.find(el => el.color === item.color._id).imgsColor[0]})`}}
+                            style={{backgroundImage:`url(${item.product.colors.find(el => el.color._id === item.color._id || el.color === item.color._id).imgsColor[0]})`}}
                             onClick={() => history.push(`/products/${item.product.itemNo.toLowerCase()}/`)}
                         ></Grid> :
                         <Grid item xs={4} lg={3} className={classes.imgContainer}
@@ -37,7 +37,9 @@ export default props => {
                     <Grid item xs={8} lg={9}>
                         <Box px={2}>Art: {item.product.itemNo+'('+item.color.name+')'+item.size.name}</Box>
                         <Box className={classes.title} fontSize='h6.fontSize' p={2}>{cutName(item.product.name, 30)}</Box>
+                        {/* <Box px={2}>Color: {item.color.name}</Box> */}
                         <Box px={2}>Color: {item.color.name.toUpperCase()}</Box>
+                        {/* <Box px={2}>Size: {item.size.name}</Box> */}
                         <Box px={2}>Size: {item.size.name.toUpperCase()}</Box>
                         {
                             item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity === 0 ?

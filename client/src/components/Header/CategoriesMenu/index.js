@@ -6,41 +6,28 @@ import {
     showWomenCategoriesAction
 } from "../../../store/actions/header";
 
-import {Container, Box} from "@material-ui/core";
+import {Box} from "@material-ui/core";
 import useStyles from "./useStyles";
 
 
 export default props => {
-    const classes = useStyles();
     const show  = useSelector(state => state.header.show);
     const dispatch = useDispatch();
 
     const clickHandler = () => {
         if (props.isMen){
-            if (!show){
-                dispatch(showMenCategoriesAction());
-            } else {
-                dispatch(hideDesktopCategoriesMenuAction());
-            }
+            !show ? dispatch(showMenCategoriesAction()) : dispatch(hideDesktopCategoriesMenuAction())
         } else {
-            if (!show){
-                dispatch(showWomenCategoriesAction());
-            } else {
-                dispatch(hideDesktopCategoriesMenuAction());
-            }
-
+            !show ? dispatch(showWomenCategoriesAction()) : dispatch(hideDesktopCategoriesMenuAction())
         }
     };
 
+    const classes = useStyles();
+
     return (
         <React.Fragment>
-            <Box className={classes.genderContainer}
-            //<Box className={props.border ? `${classes.container} ${classes.containerBorder}`: classes.container}
-            //<Container className={props.border ? `${classes.container} ${classes.containerBorder}`: classes.container}
-                    onClick={clickHandler}
-            >
+            <Box className={classes.genderContainer} onClick={clickHandler}>
                 {props.title}
-            {/* </Container> */}
             </Box>
         </React.Fragment>
     );

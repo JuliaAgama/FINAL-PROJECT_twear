@@ -25,9 +25,9 @@ export default withWidth()(() => {
     };
 
     useEffect(() => {
-        getTopCatsList();
-        getCategoriesList();
-    }, []);
+        dispatch(topCatsActions.getAllTopCats());
+        dispatch(categoriesActions.getAllCategories());
+    }, [dispatch]);
 
     //server errors catching:
     const topCatsError = useSelector(state => state.topCats.error);

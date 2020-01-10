@@ -21,26 +21,19 @@ export default () => {
 
     useEffect(() => {
         dispatch(getCategoriesByParentId(topCatLinkNoGender));
-    }, [dispatch]);
+    }, [dispatch, topCatLinkNoGender]);
 
     const categoriesItem = useSelector(state => state.categories.categories);
 
     const catMenuItem = categoriesItem.map(item => {
-        if (
-            item.topCategory.name === topCatLinkNoGender &&
-            (item.gender.name === "women" || item.gender.name === "unisex") &&
-            topCatLink.includes("&women")
-        ) {
+        if (item.topCategory.name === topCatLinkNoGender && (item.gender.name === "women" || item.gender.name === "unisex") &&topCatLink.includes("&women")) {
             return <CategoryCard name={item.name} key={item._id} image={item.img} gender={item.gender.name} />;
         }
-        if (
-            item.topCategory.name === topCatLinkNoGender &&
-            (item.gender.name === "men" || item.gender.name === "unisex") &&
-            topCatLink.includes("&men")
-        ) {
+        if (item.topCategory.name === topCatLinkNoGender && (item.gender.name === "men" || item.gender.name === "unisex") &&topCatLink.includes("&men")) {
             return <CategoryCard name={item.name} key={item._id} image={item.img} gender={item.gender.name} />;
         }
     });
+
     const classes = useStyles();
 
     return (

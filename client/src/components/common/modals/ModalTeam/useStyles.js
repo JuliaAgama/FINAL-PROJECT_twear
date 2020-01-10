@@ -30,12 +30,8 @@ export default makeStyles(theme => (
             },
         },
         container: {
-            // borderTop: `1px solid ${grey[500]}`,
-            // borderLeft: `1px solid ${grey[500]}`,
         },
         personContainer: {
-            // borderRight: `1px solid ${grey[500]}`,
-            // borderBottom: `1px solid ${grey[500]}`,
             textAlign: 'center',
         },
         personTitle: {
@@ -44,7 +40,6 @@ export default makeStyles(theme => (
                 width: '90%',
                 height: '1px',
                 backgroundColor: grey[200],
-                // borderBottom: `1px solid ${grey[200]}`,
             },
         },
         avatar: {
@@ -61,15 +56,12 @@ export default makeStyles(theme => (
             },
         },
         tasksContainer: {
-            // height: '600px',
             fontSize: '14px',
             lineHeight: '1.2',
         },
         listItem: {
-            paddingTop: '3px',
             paddingTop: 0,
             paddingBottom: 0,
-            // paddingBottom: theme.spacing(1),
         }
     }
 ));

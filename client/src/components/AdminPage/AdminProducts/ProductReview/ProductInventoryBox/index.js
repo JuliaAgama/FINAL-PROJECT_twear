@@ -17,18 +17,11 @@ export default props => {
 
     const dispatch = useDispatch();
 
-    const getSizesByParentId = () => {
-        sizesActions.getSizesByParentId(product.sizeType)(dispatch);
-    };
-
     useEffect(() => {
         if(product && product.sizeType) {
-            getSizesByParentId()
+            dispatch(sizesActions.getSizesByParentId(product.sizeType));
         }
-        return () => {
-            getSizesByParentId();
-        }
-    }, [product]);
+    }, [dispatch, product]);
 
     const sizesBase = useSelector(state => state.sizes.sizes);
     const sizesLoaded = useSelector(state => state.sizes.loaded);

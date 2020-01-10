@@ -12,7 +12,19 @@ const CartSchema = new Schema(
       {
         product: {
           type: Schema.Types.ObjectId,
-          ref: "products"
+          ref: "products",
+          colors: [{
+            color: {
+              type: Schema.Types.ObjectId,
+              ref: "colors",
+            },
+            sizes: [{
+              size: {
+                  type: Schema.Types.ObjectId,
+                  ref: "sizes",
+              },
+            }]
+          }],
         },
         color: {
           type: Schema.Types.ObjectId,

@@ -58,4 +58,3 @@ export default makeStyles(theme => (
         },
     }
 ));
-

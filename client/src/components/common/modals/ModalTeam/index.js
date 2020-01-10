@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 
 import { Dialog, DialogContent, DialogTitle, DialogActions, Box, Tooltip, useMediaQuery, Grid, List, ListItem, Avatar, Button } from '@material-ui/core';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 
 import { useTheme } from '@material-ui/core/styles';
@@ -20,11 +19,11 @@ const collaborators = [
             'Backend controllers and routes',
             'Frontend REST API services',
             'Redux settings, actions, reducers, persist',
-            'Admin panel: cagalogue management',
+            'Admin panel: all pages for catalogue management',
             'Images upload to Cloudinary',
             'Common components: buttons, modals, messages, sliders, inputs',
-            'Consumer cart component and functionality',
-            'Code review and troubleshooting'
+            'Consumer cart component and all functionality',
+            'Code review and troubleshooting on all components'
         ],
     },
     {
@@ -46,8 +45,7 @@ const collaborators = [
         tasks: [
             'Footer',
             'Topcategory page',
-            'Main page',
-            'General styles guru',
+            'Main page TopCats section for desktop',
         ],
     },
 ];
@@ -107,7 +105,6 @@ export default props => {
                                         {item.tasks.map(el => (
                                             <Grid item key={Math.random()}>
                                                 <ListItem className={classes.listItem}><span>
-                                                    {/* <CheckCircleOutlineIcon/> */}
                                                     <KeyboardArrowRightIcon/>
                                                 </span>{el}</ListItem>
                                             </Grid>

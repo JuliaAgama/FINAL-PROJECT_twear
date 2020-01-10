@@ -58,7 +58,7 @@ export default props => {
             setDoubles(false);
             setCloudinaryPath(`/twear/`);
         };
-    },[formData]);
+    },[formData, catsBase, categoryName, topCatsBase]);
 
     const onUploadImg = newImgs => {
         setFormData({

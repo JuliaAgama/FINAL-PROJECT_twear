@@ -26,7 +26,7 @@ export function getAllTopCats() {
         .catch(err => {
             return dispatch({
                 type: TOPCATS.TOPCATS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -44,7 +44,7 @@ export function getTopCatItem(id) {
         .catch(err => {
             return dispatch({
                 type: TOPCATS.TOPCAT_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -62,7 +62,7 @@ export function addTopCat(item){
         .catch(err => {
             return dispatch({
                 type: TOPCATS.TOPCATS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -80,7 +80,7 @@ export function updateTopCat (item){
         .catch(err => {
             return dispatch({
                 type: TOPCATS.TOPCATS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -99,7 +99,7 @@ export function deleteTopCat(item){
         .catch(err => {
             return dispatch({
                 type: TOPCATS.TOPCATS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };

@@ -26,7 +26,7 @@ export function getAllSizeTypes() {
         .catch(err => {
             return dispatch({
                 type: SIZETYPES.SIZETYPES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -44,7 +44,7 @@ export function getSizeTypeItem(id) {
         .catch(err => {
             return dispatch({
                 type: SIZETYPES.SIZETYPE_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -62,7 +62,7 @@ export function addSizeType(item){
         .catch(err => {
             return dispatch({
                 type: SIZETYPES.SIZETYPES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -80,7 +80,7 @@ export function updateSizeType (item){
         .catch(err => {
             return dispatch({
                 type: SIZETYPES.SIZETYPES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -99,7 +99,7 @@ export function deleteSizeType(item){
         .catch(err => {
             return dispatch({
                 type: SIZETYPES.SIZETYPES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
