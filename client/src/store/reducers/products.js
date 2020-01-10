@@ -2,7 +2,6 @@ import * as PRODUCTS from '../constants/products';
 
 const initState = {
     products: [],
-    product: {},
     productsFiltered: {},
     loaded: false,
     error: null
@@ -20,13 +19,13 @@ export default function (state = initState, action) {
                 }
             };
 
-            case PRODUCTS.PRODUCTS_RESPONSE_FAILED:
-                return {
-                    ...state,
-                    ...{
-                        error : action.error
-                    }
-                };
+        case PRODUCTS.PRODUCTS_RESPONSE_FAILED:
+            return {
+                ...state,
+                ...{
+                    error : action.error
+                }
+            };
 
         case PRODUCTS.PRODUCTS_GET_ALL_PRODUCTS:
             return {
@@ -37,14 +36,14 @@ export default function (state = initState, action) {
                 }
             };
 
-            case PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_FILTER:
-                return {
-                    ...state,
-                    ...{
-                        productsFiltered: action.data,
-                        loaded: true
-                    }
-                };
+        case PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_FILTER:
+            return {
+                ...state,
+                ...{
+                    productsFiltered: action.data,
+                    loaded: true
+                }
+            };
 
         case PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_SEARCH:
             return {
@@ -55,20 +54,11 @@ export default function (state = initState, action) {
                 }
             };
 
-            case PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_PARENT_ID:
-                return {
-                    ...state,
-                    ...{
-                        products: action.data,
-                        loaded: true
-                    }
-                };
-
-        case PRODUCTS.PRODUCT_GET_PRODUCT_ITEM_BY_ITEMNO:
+        case PRODUCTS.PRODUCTS_GET_PRODUCTS_BY_PARENT_ID:
             return {
                 ...state,
                 ...{
-                    product: action.data,
+                    products: action.data,
                     loaded: true
                 }
             };
@@ -82,14 +72,14 @@ export default function (state = initState, action) {
                 }
             };
 
-            case PRODUCTS.PRODUCTS_UPDATE_PRODUCT:
+        case PRODUCTS.PRODUCTS_UPDATE_PRODUCT:
             let updatedProducts = state.products.map(el => {
-                if(el._id === action.data._id){
-                    return action.data
-                }
-                return el;
+            if(el._id === action.data._id){
+                return action.data
+            }
+            return el;
             });
-            return{
+            return {
                 ...state,
                 ...{
                     products : updatedProducts,
@@ -97,7 +87,7 @@ export default function (state = initState, action) {
                 }
             };
 
-            case PRODUCTS.PRODUCTS_DELETE_PRODUCT:
+        case PRODUCTS.PRODUCTS_DELETE_PRODUCT:
             let updated = state.products.filter(el => {
                 return el._id !== action.data._id
             });
@@ -108,6 +98,7 @@ export default function (state = initState, action) {
                     loaded : true
                 }
             };
+
         default:
             return state
     }

@@ -10,8 +10,8 @@ import useStyles from "./useStyles";
 
 import TopCatItem from "./TopCatItem";
 import ProductGallery from "../common/ProductsGallery";
-import Marquee from "../common/Marquee";
-
+import BlackTicker from "../common/BlackTicker"
+import PinkTicker from "../common/PinkTicker"
 
 export default () => {
     const dispatch = useDispatch();
@@ -25,73 +25,13 @@ export default () => {
     let products = useSelector(state => state.productsGallery.productsGalleryForShow);
     products = products.checkedProduct;
 
-
-    const mainAnnouncement = {
-        texts: [
-            'autumn winter 2019',
-            '40% off',
-            'autumn winter 2019',
-            '40% off',
-            'autumn winter 2019',
-            '40% off',
-            'autumn winter 2019',
-            '40% off',
-            'autumn winter 2019',
-            '40% off',
-            'autumn winter 2019',
-            '40% off',
-            'autumn winter 2019',
-            '40% off',
-            'autumn winter 2019',
-            '40% off',
-        ],
-        styles: {
-            container: {
-            },
-            text: {
-                color: '#ED1472',
-                paddingLeft: '30px',
-                paddingRight: '30px',
-                fontSize: '40px',
-                textTransform: 'uppercase',
-                letterSpacing: '2px',
-                WebkitAnimation: 'marquee 300s infinite linear',
-                animation: 'marquee 300s infinite linear'
-            }
-        }
-    };
-
-    const selectedAnnouncement = {
-        texts: [
-            "free shipping above 1000 euro",
-            'quick pay with paypal',
-            "free shipping above 1000 euro",
-            'quick pay with paypal',
-            "free shipping above 1000 euro",
-            'quick pay with paypal',
-        ],
-        styles: {
-            container: {
-            },
-            text: {
-                color: '#000',
-                textTransform: 'uppercase',
-                // color: '#B515FF',
-                fontSize: '40px',
-                letterSpacing: '2px',
-                WebkitAnimation: 'marquee 200s infinite linear',
-                animation: 'marquee 200s infinite linear'
-            }
-        }
-    };
-
     const classes = useStyles();
 
     return (
         <main>
             <Box position='relative'>
                 <Hidden smDown>
-                    <Box position='absolute' top='-90px' width='100%'><Marquee text={mainAnnouncement.texts.join(' ... !!! ... sale ... !!! ... ')} styles={mainAnnouncement.styles}/></Box>
+                    <PinkTicker/>
                 </Hidden>
                 <Box className={classes.header} fontSize='h4.fontSize'>
                     Pre Spring 2020
@@ -107,11 +47,11 @@ export default () => {
                 </Grid>
             </Box>
             <Hidden smDown>
-                <Box mt={6}><Marquee text={selectedAnnouncement.texts.join(' ... !!! ... !!! ... ')} styles={selectedAnnouncement.styles}/></Box>
+                <BlackTicker/>
             </Hidden>
             <ProductGallery products={products} homePage={true}/>
             <Hidden smDown>
-                <Box mt={6}><Marquee text={selectedAnnouncement.texts.join(' ... !!! ... !!! ... ')} styles={selectedAnnouncement.styles}/></Box>
+                <BlackTicker/>
             </Hidden>
         </main>
     )

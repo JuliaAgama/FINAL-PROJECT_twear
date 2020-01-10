@@ -26,7 +26,7 @@ export function getAllGenders() {
         .catch(err => {
             return dispatch({
                 type: GENDERS.GENDERS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -44,7 +44,7 @@ export function getGenderItem(id) {
         .catch(err => {
             return dispatch({
                 type: GENDERS.GENDER_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -62,7 +62,7 @@ export function addGender(item){
         .catch(err => {
             return dispatch({
                 type: GENDERS.GENDERS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -80,7 +80,7 @@ export function updateGender (item){
         .catch(err => {
             return dispatch({
                 type: GENDERS.GENDERS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -98,7 +98,7 @@ export function deleteGender(item){
         .catch(err => {
             return dispatch({
                 type: GENDERS.GENDERS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };

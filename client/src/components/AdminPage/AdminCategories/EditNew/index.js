@@ -30,20 +30,7 @@ export default props => {
         if(categoryName) {setDisplayAdditional('displayBlock');}
     },[categoryName]);
 
-    // get data (that are in need for the form) from data base:
     const dispatch = useDispatch();
-
-    const getTopCatsList = () => {
-        topCatsActions.getAllTopCats()(dispatch);
-    };
-
-    const getCategoriesList = () => {
-        categoriesActions.getAllCategories()(dispatch);
-    };
-
-    const getGendersList = () => {
-        gendersActions.getAllGenders()(dispatch);
-    };
 
     const catsBase = useSelector(state => state.categories.categories);
     const topCatsBase = (useSelector(state => state.topCats.topCats));
@@ -60,14 +47,9 @@ export default props => {
     };
 
     useEffect(() => {
-        getCategoriesList();
-        getTopCatsList();
-        getGendersList();
-        return () => {
-            getCategoriesList();
-            getTopCatsList();
-            getGendersList();
-        }
+        dispatch(topCatsActions.getAllTopCats());
+        dispatch(categoriesActions.getAllCategories());
+        dispatch(gendersActions.getAllGenders());
     }, [dispatch]);
 
     const ref = useRef(null);

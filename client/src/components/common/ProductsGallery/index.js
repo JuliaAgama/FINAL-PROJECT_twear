@@ -12,7 +12,7 @@ import SortMenu from "./SortMenu";
 import {getSetOfProductsColors, getSetOfProductSizes, getCategoryTitle, getImgsUrl, createHomePage} from "./Helpers";
 
 export default props => {
-    const {products, queryString, homePage} = props;
+    const {products, queryString, homePage, productPage} = props;
     const classes = useStyles();
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('sm'));
@@ -22,8 +22,9 @@ export default props => {
     if (matches) rowElementsCount = 2;
 
     const productsGallery = useSelector(state => state.productsGallery.productsGalleryForShow);
+    let title = 'Popular Goods in this category';
+    if (!productPage) title = productsGallery.title;
 
-    const title = productsGallery.title;
     let productCards = [];
 
     if (products) {
@@ -37,13 +38,13 @@ export default props => {
         let sizes = getSetOfProductSizes(product);
 
         return <ProductCard
+            itemNo = {product.itemNo}
             name={product.name}
             price={product.price}
             sizes={sizes}
             srcImg1={img1}
             srcImg2={img2}
             key={product._id}
-            href = {`products/${product.itemNo}`}
             borderRight={borderRight}
             />;
         });
@@ -65,12 +66,12 @@ export default props => {
     return (
         <>
             <Box className={classes.title} fontSize='h4.fontSize'>
-                {homePage ? title : getCategoryTitle(queryString)}
+                {homePage || productPage ? title : getCategoryTitle(queryString)}
             </Box>
-            {!homePage ? !matches ?
+            {!homePage && !productPage ? !matches ?
                 <FiltersMenu colors={getSetOfProductsColors(products, queryString)} queryString = {queryString}/> : '' : ''
             }
-            {!homePage ?
+            {!homePage && !productPage ?
                 <SortMenu mobile={matches} colors={getSetOfProductsColors(products, queryString)} queryString = {queryString}/> : ''
             }
             <Container maxWidth={false} className={classes.mainContainer}>

@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 
-import {Container, Hidden, Box} from "@material-ui/core";
+import {Hidden, Box} from "@material-ui/core";
 import useStyles from "./useStyles";
 
 import Marquee from "../../Marquee";
 
 
-export default function CategoryLink(props) {
+export default  props => {
 
     const {borderRight, categoryLink, categoryName, borderBottom} = props;
     const [isHover, setIsHover] = useState(false);
@@ -17,7 +17,6 @@ export default function CategoryLink(props) {
         setIsHover(!isHover);
     };
 
-    console.log( 'isHover: ', isHover);
     const selectedLinks = {
         styles: {
             container: {
@@ -39,7 +38,6 @@ export default function CategoryLink(props) {
 
     return (
         <Box className={ borderRight ? classes.container :
-        //<Container maxWidth={false} className={ borderRight ? classes.container :
                 !borderRight && borderBottom ?
                 `${classes.container} ${classes.borderBottom} ${classes.borderRight}` :
                 `${classes.container} ${classes.borderRight}`}>
@@ -56,7 +54,6 @@ export default function CategoryLink(props) {
                     }
                 </Hidden>
             </Link>
-        {/* </Container> */}
         </Box>
     );
-}
+};

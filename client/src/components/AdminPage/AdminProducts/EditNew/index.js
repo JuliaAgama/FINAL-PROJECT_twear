@@ -24,47 +24,18 @@ import Spinner from '../../../common/Spinner';
 export default props => {
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const itemNo = props.match.params.itemNo;
 
-    // get data (that are in need for the form) from data base:
-    const dispatch = useDispatch();
-
-    const getTopCatsList = () => {
-        topCatsActions.getAllTopCats()(dispatch);
-    };
-    const getCategoriesList = () => {
-        categoriesActions.getAllCategories()(dispatch);
-    };
-    const getGendersList = () => {
-        gendersActions.getAllGenders()(dispatch);
-    };
-    const getSizeTypesList = () => {
-        sizeTypesActions.getAllSizeTypes()(dispatch);
-    };
-    const getColorsList = () => {
-        colorsActions.getAllColors()(dispatch);
-    };
-    const getProductByItemNo = () => {
-    if(itemNo !== 'newProduct') {productsActions.getProductItemByItemNo(itemNo)(dispatch)}
-    };
-
     useEffect(() => {
-        getProductByItemNo();
-        getTopCatsList();
-        getCategoriesList();
-        getGendersList();
-        getSizeTypesList();
-        getColorsList();
-        return () => {
-            getProductByItemNo();
-            getTopCatsList();
-            getCategoriesList();
-            getGendersList();
-            getSizeTypesList();
-            getColorsList();
-        }
-    }, [dispatch]);
+        if(itemNo !== 'newProduct') {productsActions.getProductItemByItemNo(itemNo)(dispatch)};
+        dispatch(topCatsActions.getAllTopCats());
+        dispatch(categoriesActions.getAllCategories());
+        dispatch(gendersActions.getAllGenders());
+        dispatch(sizeTypesActions.getAllSizeTypes());
+        dispatch(colorsActions.getAllColors());
+    }, [dispatch, itemNo]);
 
     const product = itemNo === 'newProduct' ? {name: itemNo} : useSelector(state => state.productItem.productItem);
     const topCatsBase = useSelector(state => state.topCats.topCats);

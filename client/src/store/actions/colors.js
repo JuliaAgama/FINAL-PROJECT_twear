@@ -26,7 +26,7 @@ export function getAllColors() {
         .catch(err => {
             return dispatch({
                 type: COLORS.COLORS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -44,7 +44,7 @@ export function getColorItem(id) {
         .catch(err => {
             return dispatch({
                 type: COLORS.COLOR_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -62,7 +62,7 @@ export function addColor(item){
         .catch(err => {
             return dispatch({
                 type: COLORS.COLORS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -80,7 +80,7 @@ export function updateColor (item){
         .catch(err => {
             return dispatch({
                 type: COLORS.COLORS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -98,7 +98,7 @@ export function deleteColor(item){
         .catch(err => {
             return dispatch({
                 type: COLORS.COLORS_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };

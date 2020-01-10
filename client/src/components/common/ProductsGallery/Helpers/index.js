@@ -57,7 +57,7 @@ export function getSetOfProductSizes(product) {
     product.colors.forEach(item => {
         if (item.sizes) {
             item.sizes.forEach(size => {
-                sizesSet.add(size.size.name + " ");
+                if (size.quantity > 0) sizesSet.add(size.size.name + " ");
             });
         }
     });

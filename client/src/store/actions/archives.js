@@ -26,7 +26,7 @@ export function getAllArchives() {
         .catch(err => {
             return dispatch({
                 type: ARCHIVES.ARCHIVES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -44,7 +44,7 @@ export function getArchivesByFilter(filter) {
         .catch(err => {
             return dispatch({
                 type: ARCHIVES.ARCHIVES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -62,7 +62,7 @@ export function getArchivesBySearch(searchValue) {
         .catch(err => {
             return dispatch({
                 type: ARCHIVES.ARCHIVES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -80,7 +80,7 @@ export function getArchivesByParentId(CategoryId) {
         .catch(err => {
             return dispatch({
                 type: ARCHIVES.ARCHIVES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -98,7 +98,7 @@ export function getArchiveItem(id) {
         .catch(err => {
             return dispatch({
                 type: ARCHIVES.ARCHIVE_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -116,7 +116,7 @@ export function getArchiveItemByItemNo(itemNo) {
         .catch(err => {
             return dispatch({
                 type: ARCHIVES.ARCHIVE_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -134,7 +134,7 @@ export function addArchive(item){
         .catch(err => {
             return dispatch({
                 type: ARCHIVES.ARCHIVES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -152,7 +152,7 @@ export function updateArchive (item){
         .catch(err => {
             return dispatch({
                 type: ARCHIVES.ARCHIVES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -170,7 +170,7 @@ export function deleteArchive(item){
         .catch(err => {
             return dispatch({
                 type: ARCHIVES.ARCHIVES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };

@@ -27,7 +27,7 @@ export function getAllSizes() {
         .catch(err => {
             return dispatch({
                 type: SIZES.SIZES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -45,7 +45,7 @@ export function getSizesBySearch(searchValue) {
         .catch(err => {
             return dispatch({
                 type: SIZES.SIZES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -63,7 +63,7 @@ export function getSizesByParentId(sizeTypeId) {
         .catch(err => {
             return dispatch({
                 type: SIZES.SIZES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -82,7 +82,7 @@ export function getSizeItem(id) {
         .catch(err => {
             return dispatch({
                 type: SIZES.SIZE_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -101,7 +101,7 @@ export function addSize(item){
         .catch(err => {
             return dispatch({
                 type: SIZES.SIZES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -120,7 +120,7 @@ export function updateSize (item){
         .catch(err => {
             return dispatch({
                 type: SIZES.SIZES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -138,7 +138,7 @@ export function deleteSize(item){
         .catch(err => {
             return dispatch({
                 type: SIZES.SIZES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };

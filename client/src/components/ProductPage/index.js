@@ -1,19 +1,26 @@
 import React, {useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductItemByItemNo } from "../../store/actions/products";
-import ProductPageItem from "./ProductPageItem";    
 
-const ProductPage = () => {
-  const productLink = useParams().product;
-  const dispatch = useDispatch();
-  const product = useSelector(state => state.products.product);
+import * as productsActions from '../../store/actions/products';
 
-  useEffect(() => dispatch(getProductItemByItemNo(productLink)), [dispatch]);
+import ProductPageItem from "./ProductPageItem";
 
-  return <ProductPageItem />
+export default () => {
+    const itemNo = useParams().product;
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(productsActions.getProductItemByItemNo(itemNo));
+    }, [dispatch, itemNo]);
 
+    const product = useSelector(state => state.productItem.productItem);
+
+    useEffect(()=> {
+        if (product && product.categories) {
+            dispatch(productsActions.getProductsByParentId(product.categories[0].category._id))
+        }
+    },[dispatch, product])
+
+    return <ProductPageItem />
 };
-
-export default ProductPage;

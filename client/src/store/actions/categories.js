@@ -15,7 +15,7 @@ export function categoryItemSendRequest() {
 };
 
 export function getAllCategories() {
-      return function (dispatch) {
+    return function (dispatch) {
         dispatch(categoriesSendRequest());
         (new CategoriesApi()).getCategories()
         .then(res => {
@@ -27,7 +27,7 @@ export function getAllCategories() {
         .catch(err => {
             return dispatch({
                 type: CATEGORIES.CATEGORIES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -45,7 +45,7 @@ export function getCategoriesBySearch(searchValue) {
         .catch(err => {
             return dispatch({
                 type: CATEGORIES.CATEGORIES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -63,7 +63,7 @@ export function getCategoriesByParentId(topCatId) {
         .catch(err => {
             return dispatch({
                 type: CATEGORIES.CATEGORIES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -82,7 +82,7 @@ export function getCategoryItem(id) {
         .catch(err => {
             return dispatch({
                 type: CATEGORIES.CATEGORY_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -102,7 +102,7 @@ export function addCategory(item){
         .catch(err => {
             return dispatch({
                 type: CATEGORIES.CATEGORIES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -122,7 +122,7 @@ export function updateCategory (item){
         .catch(err => {
             return dispatch({
                 type: CATEGORIES.CATEGORIES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -140,7 +140,7 @@ export function deleteCategory(item){
         .catch(err => {
             return dispatch({
                 type: CATEGORIES.CATEGORIES_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };

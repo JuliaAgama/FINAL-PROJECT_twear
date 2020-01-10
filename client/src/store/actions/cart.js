@@ -1,8 +1,5 @@
 import * as CART from '../constants/cart';
 import CartApi from '../../services/Cart';
-import ProductsApi from '../../services/Products';
-import ColorsApi from '../../services/Colors';
-import SizesApi from '../../services/Sizes';
 
 
 export function cartSendRequest() {
@@ -25,7 +22,7 @@ export function getCart(cart) {
         .catch(err => {
             return dispatch({
                 type: CART.CART_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
@@ -46,19 +43,17 @@ export function createCart(customer, cart) {
         .catch(err => {
             return dispatch({
                 type: CART.CART_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         });
     };
 };
 
 export function updateCart(updatedCart) {
-    console.log('updateCart action , updatedCart: ', updatedCart)
     return function (dispatch) {
         dispatch(cartSendRequest());
 
         (new CartApi()).updateCart({products: updatedCart.products}).then(res => {
-            console.log('updateCart action , CartApi.updateCart res: ', res)
             return dispatch({
                 type: CART.CART_UPDATE_CART,
                 data: {products: res.products},
@@ -88,7 +83,7 @@ export function concatCart (localCart) {
         // .catch(err => {
         //     return dispatch({
         //         type: CART.CART_RESPONSE_FAILED,
-        //         error: err.response.data
+        //         error: err.message
         //     })
         // })
     };
@@ -106,7 +101,7 @@ export function deleteCart() {
         .catch(err => {
             return dispatch({
                 type: CART.CART_RESPONSE_FAILED,
-                error: err.response.data
+                error: err.message
             })
         })
     };
@@ -126,7 +121,7 @@ export function addProductToCart(cart, newItem) {
             .catch(err => {
                 return dispatch({
                     type: CART.CART_RESPONSE_FAILED,
-                    error: err.response.data
+                    error: err.message
                 })
             })
 
@@ -145,16 +140,16 @@ export function addProductToCart(cart, newItem) {
 //         .catch(err => {
 //             return dispatch({
 //                 type: CART.CART_RESPONSE_FAILED,
-//                 error: err.response.data
+//                 error: err.message
 //             })
 //         })
 //     };
 // };
 
-export function deleteProductFromCart(product, color, size) {
+export function deleteProductFromCart(cart, itemToDelete) {
     return function (dispatch) {
         dispatch(cartSendRequest());
-        (new CartApi()).deleteProductFromCart(product, color, size).then(res => {
+        (new CartApi()).deleteProductFromCart(cart, itemToDelete).then(res => {
             return dispatch({
                 type: CART.CART_DELETE_PRODUCT,
                 data: {products: res.products},
@@ -163,7 +158,7 @@ export function deleteProductFromCart(product, color, size) {
         .catch(err => {
             return dispatch({
                 type: CART.CART_RESPONSE_FAILED,
-                error: err.response.data
+                error: err
             })
         })
     };

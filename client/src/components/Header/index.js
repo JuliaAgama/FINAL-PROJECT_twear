@@ -6,8 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {hideDesktopCategoriesMenuAction} from "../../store/actions/header";
 import {hideMobileMenuAction} from "../../store/actions/header";
 
-import {withWidth, Hidden, Grid, Box} from '@material-ui/core';
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import {withWidth, Hidden, Grid, Box, ClickAwayListener} from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -43,22 +42,6 @@ export default withWidth()( () => {
             <ClickAwayListener onClickAway={handleClickAway}>
                 <>
                 <Hidden smDown>
-                    {/* <Container maxWidth={false} className={classes.mainContainer}>
-                        <Container maxWidth={false} className={classes.container}>
-                            <Search/>
-                            <Currency/>
-                        </Container>
-                        <Container maxWidth={false} className={`${classes.container} ${classes.logoContainer}`}>
-                            <Logo/>
-                            <CategoriesMenu title='Women' border={true}/>
-                            <CategoriesMenu title='Men' isMen={true}/>
-                        </Container>
-                        <Container maxWidth={false} className={classes.container}>
-                            <MiniCart/>
-                            <Login/>
-                        </Container>
-                        <CategoryItems/>
-                    </Container> */}
                     <Grid item xs={3} className={clsx(classes.headerItem, classes.sticky, classes.leftBorder)}>
                         <Box zIndex='modal'>
                         <Search/>
@@ -119,22 +102,8 @@ export default withWidth()( () => {
                             </Grid>
                         </Grid>
                     </Box>
-                    {/* <div className={classes.mainContainerMobile}> */}
-                        {/* <DropDownMenu/>
-                        <Logo/>
-                        <MiniCart/>
-                        <Search/> */}
-                        {/* <div className={showMobileMenu ? classes.mobileMenuContainer : classes.hide}>
-                            <CategoriesMenu title='Women' border={true}/>
-                            <CategoriesMenu title='Men' isMen={true}/>
-                            <CategoryItems mobile={true}/>
-                            <Currency/>
-                            <Login/>
-                        </div> */}
-                    {/* </div> */}
                 </Hidden>
                 <Modal/>
-                {/* </div> */}
                 </>
             </ClickAwayListener>
         </React.Fragment>
