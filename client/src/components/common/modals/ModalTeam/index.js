@@ -19,11 +19,11 @@ const collaborators = [
             'Backend controllers and routes',
             'Frontend REST API services',
             'Redux settings, actions, reducers, persist',
-            'Admin panel: cagalogue management',
+            'Admin panel: all pages for catalogue management',
             'Images upload to Cloudinary',
             'Common components: buttons, modals, messages, sliders, inputs',
-            'Consumer cart component and functionality',
-            'Code review and troubleshooting'
+            'Consumer cart component and all functionality',
+            'Code review and troubleshooting on all components'
         ],
     },
     {
@@ -45,8 +45,7 @@ const collaborators = [
         tasks: [
             'Footer',
             'Topcategory page',
-            'Main page',
-            'General styles guru',
+            'Main page TopCats section for desktop',
         ],
     },
 ];
