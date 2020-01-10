@@ -12,7 +12,8 @@ export default makeStyles(theme => (
             borderRadius: '25px',
             padding: '0 8px',
             margin: '8px',
-            minWidth: '220px'
+            minWidth: '163px',
+            fontSize: '10px'
         }
     }
 ));
