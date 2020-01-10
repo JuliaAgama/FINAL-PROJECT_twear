@@ -2,7 +2,7 @@ import * as CURRENCY from '../constants/currency';
 
 const initState = {
     currency: [],
-    currentCurrency: 'USA',
+    currentCurrency: 'USD',
     loaded: false,
     error: null
 };
