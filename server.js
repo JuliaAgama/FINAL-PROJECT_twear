@@ -29,6 +29,7 @@ const subscribers = require("./routes/subscribers");
 const topCats = require("./routes/topCats");
 const images = require('./routes/images');
 const productGallery = require('./routes/homePageProductGallery');
+const currency = require('./routes/currency');
 const wishlist = require("./routes/wishlist");
 const mainRoute = require("./routes/index");
 
@@ -77,6 +78,7 @@ app.use("/api/colors", colors);
 app.use("/api/comments", comments);
 app.use("/api/configs", globalConfigs);
 app.use("/api/productsGallery", productGallery);
+app.use("/api/currency", currency);
 app.use("/api/customers", customers);
 app.use("/api/filters", filters);
 app.use("/api/genders", genders);

@@ -41,7 +41,15 @@ export const setImgs = (product, color) => {
                                        src={img}
                                        alt="Img not found"
                         />)
-                    })
+                    });
+                    if (imgs.length < 1) {
+                        imgs = product.imgs.map(item => {
+                            return <img key={item}
+                                        src={item}
+                                        alt="Img not found"
+                            />
+                        })
+                    }
                 }
             })
         }

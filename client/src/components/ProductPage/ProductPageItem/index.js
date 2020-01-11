@@ -29,6 +29,7 @@ export default () => {
     let imgs =[];
     const [color, setColor] = useState('Color');
     const [size, setSize] = useState('Size');
+    const [isDisabled, setDisabled] = useState(true);
 
     if(product.imgs) {
         imgs = setImgs(product, color)
@@ -36,13 +37,16 @@ export default () => {
 
     const handleColorChange = event => {
         setColor(event.target.value);
-        setSize('Size')
+        setSize('Size');
+        setDisabled(true);
     };
     const handleSizeChange = event => {
         setSize(event.target.value);
+        if (event.target.value !== 'Size') setDisabled(false)
     };
 
-    setColors(product);
+    const colors = setColors(product);
+    const sizes = setSizes(product, color);
 
     const addToProductCart = () => {
         const sku = {
@@ -84,7 +88,7 @@ export default () => {
                             className={classes.option}
                         >
                             <option value='Color'>Color</option>
-                            {setColors(product)}
+                            {colors}
                         </NativeSelect>
                     </FormControl>
 
@@ -97,7 +101,7 @@ export default () => {
                             className={classes.option}
                         >
                             <option value='Size'>Size</option>
-                            {setSizes(product, color)}
+                            {sizes}
                         </NativeSelect>
                         {color === 'Color' ? <FormHelperText>First choose a color</FormHelperText> : ''}
                     </FormControl>
@@ -109,6 +113,7 @@ export default () => {
                         variant="outlined"
                         className={classes.btn}
                         onClick={addToProductCart}
+                        disabled = {isDisabled}
                 >
                     Add to shopping bag
                 </Button>

@@ -23,6 +23,12 @@ export default makeStyles(theme => (
             '&:hover': {
                 backgroundColor: grey[200],
             },
+        },
+        currentCurrency: {
+            borderBottom : '1px solid black'
+        },
+        currency : {
+            borderBottom : '1px solid transparent'
         }
     }
 ));
