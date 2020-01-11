@@ -120,7 +120,7 @@ exports.loginCustomer = async (req, res, next) => {
             process.env.NODE_ENV === "production"
               ? configs.production.auth.secretOrKey
               : configs.development.auth.secretOrKey,
-            { expiresIn: 360000 },
+            { expiresIn: 36000000 },
             (err, token) => {
               res.json({
                 success: true,

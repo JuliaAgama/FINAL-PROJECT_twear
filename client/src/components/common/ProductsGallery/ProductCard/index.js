@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 import {Container, Box} from "@material-ui/core";
 import { useSpring, animated as a } from 'react-spring'
@@ -26,6 +26,7 @@ const createPriceStr = (currentCurrency, price, currency) => {
 
 export default function ProductCard(props) {
     const classes = useStyles();
+    const history = useHistory();
     const currentCurrency = useSelector(state => state.currency.currentCurrency);
     const exchangeRates = useSelector(state => state.currency.currency);
     const [flipped, set] = useState(false);
@@ -36,6 +37,8 @@ export default function ProductCard(props) {
         config: { mass: 5, tension: 200, friction: 80 }
     });
 
+    const clickHandler = () => history.push(`/products/${itemNo}`);
+
     const priceString = createPriceStr(currentCurrency, price, exchangeRates);
     const cutName = (string, l) => string.length > l ? string.slice(0, l-2)+'..' : string;
 
@@ -44,6 +47,7 @@ export default function ProductCard(props) {
             maxWidth={false}
             onMouseEnter={() => set(true)}
             onMouseLeave={() => set(false)}
+            onClick={clickHandler}
             className={borderRight ? classes.mainContainer : `${classes.mainContainer} ${classes.borderRight}`}
         >
             {!flipped ?
