@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, {useRef, useState, useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
+import { useHistory } from 'react-router-dom';
 
 import * as cartActions from '../../../store/actions/cart';
 
@@ -12,9 +13,12 @@ import NameAndPrice from "./NameAndPrice";
 import BlackTicker from '../../common/BlackTicker'
 import ProductsGallery from "../../common/ProductsGallery";
 
+import Notification from '../../common/messages/Notification';
+
 
 export default () => {
 
+    const history = useHistory();
     const dispatch = useDispatch();
 
     const product = useSelector(state => state.productItem.productItem);
@@ -48,6 +52,9 @@ export default () => {
     const colors = setColors(product);
     const sizes = setSizes(product, color);
 
+    const ref = useRef(null);
+    const timeout = 2000;
+
     const addToProductCart = () => {
         const sku = {
             product: product,
@@ -56,6 +63,12 @@ export default () => {
             quantity: 1
         };
         dispatch(cartActions.addProductToCart(cart, sku));
+
+        ref.current(`${sku.quantity} ${sku.product.name.toUpperCase()} (color: ${sku.color.name.toUpperCase()}, size: ${sku.size.name.toUpperCase()}) has been added to Your cart!`);
+
+        setTimeout(() => {
+            return history.push("/cart");
+        }, timeout)
     };
 
     const classes = useStyles();
@@ -133,7 +146,8 @@ export default () => {
         <Hidden smDown>
             <BlackTicker/>
         </Hidden>
-            {products ? <ProductsGallery  products={products} productPage={true} /> : ""}
+        {products && <ProductsGallery  products={products} productPage={true} />}
+        <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     );
 };
