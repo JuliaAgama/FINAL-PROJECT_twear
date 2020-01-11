@@ -1,7 +1,7 @@
-import React, {useRef, useState, useEffect} from "react";
+import React, {useRef, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import { useHistory } from 'react-router-dom';
-
+import './imgStyle.css'
 import * as cartActions from '../../../store/actions/cart';
 
 import {Container, Hidden, FormControl, NativeSelect, FormHelperText, Button} from "@material-ui/core";
@@ -20,6 +20,7 @@ export default () => {
 
     const history = useHistory();
     const dispatch = useDispatch();
+    const classes = useStyles();
 
     const product = useSelector(state => state.productItem.productItem);
     const {cart} = useSelector(state => state.cart);
@@ -46,7 +47,11 @@ export default () => {
     };
     const handleSizeChange = event => {
         setSize(event.target.value);
-        if (event.target.value !== 'Size') setDisabled(false)
+        if (event.target.value !== 'Size') {
+            setDisabled(false)
+        } else {
+            setDisabled(true);
+        }
     };
 
     const colors = setColors(product);
@@ -70,8 +75,6 @@ export default () => {
             return history.push("/cart");
         }, timeout)
     };
-
-    const classes = useStyles();
 
     return (
         <>

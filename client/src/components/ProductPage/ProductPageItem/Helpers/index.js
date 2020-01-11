@@ -31,6 +31,7 @@ export const setImgs = (product, color) => {
                 return <img key={item}
                             src={item}
                             alt="Img not found"
+                            className='img'
                 />
             })
         } else {
@@ -40,6 +41,7 @@ export const setImgs = (product, color) => {
                         imgs.push(<img key={img}
                                        src={img}
                                        alt="Img not found"
+                                       className='img'
                         />)
                     });
                     if (imgs.length < 1) {
@@ -47,6 +49,7 @@ export const setImgs = (product, color) => {
                             return <img key={item}
                                         src={item}
                                         alt="Img not found"
+                                        className='img'
                             />
                         })
                     }
