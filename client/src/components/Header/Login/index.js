@@ -50,8 +50,7 @@ export default () => {
                     <span className={classes.span}>Log In</span>
                 }
             </div>
-            {isVisible ?
-            <Grid container className={classes.subMenu}>
+            {isVisible && <Grid container className={classes.subMenu}>
                 {customer.isAdmin ?
                 <>
                     <Grid item xs={12} md={3} className={classes.subMenuItem}>
@@ -73,8 +72,7 @@ export default () => {
                     </Grid>
                 </>
                 }
-            </Grid> : <></>
-            }
+            </Grid>}
         </React.Fragment>
     );
 };

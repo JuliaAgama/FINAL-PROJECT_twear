@@ -162,17 +162,16 @@ export default props => {
                 <Box p={2}>
                     {productLoaded ?
                         <Typography component="div" variant="body1" className={classes.wrapper}>
-                            {formData.colors ?
-                                formData.colors.map(item =>
-                                    <ColorItem
-                                        key={item.color._id || Math.random()}
-                                        productCloudinaryPath={productCloudinaryPath}
-                                        item={item}
-                                        //onChangeLInk={onChangeLink(item)}
-                                        onUploadImgs={onUploadImgs(item)}
-                                        onDeleteImg={onDeleteImg(item)}
-                                    /> ) : <></>
-                            }
+                            {formData.colors && formData.colors.map(item =>
+                                <ColorItem
+                                    key={item.color._id || Math.random()}
+                                    productCloudinaryPath={productCloudinaryPath}
+                                    item={item}
+                                    //onChangeLInk={onChangeLink(item)}
+                                    onUploadImgs={onUploadImgs(item)}
+                                    onDeleteImg={onDeleteImg(item)}
+                                />
+                            )}
                         </Typography> : <Spinner/>
                     }
                 </Box>
@@ -184,12 +183,9 @@ export default props => {
                         onClick={onSubmitHandler}
                     > {`SAVE`}</Button>
                 </Box>
-                    {
-                        product && product.itemNo ?
-                        <Link to={`/admin/products/`+product.itemNo} className={classes.linkGreen}> {`<<   to ${cutName(product.name, 10)} page`} </Link> : <></>
-                    }
-                    <Box/>
-                    <Link to={`/admin/products`} className={classes.linkPink}> {`<<   to Products List`} </Link>
+                {product && product.itemNo && <Link to={`/admin/products/`+product.itemNo} className={classes.linkGreen}> {`<<   to ${cutName(product.name, 10)} page`} </Link>}
+                <Box/>
+                <Link to={`/admin/products`} className={classes.linkPink}> {`<<   to Products List`} </Link>
             </form>
             <Notification timeout={timeout} children={add => (ref.current = add)} />
             <ErrorModal

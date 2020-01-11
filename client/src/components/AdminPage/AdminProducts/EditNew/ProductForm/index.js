@@ -327,16 +327,14 @@ export default props => {
                 </Grid>
             </Grid>
 
-            {item && itemNo !== 'newProduct' ?
+            {item && itemNo !== 'newProduct' &&
             <Grid item xs={12} container className={classes.bottomDivider} spacing={4}>
                 <Grid item xs={12}>Product Images</Grid>
-                {formData && formData.imgs ? formData.imgs.map(url =>
-                    <Grid item xs={4} lg={2}
-                        key={Math.random()}
-                    >
+                {formData && formData.imgs && formData.imgs.map(url =>
+                    <Grid item xs={4} lg={2} key={Math.random()}>
                         <ImgItem item={item} url={url} handleOnDelete={onDeleteImg}/>
                     </Grid>
-                    ) : <></>
+                    )
                 }
                 <Grid item xs={12}>
                     <UploadFile
@@ -362,7 +360,7 @@ export default props => {
                     )}
                 </Grid> */}
             </Grid>
-            : <></>}
+            }
 
             <Grid item xs={12} container> Colors:
                 <FormControl component="fieldset" className={classes.formControl}>
