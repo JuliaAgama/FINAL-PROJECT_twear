@@ -39,3 +39,19 @@ export function showWomenCategoriesAction() {
         });
     };
 };
+
+export function showPersonalCabinetMenuAction() {
+    return function (dispatch) {
+        return dispatch({
+            type: HEADER.HEADER_SHOW_PERSONAL_CABINET_MENU
+        });
+    };
+};
+
+export function hidePersonalCabinetMenuAction() {
+    return function (dispatch) {
+        return dispatch({
+            type: HEADER.HEADER_HIDE_PERSONAL_CABINET_MENU
+        });
+    };
+};

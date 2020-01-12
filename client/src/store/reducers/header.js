@@ -4,7 +4,8 @@ const initState = {
     isMen: false,
     isWomen: false,
     show: false,
-    showMobileMenu: false
+    showMobileMenu: false,
+    showPersonalCabinetMenu: false
 };
 
 export default function (state = initState, action) {
@@ -53,6 +54,22 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     show: false
+                }
+            };
+
+        case HEADER.HEADER_SHOW_PERSONAL_CABINET_MENU:
+            return {
+                ...state,
+                ...{
+                    showPersonalCabinetMenu: true
+                }
+            };
+
+        case HEADER.HEADER_HIDE_PERSONAL_CABINET_MENU:
+            return {
+                ...state,
+                ...{
+                    showPersonalCabinetMenu: false
                 }
             };
 

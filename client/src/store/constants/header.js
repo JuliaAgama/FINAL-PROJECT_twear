@@ -3,3 +3,5 @@ export const HEADER_MOBILE_MENU_HIDE = 'header_mobile_menu_hide';
 export const HEADER_DESKTOP_CATEGORIES_MENU_HIDE = 'header_desktop_categories_menu_hide';
 export const HEADER_MEN_CATEGORIES_SHOW = 'header_men_categories_show';
 export const HEADER_WOMEN_CATEGORIES_SHOW = 'header_women_categories_show';
+export const HEADER_SHOW_PERSONAL_CABINET_MENU = 'header_show_personal_cabinet_menu';
+export const HEADER_HIDE_PERSONAL_CABINET_MENU = 'header_hide_personal_cabinet_menu';

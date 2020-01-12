@@ -83,7 +83,7 @@ export default makeStyles(theme => (
         mobileMenuContainer: {
             display: 'flex',
             flexWrap: 'wrap',
-            width: '98%',
+            width: 'calc(100% - 20px)',
             position: 'absolute',
             top: '70px',
             borderRight: '1px solid black',
