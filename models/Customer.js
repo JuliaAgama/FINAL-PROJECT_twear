@@ -29,13 +29,18 @@ const CustomerSchema = new Schema({
     required: true
   },
   telephone: {
-    type: String
+    type: String,
+    default: ''
   },
   birthdate: {
     type: String
   },
   gender: {
-    type: String
+    type: String,
+    required: true
+  },
+  deliveryAddress: {
+    type: Schema.Types.Mixed
   },
   avatarUrl: {
     type: String
@@ -49,8 +54,7 @@ const CustomerSchema = new Schema({
     type: Boolean,
     required: true,
     default: false
-  }
-  ,
+  },
   enabled: {
     type: Boolean,
     required: true,
