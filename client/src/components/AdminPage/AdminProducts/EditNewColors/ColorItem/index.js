@@ -40,16 +40,11 @@ export default props => {
             <Box fontSize="body1.fontSize" pb={2} textAlign='center' className={classes.colored} >  {item.color ? item.color.name.toUpperCase() : ''}</Box>
             <Grid container className={classes.container} spacing={2}>
                 <Grid item xs={12} sm={6} lg={8} container spacing={4}>
-                    {item.color ? item.imgsColor.map(url =>
-                        <Grid item xs={4} lg={3}
-                            className={classes.paper}
-                            key={Math.random()}
-                        >
+                    {item.color && item.imgsColor.map(url =>
+                        <Grid item xs={4} lg={3} className={classes.paper} key={Math.random()}>
                             <ImgItem item={item} url={url} handleOnDelete={handleOnDelete}/>
                         </Grid>
-
-                    ) : <></>
-                    }
+                    )}
                 </Grid>
                 <Grid item xs={12} sm={6} lg={4} container className={classes.paper}>
                     {/* <Grid item xs={12}>Редактирование УРЛОВ</Grid> */}

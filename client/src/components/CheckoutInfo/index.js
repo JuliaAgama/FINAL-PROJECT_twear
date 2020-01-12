@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {  useHistory } from 'react-router-dom';
 
-import * as cartActions from '../../store/actions/cart';
+import * as cartActions from '../../../store/actions/cart';
 
 import { Typography, Box, Grid, Hidden } from '@material-ui/core';
 
@@ -14,8 +14,6 @@ export default () => {
 
     const dispatch = useDispatch();
 
-    const [checkoutAvailable, setCheckoutAvailable] = useState(false);
-
     const customerLoaded = useSelector(state => state.customers.loaded);
     const {cart} = useSelector(state => state.cart);
 
@@ -25,13 +23,6 @@ export default () => {
         }
     }, [dispatch, customerLoaded]);
 
-    const enableCheckout = state => {
-        setCheckoutAvailable(state);
-    };
-
-    const handleUpdateCart = formData => {
-        dispatch(cartActions.updateCart({products: formData.products}))
-    };
 
     const history = useHistory();
 
@@ -40,9 +31,13 @@ export default () => {
         history.push('/');
     };
 
-    const onCheckout = () => {
+    const onBackToCart = () => {
         handleUpdateCart(cart);
-        history.push('/checkout/information');
+        history.push('/cart');
+    };
+
+    const onPay = () => {
+        console.log('go to payment');
     };
 
     const classes = useStyles();
@@ -50,29 +45,27 @@ export default () => {
     return (
         <div className={classes.root}>
             <Typography component="div">
-                <Typography className={classes.header} variant="h4" component="h4">shopping bag</Typography>
+                <Typography className={classes.header} variant="h4" component="h4">checkout</Typography>
             </Typography>
-
-            <Cart
-                enableCheckout={enableCheckout}
-                handleUpdateCart={handleUpdateCart}
-            />
-
-            <Grid container spacing={2} justify="flex-end">
+            <Grid container>
+                <Grid item xs={12} md={7}>
+                    <Box>logo</Box>
+                    <Grid container>
+                        <Grid item xs={12} md={6}>
+                            <Box fontSize="h6.fontSize" textAlign='left'>Contact information</Box>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Box fontSize={14} textAlign='right'>Already have an account? <span> Log in</span></Box>
+                        </Grid>
+                    </Grid>
+                </Grid>
                 <Hidden smDown>
-                    <Grid item xs={12} md={5} lg={4}>
+                    <Grid item xmd={5}>
                         <Typography component="div" className={classes.btnRegular}>
                             <Box fontSize="body2.fontSize" onClick={onContinue}>Continue shopping</Box>
                         </Typography>
                     </Grid>
                 </Hidden>
-                    {checkoutAvailable &&
-                    <Grid item xs={12} md={7} lg={5}>
-                        <Typography component="div" className={classes.btnImportant}>
-                            <Box fontSize="body2.fontSize" onClick={onCheckout}>Checkout</Box>
-                        </Typography>
-                    </Grid>
-                    }
             </Grid>
             <Box p={2} fontSize="body2.fontSize">
                 <Box fontSize="body1.fontSize" pt={2}>CAN WE HELP?</Box>

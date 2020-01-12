@@ -72,13 +72,7 @@ export default props => {
                                 <Grid container>
                                     <Grid item xs={8}></Grid>
                                     <Grid item xs={2}>
-                                        {sizeTypeId ?
-                                            <AddButton
-                                                className='fabPink'
-                                                onClick={addItem}
-                                                size="small"
-                                            /> : <></>
-                                        }
+                                        {sizeTypeId && <AddButton className='fabPink' onClick={addItem} size="small"/>}
                                     </Grid>
                                     <Grid item xs={2}></Grid>
                                 </Grid>

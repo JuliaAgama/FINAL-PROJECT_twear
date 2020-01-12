@@ -12,10 +12,15 @@ export default props => {
 
     const breakpointValues = {
         xs: 0,
-        sm: 576,
-        md: 768,
-        lg: 992,
-        xl: 1200,
+        sm: 600,
+        md: 960,
+        lg: 1280,
+        xl: 1920,
+        // xs: 0,
+        // sm: 576,
+        // md: 768,
+        // lg: 992,
+        // xl: 1200,
     };
 
     const theme = createMuiTheme({ breakpoints: { values: breakpointValues } });
@@ -24,7 +29,7 @@ export default props => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container maxWidth='xl' className={classes.layoutContainer} >
+            <Container maxWidth='lg' className={classes.layoutContainer} >
                 <Grid container>
                     <Header/>
                     <Grid item xs={12}>{props.children}</Grid>

@@ -54,11 +54,15 @@ export default props => {
                                         <span>Last available item in this size and color</span>
                                     </Box> :
                                     <> {
-                                        item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity < 4 ?
-                                            <Box px={2} className={classes.info} fontSize={12}>
-                                                <InfoOutlinedIcon fontSize="small"/>
-                                                <span>{`Only ${item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity} items left in this size and color`}</span>
-                                            </Box> : <></>
+                                        item.product.colors.find(el =>
+                                            el.color === item.color._id
+                                        ).sizes.find(el =>
+                                            el.size === item.size._id
+                                        ).quantity < 4 &&
+                                        <Box px={2} className={classes.info} fontSize={12}>
+                                            <InfoOutlinedIcon fontSize="small"/>
+                                            <span>{`Only ${item.product.colors.find(el => el.color === item.color._id).sizes.find(el => el.size === item.size._id).quantity} items left in this size and color`}</span>
+                                        </Box>
                                     } </>
                                 } </>
                         }

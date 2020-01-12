@@ -175,12 +175,8 @@ export default props => {
                 <Grid container className={classes.paper}>
                     <Grid item xs={12}>
                         <Box className={classes.imgContainer} style={{backgroundImage: `url(${formData.img})`}}>
-                            {formData && formData.img ?
-                                <>
-                                    {
-                                        item && item.img === formData.img ? <></> : <Box className={classes.newImg}>New</Box>
-                                    }
-                                </> : <></>
+                            {formData && formData.img &&
+                            (item && item.img === formData.img ? <></> : <Box className={classes.newImg}>New</Box>)
                             }
                         </Box>
                     </Grid>

@@ -95,18 +95,10 @@ export default withWidth()(props => {
                             </ListItem>
                             <Collapse in={expanded[el.name]} timeout="auto" unmountOnExit>
                                 <Box className={classes.expanded}>
-                                    {el.name === 'product gallery name' ?
-                                        <Name setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name} /> : <></>
-                                    }
-                                    {el.name === 'title' ?
-                                        <Title setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name}/> : <></>
-                                    }
-                                    {el.name === 'products' ?
-                                        <Products setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name}/> : <></>
-                                    }
-                                    {el.name === 'links' ?
-                                        <Links setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name}/> : <></>
-                                    }
+                                    {el.name === 'product gallery name' && <Name setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name} /> }
+                                    {el.name === 'title' && <Title setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name}/>}
+                                    {el.name === 'products' && <Products setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name}/>}
+                                    {el.name === 'links' && <Links setExpanded={setExpanded} newProductsGallery={newProductsGallery} galleryName={name}/>}
                                 </Box>
                             </Collapse>
                         </Box>
