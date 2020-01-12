@@ -51,15 +51,9 @@ export function CategoryItems(props) {
         items = CategoriesFilter(categories, 'women').map(item => <Item key={item._id} url={`/categories/page=shop&gender=${item.gender.name}&category=${item.name}`} title={item.name} mobile={props.mobile} />)
     }
 
-    const handleClickAway = (event) => {
-        if (event.target.innerText !== 'Women' && event.target.innerText !== 'Men' ) dispatch(hideDesktopCategoriesMenuAction(false));
-    }
-
     return (
-        <ClickAwayListener onClickAway={handleClickAway}>
-            <Container maxWidth={false} className={show ? `${classes.border} ${classes.container}` : classes.hide}>
-                {items}
-            </Container>
-        </ClickAwayListener>
+        <Container maxWidth={false} className={show ? `${classes.border} ${classes.container}` : classes.hide}>
+            {items}
+        </Container>
     )
 }

@@ -1,13 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
+import { useSelector} from "react-redux";
 
-import {useDispatch, useSelector} from "react-redux";
+import {withWidth, Hidden, Grid, Box} from '@material-ui/core';
 
-import {hideDesktopCategoriesMenuAction, hideMobileMenuAction, hidePersonalCabinetMenuAction} from "../../store/actions/header";
-
-import {withWidth, Hidden, Grid, Box, ClickAwayListener} from '@material-ui/core';
-
-import useStyles from './useStyles';
 
 import Logo from "./Logo";
 import Search from "./Search";
@@ -19,32 +15,16 @@ import DropDownMenu from "./DropDownMenu";
 import {CategoryItems} from "./CategoriesMenu/CategoryItems";
 import Modal from '../common/modals/Modal'
 
+import useStyles from './useStyles';
+
 export default withWidth()( () => {
 
     const classes = useStyles();
-    const show  = useSelector(state => state.header.show);
     const showMobileMenu  = useSelector(state => state.header.showMobileMenu);
-    const showPersonalCabinetMenu = useSelector(state => state.header.showPersonalCabinetMenu);
-    const dispatch = useDispatch();
-
-    const handleClickAway = () =>{
-        if(showMobileMenu) {
-            dispatch(hideMobileMenuAction());
-        } else if (show && showMobileMenu) {
-            dispatch(hideMobileMenuAction());
-        } else if (show) {
-            dispatch(hideDesktopCategoriesMenuAction());
-        } else if (showPersonalCabinetMenu) {
-            dispatch(hidePersonalCabinetMenuAction())
-        }
-    };
-
 
     return (
         <React.Fragment>
-            <ClickAwayListener onClickAway={handleClickAway}>
-                <Grid container>
-                    <Hidden smDown>
+            <Hidden smDown>
                         <Grid item xs={3} className={clsx(classes.headerItem, classes.sticky, classes.leftBorder)}>
                             <Box zIndex='modal'>
                             <Search/>
@@ -107,8 +87,6 @@ export default withWidth()( () => {
                         </Box>
                     </Hidden>
                     <Modal/>
-                </Grid>
-            </ClickAwayListener>
         </React.Fragment>
     );
 });

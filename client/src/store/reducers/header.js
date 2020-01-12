@@ -5,7 +5,8 @@ const initState = {
     isWomen: false,
     show: false,
     showMobileMenu: false,
-    showPersonalCabinetMenu: false
+    showPersonalCabinetMenu: false,
+    showLoginMenu: false
 };
 
 export default function (state = initState, action) {
@@ -70,6 +71,22 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     showPersonalCabinetMenu: false
+                }
+            };
+
+        case HEADER.HEADER_SHOW_LOGIN_MENU:
+            return {
+                ...state,
+                ...{
+                    showLoginMenu: true
+                }
+            };
+
+        case HEADER.HEADER_HIDE_LOGIN_MENU:
+            return {
+                ...state,
+                ...{
+                    showLoginMenu: false
                 }
             };
 

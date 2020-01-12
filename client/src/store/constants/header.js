@@ -5,3 +5,5 @@ export const HEADER_MEN_CATEGORIES_SHOW = 'header_men_categories_show';
 export const HEADER_WOMEN_CATEGORIES_SHOW = 'header_women_categories_show';
 export const HEADER_SHOW_PERSONAL_CABINET_MENU = 'header_show_personal_cabinet_menu';
 export const HEADER_HIDE_PERSONAL_CABINET_MENU = 'header_hide_personal_cabinet_menu';
+export const HEADER_HIDE_LOGIN_MENU = 'header_hide_login_menu';
+export const HEADER_SHOW_LOGIN_MENU = 'header_show_login_menu';
