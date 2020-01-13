@@ -7,7 +7,7 @@ import { useTheme } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logoutAction} from "../../../../store/actions/customer";
-import {headerCloseAction, hideLoginMenuAction, hideMobileMenuAction} from "../../../../store/actions/header";
+import {headerCloseAction, hideLoginMenuAction} from "../../../../store/actions/header";
 
 import useStyles from "./useStyles";
 
@@ -25,7 +25,6 @@ export default () => {
     const logOutHandler = () => {
         if (matches) {
             dispatch(headerCloseAction());
-            // dispatch(hideLoginMenuAction());
         } else {
             dispatch(hideLoginMenuAction());
         }
@@ -35,7 +34,6 @@ export default () => {
     const personalCabinetHandler = () => {
         if (matches) {
             dispatch(headerCloseAction());
-            // dispatch(hideLoginMenuAction());
         } else {
             dispatch(hideLoginMenuAction());
         }
@@ -52,10 +50,10 @@ export default () => {
                                     <Link to='/personalCabinet' onClick={personalCabinetHandler} className={classes.linkContainer}>Personal Cabinet</Link>
                                 </Container>
                                 <Container maxWidth={false} className={classes.item50}>
-                                    <Link to={'/admin'} className={classes.linkContainer}>Admin Page</Link>
+                                    <Link to='/admin' className={classes.linkContainer}>Admin Page</Link>
                                 </Container>
                                 <Container maxWidth={false} className={matches ? classes.item25 : clsx(classes.item25, classes.borderLeft)}>
-                                    <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
+                                    <Link to='/' className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
                                 </Container>
                             </>
                             :
@@ -64,7 +62,7 @@ export default () => {
                                     <Link to='/personalCabinet' onClick={personalCabinetHandler} className={classes.linkContainer}>Personal Cabinet</Link>
                                 </Container>
                                 <Container maxWidth={false} className={matches ? classes.item50 : clsx(classes.item50, classes.borderLeft)}>
-                                    <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
+                                    <Link to='/' className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
                                 </Container>
                             </>
                         }

@@ -1,4 +1,7 @@
 import React from "react";
+import Zoom from 'react-img-zoom'
+import ReactImageZoom from 'react-image-zoom';
+import PinchZoomPan from "react-responsive-pinch-zoom-pan";
 
 export const setColors = (product) => {
     if (product.colors) {
@@ -28,29 +31,47 @@ export const setImgs = (product, color) => {
         let imgs =[];
         if (color === 'Color') {
             imgs = product.imgs.map(item => {
-                return <img key={item}
-                            src={item}
-                            alt="Img not found"
-                            className='img'
-                />
+                return  <PinchZoomPan maxScale={2} doubleTapBehavior='zoom' zoomButtons={false}>
+                            <img  key={item}
+                                  src={item}
+                                                // zoomWidth={400}
+                                     // zoomScale={2}
+                                  alt="Img not found"
+                                     // height={1050}
+                                     //            width={650}
+                                     //            zoomPosition={'origin'}
+                            />
+                        </PinchZoomPan>
             })
         } else {
             product.colors.forEach(item => {
                 if (item.color._id === (JSON.parse(color))._id){
                     item.imgsColor.forEach(img => {
-                        imgs.push(<img key={img}
-                                       src={img}
-                                       alt="Img not found"
-                                       className='img'
-                        />)
+                        imgs.push(<PinchZoomPan maxScale={2} doubleTapBehavior='zoom' zoomButtons={false}>
+                                    <img  key={img}
+                                          src={img}
+                                        // zoomWidth={400}
+                                        // zoomScale={2}
+                                          alt="Img not found"
+                                        // height={1050}
+                                        //            width={650}
+                                        //            zoomPosition={'origin'}
+                                    />
+                                </PinchZoomPan>)
                     });
                     if (imgs.length < 1) {
                         imgs = product.imgs.map(item => {
-                            return <img key={item}
-                                        src={item}
-                                        alt="Img not found"
-                                        className='img'
-                            />
+                            return <PinchZoomPan maxScale={2} doubleTapBehavior='zoom' zoomButtons={false}>
+                                    <img  key={item}
+                                          src={item}
+                                        // zoomWidth={400}
+                                        // zoomScale={2}
+                                          alt="Img not found"
+                                        // height={1050}
+                                        //            width={650}
+                                        //            zoomPosition={'origin'}
+                                    />
+                                </PinchZoomPan>
                         })
                     }
                 }

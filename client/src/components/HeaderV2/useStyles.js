@@ -88,7 +88,7 @@ export default makeStyles(theme => (
             borderRight: '1px solid black',
         },
         dropSubMenu: {
-            padding: "0"
+            padding: "0",
         },
         dropMenu: {
             width: '60px',

@@ -20,29 +20,34 @@ import {
     headerCloseAction,
     hideDesktopCategoriesMenuAction,
     hideLoginMenuAction,
-    hideMobileMenuAction
 } from "../../store/actions/header";
+
+const isDropMenuBtn = event => {
+    if (event.target.id === 'dropMenu' || event.target.id === 'dropMenuIcon') {
+        return true;
+    } else if (event.target.firstChild) {
+        return event.target.firstChild.id === 'dropMenuIcon'
+    } else {
+        return false;
+    }
+};
 
 export default () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const showMobileMenu  = useSelector(state => state.header.showMobileMenu);
-    const handleClickAwayMobileMenu = () => {
-        dispatch(headerCloseAction());
-    }
+
+    const handleClickAwayMobileMenu = (event) => {
+        if (!isDropMenuBtn(event)) dispatch(headerCloseAction());
+    };
+
     const handleClickAwayLoginMenu = (event) => {
-        // console.log(event.target.id)
-        // if (event.target.innerText !== 'My Account'
-        //     && event.target.id !== 'dropMenu'
-        //     && event.target !== 'dropMenuIcon') {
-        //     dispatch(hideLoginMenuAction());
-        // }
+        if (event.target.innerText !== 'My Account') {
+            dispatch(hideLoginMenuAction());
+        }
     };
     const handleClickAwayCategoriesMenu = (event) => {
-        if (event.target.innerText !== 'Women'
-            && event.target.innerText !== 'Men'
-            && event.target.id !== 'dropMenu'
-            && event.target !== 'dropMenuIcon' ) dispatch(hideDesktopCategoriesMenuAction(false));
+        if (event.target.innerText !== 'Women' && event.target.innerText !== 'Men') dispatch(hideDesktopCategoriesMenuAction(false));
     };
 
     return (
@@ -75,13 +80,11 @@ export default () => {
                                 <Container maxWidth={false} className={classes.dropSubMenu}><CategoryItems mobile={true}/></Container>
                                 <Container maxWidth={false} className={clsx(classes.mobileMenuItemContainer)}><Currency/></Container>
                                 <Container maxWidth={false} className={clsx(classes.mobileMenuItemContainer, classes.borderLeft)}><Login/></Container>
+                                <Container maxWidth={false} className={clsx(classes.dropSubMenu, classes.dropSubMenuItemMobile, classes.sticky)}><LoginMenu/></Container>
                             </Container>
                         </ClickAwayListener>:
                         <></> }
                     {!showMobileMenu ? <Container maxWidth={false} className={clsx(classes.mobileSearch, classes.mobileHeaderItem)}><Search/></Container> : <></>}
-                    <ClickAwayListener onClickAway={handleClickAwayLoginMenu}>
-                        <Container maxWidth={false} className={clsx(classes.dropSubMenu, classes.dropSubMenuItemMobile, classes.sticky)}><LoginMenu/></Container>
-                    </ClickAwayListener>
                 </Hidden>
                 <Modal/>
             </>
