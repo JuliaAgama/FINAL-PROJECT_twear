@@ -7,7 +7,7 @@ import { useTheme } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logoutAction} from "../../../../store/actions/customer";
-import {hideLoginMenuAction, hideMobileMenuAction} from "../../../../store/actions/header";
+import {headerCloseAction, hideLoginMenuAction, hideMobileMenuAction} from "../../../../store/actions/header";
 
 import useStyles from "./useStyles";
 
@@ -24,8 +24,8 @@ export default () => {
 
     const logOutHandler = () => {
         if (matches) {
-            dispatch(hideMobileMenuAction());
-            dispatch(hideLoginMenuAction());
+            dispatch(headerCloseAction());
+            // dispatch(hideLoginMenuAction());
         } else {
             dispatch(hideLoginMenuAction());
         }
@@ -34,8 +34,8 @@ export default () => {
 
     const personalCabinetHandler = () => {
         if (matches) {
-            dispatch(hideMobileMenuAction());
-            dispatch(hideLoginMenuAction());
+            dispatch(headerCloseAction());
+            // dispatch(hideLoginMenuAction());
         } else {
             dispatch(hideLoginMenuAction());
         }

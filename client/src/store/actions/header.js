@@ -71,3 +71,11 @@ export function showLoginMenuAction() {
         });
     };
 };
+
+export function headerCloseAction() {
+    return function (dispatch) {
+        return dispatch({
+            type: HEADER.HEADER_CLOSE_MENU
+        });
+    };
+};

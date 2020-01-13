@@ -1,25 +1,25 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Box from "@material-ui/core/Box";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {ClickAwayListener, Container} from "@material-ui/core";
+import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
 import {getAllCategories} from "../../../../store/actions/categories";
 import {hideDesktopCategoriesMenuAction, hideMobileMenuAction} from "../../../../store/actions/header";
 
 export function Item(props) {
     const classes = useStyles();
-    const dispatch = useDispatch();
-    const show  = useSelector(state => state.header.show);
-    const showMobileMenu  = useSelector(state => state.header.showMobileMenu);
+    // const dispatch = useDispatch();
+    // const show  = useSelector(state => state.header.show);
+    // const showMobileMenu  = useSelector(state => state.header.showMobileMenu);
     const clickHandler = () => {
-        if(showMobileMenu) {
-            dispatch(hideMobileMenuAction());
-        } else if (show && showMobileMenu) {
-            dispatch(hideMobileMenuAction());
-        } else if (show) {
-            dispatch(hideDesktopCategoriesMenuAction());
-        }
+        // if(showMobileMenu) {
+        //     dispatch(hideMobileMenuAction());
+        // } else if (show && showMobileMenu) {
+        //     dispatch(hideMobileMenuAction());
+        // } else if (show) {
+        //     dispatch(hideDesktopCategoriesMenuAction());
+        // }
     };
     return (
         <React.Fragment>

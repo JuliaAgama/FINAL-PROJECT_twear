@@ -13,18 +13,15 @@ export default function DropDownMenu() {
 
     const dispatch = useDispatch();
     const showMenu = () => {
-        if (showMobileMenu){
-            dispatch(hideMobileMenuAction())
-        } else {
-            dispatch(showMobileMenuAction());
-        }
+        dispatch(showMobileMenuAction());
     };
 
     return (
         <React.Fragment>
             <Button onClick={showMenu}
-                    className={classes.btn}>
-                <CloseIcon className={showMobileMenu ? '' : classes.hide}/>
+                    className={classes.btn}
+                    id='dropMenu'>
+                <CloseIcon id='dropMenuIcon' className={showMobileMenu ? '' : classes.hide}/>
                 <MenuIcon className={showMobileMenu ? classes.hide : ''}/>
             </Button>
         </React.Fragment>

@@ -16,18 +16,33 @@ import LoginMenu from "./Login/LoginMenu";
 import Modal from '../common/modals/Modal'
 
 import useStyles from './useStyles';
-import {hideDesktopCategoriesMenuAction, hideLoginMenuAction, hideMobileMenuAction} from "../../store/actions/header";
+import {
+    headerCloseAction,
+    hideDesktopCategoriesMenuAction,
+    hideLoginMenuAction,
+    hideMobileMenuAction
+} from "../../store/actions/header";
 
 export default () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const showMobileMenu  = useSelector(state => state.header.showMobileMenu);
-    const handleClickAwayMobileMenu = () => dispatch(hideMobileMenuAction());
+    const handleClickAwayMobileMenu = () => {
+        dispatch(headerCloseAction());
+    }
     const handleClickAwayLoginMenu = (event) => {
-        if (event.target.innerText !== 'My Account') dispatch(hideLoginMenuAction());
+        // console.log(event.target.id)
+        // if (event.target.innerText !== 'My Account'
+        //     && event.target.id !== 'dropMenu'
+        //     && event.target !== 'dropMenuIcon') {
+        //     dispatch(hideLoginMenuAction());
+        // }
     };
     const handleClickAwayCategoriesMenu = (event) => {
-        if (event.target.innerText !== 'Women' && event.target.innerText !== 'Men' ) dispatch(hideDesktopCategoriesMenuAction(false));
+        if (event.target.innerText !== 'Women'
+            && event.target.innerText !== 'Men'
+            && event.target.id !== 'dropMenu'
+            && event.target !== 'dropMenuIcon' ) dispatch(hideDesktopCategoriesMenuAction(false));
     };
 
     return (

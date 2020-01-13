@@ -90,6 +90,17 @@ export default function (state = initState, action) {
                 }
             };
 
+        case HEADER.HEADER_CLOSE_MENU:
+            return {
+                ...state,
+                ...{
+                    show: false,
+                    showMobileMenu: false,
+                    showPersonalCabinetMenu: false,
+                    showLoginMenu: false
+                }
+            };
+
         default:
             return state
     }

@@ -7,3 +7,4 @@ export const HEADER_SHOW_PERSONAL_CABINET_MENU = 'header_show_personal_cabinet_m
 export const HEADER_HIDE_PERSONAL_CABINET_MENU = 'header_hide_personal_cabinet_menu';
 export const HEADER_HIDE_LOGIN_MENU = 'header_hide_login_menu';
 export const HEADER_SHOW_LOGIN_MENU = 'header_show_login_menu';
+export const HEADER_CLOSE_MENU = 'header_close_menu';
