@@ -39,7 +39,7 @@ const CustomerSchema = new Schema({
     type: String,
     required: true
   },
-  deliveryAddress: {
+  address: {
     type: Schema.Types.Mixed
   },
   avatarUrl: {

@@ -27,6 +27,7 @@ export default () => {
     const [onShipppingAvailable, setOnShippingAvailable] = useState(false);
     const [formData, setFormData] = useState({subscribe: false, saveLocal: false}); //будет включать в себя как данные для ордера, так и другие
 
+    console.log(customer)
 
     useEffect (() => {
         const validateFields = formData => {
@@ -40,25 +41,25 @@ export default () => {
     // }, [dispatch])
 
     useEffect(() => {
+        setFormData({
+            ...formData,
+            products: cart.products
+        });
         if (customerLoaded) {
-            dispatch(cartActions.getCart(cart));
-            // setFormData({
-            //     customerNo: customer.customerNo,
-            //     firstName: customer.firstName,
-            //     lastName: customer.lastName || '',
-            //     email: customer.email || '',
-            //     telephone: customer.telephone || '',
-            //     address: customer.address || '',
-            //     city: customer.city || '',
-            //     country: customer.country || '',
-            //     postal: customer.postal || ''
-            // })
+            // dispatch(cartActions.getCart(cart));
+            setFormData({
+                customer: customer,
+                email: customer.email || '',
+                telephone: customer.telephone || '',
+                deliveryAddress: customer.address || {}
+            })
         };
         // dispatch(ordersActions.createOrder(formData));
         return ( () => {
             setFormData({subscribe: false, saveLocal: false});
         })
-    }, [dispatch, customerLoaded]);
+    }, [customerLoaded]);
+    // }, [dispatch, customerLoaded]);
 
     const openLogin = () => {
         !customerLoaded && dispatch(openLoginModalAction());
@@ -138,7 +139,7 @@ export default () => {
                             label="Email"
                             name='email'
                             type='email'
-                            defaultValue={customerLoaded ? customer.email : '' }
+                            value={formData.customer && formData.customer.email || '' }
                             onChange={onChange}
                             onFocus={onChange}
                             margin="none"
@@ -171,7 +172,7 @@ export default () => {
                             label="First Name"
                             name='firstName'
                             type='text'
-                            defaultValue={customerLoaded ? customer.firstName : '' }
+                            value={formData.customer && formData.customer.firstName || '' }
                             onChange={onChange}
                             onFocus={onChange}
                             margin="none"
@@ -186,7 +187,7 @@ export default () => {
                             label="Last Name"
                             name='lastName'
                             type='text'
-                            defaultValue={customerLoaded ? customer.lastName : '' }
+                            value={formData.customer && customer.lastName || '' }
                             onChange={onChange}
                             onFocus={onChange}
                             margin="none"
@@ -203,7 +204,7 @@ export default () => {
                             label="Address"
                             name='address'
                             type='text'
-                            defaultValue={customerLoaded && customer.deliveryAddress && customer.deliveryAddress.address ? customer.deliveryAddress.address : '' }
+                            value={formData.customer && formData.customer.deliveryAddress && formData.customer.deliveryAddress.address || '' }
                             onChange={onChange}
                             onFocus={onChange}
                             margin="none"
@@ -218,7 +219,7 @@ export default () => {
                             label="City / Region"
                             name='city'
                             type='text'
-                            defaultValue={customerLoaded && customer.deliveryAddress && customer.deliveryAddress.city ? customer.deliveryAddress.city : '' }
+                            value={formData.customer && formData.customer.deliveryAddress && formData.customer.deliveryAddress.city || '' }
                             onChange={onChange}
                             onFocus={onChange}
                             margin="none"
@@ -233,7 +234,7 @@ export default () => {
                             label="Postal Code"
                             name='postal'
                             type='text'
-                            defaultValue={customerLoaded && customer.deliveryAddress && customer.deliveryAddress.postal ? customer.deliveryAddress.postal : '' }
+                            value={formData.customer && formData.customer.deliveryAddress && formData.customer.deliveryAddress.postal || '' }
                             onChange={onChange}
                             onFocus={onChange}
                             margin="none"
@@ -248,7 +249,7 @@ export default () => {
                             label="Country"
                             name='country'
                             type='text'
-                            defaultValue={customerLoaded && customer.deliveryAddress && customer.deliveryAddress.country ? customer.deliveryAddress.country : '' }
+                            value={formData.customer && formData.customer.deliveryAddress && formData.customer.deliveryAddress.country || '' }
                             onChange={onChange}
                             onFocus={onChange}
                             margin="none"
@@ -264,7 +265,7 @@ export default () => {
                             name='telephone'
                             type='text'
                             placeholder='+XXX (XX) XXX XX XX'
-                            defaultValue={customerLoaded && customer.telephone ? customer.telephone : '' }
+                            value={formData.customer && formData.customer.telephone || '' }
                             onChange={onChange}
                             onFocus={onChange}
                             margin="none"
