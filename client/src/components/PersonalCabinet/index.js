@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import PersonaDetails from "./PersonalDetails";
 
 
+
 export default function PersonalCabinet() {
 
     const classes = useStyles();

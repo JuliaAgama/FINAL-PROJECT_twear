@@ -5,6 +5,7 @@ import { Box, Grid, Typography } from '@material-ui/core';
 
 import useStyles from './useStyles';
 import CartItem from './CartItem';
+import Currency from "../../common/Currency";
 
 
 export default props => {
@@ -91,7 +92,7 @@ export default props => {
                 </Grid>
                 <Grid container spacing={4} justify="flex-end" alignItems="flex-end">
                     <Grid item xs={12} md={5}>
-                        <Box fontSize='h5.fontSize' textAlign='right' p={2}>Subtotal: ${subtotal}</Box>
+                        <Box fontSize='h5.fontSize' textAlign='right' p={2}>Subtotal: {<Currency price={subtotal}/>}</Box>
                         <Box fontSize={14} fontStyle="italic" textAlign='right' px={2}>Delivery and taxes will be calculated at checkout</Box>
                     </Grid>
                 </Grid>
