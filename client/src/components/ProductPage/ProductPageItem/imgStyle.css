@@ -1,3 +1,10 @@
 .img {
     transition: all 1.5s ease;
 }
+
+.imgContainerCSS {
+    width: 25%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
