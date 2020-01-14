@@ -14,7 +14,7 @@ import TopCatPage from "../components/TopCatPage";
 import CategoryPage from "../components/CategoryPage";
 import ProductPage from "../components/ProductPage";
 import CartPage from "../components/CartPage";
-import CheckoutInfo from "../components/CheckoutPage/CheckoutInfo";
+import CheckoutInfo from "../components/checkoutPages/CheckoutInfo";
 
 import PersonalCabinet from "../components/PersonalCabinet";
 
