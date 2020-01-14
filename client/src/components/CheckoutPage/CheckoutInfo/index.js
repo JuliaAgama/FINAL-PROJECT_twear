@@ -14,115 +14,27 @@ import useStyles from './useStyles';
 import Modal from '../../common/modals/Modal';
 
 
-export default () => {
+export default props => {
 
-    const history = useHistory();
+    const {formData, infoIsOpen, handleOnChange, onToCart, onToShipping, onShipppingAvailable} = props;
+
     const dispatch = useDispatch();
 
     const customerLoaded = useSelector(state => state.customers.loaded);
-    const {customer} = useSelector(state => state.customers);
-    const {cart} = useSelector(state => state.cart);
-    // const order = useSelector(state => state.orders.orderItem);
-
-    const [onShipppingAvailable, setOnShippingAvailable] = useState(false);
-    const [formData, setFormData] = useState({subscribe: false, saveLocal: false}); //будет включать в себя как данные для ордера, так и другие
-
-    console.log(customer)
-
-    useEffect (() => {
-        const validateFields = formData => {
-            return true;
-        };
-        validateFields() ? setOnShippingAvailable(true) : setOnShippingAvailable(false);
-    }, [formData])
-
-    // useEffect (() => {
-    //     dispatch(ordersActions.getOrderItem());
-    // }, [dispatch])
-
-    useEffect(() => {
-        setFormData({
-            ...formData,
-            products: cart.products
-        });
-        if (customerLoaded) {
-            // dispatch(cartActions.getCart(cart));
-            setFormData({
-                customer: customer,
-                email: customer.email || '',
-                telephone: customer.telephone || '',
-                deliveryAddress: customer.address || {}
-            })
-        };
-        // dispatch(ordersActions.createOrder(formData));
-        return ( () => {
-            setFormData({subscribe: false, saveLocal: false});
-        })
-    }, [customerLoaded]);
-    // }, [dispatch, customerLoaded]);
 
     const openLogin = () => {
         !customerLoaded && dispatch(openLoginModalAction());
     };
 
     const onChange = event => {
-        // event.preventDefault();
-        if (event.target.name === 'subscribe') {
-            setFormData({
-                ...formData,
-                subscribe: !formData.subscribe
-            })
-        } else if (event.target.name === 'saveLocal') {
-            setFormData({
-                ...formData,
-                saveLocal: !formData.saveLocal
-            });
-        } else if (['address', 'city', 'country', 'postal'].some(el => el === event.target.name)) {
-            setFormData({
-                ...formData,
-                deliveryAddress: {
-                    ...formData.deliveryAddress,
-                    [event.target.name]: event.target.value
-                }
-            });
-        } else {
-            setFormData({
-                ...formData,
-                [event.target.name]: event.target.value
-            });
-        }
-    };
-
-    const handleOnSubmit = event => {
-        // event.preventDefault();
-        // dispatch(ordersActions.updateOrder(formData));
-        console.log('saved formData')
-    };
-
-    const onToShipping = () => {
-        handleOnSubmit();
-        history.push('/checkout/shipping');
-    };
-
-    const onToCart = () => {
-        handleOnSubmit();
-        history.push('/cart');
+        handleOnChange(event);
     };
 
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
-            <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb" className={classes.breadcrumb}>
-                <Box className={classes.breadcrumbLink} onClick={onToCart}>Cart</Box>
-                <Box fontSize='body2.fontSize' className={classes.breadcrumbActive}>Information</Box>
-                {onShipppingAvailable ?
-                    <Box className={classes.breadcrumbLink} onClick={onToShipping}>Shipping</Box> :
-                    <Box className={classes.breadcrumbLocked}>Shipping</Box>
-                }
-                <Box className={classes.breadcrumbLocked}>Payment</Box>
-            </Breadcrumbs>
-
+            {infoIsOpen ? 
             <form autoComplete="off">
                 <Grid container spacing={1} alignItems='center'>
                     <Grid item xs={7}>
@@ -187,7 +99,7 @@ export default () => {
                             label="Last Name"
                             name='lastName'
                             type='text'
-                            value={formData.customer && customer.lastName || '' }
+                            value={formData.customer && formData.customer.lastName || '' }
                             onChange={onChange}
                             onFocus={onChange}
                             margin="none"
@@ -301,7 +213,9 @@ export default () => {
                     </Grid>
                     }
                 </Grid>
-            </form>
+            </form> :
+            ''
+            }
             <Modal/>
         </div>
     )

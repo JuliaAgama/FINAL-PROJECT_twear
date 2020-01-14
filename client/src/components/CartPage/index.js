@@ -42,7 +42,7 @@ export default () => {
 
     const onCheckout = () => {
         handleUpdateCart(cart);
-        history.push('/checkout/information');
+        history.push('/checkout');
     };
 
     const classes = useStyles();
