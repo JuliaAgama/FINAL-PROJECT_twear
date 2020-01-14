@@ -15,7 +15,6 @@ export default () => {
     const dispatch = useDispatch();
 
     const [checkoutAvailable, setCheckoutAvailable] = useState(false);
-    const [checkoutModalIsOpen, setCheckoutModalIsOpen] = useState(false);
 
     const customerLoaded = useSelector(state => state.customers.loaded);
     const {cart} = useSelector(state => state.cart);
@@ -24,7 +23,7 @@ export default () => {
         if (customerLoaded) {
             dispatch(cartActions.getCart(cart));
         }
-    }, [dispatch, cart, customerLoaded]);
+    }, [dispatch, customerLoaded, cart]);
 
     const enableCheckout = state => {
         setCheckoutAvailable(state);
@@ -43,8 +42,7 @@ export default () => {
 
     const onCheckout = () => {
         handleUpdateCart(cart);
-        customerLoaded ? console.log('go to checkout') : setCheckoutModalIsOpen(true);
-        // customerLoaded ? history.push('/checkout') : setCheckoutModalIsOpen(true);
+        history.push('/checkout/information');
     };
 
     const classes = useStyles();
@@ -68,13 +66,12 @@ export default () => {
                         </Typography>
                     </Grid>
                 </Hidden>
-                    {checkoutAvailable ?
-                        <Grid item xs={12} md={7} lg={5}>
-                            <Typography component="div" className={classes.btnImportant}>
-                                <Box fontSize="body2.fontSize" onClick={onCheckout}>Checkout</Box>
-                            </Typography>
-                        </Grid>
-                        : <></>
+                    {checkoutAvailable &&
+                    <Grid item xs={12} md={7} lg={5}>
+                        <Typography component="div" className={classes.btnImportant}>
+                            <Box fontSize="body2.fontSize" onClick={onCheckout}>Checkout</Box>
+                        </Typography>
+                    </Grid>
                     }
             </Grid>
             <Box p={2} fontSize="body2.fontSize">

@@ -85,11 +85,9 @@ export default props => {
                     }
                 </Grid>
                 <Grid container className={classes.paperTwo}>
-                {product ?
-                    <Tooltip title="Edit Images">
-                        <Link to={"/admin/products/edit/colors/"+product.itemNo} className={classes.editBtn}> <OpenEditButton/> </Link>
-                    </Tooltip> : <></>
-                }
+                {product && <Tooltip title="Edit Images">
+                    <Link to={"/admin/products/edit/colors/"+product.itemNo} className={classes.editBtn}> <OpenEditButton/> </Link>
+                </Tooltip>}
                     <Grid item xs={12}>
                         <Box fontSize="h6.fontSize" ml={6} pt={2} pb={2}>
                             Product Colors
@@ -107,18 +105,16 @@ export default props => {
                     }
                 </Grid>
 
-                {product ?
-                    <Grid container className={classes.paperThree} spacing={2}>
-                        <Grid item>
-                            Published in catalog:
-                        </Grid>
-                        <Grid item>
-                            <ProductEnabledBox
-                                handleNotification={handleNotification}
-                            />
-                        </Grid>
-                    </Grid> : <></>
-                }
+                {product && <Grid container className={classes.paperThree} spacing={2}>
+                    <Grid item>
+                        Published in catalog:
+                    </Grid>
+                    <Grid item>
+                        <ProductEnabledBox
+                            handleNotification={handleNotification}
+                        />
+                    </Grid>
+                </Grid>}
 
                 <Grid container className={classes.paperOne}>
                     {product && product.colors[0] ?

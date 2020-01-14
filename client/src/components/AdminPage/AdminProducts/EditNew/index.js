@@ -156,9 +156,7 @@ export default props => {
                         />
                     </Typography> : <Spinner/>
                 }
-                {product && product.itemNo ?
-                    <Link to={`/admin/products/`+product.itemNo} className={classes.linkGreen}> {`<<   to ${cutName(product.name, 10)} page`} </Link> : <></>
-                }
+                {product && product.itemNo && <Link to={`/admin/products/`+product.itemNo} className={classes.linkGreen}> {`<<   to ${cutName(product.name, 10)} page`} </Link>}
                 <Box/>
                 <Link to={`/admin/products`} className={classes.linkPink}> {`<<   to Products List`} </Link>
             </Box>

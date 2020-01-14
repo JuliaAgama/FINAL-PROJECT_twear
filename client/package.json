@@ -10,6 +10,7 @@
     "@mdi/react": "^1.2.1",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "country-codes-list": "^1.5.3",
     "jss": "^10.0.0",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",

@@ -98,12 +98,8 @@ export default withWidth()(() => {
                             </ListItem>
                             <Collapse in={expanded[el.name]} timeout="auto" unmountOnExit>
                                 <Box className={classes.expanded}>
-                                    {el.name === 'colors' ?
-                                        <Colors handleNotification={handleNotification}/> : <></>
-                                    }
-                                    {el.name === 'sizes' ?
-                                        <SizeTypes handleNotification={handleNotification}/> : <></>
-                                    }
+                                    {el.name === 'colors' && <Colors handleNotification={handleNotification}/>}
+                                    {el.name === 'sizes' && <SizeTypes handleNotification={handleNotification}/>}
                                 </Box>
                             </Collapse>
                         </Box>

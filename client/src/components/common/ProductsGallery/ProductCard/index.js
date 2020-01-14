@@ -6,10 +6,28 @@ import { useSpring, animated as a } from 'react-spring'
 
 
 import useStyles from "./useStyles";
+import {useSelector} from "react-redux";
+
+const createPriceStr = (currentCurrency, price, currency) => {
+    if (currentCurrency === 'USD') {
+        return price + ' ' + currentCurrency;
+    } else if (currentCurrency === 'EUR') {
+        if (currency.length > 0) {
+            return Math.ceil(price / (currency[1].sale / currency[0].sale)) + ' ' + currentCurrency;
+        }
+    } else {
+        if (currency.length > 0) {
+            return Math.ceil(price * currency[0].sale) + ' ' + currentCurrency;
+        }
+    }
+}
+
 
 
 export default function ProductCard(props) {
     const classes = useStyles();
+    const currentCurrency = useSelector(state => state.currency.currentCurrency);
+    const exchangeRates = useSelector(state => state.currency.currency);
     const [flipped, set] = useState(false);
     const {itemNo, name, price, sizes, srcImg1, srcImg2, borderRight} = props;
     const { transform, opacity } = useSpring({
@@ -18,6 +36,7 @@ export default function ProductCard(props) {
         config: { mass: 5, tension: 200, friction: 80 }
     });
 
+    const priceString = createPriceStr(currentCurrency, price, exchangeRates);
     const cutName = (string, l) => string.length > l ? string.slice(0, l-2)+'..' : string;
 
     return (
@@ -37,7 +56,7 @@ export default function ProductCard(props) {
                     </div>
                     <div className={classes.textContainer}>
                         <p className={classes.title}>{cutName(name, 16)}</p>
-                        <p className={classes.value}>$ {price}</p>
+                        <p className={classes.value}>{priceString}</p>
                     </div>
                 </a.div>
                 :

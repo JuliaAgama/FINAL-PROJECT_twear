@@ -7,12 +7,14 @@ import NotFound from "../components/NotFound";
 
 import LayoutMain from "../components/common/layouts/LayoutMain";
 import LayoutAdmin from "../components/common/layouts/LayoutAdmin";
+import LayoutCheckout from "../components/common/layouts/LayoutCheckout";
 
 import HomePage from "../components/HomePage";
 import TopCatPage from "../components/TopCatPage";
 import CategoryPage from "../components/CategoryPage";
 import ProductPage from "../components/ProductPage";
 import CartPage from "../components/CartPage";
+import CheckoutInfo from "../components/checkoutPages/CheckoutInfo";
 
 import PersonalCabinet from "../components/PersonalCabinet";
 
@@ -51,6 +53,9 @@ export const Router = () => (
             />
             <Route exact path="/cart"
                 component={props => <LayoutMain {...props}><CartPage {...props}/></LayoutMain>}
+            />
+            <Route exact path="/checkout/information"
+                component={props => <LayoutCheckout {...props}><CheckoutInfo {...props}/></LayoutCheckout>}
             />
 
             <Route exact path="/accessDenied" component={AccessDenied} />

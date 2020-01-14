@@ -31,17 +31,13 @@ export default props => {
 
     const onDelete = () => {
         handleOnDelete(url);
-    }
-
-// console.log('ColorItem ', item.color.name, ': ', item);
-// console.log('product in redux: ', product)
-// console.log('colorItem from Product ', product.name, ', color ', product.colors.find( el => el.color.name === item.color.name).color.name, ': ', product.colors.find(el => el.color && el.color.name === item.color.name));
+    };
 
     const classes = useStyles();
 
     return (
         <Box className={classes.imgContainer} style={{backgroundImage: `url(${url})`}}>
-            {newImg ? <Box className={classes.newImg}>New</Box> : <></> }
+            {newImg && <Box className={classes.newImg}>New</Box>}
             <Tooltip title="Delete image" >
                 <DeleteOutlineOutlinedIcon aria-label="delete" className={classes.deleteBtn} onClick={onDelete}/>
             </Tooltip>

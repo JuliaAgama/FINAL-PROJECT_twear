@@ -14,7 +14,17 @@ export default props => {
 
     const {productsList} = props;
 
-    const [listItems, setListItems] = useState(productsList.filter((el, ind) => ind < 6));
+    const [listItems, setListItems] = useState(null);
+
+    useEffect(() => {
+        if(productsList) {
+            setListItems(productsList.filter((el, ind) => ind < 6));
+        }
+        return () => {
+            setListItems(null);
+        }
+    },[productsList]);
+
     const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreListItems);
     // console.log('listItems: ', listItems);
 
@@ -40,7 +50,7 @@ export default props => {
             <Typography variant="h6" >Products</Typography>
             <List id='products-listing'>
                 <Grid container spacing={3}>
-                    {listItems.map(item =>
+                    {listItems && listItems.map(item =>
                         <ProductItem
                             item={item}
                             key={item._id}

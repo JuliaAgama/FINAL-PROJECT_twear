@@ -28,23 +28,19 @@ export default props => {
             >
                 {isOpen ? <CloseIcon onClick={onToggle}/> : <MenuIcon onClick={onToggle}/>}
             </Box>
-                {isOpen ?
-                (
-                    <Box border={1} textAlign="center" paddingBottom={1} position="fixed" top={1} left={1} zIndex="modal" className={classes.root}>
-                        <List component="nav" aria-label="admin-drop-down-menu">
-                            {items.map((el, ind) => (
-                                <ListItem button onClick={onToggle} key={ind}>
-                                    <Link to={`/admin/${el.url}`} className={classes.link}>
-                                        <ListItemText primary={`Manage ${el.name}`} />
-                                    </Link>
-                                </ListItem>
-                            ))}
-                            <Divider/>
-                        </List>
-                        <p>Go to <a href="/">shop</a>.</p>
-                    </Box>
-                ) : <></>
-            }
+                {isOpen && <Box border={1} textAlign="center" paddingBottom={1} position="fixed" top={1} left={1} zIndex="modal" className={classes.root}>
+                    <List component="nav" aria-label="admin-drop-down-menu">
+                        {items.map((el, ind) => (
+                            <ListItem button onClick={onToggle} key={ind}>
+                                <Link to={`/admin/${el.url}`} className={classes.link}>
+                                    <ListItemText primary={`Manage ${el.name}`} />
+                                </Link>
+                            </ListItem>
+                        ))}
+                        <Divider/>
+                    </List>
+                    <p>Go to <a href="/">shop</a>.</p>
+                </Box>}
         </Typography>
     )
 };

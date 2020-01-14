@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
+import { useHistory } from 'react-router-dom';
 
 import * as cartActions from '../../../store/actions/cart';
 
@@ -12,9 +13,12 @@ import NameAndPrice from "./NameAndPrice";
 import BlackTicker from '../../common/BlackTicker'
 import ProductsGallery from "../../common/ProductsGallery";
 
+import Notification from '../../common/messages/Notification';
+
 
 export default () => {
 
+    const history = useHistory();
     const dispatch = useDispatch();
 
     const product = useSelector(state => state.productItem.productItem);
@@ -29,6 +33,7 @@ export default () => {
     let imgs =[];
     const [color, setColor] = useState('Color');
     const [size, setSize] = useState('Size');
+    const [isDisabled, setDisabled] = useState(true);
 
     if(product.imgs) {
         imgs = setImgs(product, color)
@@ -36,13 +41,19 @@ export default () => {
 
     const handleColorChange = event => {
         setColor(event.target.value);
-        setSize('Size')
+        setSize('Size');
+        setDisabled(true);
     };
     const handleSizeChange = event => {
         setSize(event.target.value);
+        if (event.target.value !== 'Size') setDisabled(false)
     };
 
-    setColors(product);
+    const colors = setColors(product);
+    const sizes = setSizes(product, color);
+
+    const ref = useRef(null);
+    const timeout = 2000;
 
     const addToProductCart = () => {
         const sku = {
@@ -52,6 +63,12 @@ export default () => {
             quantity: 1
         };
         dispatch(cartActions.addProductToCart(cart, sku));
+
+        ref.current(`${sku.quantity} ${sku.product.name.toUpperCase()} (color: ${sku.color.name.toUpperCase()}, size: ${sku.size.name.toUpperCase()}) has been added to Your cart!`);
+
+        setTimeout(() => {
+            return history.push("/cart");
+        }, timeout)
     };
 
     const classes = useStyles();
@@ -84,7 +101,7 @@ export default () => {
                             className={classes.option}
                         >
                             <option value='Color'>Color</option>
-                            {setColors(product)}
+                            {colors}
                         </NativeSelect>
                     </FormControl>
 
@@ -97,7 +114,7 @@ export default () => {
                             className={classes.option}
                         >
                             <option value='Size'>Size</option>
-                            {setSizes(product, color)}
+                            {sizes}
                         </NativeSelect>
                         {color === 'Color' ? <FormHelperText>First choose a color</FormHelperText> : ''}
                     </FormControl>
@@ -109,6 +126,7 @@ export default () => {
                         variant="outlined"
                         className={classes.btn}
                         onClick={addToProductCart}
+                        disabled = {isDisabled}
                 >
                     Add to shopping bag
                 </Button>
@@ -128,7 +146,8 @@ export default () => {
         <Hidden smDown>
             <BlackTicker/>
         </Hidden>
-            {products ? <ProductsGallery  products={products} productPage={true} /> : ""}
+        {products && <ProductsGallery  products={products} productPage={true} />}
+        <Notification timeout={timeout} children={add => (ref.current = add)} />
         </>
     );
 };
