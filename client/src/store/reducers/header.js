@@ -5,7 +5,6 @@ const initState = {
     isWomen: false,
     show: false,
     showMobileMenu: false,
-    showPersonalCabinetMenu: false,
     showLoginMenu: false
 };
 
@@ -58,21 +57,6 @@ export default function (state = initState, action) {
                 }
             };
 
-        case HEADER.HEADER_SHOW_PERSONAL_CABINET_MENU:
-            return {
-                ...state,
-                ...{
-                    showPersonalCabinetMenu: true
-                }
-            };
-
-        case HEADER.HEADER_HIDE_PERSONAL_CABINET_MENU:
-            return {
-                ...state,
-                ...{
-                    showPersonalCabinetMenu: false
-                }
-            };
 
         case HEADER.HEADER_SHOW_LOGIN_MENU:
             return {
@@ -96,7 +80,6 @@ export default function (state = initState, action) {
                 ...{
                     show: false,
                     showMobileMenu: false,
-                    showPersonalCabinetMenu: false,
                     showLoginMenu: false
                 }
             };

@@ -3,8 +3,17 @@
 }
 
 .imgContainerCSS {
-    width: 25%;
-    padding: 0;
+    width: 50% !important;
+    padding:0 0 28px 0 !important;
     margin: 0;
     overflow: hidden;
+}
+
+@media (max-width: 959.95px) {
+    .imgContainerCSS {
+        width: 100% !important;
+        padding:0 0 28px 0 !important;
+        margin: 0;
+        overflow: hidden;
+    }
 }

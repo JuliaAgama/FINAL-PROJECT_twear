@@ -36,18 +36,20 @@ export default () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const showMobileMenu  = useSelector(state => state.header.showMobileMenu);
+    const showLoginMenu  = useSelector(state => state.header.showLoginMenu);
+    const show  = useSelector(state => state.header.show);
 
     const handleClickAwayMobileMenu = (event) => {
         if (!isDropMenuBtn(event)) dispatch(headerCloseAction());
     };
 
     const handleClickAwayLoginMenu = (event) => {
-        if (event.target.innerText !== 'My Account') {
+        if (event.target.innerText !== 'My Account' && showLoginMenu) {
             dispatch(hideLoginMenuAction());
         }
     };
     const handleClickAwayCategoriesMenu = (event) => {
-        if (event.target.innerText !== 'Women' && event.target.innerText !== 'Men') dispatch(hideDesktopCategoriesMenuAction(false));
+        if (event.target.innerText !== 'Women' && event.target.innerText !== 'Men' && show) dispatch(hideDesktopCategoriesMenuAction(false));
     };
 
     return (

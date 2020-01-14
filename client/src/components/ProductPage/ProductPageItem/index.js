@@ -10,6 +10,7 @@ import useStyles from "./useStyles";
 import {setColors, setImgs, setSizes} from "./Helpers";
 import CarouselProductPage from './Carusel'
 import AlternativeCarousel from './AlternativeCarousel'
+import SlickCarousel from './SlickCarousel'
 import NameAndPrice from "./NameAndPrice";
 import BlackTicker from '../../common/BlackTicker'
 import ProductsGallery from "../../common/ProductsGallery";
@@ -88,7 +89,8 @@ export default () => {
             </Hidden>
 
             {/*<CarouselProductPage imgs={imgs}/>*/}
-            <AlternativeCarousel dataSource={imgs}/>
+            {/*<AlternativeCarousel dataSource={imgs}/>*/}
+            <SlickCarousel imgs={imgs}/>
 
             <Container maxWidth={false} className={classes.container}>
 

@@ -25,6 +25,7 @@ export default props => {
 
     const productsGallery = useSelector(state => state.productsGallery.productsGalleryForShow);
     let title = 'Popular Goods in this category';
+    if (productPage && products.length === 0) title = '';
     if (!productPage) title = productsGallery.title;
 
     let productCards = [];
