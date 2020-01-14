@@ -145,6 +145,7 @@ exports.searchCategories = async (req, res, next) => {
 };
 
 exports.matchCategoriesByObject = async (req, res, next) => {
+    console.log(req.body);
   try {
     const categoriesMatch = await Category.find(req.body)
     .populate("topCategory")
