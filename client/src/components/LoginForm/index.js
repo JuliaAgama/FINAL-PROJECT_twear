@@ -30,7 +30,7 @@ export default reduxForm({form: 'Login'}) (props => {
 
     const clickHandler = event => {
         event.preventDefault();
-        dispatch(openRegistrationModalAction());
+        dispatch(openRegistrationModalAction('registration'));
     };
 
     const submit = values => dispatch(loginAction(values, cart));

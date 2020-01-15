@@ -5,7 +5,6 @@ import {openLoginModalAction} from "../../../store/actions/modal";
 import {getCustomerAction} from "../../../store/actions/customer";
 import {
     hideDesktopCategoriesMenuAction,
-    hideMobileMenuAction,
     showLoginMenuAction
 } from "../../../store/actions/header";
 
@@ -28,7 +27,7 @@ export default () => {
             dispatch(showLoginMenuAction());
             if (matches) dispatch(hideDesktopCategoriesMenuAction())
         } else {
-            dispatch(openLoginModalAction());
+            dispatch(openLoginModalAction('login'));
         }
     };
 
