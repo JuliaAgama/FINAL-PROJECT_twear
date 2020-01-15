@@ -31,7 +31,7 @@ export default reduxForm({form: 'TelephoneUpdateForm'}) (props => {
                     <form onSubmit={handleSubmit(submit)} className={classes.form}>
                         <Box className={classes.box}>
                             <p>CHANGE YOUR TELEPHONE</p>
-                            <p>Current telephone: {customer.telephone}</p>
+                            <p>Telephone: {customer.telephone}</p>
                         </Box>
 
                         <Box className={classes.inputContainer}>

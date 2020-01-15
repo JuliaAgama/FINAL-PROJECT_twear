@@ -14,7 +14,7 @@ import useStyles from "./useStyles";
 
 export default function TransitionsModal() {
     const classes = useStyles();
-    const {open, login, registration, firstName, lastName, loginUpdate, email, password, telephone}  = useSelector(state => state.modal);
+    const {open, name, loginUpdate}  = useSelector(state => state.modal);
     const dispatch = useDispatch();
 
     const stateObj = useSelector(state => state.modal);
@@ -29,8 +29,7 @@ export default function TransitionsModal() {
         switch (elName) {
             case 'login' : return <Login />;
             case 'registration' : return <Registration />;
-            case 'firstName' : return <NameLoginUpdateForm typeForm={firstName} />;
-            case 'lastName' : return <NameLoginUpdateForm typeForm={lastName} />;
+            case 'name' : return <NameLoginUpdateForm typeForm={name} />;
             case 'loginUpdate' : return <NameLoginUpdateForm typeForm={loginUpdate} />;
             case 'email' : return <EmailUpdateForm />;
             case 'password' : return <PasswordUpdateForm />;

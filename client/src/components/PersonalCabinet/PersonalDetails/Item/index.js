@@ -3,8 +3,7 @@ import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
 import Button from '@material-ui/core/Button';
 import {useDispatch} from "react-redux";
-import {openUpdateFirstNameAction,
-        openUpdateLastNameAction,
+import {openUpdateNameAction,
         openUpdateLoginAction,
         openUpdateEmailAction,
         openUpdatePasswordAction,
@@ -21,12 +20,8 @@ export default function Item(props) {
     const clickHandler = event => {
         const actionType = event.target.innerText.split(' ')[2];
         switch (actionType) {
-            case 'FIRSTNAME' : {
-                dispatch(openUpdateFirstNameAction('firstName'));
-                return;
-            }
-            case 'LASTNAME' : {
-                dispatch(openUpdateLastNameAction('lastName'));
+            case 'NAME' : {
+                dispatch(openUpdateNameAction('name'));
                 return;
             }
             case 'LOGIN' : {

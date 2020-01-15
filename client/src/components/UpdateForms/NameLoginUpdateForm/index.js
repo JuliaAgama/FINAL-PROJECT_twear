@@ -1,6 +1,6 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm} from 'redux-form';
 
 import {Container, Grid, Button, Box, FormControl, FormControlLabel, Radio} from "@material-ui/core";
 
@@ -9,10 +9,12 @@ import useStyles from "./useStyles";
 import {required, password, minLength, maxLength, name, login} from '../../common/validators';
 import {renderRadioGroup, renderTextField} from "../../common/inputs/inputFields";
 import Spinner from '../../common/Spinner'
+import {editCustomerInfo} from "../../../store/actions/customer";
 
 
 const minLength2 = minLength(2);
 const minLength3 = minLength(3);
+const minLength7 = minLength(7);
 const maxLength25 = maxLength(25);
 const maxLength30 = maxLength(30);
 
@@ -24,12 +26,11 @@ export default reduxForm({form: 'EmailUpdateForm'}) (props => {
 
     const { handleSubmit, pristine, invalid, submitting, typeForm } = props;
 
-    const {loaded, customer}  = useSelector(state => state.customers);
+    const {loaded, customer, error}  = useSelector(state => state.customers);
 
-    console.log(typeForm)
 
-    const submit = values => console.log(values);
-    // dispatch(loginAction(values, cart)); loginUpdate
+    const submit = values => dispatch(editCustomerInfo(values));
+
 
     const classes = useStyles();
 
@@ -104,12 +105,11 @@ export default reduxForm({form: 'EmailUpdateForm'}) (props => {
                                        className={classes.inputField}
                                 />
                             }
-
                             <Field name="password"
                                    component={renderTextField}
                                    type='password'
                                    label="Password*"
-                                   validate={[required, password, minLength3, maxLength30]}
+                                   validate={[required, password, minLength7, maxLength30]}
                                    className={classes.inputField}
                             />
                         </Box>
@@ -122,9 +122,9 @@ export default reduxForm({form: 'EmailUpdateForm'}) (props => {
                             SAVE
                         </Button>
                     </form>
-                    <Container className={classes.spinnerContainer}>
-                        {loaded ? '' : <Spinner/>}
-                    </Container>
+                    {/*<Container className={classes.spinnerContainer}>*/}
+                    {/*    {loaded ? '' : <Spinner/>}*/}
+                    {/*</Container>*/}
                 </Container>
             </Grid>
         </React.Fragment>

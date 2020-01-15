@@ -18,20 +18,11 @@ export function openRegistrationModalAction(registration) {
     };
 };
 
-export function openUpdateFirstNameAction(firstName) {
+export function openUpdateNameAction(name) {
     return function (dispatch) {
         return dispatch({
-            type: MODAL.MODAL_OPEN_FIRST_NAME_UPDATE,
-            data: firstName
-        });
-    };
-};
-
-export function openUpdateLastNameAction(lastName) {
-    return function (dispatch) {
-        return dispatch({
-            type: MODAL.MODAL_OPEN_LAST_NAME_UPDATE,
-            data: lastName
+            type: MODAL.MODAL_OPEN_NAME_UPDATE,
+            data: name
         });
     };
 };

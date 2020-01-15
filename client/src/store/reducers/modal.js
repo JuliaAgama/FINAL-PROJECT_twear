@@ -4,8 +4,7 @@ const initState = {
     open: false,
     login: '',
     registration: '',
-    firstName: '',
-    lastName: '',
+    name: '',
     loginUpdate: '',
     email: '',
     password: '',
@@ -49,21 +48,11 @@ export default function (state = initState, action) {
                 }
             };
 
-        case MODAL.MODAL_OPEN_FIRST_NAME_UPDATE:
-            let firstNameState = newState(action.data);
+        case MODAL.MODAL_OPEN_NAME_UPDATE:
+            let nameState = newState(action.data);
 
             return {
-                ...firstNameState,
-                ...{
-                    open: true
-                }
-            };
-
-        case MODAL.MODAL_OPEN_LAST_NAME_UPDATE:
-            let lastNameState = newState(action.data);
-
-            return {
-                ...lastNameState,
+                ...nameState,
                 ...{
                     open: true
                 }
@@ -117,8 +106,7 @@ export default function (state = initState, action) {
                     open: false,
                     login: '',
                     registration: '',
-                    firstName: '',
-                    lastName: '',
+                    name: '',
                     loginUpdate: '',
                     email: '',
                     password: '',

@@ -4,7 +4,7 @@ const initState = {
     isAuth: false,
     customer: {},
     loaded: false,
-    error: null
+    error: false
 };
 
 export default function (state = initState, action) {
@@ -25,7 +25,7 @@ export default function (state = initState, action) {
                 ...state,
                 ...{
                     loaded: false,
-                    error : true
+                    error: true
                 }
             };
 
@@ -35,6 +35,16 @@ export default function (state = initState, action) {
                     ...{
                     customer: action.data,
                     loaded: false,
+                    error : false
+                }
+            };
+
+        case CUSTOMER.CUSTOMER_EDIT_CUSTOMER_INFO:
+            return {
+                ...state,
+                ...{
+                    customer: action.data,
+                    loaded: true,
                     error : false
                 }
             };

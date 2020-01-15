@@ -13,4 +13,8 @@ export default class Customer extends Base {
     getCustomer(){
         return super.get(`customers/customer`).then(res => res.data);
     };
+
+    editCustomerInfo(customer) {
+        return super.put('customers', customer).then(res => res.data)
+    };
 }
