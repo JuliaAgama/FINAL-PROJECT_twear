@@ -6,9 +6,9 @@ import {closeModalAction} from "../../../../store/actions/modal";
 import Registration from "../../../RegistrationForm";
 import Login from "../../../LoginForm";
 import NameLoginUpdateForm from '../../../UpdateForms/NameLoginUpdateForm'
-import EmailUpdateForm from '../../../UpdateForms/NameLoginUpdateForm'
-import PasswordUpdateForm from '../../../UpdateForms/NameLoginUpdateForm'
-import TelephoneUpdateForm from '../../../UpdateForms/NameLoginUpdateForm'
+import EmailUpdateForm from '../../../UpdateForms/EmailUpdateForm'
+import PasswordUpdateForm from '../../../UpdateForms/PasswordUpdateForm'
+import TelephoneUpdateForm from '../../../UpdateForms/TelephoneUpdateForm'
 import {Dialog} from "@material-ui/core";
 import useStyles from "./useStyles";
 
