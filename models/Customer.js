@@ -39,9 +39,6 @@ const CustomerSchema = new Schema({
     type: String,
     required: true
   },
-  address: {
-    type: Schema.Types.Mixed
-  },
   avatarUrl: {
     type: String
   },

@@ -5,7 +5,7 @@ export default makeStyles(theme => (
     {
         root: {
             width: '100%',
-            // minHeight: '50vh',
+            minHeight: '50vh',
             marginBottom: theme.spacing(2),
         },
         loginLink: {
@@ -64,7 +64,7 @@ export default makeStyles(theme => (
             fontSize: '16px',
             border: `1px solid ${grey[500]}`,
             borderRadius: '5px',
-            // margin: theme.spacing(1),
+            margin: theme.spacing(1),
             marginTop: theme.spacing(2),
             padding: theme.spacing(1),
             color: grey[500],
