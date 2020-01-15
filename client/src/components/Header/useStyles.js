@@ -2,15 +2,15 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => (
     {
-        headerContainer: {
+        mainContainer: {
             // boxSizing: 'border-box',
             // height: '60px',
-            display: 'flex',
+            // display: 'flex',
             // flexWrap: 'wrap',
             // width: '100%',
-            padding: '0',
-            margin: '0',
-            position: 'relative',
+            // padding: '0',
+            // margin: '0',
+            // position: 'relative',
         },
         container: {
             // height: '60px',
@@ -83,7 +83,7 @@ export default makeStyles(theme => (
         mobileMenuContainer: {
             display: 'flex',
             flexWrap: 'wrap',
-            width: 'calc(100% - 20px)',
+            width: '98%',
             position: 'absolute',
             top: '70px',
             borderRight: '1px solid black',

@@ -16,9 +16,6 @@ export default () => {
     const topCatLink = useParams().name;
     const topCatLinkNoGender = topCatLink.slice(0, topCatLink.indexOf("&"));
     const title = topCatLink.split("&").join(' ');
-    console.log(topCatLink)
-    console.log(topCatLinkNoGender)
-    console.log(title)
 
     const dispatch = useDispatch();
 
