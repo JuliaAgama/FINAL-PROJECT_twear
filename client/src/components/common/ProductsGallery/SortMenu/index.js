@@ -7,15 +7,17 @@ import { useHistory } from "react-router-dom";
 import {clearQueryString} from "../Helpers"
 
 export default function SimpleSelect(props) {
-    const {mobile, colors, setChosenColor, queryString} = props;
+    const {mobile, colors, queryString} = props;
     const classes = useStyles();
     const history = useHistory();
     const [color, setColor] = useState('undefined');
     const [sortRule, setSortRule] = useState(0);
 
     const handleChangeColor = event => {
+        let sortQuery = clearQueryString(queryString, 'color')+ '&color=' + event.target.value;
         setColor(event.target.value);
-        setChosenColor(event.target.value);
+        return history.push(`/categories/${sortQuery}`);
+
     };
 
     const handleChangeSortRule = event => {
