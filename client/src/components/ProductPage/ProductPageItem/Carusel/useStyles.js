@@ -15,7 +15,7 @@ export default makeStyles(theme => (
             width: '100%',
             padding: '0',
             margin: '0',
-            transition: 'all 1s ease-out',
+            // transition: '0.5s',
             // "&:hover": {
             //     transform: 'scale(1.9)',
             //     cursor: 'pointer'

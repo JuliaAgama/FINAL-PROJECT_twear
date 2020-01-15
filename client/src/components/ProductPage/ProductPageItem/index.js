@@ -1,7 +1,7 @@
 import React, {useRef, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import { useHistory } from 'react-router-dom';
-import './imgStyle.css'
+
 import * as cartActions from '../../../store/actions/cart';
 
 import {Container, Hidden, FormControl, NativeSelect, FormHelperText, Button} from "@material-ui/core";
@@ -9,8 +9,6 @@ import useStyles from "./useStyles";
 
 import {setColors, setImgs, setSizes} from "./Helpers";
 import CarouselProductPage from './Carusel'
-import AlternativeCarousel from './AlternativeCarousel'
-import SlickCarousel from './SlickCarousel'
 import NameAndPrice from "./NameAndPrice";
 import BlackTicker from '../../common/BlackTicker'
 import ProductsGallery from "../../common/ProductsGallery";
@@ -22,7 +20,6 @@ export default () => {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const classes = useStyles();
 
     const product = useSelector(state => state.productItem.productItem);
     const {cart} = useSelector(state => state.cart);
@@ -49,11 +46,7 @@ export default () => {
     };
     const handleSizeChange = event => {
         setSize(event.target.value);
-        if (event.target.value !== 'Size') {
-            setDisabled(false)
-        } else {
-            setDisabled(true);
-        }
+        if (event.target.value !== 'Size') setDisabled(false)
     };
 
     const colors = setColors(product);
@@ -78,6 +71,8 @@ export default () => {
         }, timeout)
     };
 
+    const classes = useStyles();
+
     return (
         <>
         <Container maxWidth={false} className={classes.mainContainer} >
@@ -88,9 +83,7 @@ export default () => {
                 </Container>
             </Hidden>
 
-            {/*<CarouselProductPage imgs={imgs}/>*/}
-            {/*<AlternativeCarousel dataSource={imgs}/>*/}
-            <SlickCarousel imgs={imgs}/>
+            <CarouselProductPage imgs={imgs}/>
 
             <Container maxWidth={false} className={classes.container}>
 

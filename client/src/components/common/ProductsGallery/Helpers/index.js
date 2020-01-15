@@ -82,10 +82,11 @@ export function getCategoryTitle(queryString) {
     return title;
 };
 
-export function getImgsUrl(chosenColor, product) {
+export function getImgsUrl(queryString, product) {
+    const color = getChosenColor(queryString);
     let img1, img2;
-    if (chosenColor && chosenColor !== 'none' && chosenColor !== 'undefined') {
-        const imgsColor = getImgByColor(product, chosenColor);
+    if (color) {
+        const imgsColor = getImgByColor(product, color);
         if (imgsColor) {
             img1 = imgsColor[0];
             img2 = imgsColor[1]
@@ -120,16 +121,4 @@ export function createHomePage(productCards, matches, productsGallery) {
                                         categoryName={`Men's ${links.menLinkID}`}
                                         borderRight={false} />);
     }
-};
-
-export  function filterProducts(products, chosenColor) {
-    let result = [];
-    products.forEach(product => {
-        product.colors.forEach(item => {
-            if (item.color.name === chosenColor) {
-                result.push(product);
-            }
-        })
-    });
-    return result;
 }
