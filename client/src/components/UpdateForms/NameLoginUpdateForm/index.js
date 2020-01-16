@@ -8,7 +8,6 @@ import useStyles from "./useStyles";
 
 import {required, password, minLength, maxLength, name, login} from '../../common/validators';
 import {renderRadioGroup, renderTextField} from "../../common/inputs/inputFields";
-import Spinner from '../../common/Spinner'
 import {editCustomerInfo} from "../../../store/actions/customer";
 
 
@@ -26,7 +25,7 @@ export default reduxForm({form: 'EmailUpdateForm'}) (props => {
 
     const { handleSubmit, pristine, invalid, submitting, typeForm } = props;
 
-    const {loaded, customer, error}  = useSelector(state => state.customers);
+    const {customer}  = useSelector(state => state.customers);
 
 
     const submit = values => dispatch(editCustomerInfo(values));
@@ -122,9 +121,6 @@ export default reduxForm({form: 'EmailUpdateForm'}) (props => {
                             SAVE
                         </Button>
                     </form>
-                    {/*<Container className={classes.spinnerContainer}>*/}
-                    {/*    {loaded ? '' : <Spinner/>}*/}
-                    {/*</Container>*/}
                 </Container>
             </Grid>
         </React.Fragment>

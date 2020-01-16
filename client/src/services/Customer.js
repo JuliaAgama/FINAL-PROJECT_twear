@@ -17,4 +17,8 @@ export default class Customer extends Base {
     editCustomerInfo(customer) {
         return super.put('customers', customer).then(res => res.data)
     };
+
+    updatePassword(passwords) {
+        return super.put('customers/password', passwords).then(res => res.data)
+    };
 }

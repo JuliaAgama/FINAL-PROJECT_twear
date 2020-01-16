@@ -1,6 +1,6 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError} from 'redux-form';
 
 import {Container, Grid, Button, Box} from "@material-ui/core";
 
@@ -8,10 +8,13 @@ import useStyles from "./useStyles";
 
 import {required, email, password, minLength, maxLength} from '../../common/validators';
 import {renderTextField} from "../../common/inputs/inputFields";
-import Spinner from '../../common/Spinner'
+import {editCustomerInfo} from "../../../store/actions/customer";
+
 
 const minLength3 = minLength(3);
 const maxLength30 = maxLength(30);
+const confirmEmail = values => values.email !== values.emailConfirm ? 'Email mismatched' : undefined;
+
 
 
 
@@ -19,13 +22,18 @@ export default reduxForm({form: 'EmailUpdateForm'}) (props => {
 
     const dispatch = useDispatch();
 
-    const { handleSubmit, pristine, invalid, submitting } = props;
+    const { handleSubmit, pristine, invalid, submitting} = props;
 
-    const {loaded, customer}  = useSelector(state => state.customers);
+    const {customer}  = useSelector(state => state.customers);
 
-
-    const submit = values => console.log(values);
-        // dispatch(loginAction(values, cart));
+    const submit = values => {
+       if(confirmEmail(values)) {
+           return new Promise((resolve, reject) =>
+           {throw new SubmissionError({ emailConfirm: 'Email mismatched'})});
+       } else {
+           return dispatch(editCustomerInfo(values));
+       }
+    };
 
     const classes = useStyles();
 
@@ -75,11 +83,9 @@ export default reduxForm({form: 'EmailUpdateForm'}) (props => {
                             Update Email
                         </Button>
                     </form>
-                    <Container className={classes.spinnerContainer}>
-                        {loaded ? '' : <Spinner/>}
-                    </Container>
                 </Container>
             </Grid>
         </React.Fragment>
     );
 });
+

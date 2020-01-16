@@ -49,6 +49,16 @@ export default function (state = initState, action) {
                 }
             };
 
+        case CUSTOMER.CUSTOMER_UPDATE_PASSWORD:
+            return {
+                ...state,
+                ...{
+                    customer: action.data,
+                    loaded: true,
+                    error : false
+                }
+            };
+
             case CUSTOMER.CUSTOMER_LOGIN:
                 return {
                     ...state,

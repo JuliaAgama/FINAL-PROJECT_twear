@@ -143,6 +143,31 @@ export function editCustomerInfo(customer){
     };
 };
 
+export function updatePassword(passwords){
+    return async function (dispatch) {
+        dispatch(customerSendRequest());
+
+        await (new CustomerApi()).updatePassword(passwords)
+            .then(res => {
+                return dispatch({
+                    type: Customer.CUSTOMER_UPDATE_PASSWORD,
+                    data: res
+                })
+            })
+            .catch((error) => {
+                if (error.response.data.password) {
+                    throw new SubmissionError({
+                        currentPassword: error.response.data.password,
+                    });
+                }  else { // Something happened in setting up the request and triggered an Error
+                    dispatch(customerResponseFailed());
+                }
+            });
+
+        dispatch(closeModalAction());
+    };
+};
+
 export function getCustomerAction() {
     if (Base.getToken()){
         return function (dispatch) {

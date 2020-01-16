@@ -151,7 +151,6 @@ exports.editCustomerInfo = (req, res) => {
   // Clone query object, because validator module mutates req.body, adding other fields to object
   const initialQuery = _.cloneDeep(req.body);
 
-
   // Check Validation
   const { errors, isValid } = validateRegistrationForm(req.body);
 
@@ -166,59 +165,55 @@ exports.editCustomerInfo = (req, res) => {
         return res.status(404).json(errors);
       }
 
-        let oldPassword = req.body.password;
-        bcrypt.compare(oldPassword, customer.password).then(isMatch => {
+      let oldPassword = req.body.password;
+      bcrypt.compare(oldPassword, customer.password).then(isMatch => {
             if (!isMatch) {
                 errors.password = "Password incorrect";
                 res.status(400).json(errors);
-            }
-        });
-        // customer.comparePassword(oldPassword, function(err, isMatch) {
-        //     if (!isMatch) {
-        //         errors.password = "Password incorrect";
-        //         res.status(400).json(errors);
-        //     }
-        // });
-
-      const currentEmail = customer.email;
-      const currentLogin = customer.login;
-      const newEmail = req.body.email;
-      const newLogin = req.body.login;
+            } else {
+                const currentEmail = customer.email;
+                const currentLogin = customer.login;
+                const newEmail = req.body.email;
+                const newLogin = req.body.login;
 
 
-      if (newEmail && currentEmail !== newEmail) {
-        Customer.findOne({ email: newEmail }).then(customer => {
-          if (customer) {
-            errors.email = `Email ${newEmail} is already exists`;
-            res.status(400).json(errors);
-          }
-        });
-      } else if (newLogin && currentLogin !== newLogin) {
-        Customer.findOne({ login: newLogin }).then(customer => {
-          if (customer) {
-            errors.login = `Login ${newLogin} is already exists`;
-            res.status(400).json(errors);
-          }
-        });
-      } else {
-        // Create query object for qustomer for saving him to DB
-        // const updatedCustomer = queryCreator(initialQuery);
-        //
-        // Customer.findOneAndUpdate(
-        //   { _id: req.user.id },
-        //   { $set: updatedCustomer },
-        //   { new: true }
-        // )
-        //   .then(customer => {
-        //       console.log(customer);
-        //       res.json(customer)
-        //   })
-        //   .catch(err =>
-        //     res.status(400).json({
-        //       message: `Error happened on server: "${err}" `
-        //     })
-        //   );
-      }
+                if (newEmail && currentEmail !== newEmail) {
+                    Customer.findOne({ email: newEmail }).then(customer => {
+                        if (customer) {
+                            errors.email = `Email ${newEmail} is already exists`;
+                            res.status(400).json(errors);
+                        }
+                    });
+                }
+
+                if (newLogin && currentLogin !== newLogin) {
+                    Customer.findOne({ login: newLogin }).then(customer => {
+                        if (customer) {
+                            errors.login = `Login ${newLogin} is already exists`;
+                            res.status(400).json(errors);
+                        }
+                    });
+                }
+                    // Create query object for qustomer for saving him to DB
+                delete initialQuery.password;
+                delete initialQuery.emailConfirm;
+                const updatedCustomer = queryCreator(initialQuery);
+                    Customer.findOneAndUpdate(
+                      { _id: req.user.id },
+                      { $set: updatedCustomer },
+                      { new: true }
+                    )
+                      .then(customer => {
+                          res.json(customer)
+                      })
+                      .catch(err =>
+                        res.status(400).json({
+                          message: `Error happened on server: "${err}" `
+                        })
+                      );
+                }
+
+      });
     })
     .catch(err =>
       res.status(400).json({
@@ -239,12 +234,12 @@ exports.updatePassword = (req, res) => {
 
   // find our user by ID
   Customer.findOne({ _id: req.user.id }, (err, customer) => {
-    let oldPassword = req.body.password;
+    let oldPassword = req.body.currentPassword;
 
     customer.comparePassword(oldPassword, function(err, isMatch) {
       if (!isMatch) {
         errors.password = "Password does not match";
-        res.json(errors);
+          res.status(400).json(errors);
       } else {
         let newPassword = req.body.newPassword;
 

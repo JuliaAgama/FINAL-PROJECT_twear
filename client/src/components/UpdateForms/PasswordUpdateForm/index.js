@@ -1,6 +1,6 @@
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
-import { Field, reduxForm } from 'redux-form';
+import {useDispatch} from "react-redux";
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 
 import {Container, Grid, Button, Box} from "@material-ui/core";
 
@@ -8,10 +8,12 @@ import useStyles from "./useStyles";
 
 import {required, password, minLength, maxLength} from '../../common/validators';
 import {renderTextField} from "../../common/inputs/inputFields";
-import Spinner from '../../common/Spinner'
+import {editCustomerInfo, updatePassword} from "../../../store/actions/customer";
+
 
 const minLength3 = minLength(3);
 const maxLength30 = maxLength(30);
+const confirmPassword = values => values.newPassword !== values.confirmNewPassword? 'Password mismatched' : undefined;
 
 
 
@@ -21,11 +23,15 @@ export default reduxForm({form: 'PasswordUpdateForm'}) (props => {
 
     const { handleSubmit, pristine, invalid, submitting } = props;
 
-    const {loaded}  = useSelector(state => state.customers);
 
-
-    const submit = values => console.log(values);
-    // dispatch(loginAction(values, cart));
+    const submit = values => {
+        if(confirmPassword(values)) {
+            return new Promise((resolve, reject) =>
+            {throw new SubmissionError({ confirmNewPassword: 'Password mismatched'})});
+        } else {
+            return dispatch(updatePassword(values));
+        }
+    };
 
     const classes = useStyles();
 
@@ -57,7 +63,7 @@ export default reduxForm({form: 'PasswordUpdateForm'}) (props => {
                                    validate={[required, password, minLength3, maxLength30]}
                                    className={classes.inputField}
                             />
-                            <Field name="confirmPassword"
+                            <Field name="confirmNewPassword"
                                    component={renderTextField}
                                    type='password'
                                    label="Confirm New Password*"
@@ -74,9 +80,6 @@ export default reduxForm({form: 'PasswordUpdateForm'}) (props => {
                             SAVE
                         </Button>
                     </form>
-                    <Container className={classes.spinnerContainer}>
-                        {loaded ? '' : <Spinner/>}
-                    </Container>
                 </Container>
             </Grid>
         </React.Fragment>

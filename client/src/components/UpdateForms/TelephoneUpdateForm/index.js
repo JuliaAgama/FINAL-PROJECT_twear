@@ -6,9 +6,12 @@ import {Container, Grid, Button, Box} from "@material-ui/core";
 
 import useStyles from "./useStyles";
 
-import {phoneNumber} from '../../common/validators';
-import {renderPhoneNumber} from "../../common/inputs/inputFields";
-import Spinner from '../../common/Spinner'
+import {maxLength, minLength, password, phoneNumber, required} from '../../common/validators';
+import {renderPhoneNumber, renderTextField} from "../../common/inputs/inputFields";
+import {editCustomerInfo} from "../../../store/actions/customer";
+
+const minLength7 = minLength(7);
+const maxLength30 = maxLength(30);
 
 export default reduxForm({form: 'TelephoneUpdateForm'}) (props => {
 
@@ -16,11 +19,10 @@ export default reduxForm({form: 'TelephoneUpdateForm'}) (props => {
 
     const { handleSubmit, pristine, invalid, submitting } = props;
 
-    const {loaded, customer}  = useSelector(state => state.customers);
+    const {customer}  = useSelector(state => state.customers);
 
 
-    const submit = values => console.log(values);
-    // dispatch(loginAction(values, cart));
+    const submit = values => dispatch(editCustomerInfo(values));
 
     const classes = useStyles();
 
@@ -42,6 +44,13 @@ export default reduxForm({form: 'TelephoneUpdateForm'}) (props => {
                                    className={classes.inputPhone}
                             />
                         </Box>
+                        <Field name="password"
+                               component={renderTextField}
+                               type='password'
+                               label="Password*"
+                               validate={[required, password, minLength7, maxLength30]}
+                               className={classes.inputField}
+                        />
                         <Button disabled={pristine || submitting || invalid}
                                 fullWidth={true}
                                 variant="outlined"
@@ -51,9 +60,6 @@ export default reduxForm({form: 'TelephoneUpdateForm'}) (props => {
                             SAVE
                         </Button>
                     </form>
-                    <Container className={classes.spinnerContainer}>
-                        {loaded ? '' : <Spinner/>}
-                    </Container>
                 </Container>
             </Grid>
         </React.Fragment>
