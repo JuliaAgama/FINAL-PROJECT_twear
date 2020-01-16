@@ -20,10 +20,13 @@ export const maxLength = max => value =>
     value && value.length > max ? `Must be ${max} characters or less` : undefined;
 
 export const name = value =>
-    value && !/^[a-zA-Zа-яА-Я]+$/i.test(value) ? 'Allowed characters for First Name is a-z, A-Z, а-я, А-Я.' : undefined;
+    value && !/^[a-zA-Zа-яА-Я]+$/i.test(value) ? 'Allowed characters is a-z, A-Z, а-я, А-Я.' : undefined;
 
 export const login = value =>
-    value && !/^[a-zA-Z0-9]+$/i.test(value) ? 'Allowed characters for login is a-z, A-Z, 0-9.' : undefined;
+    value && !/^[a-zA-Z0-9]+$/i.test(value) ? 'Allowed characters is a-z, A-Z, 0-9.' : undefined;
+
+export const street = value =>
+    value && !/^[a-zA-Z0-9\s]+$/i.test(value) ? 'Allowed characters is a-z, A-Z, 0-9 and whitespace' : undefined;
 
 export const password = value =>
     value && !/^[a-zA-Z0-9]+$/i.test(value) ? 'Allowed characters for password is a-z, A-Z, 0-9.' : undefined;

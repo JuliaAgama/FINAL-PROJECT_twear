@@ -9,6 +9,7 @@ export default makeStyles(theme => (
             textAlign: 'center'
         },
         title: {
+            fontWeight: '700',
             margin: '14px 0'
         },
         mainTitle: {

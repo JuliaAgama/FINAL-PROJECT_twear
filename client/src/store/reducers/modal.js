@@ -8,7 +8,8 @@ const initState = {
     loginUpdate: '',
     email: '',
     password: '',
-    telephone: ''
+    telephone: '',
+    address: ''
 };
 
 const newState = (data) => {
@@ -98,6 +99,16 @@ export default function (state = initState, action) {
                 }
             };
 
+        case MODAL.MODAL_OPEN_ADD_NEW_ADDRESS:
+            let addressState = newState(action.data);
+
+            return {
+                ...addressState,
+                ...{
+                    open: true
+                }
+            };
+
 
         case MODAL.MODAL_CLOSE:
             return {
@@ -110,7 +121,8 @@ export default function (state = initState, action) {
                     loginUpdate: '',
                     email: '',
                     password: '',
-                    telephone: ''
+                    telephone: '',
+                    address: ''
                 }
             };
 

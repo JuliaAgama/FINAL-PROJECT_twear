@@ -5,4 +5,5 @@ export const MODAL_OPEN_LOGIN_UPDATE = 'modal_open_login_update';
 export const MODAL_OPEN_EMAIL_UPDATE = 'modal_open_email_update';
 export const MODAL_OPEN_PASSWORD_UPDATE = 'modal_open_password_update';
 export const MODAL_OPEN_TELEPHONE_UPDATE = 'modal_open_telephone_update';
+export const MODAL_OPEN_ADD_NEW_ADDRESS = 'modal_open_add_new_address';
 export const MODAL_CLOSE = 'modal_close';

@@ -63,6 +63,15 @@ export function openUpdatePasswordAction(updatePassword) {
     };
 };
 
+export function openAddNewAddress(address) {
+    return function (dispatch) {
+        return dispatch({
+            type: MODAL.MODAL_OPEN_PASSWORD_UPDATE,
+            data: address
+        });
+    };
+};
+
 export function closeModalAction() {
     return function (dispatch) {
         return dispatch({
