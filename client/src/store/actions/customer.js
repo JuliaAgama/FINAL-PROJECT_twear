@@ -43,19 +43,15 @@ export function registrationAction(customer, cart){
         })
         .catch((error) => {
             if (error.response.data.login) {
-                dispatch(customerResponseFailed());
                 throw new SubmissionError({
                     login: error.response.data.login
                 });
             } else if (error.response.data.email) {
-                dispatch(customerResponseFailed());
                 throw new SubmissionError({
                     email: error.response.data.email
                 });
-            } else if (error.request) {//The request was made but no response was received
-                console.log(error.request);
             } else { // Something happened in setting up the request and triggered an Error
-                console.log('Error', error.message);
+                dispatch(customerResponseFailed());
             }
         });
 
@@ -91,19 +87,15 @@ export function loginAction(customer, cart){
         })
         .catch((error) => {
             if (error.response.data.loginOrEmail) {
-                dispatch(customerResponseFailed());
                 throw new SubmissionError({
                     loginOrEmail: 'User does not exist'
                 });
             } else if (error.response.data.password) {
-                dispatch(customerResponseFailed());
                 throw new SubmissionError({
                     password: error.response.data.password
                 });
-            } else if (error.request) { //The request was made but no response was received
-                console.log(error.request);
             } else {// Something happened in setting up the request and triggered an Error
-                console.log('Error', error.message);
+                dispatch(customerResponseFailed());
             }
         });
 
@@ -131,25 +123,19 @@ export function editCustomerInfo(customer){
             })
             .catch((error) => {
                 if (error.response.data.login) {
-                    dispatch(customerResponseFailed());
                     throw new SubmissionError({
                         login: error.response.data.login
                     });
                 } else if (error.response.data.email) {
-                    dispatch(customerResponseFailed());
                     throw new SubmissionError({
                         email: error.response.data.email
                     });
                 } else if (error.response.data.password) {
-                    dispatch(customerResponseFailed(error.response.data.password));
                     throw new SubmissionError({
                         password: error.response.data.password,
-                        _error: 'Login failed!'
                     });
-                } else if (error.request) {//The request was made but no response was received
-                    console.log(error.request);
-                } else { // Something happened in setting up the request and triggered an Error
-                    console.log('Error', error.message);
+                }  else { // Something happened in setting up the request and triggered an Error
+                    dispatch(customerResponseFailed());
                 }
             });
 
