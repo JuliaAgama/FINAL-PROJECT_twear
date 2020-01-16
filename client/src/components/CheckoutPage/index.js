@@ -12,6 +12,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import useStyles from './useStyles';
 
 import CheckoutInfo from './CheckoutInfo';
+import shippingOptionsBase from './shippingOptionsBase';
 import CheckoutShipping from './CheckoutShipping';
 
 
@@ -34,7 +35,7 @@ export default () => {
 
     const [formData, setFormData] = useState({subscribe: false, saveLocal: false});
 
-    // console.log(formData);
+    console.log(formData);
 
     useEffect(() => {
         setInfoIsOpen(true);
@@ -61,7 +62,8 @@ export default () => {
             setFormData({
                 ...formData,
                 email: customerLoaded ? customer.email : formData.email || '',
-                deliveryInfo: {...localData}
+                deliveryInfo: {...localData},
+                shipping: shippingOptionsBase.filter(el => el.locations.some(elem => elem === localData.country))[0] || shippingOptionsBase.find(el => el._id === 'other')
             })
         };
         return ( () => {
@@ -78,6 +80,7 @@ export default () => {
                 && formData.deliveryInfo.lastName
                 && formData.deliveryInfo.address
                 && formData.deliveryInfo.city
+                && formData.deliveryInfo.country
                 && formData.deliveryInfo.postal
                 && formData.deliveryInfo.telephone
                 && formData.deliveryInfo.telephone.match(/^([\(\+])?([0-9]{1,3}([\s])?)?([\+|\(|\-|\)|\s])?([0-9]{2,4})([\-|\)|\.|\s]([\s])?)?([0-9]{2,4})?([\.|\-|\s])?([0-9]{2,8})?([\.|\-|\s])?([0-9]{2,8})$/)
@@ -87,7 +90,7 @@ export default () => {
             return false;
         };
         const validateShippingFields = () => { // прописать проверку пустых и некорректных вводов
-            return false;
+            return true;
         };
         validateInfoFields() ? setOnShippingAvailable(true) : setOnShippingAvailable(false);
         validateInfoFields() && validateShippingFields() ? setOnPaymentAvailable(true) : setOnPaymentAvailable(false);
@@ -103,7 +106,7 @@ export default () => {
                 ...formData,
                 [event.target.name]: !formData[event.target.name]
             })
-        } else if (['firstName', 'lastName', 'address', 'city', 'postal', 'country', 'telephone'].some(el => el === event.target.name)) {
+        } else if (['firstName', 'lastName', 'address', 'city', 'postal', 'telephone'].some(el => el === event.target.name)) {
             setFormData({
                 ...formData,
                 deliveryInfo: {
@@ -117,6 +120,24 @@ export default () => {
                 [event.target.name]: event.target.value
             });
         }
+    };
+    const handleOnChangeCountry = value => {
+        console.log('handleOnChangeCountry value: ', value)
+        setFormData({
+            ...formData,
+            deliveryInfo: {
+                ...formData.deliveryInfo,
+                country: value
+            },
+            shipping: shippingOptionsBase.filter(el => el.locations.some(elem => elem === value))[0] || shippingOptionsBase.find(el => el._id === 'other')
+        });
+    };
+
+    const handleOnChangeShipping = shipping => {
+        setFormData({
+            ...formData,
+            shipping: shipping
+        });
     };
 
     const handleOnSaveLocalDeliveryInfo = () => {
@@ -174,6 +195,7 @@ export default () => {
                 formData={formData}
                 infoIsOpen={infoIsOpen}
                 handleOnChange={handleOnChange}
+                handleOnChangeCountry={handleOnChangeCountry}
                 onToCart={onToCart}
                 onToInfo={onToInfo}
                 onToShipping={onToShipping}
@@ -183,7 +205,7 @@ export default () => {
                 formData={formData}
                 infoIsOpen={infoIsOpen}
                 shippingIsOpen={shippingIsOpen}
-                handleOnChange={handleOnChange}
+                handleOnChangeShipping={handleOnChangeShipping}
                 onToCart={onToCart}
                 onToInfo={onToInfo}
                 onToShipping={onToShipping}

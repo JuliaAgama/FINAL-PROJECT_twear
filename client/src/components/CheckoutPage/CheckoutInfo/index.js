@@ -1,7 +1,8 @@
-import React from 'react';
-// import React, {useState, useEffect} from 'react';
+// import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import clsx from 'clsx';
+import countryList from 'react-select-country-list'
 //
 import {openLoginModalAction} from "../../../store/actions/modal";
 
@@ -9,12 +10,33 @@ import { Typography, Box, Grid,  TextField, FormControlLabel, Checkbox } from '@
 
 import useStyles from './useStyles';
 
+import Selector from '../../common/inputs/Selector';
 import Modal from '../../common/modals/Modal';
 
 
 export default props => {
 
-    const {formData, infoIsOpen, handleOnChange, onToCart, onToInfo, onToShipping, onShipppingAvailable} = props;
+    const {formData, infoIsOpen, handleOnChange, handleOnChangeCountry, onToCart, onToInfo, onToShipping, onShipppingAvailable} = props;
+
+    const countriesList = countryList().getData();
+    const [countries, setCountries] = useState({
+        options: [],
+        selectedCountry: '',
+    });
+
+    useEffect(() => {
+        if (countriesList && formData && formData.deliveryInfo) {
+            setCountries({
+                options: countriesList.map(el => {return {name: el.label, _id: el.label}}),
+                selectedCountry: formData.deliveryInfo.country});
+        }
+        return (() => {
+            setCountries({
+                options: [],
+                selectedCountry: '',
+            });
+        })
+    }, [formData, countriesList])
 
     const dispatch = useDispatch();
 
@@ -152,19 +174,12 @@ export default props => {
                         />
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField
-                            className={classes.textField}
-                            required
-                            id="country"
-                            label="Country"
-                            name='country'
-                            type='text'
-                            defaultValue={formData.deliveryInfo ? formData.deliveryInfo.country : ''}
-                            onChange={onChange}
-                            onFocus={onChange}
-                            margin="none"
-                            variant="outlined"
-                        />
+                        {countries && countries.options && <Selector
+                            selectorName='Country'
+                            selectorArr={countries.options}
+                            selectedItem={countries.selectedCountry}
+                            onChange={handleOnChangeCountry}
+                        />}
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
@@ -175,7 +190,7 @@ export default props => {
                             name='telephone'
                             type='text'
                             placeholder='+XX-XXX-XXX-XXXX'
-                            defaultValue={formData.deliveryInfo ? formData.deliveryInfo.telephone : ''}
+                            value={formData.deliveryInfo ? formData.deliveryInfo.telephone : ''}
                             onChange={onChange}
                             onFocus={onChange}
                             margin="none"

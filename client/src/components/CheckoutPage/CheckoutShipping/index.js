@@ -1,50 +1,77 @@
-import React from 'react';
+// import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector} from "react-redux";
 import clsx from 'clsx';
 //
 import {openLoginModalAction} from "../../../store/actions/modal";
 
-import { Typography, Box, Grid,  TextField, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Typography, Box, Grid,  TextField, FormControlLabel, Checkbox, FormLabel, FormControl, RadioGroup, Radio } from '@material-ui/core';
 
 import useStyles from './useStyles';
+
+import shippingOptionsBase from '../shippingOptionsBase';
 
 
 export default props => {
 
-    const {formData, infoIsOpen, shippingIsOpen, handleOnChange, onToCart, onToInfo, onToShipping, onToPayment, onPaymentAvailable} = props;
+    const {formData, infoIsOpen, shippingIsOpen, handleOnChangeShipping, onToCart, onToInfo, onToShipping, onToPayment, onPaymentAvailable} = props;
 
-    const customerLoaded = useSelector(state => state.customers.loaded);
+    const [shippingMethod, setShippingMethod] = useState({
+        options: [],
+        selected: null,
+    });
 
-    const onChange = event => {
-        handleOnChange(event);
+    useEffect(() => {
+        if (formData && formData.deliveryInfo  && formData.deliveryInfo.country) {
+            setShippingMethod({
+                options: shippingOptionsBase.filter(el => el.locations.some(elem => elem === formData.deliveryInfo.country))[0] ? shippingOptionsBase.filter(el => el.locations.some(elem => elem === formData.deliveryInfo.country)) : [shippingOptionsBase.find(el => el._id === 'other')],
+                selected: formData.shipping
+            });
+        }
+        return (() => {
+            setShippingMethod({
+                options: [],
+                selected: null,
+            });
+        })
+    }, [formData]);
+
+    const onChangeShipping = event => {
+        handleOnChangeShipping({
+            ...shippingOptionsBase.find(el => el._id === event.target.value)
+        });
     };
 
     const classes = useStyles();
 
     return (
+        formData &&
         <div className={classes.root}>
             {shippingIsOpen ?
             <form autoComplete="off">
-                <Grid container spacing={2} alignItems='center'>
+                <Grid container spacing={2} alignItems='center' className={classes.container} >
                     <Grid item xs={12}>
                         <Box fontSize="h6.fontSize" pt={3} textAlign='left'>Shipping Method</Box>
                     </Grid>
-                    <Grid item xs={12} container spacing={2} className={classes.briefContainer} alignItems='center'>
-                        <Grid item xs={7} sm={8} lg={9}>
-                            <FormControlLabel style={{color: '#666', fontSize: '14px'}} control={
-                                <Checkbox
-                                    name='shippingMethod'
-                                    checked={formData.ups ? true : false}
-                                    onChange={onChange}
-                                    value='ups'
-                                    color="default"
-                                />
-                                }
-                                label="	UPS delivery to home/company address (non-EU)"
-                            />
+                    {shippingMethod.options.map(item =>
+                        <Grid item xs={12} container spacing={2}alignItems='center'key={item._id}>
+                            <Grid item xs={9}>
+                                <FormControl component="fieldset" className={classes.formControl}>
+                                    <RadioGroup aria-label="shippingMethod" name="shippingMethod">
+                                        <FormControlLabel
+                                            id={item._id}
+                                            value={item._id}
+                                            control={<Radio />}
+                                            label={item.name}
+                                            checked={formData.shipping && formData.shipping._id === item._id ? true : false}
+                                            onChange={onChangeShipping}
+                                        />
+                                    </RadioGroup>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={3}>{item.price > 0 ? `$ ${item.price}` : 'Free'}</Grid>
                         </Grid>
-                        <Grid item xs={2}>Free</Grid>
-                    </Grid>
+                    )}
                     <Grid item xs={5}>
                         <Typography component="div" className={classes.btnRegular}>
                             <Box fontSize="body2.fontSize" onClick={onToInfo}>Return to Information</Box>
@@ -68,8 +95,8 @@ export default props => {
 
             !infoIsOpen && <Grid container spacing={2} className={classes.briefContainer} alignItems='center'>
                 <Grid item xs={3}>Shipping Method</Grid>
-                <Grid item xs={6} sm={7} lg={8}>UPS delivery to home/company address (non-EU)</Grid>
-                <Grid item xs={1}>Free</Grid>
+                <Grid item xs={4} sm={5} lg={6}>UPS delivery to home/company address (non-EU)</Grid>
+                <Grid item xs={2}>Free</Grid>
                 <Grid item xs={3} sm={2} lg={1}>
                     <Box className={classes.link} onClick={onToShipping}>Change</Box>
                 </Grid>

@@ -5,19 +5,22 @@ export default makeStyles(theme => (
     {
         root: {
             width: '100%',
-            minHeight: '50vh',
+            // minHeight: '50vh',
             marginBottom: theme.spacing(2),
         },
-        loginLink: {
-            cursor: 'pointer',
-            color: blue[400],
-            '&:hover': {
-                textDecoration: 'underline',
-            },
+        container: {
+            // fontSize: '16px',
+            border: `1px solid ${grey[500]}`,
+            borderRadius: '5px',
+            // margin: theme.spacing(1),
+            marginTop: theme.spacing(2),
+            padding: theme.spacing(1),
+            // color: grey[500],
+            // backgroundColor: grey[300],
         },
-        textField: {
-            width: '100%',
-            backgroundColor: '#fff',
+        formControl: {
+            margin: theme.spacing(2),
+            paddingLeft: theme.spacing(2),
         },
         btnRegular: {
             ...theme.typography.button,
@@ -64,7 +67,7 @@ export default makeStyles(theme => (
             fontSize: '16px',
             border: `1px solid ${grey[500]}`,
             borderRadius: '5px',
-            margin: theme.spacing(1),
+            // margin: theme.spacing(1),
             marginTop: theme.spacing(2),
             padding: theme.spacing(1),
             color: grey[500],
