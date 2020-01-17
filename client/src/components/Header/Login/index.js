@@ -4,8 +4,9 @@ import {Link} from "react-router-dom";
 
 import {openLoginModalAction} from "../../../store/actions/modal";
 import {getCustomerAction, logoutAction} from "../../../store/actions/customer";
+import { hideDesktopCategoriesMenuAction } from "../../../store/actions/header";
 
-import { Grid, ClickAwayListener} from "@material-ui/core";
+import { Grid} from "@material-ui/core";
 import PersonIcon from '@material-ui/icons/Person';
 
 
@@ -15,31 +16,31 @@ import useStyles from "./useStyles";
 export default () => {
 
     const customer = useSelector(state => state.customers.customer);
-    const [isVisible, setVisible] = useState(false);
+    const [isVisible, setVisibility] = useState(false);
 
     const dispatch = useDispatch();
     useEffect(() => {dispatch(getCustomerAction())},[dispatch]);
 
     const clickHandler = () => {
+        dispatch(hideDesktopCategoriesMenuAction());
         if (customer.firstName) {
-            setVisible(!isVisible)
+            setVisibility(!isVisible);
         } else {
             dispatch(openLoginModalAction());
         }
     };
 
     const logOutHandler = () => {
-        setVisible(false);
+        setVisibility(!isVisible);
         dispatch(logoutAction());
     };
-    const handleClickAway = () => setVisible(!isVisible);
 
     const classes = useStyles();
 
     return (
         <React.Fragment>
             <div className={classes.container}
-                onClick={clickHandler}>
+                 onClick={clickHandler}>
                 {customer.firstName ?
                     <div className={classes.link}>
                         <PersonIcon/>
@@ -49,33 +50,29 @@ export default () => {
                     <span className={classes.span}>Log In</span>
                 }
             </div>
-            {isVisible ?
-                <ClickAwayListener onClickAway={handleClickAway}>
-                    <Grid container className={classes.subMenu}>
-                        {customer.isAdmin ?
-                            <>
-                                <Grid item xs={12} md={3} className={classes.subMenuItem}>
-                                    <Link to='/personalCabinet' className={classes.linkContainer}>Personal Cabinet ({customer.firstName.toUpperCase()})</Link>
-                                </Grid>
-                                <Grid item xs={12} md={6} className={classes.subMenuItem}>
-                                    <Link to={'/admin'} className={classes.linkContainer}>Admin Page</Link>
-                                </Grid>
-                                <Grid item xs={12} md={3} className={classes.subMenuItem}>
-                                    <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
-                                </Grid>
-                            </> :
-                            <>
-                                <Grid item xs={12} md={6} className={classes.subMenuItem}>
-                                    <Link to='/personalCabinet' className={classes.linkContainer}>Personal Cabinet  ({customer.firstName.toUpperCase()}) </Link>
-                                </Grid>
-                                <Grid item xs={12} md={6} className={classes.subMenuItem}>
-                                    <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
-                                </Grid>
-                            </>
-                        }
-                    </Grid>
-                </ClickAwayListener> : <></>
-            }
+            {isVisible && <Grid container className={classes.subMenu}>
+                {customer.isAdmin ?
+                    <>
+                        <Grid item xs={12} md={3} className={classes.subMenuItem}>
+                            <Link to='/personalCabinet' className={classes.linkContainer}>Personal Cabinet ({customer.firstName.toUpperCase()})</Link>
+                        </Grid>
+                        <Grid item xs={12} md={6} className={classes.subMenuItem}>
+                            <Link to={'/admin'} className={classes.linkContainer}>Admin Page</Link>
+                        </Grid>
+                        <Grid item xs={12} md={3} className={classes.subMenuItem}>
+                            <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
+                        </Grid>
+                    </> :
+                    <>
+                        <Grid item xs={12} md={6} className={classes.subMenuItem}>
+                            <Link to='/personalCabinet' className={classes.linkContainer}>Personal Cabinet  ({customer.firstName.toUpperCase()}) </Link>
+                        </Grid>
+                        <Grid item xs={12} md={6} className={classes.subMenuItem}>
+                            <Link to={'/'} className={classes.linkContainer} onClick={logOutHandler}>Log Out</Link>
+                        </Grid>
+                    </>
+                }
+            </Grid>}
         </React.Fragment>
     );
 };

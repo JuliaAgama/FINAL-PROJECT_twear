@@ -51,7 +51,7 @@ export default () => {
         <React.Fragment>
             <ClickAwayListener onClickAway={handleClickAway}>
                 <Container className={classes.container}
-                    onClick={handleClickOpen}>
+                           onClick={handleClickOpen}>
                     {!isVisible ? 'Currency' :
                         (<>
                             <span  className={isChosen.USD ? classes.currentCurrency : classes.currency} data-currency='USD' onClick={clickHandler}>USD</span>

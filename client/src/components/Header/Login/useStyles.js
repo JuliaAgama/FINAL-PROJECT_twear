@@ -41,7 +41,7 @@ export default makeStyles(theme => (
             padding: '1px 0',
         },
         subMenu : {
-            width: '100%',
+            width: '401%',
             padding: '0',
             marginLeft: '-1px',
             position: 'absolute',
@@ -50,7 +50,7 @@ export default makeStyles(theme => (
             borderLeft: '1px solid black',
             [theme.breakpoints.down('sm')]: {
                 top: '118px',
-                // width: 'calc(100% -20px)',
+                width: 'calc(98vw)',
                 left : '0',
                 right: '0',
                 transform: 'translate(0)',
@@ -75,7 +75,7 @@ export default makeStyles(theme => (
             },
             [theme.breakpoints.down('sm')]: {
                 backgroundColor: 'white',
-                // width: '100%'
+                width: '100%'
             },
         },
     }

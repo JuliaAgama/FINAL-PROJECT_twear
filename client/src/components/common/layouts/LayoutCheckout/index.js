@@ -13,6 +13,7 @@ import {LocalMallOutlined, NavigateNext} from '@material-ui/icons';
 import useStyles from './useStyles';
 
 import CheckoutCart from '../../../checkoutPages/CheckoutCart';
+import Currency from "../../../common/Currency";
 
 export default props => {
 
@@ -78,7 +79,7 @@ export default props => {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={4}>
-                                    <Box textAlign='right' pr={2} fontSize='h6.fontSize'>$ {cartTotal} </Box>
+                                    <Box textAlign='right' pr={2} fontSize='h6.fontSize'><Currency price={cartTotal}/></Box>
                                 </Grid>
                                 <Grid item xs={12} style={expanded ? {display: 'block', color: '#999'} : {display: 'none'}}><CheckoutCart calcTotalCart={calcTotalCart}/></Grid>
                             </Grid>

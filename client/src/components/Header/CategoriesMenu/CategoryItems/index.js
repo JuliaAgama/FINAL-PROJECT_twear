@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Box from "@material-ui/core/Box";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {ClickAwayListener, Container} from "@material-ui/core";
+import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
 import {getAllCategories} from "../../../../store/actions/categories";
 import {hideDesktopCategoriesMenuAction, hideMobileMenuAction} from "../../../../store/actions/header";
@@ -51,15 +51,9 @@ export function CategoryItems(props) {
         items = CategoriesFilter(categories, 'women').map(item => <Item key={item._id} url={`/categories/page=shop&gender=${item.gender.name}&category=${item.name}`} title={item.name} mobile={props.mobile} />)
     }
 
-    const handleClickAway = (event) => {
-        if (event.target.innerText !== 'Women' && event.target.innerText !== 'Men' ) dispatch(hideDesktopCategoriesMenuAction(false));
-    }
-
     return (
-        <ClickAwayListener onClickAway={handleClickAway}>
-            <Container maxWidth={false} className={show ? `${classes.border} ${classes.container}` : classes.hide}>
-                {items}
-            </Container>
-        </ClickAwayListener>
+        <Container maxWidth={false} className={show ? `${classes.border} ${classes.container}` : classes.hide}>
+            {items}
+        </Container>
     )
 }
