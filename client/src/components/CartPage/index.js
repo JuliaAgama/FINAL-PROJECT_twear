@@ -23,7 +23,7 @@ export default () => {
         if (customerLoaded) {
             dispatch(cartActions.getCart(cart));
         }
-    }, [dispatch, customerLoaded, cart]);
+    }, [dispatch, customerLoaded]);
 
     const enableCheckout = state => {
         setCheckoutAvailable(state);
@@ -42,7 +42,7 @@ export default () => {
 
     const onCheckout = () => {
         handleUpdateCart(cart);
-        history.push('/checkout/information');
+        history.push('/checkout');
     };
 
     const classes = useStyles();
