@@ -95,7 +95,7 @@ export default props => {
                     }
                     </Grid>
                     <Grid item xs={4} sm={12}>
-                        <Box px={2} fontSize='h6.fontSize' textAlign='center'>{<Currency price={item.quantity * item.product.price}/>}</Box>
+                        <Box px={2} fontSize='h6.fontSize' textAlign='center'><Currency price={item.quantity * item.product.price}/></Box>
                     </Grid>
                 </Grid>
             </> : <Spinner/>

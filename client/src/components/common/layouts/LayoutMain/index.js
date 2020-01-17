@@ -32,8 +32,8 @@ export default props => {
         <ThemeProvider theme={theme}>
             <Container maxWidth='lg' className={classes.layoutContainer} >
                 <Grid container>
-                    {/*<Header/>*/}
-                    <HeaderV2/>
+                    <Header/>
+                    {/*<HeaderV2/>*/}
                     <Grid item xs={12}>{props.children}</Grid>
                     <Footer/>
                 </Grid>

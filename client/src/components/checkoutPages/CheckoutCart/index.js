@@ -7,6 +7,7 @@ import useStyles from './useStyles';
 
 import Spinner from '../../common/Spinner';
 import CartItem from './CartItem';
+import Currency from "../../common/Currency";
 
 
 export default props => {
@@ -49,13 +50,13 @@ export default props => {
                         <Box fontSize='body2.fontSize' textAlign='left' p={1}>Subtotal:</Box>
                     </Grid>
                     <Grid item xs={6}>
-                        <Box fontSize='body1.fontSize' textAlign='right' p={1}> ${subtotal}</Box>
+                        <Box fontSize='body1.fontSize' textAlign='right' p={1}><Currency price={subtotal}/></Box>
                     </Grid>
                     <Grid item xs={6}>
                         <Box fontSize='body2.fontSize' textAlign='left' p={1}>Shipping:</Box>
                     </Grid>
                     <Grid item xs={6}>
-                        <Box fontSize='body1.fontSize' textAlign='right' p={1}> {shippingCost > 0 ? shippingCost : 'Free'} </Box>
+                        <Box fontSize='body1.fontSize' textAlign='right' p={1}> {shippingCost > 0 ? <Currency price={shippingCost}/> : 'Free'} </Box>
                     </Grid>
                 </Grid>
                 <Grid container spacing={4} justify="space-between" alignItems="flex-end">
@@ -63,7 +64,7 @@ export default props => {
                         <Box fontSize='body1.fontSize' textAlign='left' p={1}>Total:</Box>
                     </Grid>
                     <Grid item xs={6}>
-                        <Box fontSize='h6.fontSize' textAlign='right' p={1}> ${subtotal + shippingCost}</Box>
+                        <Box fontSize='h6.fontSize' textAlign='right' p={1}><Currency price={subtotal + shippingCost} /></Box>
                     </Grid>
                 </Grid>
             </> : <Box className={classes.cartEmpty}> No products in your cart. Go shopping!</Box>
