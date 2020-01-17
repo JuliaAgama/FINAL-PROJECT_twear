@@ -1,11 +1,6 @@
-// import React from 'react';
 import React, {useState, useEffect} from 'react';
-import {useSelector} from "react-redux";
-import clsx from 'clsx';
-//
-import {openLoginModalAction} from "../../../store/actions/modal";
 
-import { Typography, Box, Grid,  TextField, FormControlLabel, Checkbox, FormLabel, FormControl, RadioGroup, Radio } from '@material-ui/core';
+import { Typography, Box, Grid, FormControlLabel, FormControl, RadioGroup, Radio } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -14,7 +9,7 @@ import shippingOptionsBase from '../shippingOptionsBase';
 
 export default props => {
 
-    const {formData, infoIsOpen, shippingIsOpen, handleOnChangeShipping, onToCart, onToInfo, onToShipping, onToPayment, onPaymentAvailable} = props;
+    const {formData, infoIsOpen, shippingIsOpen, handleOnChangeShipping, onToInfo, onToShipping, onToPayment, onPaymentAvailable} = props;
 
     const [shippingMethod, setShippingMethod] = useState({
         options: [],
@@ -54,7 +49,7 @@ export default props => {
                         <Box fontSize="h6.fontSize" pt={3} textAlign='left'>Shipping Method</Box>
                     </Grid>
                     {shippingMethod.options.map(item =>
-                        <Grid item xs={12} container spacing={2}alignItems='center'key={item._id}>
+                        <Grid item xs={12} container alignItems='center'key={item._id}>
                             <Grid item xs={9}>
                                 <FormControl component="fieldset" className={classes.formControl}>
                                     <RadioGroup aria-label="shippingMethod" name="shippingMethod">
@@ -69,7 +64,9 @@ export default props => {
                                     </RadioGroup>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={3}>{item.price > 0 ? `$ ${item.price}` : 'Free'}</Grid>
+                            <Grid item xs={3}>
+                                <Box fontSize="body1.fontSize" textAlign='left'>{item.price > 0 ? `$ ${item.price}` : 'Free'}</Box>
+                            </Grid>
                         </Grid>
                     )}
                     <Grid item xs={5}>
@@ -90,17 +87,15 @@ export default props => {
                     </Grid>
                     }
                 </Grid>
-
             </form> :
 
-            !infoIsOpen && <Grid container spacing={2} className={classes.briefContainer} alignItems='center'>
+            (!infoIsOpen && <Grid container spacing={2} className={classes.briefContainer} alignItems='center'>
                 <Grid item xs={3}>Shipping Method</Grid>
-                <Grid item xs={4} sm={5} lg={6}>UPS delivery to home/company address (non-EU)</Grid>
-                <Grid item xs={2}>Free</Grid>
+                <Grid item xs={6} sm={7} lg={8}>{formData && formData.shipping ? formData.shipping.name : 'no info'}</Grid>
                 <Grid item xs={3} sm={2} lg={1}>
                     <Box className={classes.link} onClick={onToShipping}>Change</Box>
                 </Grid>
-            </Grid> || ''
+            </Grid>) || ''
             }
         </div>
     )

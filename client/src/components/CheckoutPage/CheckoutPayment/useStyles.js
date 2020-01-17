@@ -12,6 +12,22 @@ export default makeStyles(theme => (
             paddingTop: theme.spacing(2),
             paddingBottom: theme.spacing(2),
         },
+        paymentContainer: {
+            border: `1px solid ${grey[500]}`,
+            borderRadius: '5px',
+            padding: theme.spacing(2),
+            backgroundColor: '#fff',
+        },
+        logo: {
+            borderTop: `1px solid ${grey[200]}`,
+            borderBottom: `1px solid ${grey[200]}`,
+            backgroundColor: grey[100],
+        },
+        image: {
+            width: '30%',
+            margin: '10px auto',
+            padding: theme.spacing(2),
+        },
         formControl: {
             paddingLeft: theme.spacing(4),
         },

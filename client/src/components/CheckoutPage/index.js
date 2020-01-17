@@ -1,12 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {  useHistory } from 'react-router-dom';
-import clsx from 'clsx';
+import {useSelector} from "react-redux";
+// import {useDispatch, useSelector} from "react-redux";
+import { useHistory } from 'react-router-dom';
 
-import * as cartActions from '../../store/actions/cart';
-import {openLoginModalAction} from "../../store/actions/modal";
-
-import { Typography, Box, Grid, Hidden, Breadcrumbs, OutlinedInput, TextField, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Box, Breadcrumbs} from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 import useStyles from './useStyles';
@@ -14,12 +11,15 @@ import useStyles from './useStyles';
 import CheckoutInfo from './CheckoutInfo';
 import shippingOptionsBase from './shippingOptionsBase';
 import CheckoutShipping from './CheckoutShipping';
+import CheckoutPayment from './CheckoutPayment';
 
 
-export default () => {
+export default props => {
+
+    const {calcShipping} = props;
 
     const history = useHistory();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const customerLoaded = useSelector(state => state.customers.loaded);
     const {customer} = useSelector(state => state.customers);
@@ -32,6 +32,7 @@ export default () => {
 
     const [onShipppingAvailable, setOnShippingAvailable] = useState(false);
     const [onPaymentAvailable, setOnPaymentAvailable] = useState(false);
+    const [onCompleteAvailable, setOnCompleteAvailable] = useState(false);
 
     const [formData, setFormData] = useState({subscribe: false, saveLocal: false});
 
@@ -94,6 +95,9 @@ export default () => {
         };
         validateInfoFields() ? setOnShippingAvailable(true) : setOnShippingAvailable(false);
         validateInfoFields() && validateShippingFields() ? setOnPaymentAvailable(true) : setOnPaymentAvailable(false);
+        if(formData.shipping) {
+            calcShipping(formData.shipping);
+        };
         return ( () => {
             setOnShippingAvailable(false);
             setOnPaymentAvailable(false);
@@ -133,16 +137,23 @@ export default () => {
         });
     };
 
-    const handleOnChangeShipping = shipping => {
-        setFormData({
-            ...formData,
-            shipping: shipping
-        });
-    };
-
     const handleOnSaveLocalDeliveryInfo = () => {
         formData.saveLocal ? localStorage.setItem('deliveryInfoLocal', JSON.stringify({...formData.deliveryInfo})) : localStorage.removeItem('deliveryInfoLocal');
     };
+
+        const handleOnChangeShipping = shipping => {
+            setFormData({
+                ...formData,
+                shipping: shipping
+            });
+        };
+
+        const handleOnChangePayment = paymentInfo => {
+            setFormData({
+                ...formData,
+                paymentInfo: paymentInfo
+            });
+        };
 
     const onToCart = () => {
         handleOnSaveLocalDeliveryInfo();
@@ -166,6 +177,15 @@ export default () => {
         setInfoIsOpen(false);
         setShippingIsOpen(false);
         setPaymentIsOpen(true);
+        setOnCompleteAvailable(true);
+    };
+
+    const onToComplete = async () => {
+        setInfoIsOpen(false);
+        setShippingIsOpen(false);
+        setPaymentIsOpen(false);
+        console.log('await create order in database with formdata (status: "new") and then redirect to /payment');
+        history.push('/payment');
     };
 
     const classes = useStyles();
@@ -206,11 +226,21 @@ export default () => {
                 infoIsOpen={infoIsOpen}
                 shippingIsOpen={shippingIsOpen}
                 handleOnChangeShipping={handleOnChangeShipping}
-                onToCart={onToCart}
                 onToInfo={onToInfo}
                 onToShipping={onToShipping}
                 onToPayment={onToPayment}
                 onPaymentAvailable={onPaymentAvailable}
+            />
+            <CheckoutPayment
+                formData={formData}
+                infoIsOpen={infoIsOpen}
+                shippingIsOpen={shippingIsOpen}
+                paymentIsOpen={paymentIsOpen}
+                handleOnChangePayment={handleOnChangePayment}
+                onToShipping={onToShipping}
+                onToPayment={onToPayment}
+                onToComplete={onToComplete}
+                onCompleteAvailable={onCompleteAvailable}
             />
         </div>
     )

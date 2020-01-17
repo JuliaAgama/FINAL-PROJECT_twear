@@ -23,7 +23,7 @@ export default () => {
         if (customerLoaded) {
             dispatch(cartActions.getCart(cart));
         }
-    }, [dispatch, customerLoaded, cart]);
+    }, [dispatch, customerLoaded]);
 
     const enableCheckout = state => {
         setCheckoutAvailable(state);

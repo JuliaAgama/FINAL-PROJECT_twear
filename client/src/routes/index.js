@@ -14,7 +14,7 @@ import TopCatPage from "../components/TopCatPage";
 import CategoryPage from "../components/CategoryPage";
 import ProductPage from "../components/ProductPage";
 import CartPage from "../components/CartPage";
-import CheckoutPage from "../components/CheckoutPage";
+import PaymentPage from "../components/PaymentPage";
 
 import PersonalCabinet from "../components/PersonalCabinet";
 
@@ -55,7 +55,10 @@ export const Router = () => (
                 component={props => <LayoutMain {...props}><CartPage {...props}/></LayoutMain>}
             />
             <Route exact path="/checkout/"
-                component={props => <LayoutCheckout {...props}><CheckoutPage {...props}/></LayoutCheckout>}
+                component={props => <LayoutCheckout {...props}></LayoutCheckout>}
+            />
+            <Route exact path="/payment/"
+                component={props => <PaymentPage {...props}/>}
             />
 
             <Route exact path="/accessDenied" component={AccessDenied} />

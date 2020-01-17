@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useSelector } from "react-redux";
 
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 
 import useStyles from './useStyles';
 
@@ -10,7 +10,7 @@ import CartItem from './CartItem';
 
 
 export default props => {
-    const {calcTotalCart} = props;
+    const {calcTotalCart, shipping} = props;
 
     const {cart} = useSelector(state => state.cart);
 
@@ -22,10 +22,11 @@ export default props => {
     useEffect(() => {
         if (cart.products && cart.products.length > 0 && cart.products.reduce(((sum, el) => sum + el.quantity), 0) > 0) {
             setSubtotal(cart.products.reduce(((sum, el) => sum + el.product.price * el.quantity), 0));
-        } else {
+        };
+        if (shipping) {
+            setShippingCost(shipping.price);
         }
-    }, [cart]);
-
+    }, [cart, shipping]);
 
     const classes = useStyles();
 
@@ -49,13 +50,13 @@ export default props => {
                         <Box fontSize='body2.fontSize' textAlign='left' p={1}>Subtotal:</Box>
                     </Grid>
                     <Grid item xs={6}>
-                        <Box fontSize='body1.fontSize' textAlign='right' p={1}> ${subtotal}</Box>
+                        <Box fontSize='body1.fontSize' textAlign='right' p={1}> $ {subtotal}</Box>
                     </Grid>
                     <Grid item xs={6}>
                         <Box fontSize='body2.fontSize' textAlign='left' p={1}>Shipping:</Box>
                     </Grid>
                     <Grid item xs={6}>
-                        <Box fontSize='body1.fontSize' textAlign='right' p={1}> {shippingCost > 0 ? shippingCost : 'Free'} </Box>
+                        <Box fontSize='body1.fontSize' textAlign='right' p={1}> {shippingCost > 0 ? `$ ${shippingCost}` : 'Free'} </Box>
                     </Grid>
                 </Grid>
                 <Grid container spacing={4} justify="space-between" alignItems="flex-end">

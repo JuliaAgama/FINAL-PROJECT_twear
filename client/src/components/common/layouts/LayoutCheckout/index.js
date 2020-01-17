@@ -13,11 +13,12 @@ import {LocalMallOutlined, NavigateNext} from '@material-ui/icons';
 import useStyles from './useStyles';
 
 import CheckoutCart from '../../../CheckoutPage/CheckoutCart';
+import CheckoutPage from '../../../CheckoutPage';
+
 
 export default props => {
 
     const {cart} = useSelector(state => state.cart);
-    const {customer} = useSelector(state => state.customers);
     const customerLoaded = useSelector(state => state.customers.loaded);
 
     const dispatch = useDispatch();
@@ -33,6 +34,11 @@ export default props => {
 
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => setExpanded(!expanded);
+
+    const[shippingCost, setShippingCost] = useState(0);
+    const calcShipping = shipping => {
+        setShippingCost(shipping)
+    };
 
     const[cartTotal, setCartTotal] = useState(0);
     const calcTotalCart = total => {
@@ -83,13 +89,14 @@ export default props => {
                                 <Grid item xs={12} style={expanded ? {display: 'block', color: '#999'} : {display: 'none'}}><CheckoutCart calcTotalCart={calcTotalCart}/></Grid>
                             </Grid>
                         </Hidden>
-                        <div>{props.children}</div>
+                        <div><CheckoutPage calcShipping={calcShipping}/></div>
+                        {/* <div>{props.children}</div> */}
                         <Box component="footer" fontSize={14} pt={3} textAlign='left' className={classes.footer}>All rights reserved</Box>
                     </Grid>
                     <Hidden smDown>
                         <Grid item xs={12} md={5} lg={4} className={classes.paper}>
                             <Box fontSize='h6.fontSize'> Your Ordered Products: </Box>
-                            <CheckoutCart calcTotalCart={calcTotalCart}/>
+                            <CheckoutCart calcTotalCart={calcTotalCart} shipping={shippingCost}/>
                         </Grid>
                     </Hidden>
                 </Grid>

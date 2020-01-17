@@ -1,19 +1,20 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { grey, pink } from '@material-ui/core/colors';
+import { grey, pink, blue } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
         root: {
-            width: '100%',
+            padding: theme.spacing(20),
+            paddingTop: theme.spacing(1),
             marginBottom: theme.spacing(2),
+            [theme.breakpoints.down('sm')]: {
+                padding: theme.spacing(1),
+            }
         },
         container: {
             marginTop: theme.spacing(2),
             paddingTop: theme.spacing(2),
             paddingBottom: theme.spacing(2),
-        },
-        formControl: {
-            paddingLeft: theme.spacing(4),
         },
         btnRegular: {
             ...theme.typography.button,
@@ -66,11 +67,12 @@ export default makeStyles(theme => (
         },
         link: {
             cursor: 'pointer',
-            color: '#000',
-            fontSize: '14px',
+            color: blue[400],
+            // fontSize: '14px',
             '&:hover': {
                 color: pink[500],
                 fontWeight: '700',
+                textDecoration: 'underline',
             },
         },
     }
