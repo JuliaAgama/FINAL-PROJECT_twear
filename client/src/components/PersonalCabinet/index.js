@@ -26,7 +26,7 @@ export default function PersonalCabinet() {
                 <SectionContainer title='ADDRESS BOOK'
                                   description='Save all your delivery details to complete the order process quickly.'
                                   body='YOU HAVE NOT YET SAVED ANY ADDRESSES'>
-                    <AddressBook />
+                    {/*<AddressBook />*/}
                 </SectionContainer>
                 <SectionTitle title='PERSONAL DETAILS'/>
                 <SectionContainer title={false}>

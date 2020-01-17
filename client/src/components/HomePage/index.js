@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAllTopCats} from "../../store/actions/topCats";
 import {getProductsGalleryForShow} from "../../store/actions/productsGallery";
 
+
 import {Hidden, Box, Grid} from "@material-ui/core";
 
 import useStyles from "./useStyles";
