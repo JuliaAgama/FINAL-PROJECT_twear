@@ -72,6 +72,15 @@ export function openAddNewAddress(address) {
     };
 };
 
+export function openRestorePasswordAction(restorePassword) {
+    return function (dispatch) {
+        return dispatch({
+            type: MODAL.MODAL_OPEN_PASSWORD_RESTORE,
+            data: restorePassword
+        });
+    };
+};
+
 export function closeModalAction() {
     return function (dispatch) {
         return dispatch({

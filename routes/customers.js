@@ -8,7 +8,8 @@ const {
   loginCustomer,
   getCustomer,
   editCustomerInfo,
-  updatePassword
+  updatePassword,
+  restorePassword
 } = require("../controllers/customers");
 
 // @route   POST /customers
@@ -29,6 +30,10 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   getCustomer
 );
+
+// @route   POST /
+// @access  Public
+router.post("/restorePassword", restorePassword);
 
 // @route   PUT /customers
 // @desc    Return current customer

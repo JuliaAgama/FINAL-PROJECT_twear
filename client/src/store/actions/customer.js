@@ -143,6 +143,24 @@ export function editCustomerInfo(customer){
     };
 };
 
+export function getCustomerByEmail(email){
+    return async function (dispatch) {
+        dispatch(customerSendRequest());
+        await (new CustomerApi()).getCustomerByEmail(email)
+            .catch((error) => {
+               if (error.response.data.email) {
+                    throw new SubmissionError({
+                        email: error.response.data.email
+                    });
+                } else { // Something happened in setting up the request and triggered an Error
+                   dispatch(customerResponseFailed());
+                }
+            });
+
+        dispatch(closeModalAction());
+    };
+};
+
 export function updatePassword(passwords){
     return async function (dispatch) {
         dispatch(customerSendRequest());

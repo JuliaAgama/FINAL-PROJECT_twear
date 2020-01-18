@@ -9,7 +9,8 @@ const initState = {
     email: '',
     password: '',
     telephone: '',
-    address: ''
+    address: '',
+    restorePassword: ''
 };
 
 const newState = (data) => {
@@ -109,6 +110,16 @@ export default function (state = initState, action) {
                 }
             };
 
+        case MODAL.MODAL_OPEN_PASSWORD_RESTORE:
+            let restore = newState(action.data);
+
+            return {
+                ...restore,
+                ...{
+                    open: true
+                }
+            };
+
 
         case MODAL.MODAL_CLOSE:
             return {
@@ -122,7 +133,8 @@ export default function (state = initState, action) {
                     email: '',
                     password: '',
                     telephone: '',
-                    address: ''
+                    address: '',
+                    restorePassword: ''
                 }
             };
 

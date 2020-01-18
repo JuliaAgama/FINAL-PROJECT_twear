@@ -10,6 +10,7 @@ import EmailUpdateForm from '../../../UpdateForms/EmailUpdateForm'
 import PasswordUpdateForm from '../../../UpdateForms/PasswordUpdateForm'
 import TelephoneUpdateForm from '../../../UpdateForms/TelephoneUpdateForm'
 import NewAddressForm from '../../../UpdateForms/NewAddressForm'
+import RestorePassword from '../../../UpdateForms/RestorePassword'
 import {Dialog} from "@material-ui/core";
 import useStyles from "./useStyles";
 
@@ -36,6 +37,7 @@ export default function TransitionsModal() {
             case 'password' : return <PasswordUpdateForm />;
             case 'telephone' : return <TelephoneUpdateForm />;
             case 'address' : return <NewAddressForm />;
+            case 'restorePassword' : return <RestorePassword />;
         }
     };
 
