@@ -12,9 +12,9 @@ import {LocalMallOutlined, NavigateNext} from '@material-ui/icons';
 
 import useStyles from './useStyles';
 
-import CheckoutCart from '../../../checkoutPages/CheckoutCart';
 import Currency from "../../../common/Currency";
 import CheckoutPage from '../../../CheckoutPage';
+import CheckoutCart from '../../../CheckoutPage/CheckoutCart';
 
 
 export default props => {

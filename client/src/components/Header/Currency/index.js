@@ -1,12 +1,11 @@
 import React, {useState} from "react";
 
-import { ClickAwayListener, Container } from "@material-ui/core/";
-import useStyles from "./useStyles";
+import { ClickAwayListener, Container } from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {changeCurrency} from "../../../store/actions/currency";
 
+import useStyles from "./useStyles";
 
-// import ModalQR from '../../common/ModalQR';
 
 const setCurrentCurrency = currentCurrency => {
     const stateObj = {USD : false, EUR : false, UAH : false};
@@ -18,7 +17,7 @@ const setCurrentCurrency = currentCurrency => {
         }
     }
     return stateObj;
-}
+};
 
 export default () => {
 
@@ -28,13 +27,11 @@ export default () => {
     const [isVisible, setVisibility] = useState(false);
     const initial = setCurrentCurrency(currentCurrency);
     const [isChosen, setChosen] = useState(initial);
-    // const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const handleClickAway = () => setVisibility(false);
 
     const handleClickOpen = () => {
         setVisibility(true)
-        // setModalIsOpen(true);
     };
 
     const clickHandler = event => {
@@ -42,9 +39,7 @@ export default () => {
         dispatch(changeCurrency(event.target.textContent))
     };
 
-    // const closeModal = () => {
-    //     setModalIsOpen(false)
-    // };
+
 
 
     return (
@@ -61,10 +56,6 @@ export default () => {
                     }
                 </Container>
             </ClickAwayListener>
-            {/* <ModalQR
-                modalIsOpen={modalIsOpen}
-                closeModal={closeModal}
-            /> */}
         </React.Fragment>
     );
 };

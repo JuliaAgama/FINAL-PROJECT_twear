@@ -9,7 +9,6 @@ import useStyles from "./useStyles";
 
 import {setColors, setImgs, setSizes} from "./Helpers";
 import CarouselProductPage from './Carusel'
-import AlternativeCarousel from './AlternativeCarousel'
 import SlickCarousel from './SlickCarousel'
 import NameAndPrice from "./NameAndPrice";
 import BlackTicker from '../../common/BlackTicker'
