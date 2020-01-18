@@ -295,9 +295,8 @@ exports.deleteOrder = (req, res, next) => {
   });
 };
 
-exports.getOrders = (req, res, next) => {
-  Order.find({ customer: req.user.id })
-    .populate("customer")
+exports.getOrders = (req, res, next) => { //all orders
+  Order.find()
     .then(orders => res.json(orders))
     .catch(err =>
       res.status(400).json({
@@ -306,7 +305,43 @@ exports.getOrders = (req, res, next) => {
     );
 };
 
+// //Saribeg's:
+// exports.getOrdersByUserId = (req, res, next) => {
+//   Order.find({ customer: req.user.id })
+//     .populate("customer")
+//     .then(orders => res.json(orders))
+//     .catch(err =>
+//       res.status(400).json({
+//         message: `Error happened on server: "${err}" `
+//       })
+//     );
+// };
+
+//expects {customer: '34jlsdfiuwdi39u9as9393'}
+exports.getOrdersByCustomer = async (req, res, next) => {
+  Order.find(req.body)
+    .populate("customer")
+    .then(orders => res.json(orders))
+    .catch (err =>
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      })
+    );
+};
+
+
 exports.getOrder = (req, res, next) => {
+  Order.findOne({ _id: req.params.id })
+    .populate("customer")
+    .then(order => res.json(order))
+    .catch(err =>
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      })
+    );
+};
+
+exports.getOrderbyOrderNo = (req, res, next) => {
   Order.findOne({ orderNo: req.params.orderNo })
     .populate("customer")
     .then(order => res.json(order))

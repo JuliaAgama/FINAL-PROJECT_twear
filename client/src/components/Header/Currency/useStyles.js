@@ -4,19 +4,13 @@ import { grey } from '@material-ui/core/colors';
 export default makeStyles(theme => (
     {
         container: {
-            boxSizing: 'border-box',
-            height: '100%',
-            width: '100%',
             [theme.breakpoints.down('sm')]: {
-                // width: '50%',
-                // borderRight: '1px solid black',
                 padding: '14px 0',
                 backgroundColor: 'white'
             },
-            padding: '16px 0',
+            padding: '18px 0',
             fontSize: '16px',
             fontWeight: '700',
-            // borderBottom: '1px solid black',
             display: 'flex',
             justifyContent: 'space-around',
             cursor: 'pointer',

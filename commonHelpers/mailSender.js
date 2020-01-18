@@ -7,27 +7,31 @@ module.exports = async (subscriberMail, letterSubject, letterHtml, res) => {
 
   //authorization for sending email
   let transporter = nodemailer.createTransport({
-    service:
-      process.env.NODE_ENV === "production"
-        ? configs.production.email.mailService
-        : configs.development.email.mailService,
+    service: 'Gmail',
+      // process.env.NODE_ENV === "production"
+      //   ? configs.production.email.mailService
+      //   : configs.development.email.mailService,
     auth: {
-      user:
-        process.env.NODE_ENV === "production"
-          ? configs.production.email.mailUser
-          : configs.development.email.mailUser,
-      pass:
-        process.env.NODE_ENV === "production"
-          ? configs.production.email.mailPassword
-          : configs.development.email.mailPassword
+      user: 'twearOnlineShop@gmail.com',
+        // process.env.NODE_ENV === "production"
+        //   ? configs.production.email.mailUser
+        //   : configs.development.email.mailUser,
+      pass: 'twearonlineshop'
+        // process.env.NODE_ENV === "production"
+        //   ? configs.production.email.mailPassword
+        //   : configs.development.email.mailPassword
+    },
+    secure: false,
+    tls: {
+      rejectUnauthorized: false
     }
   });
 
   const mailOptions = {
-    from:
-      process.env.NODE_ENV === "production"
-        ? configs.production.email.mailUser
-        : configs.development.email.mailUser,
+    from:'twearOnlineShop@gmail.com',
+      // process.env.NODE_ENV === "production"
+      //   ? configs.production.email.mailUser
+      //   : configs.development.email.mailUser,
     to: subscriberMail,
     subject: letterSubject,
     html: letterHtml

@@ -52,6 +52,7 @@
 .category-item-home2:hover {
   /* filter: grayscale(0.5); */
   transition: all 1s ease;
+  cursor: pointer;
 }
 
 .category-item-home2:hover .hidden-link {

@@ -13,4 +13,17 @@ export default class Customer extends Base {
     getCustomer(){
         return super.get(`customers/customer`).then(res => res.data);
     };
+
+    editCustomerInfo(customer) {
+        return super.put('customers', customer).then(res => res.data)
+    };
+
+    updatePassword(passwords) {
+        return super.put('customers/password', passwords).then(res => res.data)
+    };
+
+    getCustomerByEmail(email){
+        console.log(email);
+        return super.post(`customers/restorePassword`, email).then(res => res.data);
+    };
 }

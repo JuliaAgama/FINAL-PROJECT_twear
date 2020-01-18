@@ -4,29 +4,25 @@ import { grey } from '@material-ui/core/colors';
 export default makeStyles(theme => (
     {
         container: {
-            boxSizing: 'border-box',
-            height: '60px',
-            width: '100%',
-            padding: '16px 0',
+            padding: '29px 0',
             fontSize: '16px',
             fontWeight: '700',
-            // borderBottom: '1px solid black',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             cursor: 'pointer',
             '&:hover': {
                 backgroundColor: grey[200],
-                borderBottom: '1px solid black',
             },
             [theme.breakpoints.down('sm')]: {
-                // border: '1px solid black',
-                // borderTop: 'none',
-                padding: '8px 0',
+                padding: '14px 0',
+            },
+            [theme.breakpoints.down('xs')]: {
+                padding: '11px 0',
             },
         },
         search: {
-            padding: '11px 0 11px 11px',
+            padding: '13px 0 13px 13px',
         },
         input: {
             maxWidth: '85%',

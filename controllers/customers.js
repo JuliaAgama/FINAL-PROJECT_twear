@@ -1,11 +1,13 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
+const generator = require('generate-password');
 const keys = require("../config/keys");
 const getConfigs = require("../config/getConfigs");
 const passport = require("passport");
 const uniqueRandom = require("unique-random");
 const rand = uniqueRandom(10000000, 99999999);
+const sendMail = require("../commonHelpers/mailSender");
 
 // Load Customer model
 const Customer = require("../models/Customer");
@@ -165,41 +167,55 @@ exports.editCustomerInfo = (req, res) => {
         return res.status(404).json(errors);
       }
 
-      const currentEmail = customer.email;
-      const currentLogin = customer.login;
-      const newEmail = req.body.email;
-      const newLogin = req.body.login;
+      let oldPassword = req.body.password;
+      bcrypt.compare(oldPassword, customer.password).then(async isMatch => {
+            if (!isMatch) {
+                errors.password = "Password incorrect";
+                res.status(400).json(errors);
+            } else {
+                const currentEmail = customer.email;
+                const currentLogin = customer.login;
+                const newEmail = req.body.email;
+                const newLogin = req.body.login;
 
-      if (currentEmail !== newEmail) {
-        Customer.findOne({ email: newEmail }).then(customer => {
-          if (customer) {
-            errors.email = `Email ${newEmail} is already exists`;
-            res.status(400).json(errors);
-          }
-        });
-      } else if (currentLogin !== newLogin) {
-        Customer.findOne({ login: newLogin }).then(customer => {
-          if (customer) {
-            errors.login = `Login ${newLogin} is already exists`;
-            res.status(400).json(errors);
-          }
-        });
-      } else {
-        // Create query object for qustomer for saving him to DB
-        const updatedCustomer = queryCreator(initialQuery);
+                if (newEmail && currentEmail !== newEmail) {
+                   await Customer.findOne({ email: newEmail })
+                       .then(customer => {
+                        if (customer) {
+                            errors.email = `Email ${newEmail} is already exists`;
+                            return res.status(400).json(errors);
+                        }
+                    });
+                }
 
-        Customer.findOneAndUpdate(
-          { _id: req.user.id },
-          { $set: updatedCustomer },
-          { new: true }
-        )
-          .then(customer => res.json(customer))
-          .catch(err =>
-            res.status(400).json({
-              message: `Error happened on server: "${err}" `
-            })
-          );
-      }
+                if (newLogin && currentLogin !== newLogin) {
+                    await Customer.findOne({ login: newLogin }).then(customer => {
+                        if (customer) {
+                            errors.login = `Login ${newLogin} is already exists`;
+                            return res.status(400).json(errors);
+                        }
+                    });
+                }
+                    // Create query object for qustomer for saving him to DB
+                    delete initialQuery.password;
+                    delete initialQuery.emailConfirm;
+                    const updatedCustomer = queryCreator(initialQuery);
+                    await Customer.findOneAndUpdate(
+                        { _id: req.user.id },
+                        { $set: updatedCustomer },
+                        { new: true }
+                    )
+                        .then(customer => {
+                            res.json(customer)
+                        })
+                        .catch(err =>
+                            res.status(400).json({
+                                message: `Error happened on server: "${err}" `
+                            })
+                        );
+                }
+
+      });
     })
     .catch(err =>
       res.status(400).json({
@@ -220,12 +236,12 @@ exports.updatePassword = (req, res) => {
 
   // find our user by ID
   Customer.findOne({ _id: req.user.id }, (err, customer) => {
-    let oldPassword = req.body.password;
+    let oldPassword = req.body.currentPassword;
 
     customer.comparePassword(oldPassword, function(err, isMatch) {
       if (!isMatch) {
         errors.password = "Password does not match";
-        res.json(errors);
+          res.status(400).json(errors);
       } else {
         let newPassword = req.body.newPassword;
 
@@ -258,4 +274,68 @@ exports.updatePassword = (req, res) => {
       }
     });
   });
+};
+
+exports.restorePassword = (req, res) => {
+    // Clone query object, because validator module mutates req.body, adding other fields to object
+    const initialQuery = _.cloneDeep(req.body);
+
+    // Check Validation
+    const { errors, isValid } = validateRegistrationForm(req.body);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    Customer.findOne({ email: req.body.email})
+        .then(async customer => {
+            if (!customer) {
+                errors.email = "Customer with this email not found.";
+                return res.status(404).json(errors);
+            }
+
+            let password = generator.generate({
+                length: 10,
+                numbers: true
+            });
+
+            const subscriberMail = req.body.email;
+            const letterSubject = 'New password';
+            const letterHtml = `Hello this is your new password: ${password}`;
+
+            await sendMail(subscriberMail, letterSubject, letterHtml, res);
+
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(password, salt, (err, hash) => {
+                    if (err) throw err;
+                    password = hash;
+                    Customer.findOneAndUpdate(
+                        { _id: customer._id },
+                        {
+                            $set: {
+                                password: password
+                            }
+                        },
+                        { new: true }
+                    )
+                        .then(customer => {
+                            res.json({
+                                message: "Password successfully changed",
+                                customer: customer
+                            });
+                        })
+                        .catch(err =>
+                            res.status(400).json({
+                                message: `Error happened on server: "${err}" `
+                            })
+                        );
+                });
+            });
+
+        })
+        .catch(err =>
+            res.status(400).json({
+                message: `Error happened on server:"${err}" `
+            })
+        );
 };

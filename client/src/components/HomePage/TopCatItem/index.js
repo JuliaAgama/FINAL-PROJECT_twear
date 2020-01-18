@@ -1,6 +1,7 @@
 import React from "react";
 
-import {Link, Grid, Box} from "@material-ui/core";
+import {Grid, Box} from "@material-ui/core";
+import {Link} from "react-router-dom";
 
 import './topCatItem.css';
 
@@ -14,10 +15,10 @@ export default props => {
                 style={{backgroundImage:`url(${image})`}}
             >
                 <Box className='top-cat-home'>{name}</Box>
-                <Link className='hidden-link' href={href+'&men'}>
+                <Link className='hidden-link' to={href+'&men'}>
                     <Box className='gender'>MEN</Box>
                 </Link>
-                <Link className='hidden-link' href={href+'&women'}>
+                <Link className='hidden-link' to={href+'&women'}>
                     <Box className='gender'>WOMEN</Box>
                 </Link>
             </Grid>
