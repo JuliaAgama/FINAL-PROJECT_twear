@@ -43,7 +43,7 @@ export default props => {
     const customerLoaded = useSelector(state => state.customers.loaded);
 
     const openLogin = () => {
-        !customerLoaded && dispatch(openLoginModalAction());
+        !customerLoaded && dispatch(openLoginModalAction('login'));
     };
 
     const onChange = event => {
