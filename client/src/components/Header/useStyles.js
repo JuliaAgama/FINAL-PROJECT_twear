@@ -2,96 +2,140 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => (
     {
-        mainContainer: {
-            // boxSizing: 'border-box',
-            // height: '60px',
-            // display: 'flex',
-            // flexWrap: 'wrap',
-            // width: '100%',
-            // padding: '0',
-            // margin: '0',
-            // position: 'relative',
-        },
-        container: {
-            // height: '60px',
-            // display: 'flex',
-            // flexWrap: 'wrap',
-            // width: '25%',
-            // padding: '0',
-            // margin: '0',
-            // borderRight: '1px solid #000',
-            // borderBottom: '1px solid #000',
-        },
         headerItem: {
-            boxSizing: 'border-box',
-            height: '60px',
-            borderRight: '1px solid #000',
-            backgroundColor: '#fafafa',
             position: 'sticky',
             top: 0,
             zIndex: '1000',
         },
-        headerItemXS: {
-            boxSizing: 'border-box',
-            height: '60px',
-            borderRight: '1px solid #000',
-            borderBottom: '1px solid #000',
-            backgroundColor: '#fafafa',
+        dropSubMenuItem : {
+            position: 'sticky',
+            top: 60,
             zIndex: '1000',
         },
-        genderCatsContainer: {
-            position: 'relative',
-            borderLeft: '1px solid #000',
-            borderRight: '1px solid #000',
-            borderBottom: '1px solid #000',
+        dropSubMenuItemMobile : {
+            position: 'sticky',
+            top: 239,
+            [theme.breakpoints.down('xs')]: {
+                top: 227,
+            },
+            zIndex: '1000',
         },
-        topBorder: {
-            borderTop: '1px solid #000',
+        mobileHeaderItem: {
+            position: 'sticky',
+            top: 10,
+            zIndex: '1000',
         },
-        bottomBorder: {
-            '&::after': {
-                content: '""',
-                position: 'absolute',
-                bottom: 0,
-                width: '100%',
-                borderBottom: '1px solid #000',
-            }
-        },
-        leftBorder: {
-            borderLeft: '1px solid #000',
+        mobileMenuItem: {
+            position: 'sticky',
+            top: 66,
+            [theme.breakpoints.down('sm')]: {
+                top: 72,
+            },
+            [theme.breakpoints.down('xs')]: {
+                top: 66,
+            },
+            zIndex: '1000',
         },
         sticky: {
-            borderTop: '1px solid #000',
-            borderBottom: '1px solid #000',
             zIndex: '1001',
+            backgroundColor: '#fafafa',
         },
-        logoContainer: {
-            // width: '50%',
-            // borderRight: 'none',
-            // borderLeft: 'none',
+        search: {
+            width: '25%',
+            padding: '0',
+            border: '1px solid black',
+            borderRight: 'none',
+            lineHeight: '0%',
         },
-        mainContainerMobile: {
-            display: 'flex',
-            flexWrap: 'wrap',
-            width: '100%',
+        logo: {
+            width: '50%',
             padding: '0',
             margin: '0',
-            borderTop: '1px solid black',
-            position: 'relative',
-            height: '60px',
+            lineHeight: '0%',
+            border: '1px solid black',
+            borderBottom: 'none',
         },
-        mobileMenuContainer: {
-            display: 'flex',
-            flexWrap: 'wrap',
-            width: '98%',
-            position: 'absolute',
-            top: '70px',
-            borderRight: '1px solid black',
+        cart: {
+            width: '25%',
+            padding: '0',
+            textAlign: 'center',
+            border: '1px solid black',
+            borderLeft: 'none',
+            lineHeight: '0%',
+        },
+        currency: {
+            width: '25%',
+            padding: '0',
+            borderBottom: '1px solid black',
             borderLeft: '1px solid black',
-            zIndex: '1010'
+
         },
-        hide: {
-            display: 'none'
+        women: {
+            width: '25%',
+            padding: '0',
+            border: '1px solid black',
+        },
+        men: {
+            width: '25%',
+            padding: '0',
+            border: '1px solid black',
+            borderLeft: 'none'
+        },
+        login: {
+            width: '25%',
+            padding: '0',
+            borderBottom: '1px solid black',
+            borderRight: '1px solid black',
+        },
+        dropSubMenu: {
+            padding: "0",
+        },
+        dropMenu: {
+            width: '60px',
+            padding: '0',
+            border: '1px solid black',
+            borderRight: 'none',
+            [theme.breakpoints.down('xs')]: {
+                width: '55px',
+            }
+        },
+        mobileLogo: {
+            width: 'calc(100% - 120px)',
+            [theme.breakpoints.down('xs')]: {
+                width: 'calc(100% - 110px)',
+            },
+            padding: '0',
+            border: '1px solid black',
+        },
+        mobileCart: {
+            width: '60px',
+            padding: '0',
+            textAlign: 'center',
+            border: '1px solid black',
+            borderLeft: 'none',
+            [theme.breakpoints.down('xs')]: {
+                width: '55px',
+            }
+        },
+        mobileSearch: {
+            width: '100%',
+            padding: '0',
+            border: '1px solid black',
+            borderTop: 'none'
+        },
+        mobileDropMenu: {
+            padding: '0',
+            display: 'flex',
+            flexWrap: 'wrap'
+        },
+        mobileMenuItemContainer : {
+            width: '50%',
+            padding: '0',
+            border: '1px solid black',
+            borderTop: 'none'
+        },
+        borderLeft: {
+            borderLeft: 'none'
         }
     }
 ));

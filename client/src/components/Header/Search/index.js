@@ -17,7 +17,7 @@ export default () => {
             <Hidden smDown>
                 <ClickAwayListener onClickAway={handleClickAway}>
                     <Container className={isVisible ? `${classes.container} ${classes.search}` : classes.container}
-                            onClick={() => {setVisibility(true)}}
+                               onClick={() => {setVisibility(true)}}
                     >
                         {!isVisible ? 'Search' : (<><SearchIcon /><InputBase fullWidth={true} className={classes.input}/></>)}
                     </Container>

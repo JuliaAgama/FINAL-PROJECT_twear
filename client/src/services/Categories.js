@@ -13,6 +13,7 @@ export default class Categories extends Base {
     }
 
     getCategoriesByMatch(item) {
+        console.dir(item);
         return super.post(`categories/match`, item)
         .then(res => res.data)
     }

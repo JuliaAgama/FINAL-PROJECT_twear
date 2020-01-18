@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 
 import {loginAction} from "../../store/actions/customer";
-import {openRegistrationModalAction} from "../../store/actions/modal";
+import {openRegistrationModalAction, openRestorePasswordAction} from "../../store/actions/modal";
 
 import {Container, Grid, Button} from "@material-ui/core";
 
@@ -28,9 +28,14 @@ export default reduxForm({form: 'Login'}) (props => {
     const {loaded}  = useSelector(state => state.customers);
     const {cart}  = useSelector(state => state.cart);
 
-    const clickHandler = event => {
+    const clickHandlerRegistration = event => {
         event.preventDefault();
-        dispatch(openRegistrationModalAction());
+        dispatch(openRegistrationModalAction('registration'));
+    };
+
+    const clickHandlerPassword = event => {
+        event.preventDefault();
+        dispatch(openRestorePasswordAction('restorePassword'));
     };
 
     const submit = values => dispatch(loginAction(values, cart));
@@ -47,13 +52,15 @@ export default reduxForm({form: 'Login'}) (props => {
 
                         <Button disabled={pristine || submitting || invalid} fullWidth={true} variant="outlined" type='submit' className={classes.btn}>Log In</Button>
                         <div className={classes.linkContainer}>
-                            <Link to="/someWhere" className={classes.link}>
+                            <Link to="/"
+                                  className={classes.link}
+                                  onClick={clickHandlerPassword}>
                                 Forgot password?
                             </Link>
                             <Link
                                 to="/"
                                 className={classes.link}
-                                onClick={clickHandler}
+                                onClick={clickHandlerRegistration}
                             >
                                 Registration
                             </Link>

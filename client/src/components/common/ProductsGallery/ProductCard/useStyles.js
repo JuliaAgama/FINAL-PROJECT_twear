@@ -21,6 +21,9 @@ export default makeStyles(theme => (
             paddingTop: '150%',
             overflow: 'hidden',
             position: 'relative',
+            '&:hover': {
+                cursor: 'pointer',
+            }
         },
         img: {
             position: 'absolute',

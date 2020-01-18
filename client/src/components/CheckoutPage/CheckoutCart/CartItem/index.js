@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 import { Box, Grid, Badge } from '@material-ui/core';
 
+import Currency from "../../../common/Currency";
+
 import useStyles from './useStyles';
 
 
@@ -46,7 +48,7 @@ export default props => {
             </Grid>
 
             <Grid item xs={2} style={{alignSelf: "center"}}>
-                <Box px={1} fontSize='body1.fontSize' textAlign='center'>${item.quantity * item.product.price}</Box>
+                <Box px={1} fontSize='body1.fontSize' textAlign='center'><Currency price={item.quantity * item.product.price}/></Box>
             </Grid>
         </>
     )

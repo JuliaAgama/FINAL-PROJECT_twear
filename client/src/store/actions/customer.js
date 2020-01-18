@@ -1,4 +1,4 @@
-import { SubmissionError } from 'redux-form';
+import SubmissionError  from 'redux-form/lib/SubmissionError'
 
 import Base from '../../services/base';
 import CustomerApi from "../../services/Customer";
@@ -25,7 +25,7 @@ export function customerSendRequest() {
 
 export function customerResponseFailed() {
     return {
-        type: Customer.CUSTOMER_RESPONSE_FAILED
+        type: Customer.CUSTOMER_RESPONSE_FAILED,
     };
 };
 
@@ -43,19 +43,15 @@ export function registrationAction(customer, cart){
         })
         .catch((error) => {
             if (error.response.data.login) {
-                dispatch(customerResponseFailed());
                 throw new SubmissionError({
                     login: error.response.data.login
                 });
             } else if (error.response.data.email) {
-                dispatch(customerResponseFailed());
                 throw new SubmissionError({
                     email: error.response.data.email
                 });
-            } else if (error.request) {//The request was made but no response was received
-                console.log(error.request);
             } else { // Something happened in setting up the request and triggered an Error
-                console.log('Error', error.message);
+                dispatch(customerResponseFailed());
             }
         });
 
@@ -91,19 +87,15 @@ export function loginAction(customer, cart){
         })
         .catch((error) => {
             if (error.response.data.loginOrEmail) {
-                dispatch(customerResponseFailed());
                 throw new SubmissionError({
                     loginOrEmail: 'User does not exist'
                 });
             } else if (error.response.data.password) {
-                dispatch(customerResponseFailed());
                 throw new SubmissionError({
                     password: error.response.data.password
                 });
-            } else if (error.request) { //The request was made but no response was received
-                console.log(error.request);
             } else {// Something happened in setting up the request and triggered an Error
-                console.log('Error', error.message);
+                dispatch(customerResponseFailed());
             }
         });
 
@@ -114,6 +106,82 @@ export function loginAction(customer, cart){
                 data: res,
             });
         });
+        dispatch(closeModalAction());
+    };
+};
+
+export function editCustomerInfo(customer){
+    return async function (dispatch) {
+        dispatch(customerSendRequest());
+
+        await (new CustomerApi()).editCustomerInfo(customer)
+            .then(res => {
+                return dispatch({
+                    type: Customer.CUSTOMER_EDIT_CUSTOMER_INFO,
+                    data: res
+                })
+            })
+            .catch((error) => {
+                if (error.response.data.login) {
+                    throw new SubmissionError({
+                        login: error.response.data.login
+                    });
+                } else if (error.response.data.email) {
+                    throw new SubmissionError({
+                        email: error.response.data.email
+                    });
+                } else if (error.response.data.password) {
+                    throw new SubmissionError({
+                        password: error.response.data.password,
+                    });
+                }  else { // Something happened in setting up the request and triggered an Error
+                    dispatch(customerResponseFailed());
+                }
+            });
+
+        dispatch(closeModalAction());
+    };
+};
+
+export function getCustomerByEmail(email){
+    return async function (dispatch) {
+        dispatch(customerSendRequest());
+        await (new CustomerApi()).getCustomerByEmail(email)
+            .catch((error) => {
+               if (error.response.data.email) {
+                    throw new SubmissionError({
+                        email: error.response.data.email
+                    });
+                } else { // Something happened in setting up the request and triggered an Error
+                   dispatch(customerResponseFailed());
+                }
+            });
+
+        dispatch(closeModalAction());
+    };
+};
+
+export function updatePassword(passwords){
+    return async function (dispatch) {
+        dispatch(customerSendRequest());
+
+        await (new CustomerApi()).updatePassword(passwords)
+            .then(res => {
+                return dispatch({
+                    type: Customer.CUSTOMER_UPDATE_PASSWORD,
+                    data: res
+                })
+            })
+            .catch((error) => {
+                if (error.response.data.password) {
+                    throw new SubmissionError({
+                        currentPassword: error.response.data.password,
+                    });
+                }  else { // Something happened in setting up the request and triggered an Error
+                    dispatch(customerResponseFailed());
+                }
+            });
+
         dispatch(closeModalAction());
     };
 };

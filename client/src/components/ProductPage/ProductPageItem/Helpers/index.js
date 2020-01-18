@@ -28,25 +28,25 @@ export const setImgs = (product, color) => {
         let imgs =[];
         if (color === 'Color') {
             imgs = product.imgs.map(item => {
-                return <img key={item}
-                            src={item}
-                            alt="Img not found"
+                return <img  key={item}
+                             src={item}
+                             alt="Img not found"
                 />
             })
         } else {
             product.colors.forEach(item => {
                 if (item.color._id === (JSON.parse(color))._id){
                     item.imgsColor.forEach(img => {
-                        imgs.push(<img key={img}
-                                       src={img}
-                                       alt="Img not found"
+                        imgs.push(<img  key={img}
+                                        src={img}
+                                        alt="Img not found"
                         />)
                     });
                     if (imgs.length < 1) {
                         imgs = product.imgs.map(item => {
-                            return <img key={item}
-                                        src={item}
-                                        alt="Img not found"
+                            return <img  key={item}
+                                         src={item}
+                                         alt="Img not found"
                             />
                         })
                     }

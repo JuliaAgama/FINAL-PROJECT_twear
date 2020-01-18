@@ -16,6 +16,9 @@ export default makeStyles(theme => (
         },
         link: {
             minWidth: '25%',
+            // [theme.breakpoints.down('sm')]: {
+            //     minWidth: '50%',
+            // },
             color: 'rgba(0, 0, 0, 0.87)',
             textDecoration: 'none'
         },
@@ -33,18 +36,6 @@ export default makeStyles(theme => (
             display: 'flex',
             flexWrap: 'wrap',
             padding: '15px 0',
-            width: '98%',
-            maxWidth: '1171px',
-            position: 'absolute',
-            top: '130px',
-            left: '50%',
-            transform: 'translate(-50%)',
-            [theme.breakpoints.down('sm')]: {
-                top: '120px',
-                width: '100%',
-            },
-            zIndex: '1000',
-            backgroundColor: 'white'
         },
         hide: {
             display: 'none'

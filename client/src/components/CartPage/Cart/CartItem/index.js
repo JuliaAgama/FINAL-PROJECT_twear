@@ -5,6 +5,7 @@ import { Box, Grid } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
+import Currency from "../../../common/Currency";
 
 import useStyles from './useStyles';
 
@@ -66,7 +67,7 @@ export default props => {
                                     } </>
                                 } </>
                         }
-                        <Box p={2} >Price: ${item.product.price}</Box>
+                        <Box p={2} >Price: {<Currency price={item.product.price}/>}</Box>
                     </Grid>
                 </Grid>
 
@@ -94,7 +95,7 @@ export default props => {
                     }
                     </Grid>
                     <Grid item xs={4} sm={12}>
-                        <Box px={2} fontSize='h6.fontSize' textAlign='center'>${item.quantity * item.product.price}</Box>
+                        <Box px={2} fontSize='h6.fontSize' textAlign='center'><Currency price={item.quantity * item.product.price}/></Box>
                     </Grid>
                 </Grid>
             </> : <Spinner/>
