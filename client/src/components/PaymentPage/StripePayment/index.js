@@ -88,6 +88,9 @@ export default injectStripe( () => {
                 <Grid container spacing={2} justify='center' alignItems='center' className={classes.container} >
                     <Grid item xs={12}>
                         <Box fontSize="h4.fontSize" pt={3} textAlign='center'>PAYMENT IS COMPLETED</Box>
+                        <Box className={classes.logo} textAlign='center'>
+                            <img className={classes.image} src="/img/payment-card-e-commerce-paid.png" alt="NOT FOUND"/>
+                        </Box>
                         <Box fontSize="h6.fontSize" pt={3} textAlign='center'>Check your email for the receipt</Box>
                         <Link to="/" >
                             <Box fontSize="body1.fontSize" pt={3} textAlign='center' className={classes.link}>Continue shopping</Box>
