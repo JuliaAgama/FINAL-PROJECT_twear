@@ -75,5 +75,15 @@ export default makeStyles(theme => (
                 textDecoration: 'underline',
             },
         },
+        logo: {
+            // borderTop: `1px solid ${grey[200]}`,
+            // borderBottom: `1px solid ${grey[200]}`,
+            // backgroundColor: grey[100],
+        },
+        image: {
+            width: '30%',
+            margin: '10px auto',
+            padding: theme.spacing(2),
+        },
     }
 ));
