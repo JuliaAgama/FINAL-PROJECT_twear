@@ -1,7 +1,7 @@
 import React, {useRef, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import { useHistory } from 'react-router-dom';
-import './imgStyle.css'
+
 import * as cartActions from '../../../store/actions/cart';
 
 import {Container, Hidden, FormControl, NativeSelect, FormHelperText, Button} from "@material-ui/core";

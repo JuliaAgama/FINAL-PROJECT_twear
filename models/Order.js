@@ -17,7 +17,7 @@ const OrderSchema = new Schema(
         required: true
       }
     ],
-    deliveryAddress: {
+    deliveryInfo: {
       type: Schema.Types.Mixed
     },
     shipping: {
@@ -41,10 +41,10 @@ const OrderSchema = new Schema(
       type: String,
       required: true
     },
-    telephone: {
-      type: String,
-      required: true
-    },
+    // telephone: {
+    //   type: String,
+    //   required: true
+    // },
     date: {
       type: Date,
       default: Date.now

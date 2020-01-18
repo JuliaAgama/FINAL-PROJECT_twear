@@ -76,13 +76,13 @@ export default withWidth()(() => {
         }
     }, [categoriesList]);
 
-    const onChangeTopCat = (id) => {
+    const onChangeTopCat = id => {
         setSelectedTopCat(id);
         setSelectedCategory('');
         id && id !== '' ? setCategoriesDisplay(categoriesList.filter(el => el.topCategory._id === id)) : setCategoriesDisplay(categoriesList);
     };
 
-    const onChangeCategory = (id) => {
+    const onChangeCategory = id => {
         id && id !== '' ? setSelectedCategory(id) : setSelectedCategory('');
     };
 

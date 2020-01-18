@@ -8,7 +8,6 @@ import PersonaDetails from "./PersonalDetails";
 import AddressBook from "./AddressBook";
 
 
-
 export default function PersonalCabinet() {
 
     const classes = useStyles();

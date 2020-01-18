@@ -39,27 +39,3 @@ export function showWomenCategoriesAction() {
         });
     };
 };
-
-export function hideLoginMenuAction() {
-    return function (dispatch) {
-        return dispatch({
-            type: HEADER.HEADER_HIDE_LOGIN_MENU
-        });
-    };
-};
-
-export function showLoginMenuAction() {
-    return function (dispatch) {
-        return dispatch({
-            type: HEADER.HEADER_SHOW_LOGIN_MENU
-        });
-    };
-};
-
-export function headerCloseAction() {
-    return function (dispatch) {
-        return dispatch({
-            type: HEADER.HEADER_CLOSE_MENU
-        });
-    };
-};

@@ -1,12 +1,11 @@
 import React from "react";
 
-import { Container, Grid} from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import useStyles from "./useStyles";
 
 import Header from "../../../Header";
-import HeaderV2 from "../../../HeaderV2";
 import Footer from "../../../Footer";
 
 export default props => {
@@ -32,8 +31,7 @@ export default props => {
         <ThemeProvider theme={theme}>
             <Container maxWidth='lg' className={classes.layoutContainer} >
                 <Grid container>
-                    {/*<Header/>*/}
-                    <HeaderV2/>
+                    <Header/>
                     <Grid item xs={12}>{props.children}</Grid>
                     <Footer/>
                 </Grid>

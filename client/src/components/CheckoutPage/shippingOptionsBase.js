@@ -1,0 +1,71 @@
+
+const shippingOptionsBase = [
+    {
+        _id: 'NovaPoshta',
+        name: 'Нова Пошта',
+        locations: [
+            'Ukraine',
+        ],
+        price: 5,
+    },
+    {
+        _id: 'UPS_EU',
+        name: 'UPS delivery to home/company address (EU)',
+        locations: [
+            'Austria',
+            'Belgium',
+            'Bulgaria',
+            'Croatia',
+            'Cyprus',
+            'Czechia',
+            'Denmark',
+            'Estonia',
+            'Finland',
+            'France',
+            'Germany',
+            'Greece',
+            'Hungary',
+            'Ireland',
+            'Italy',
+            'Latvia',
+            'Lithuania',
+            'Luxembourg',
+            'Malta',
+            'Netherlands',
+            'Poland',
+            'Portugal',
+            'Romania',
+            'Slovakia',
+            'Slovenia',
+            'Spain',
+            'Sweden',
+            'United Kingdom',
+        ],
+        price: 0,
+    },
+    {
+        _id: 'UPS_CIS',
+        name: 'UPS delivery to home/company address (CIS)',
+        locations: [
+            'Armenia',
+            'Azerbaijan',
+            'Belarus',
+            'Georgia',
+            'Kazakhstan',
+            'Moldova',
+            'Russia',
+            'Ukraine',
+        ],
+        price: 10,
+    },
+    {
+        _id: 'other',
+        name: 'UPS delivery to non-EU countries',
+        locations: [
+            'other',
+        ],
+        price: 20,
+    },
+];
+
+export default shippingOptionsBase;
