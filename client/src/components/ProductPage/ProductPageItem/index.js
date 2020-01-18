@@ -88,9 +88,9 @@ export default () => {
                 </Container>
             </Hidden>
 
-            {/*<CarouselProductPage imgs={imgs}/>*/}
+            <CarouselProductPage imgs={imgs}/>
             {/*<AlternativeCarousel dataSource={imgs}/>*/}
-            <SlickCarousel imgs={imgs}/>
+            {/*<SlickCarousel imgs={imgs}/>*/}
 
             <Container maxWidth={false} className={classes.container}>
 

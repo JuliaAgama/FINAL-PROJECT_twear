@@ -183,7 +183,7 @@ exports.editCustomerInfo = (req, res) => {
                        .then(customer => {
                         if (customer) {
                             errors.email = `Email ${newEmail} is already exists`;
-                            res.status(400).json(errors);
+                            return res.status(400).json(errors);
                         }
                     });
                 }
@@ -192,7 +192,7 @@ exports.editCustomerInfo = (req, res) => {
                     await Customer.findOne({ login: newLogin }).then(customer => {
                         if (customer) {
                             errors.login = `Login ${newLogin} is already exists`;
-                            res.status(400).json(errors);
+                            return res.status(400).json(errors);
                         }
                     });
                 }
