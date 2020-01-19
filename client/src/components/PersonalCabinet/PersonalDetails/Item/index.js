@@ -40,6 +40,7 @@ export default function Item(props) {
                 dispatch(openUpdateTelephoneAction('telephone'));
                 return;
             }
+            default : return;
         }
     };
 

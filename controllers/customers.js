@@ -178,24 +178,22 @@ exports.editCustomerInfo = (req, res) => {
                 const newEmail = req.body.email;
                 const newLogin = req.body.login;
 
+                const customerEmail = await Customer.findOne({ email: newEmail });
                 if (newEmail && currentEmail !== newEmail) {
-                   await Customer.findOne({ email: newEmail })
-                       .then(customer => {
-                        if (customer) {
-                            errors.email = `Email ${newEmail} is already exists`;
-                            return res.status(400).json(errors);
-                        }
-                    });
+                    if (customerEmail) {
+                        errors.email = `Email ${newEmail} is already exists`;
+                        return res.status(400).json(errors);
+                    }
                 }
 
+                const customerLogin = await Customer.findOne({ login: newLogin });
                 if (newLogin && currentLogin !== newLogin) {
-                    await Customer.findOne({ login: newLogin }).then(customer => {
-                        if (customer) {
-                            errors.login = `Login ${newLogin} is already exists`;
-                            return res.status(400).json(errors);
-                        }
-                    });
+                    if (customerLogin) {
+                        errors.login = `Login ${newLogin} is already exists`;
+                        return res.status(400).json(errors);
+                    }
                 }
+
                     // Create query object for qustomer for saving him to DB
                     delete initialQuery.password;
                     delete initialQuery.emailConfirm;

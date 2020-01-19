@@ -12,7 +12,7 @@ import SortMenu from "./SortMenu";
 import {getSetOfProductsColors, getSetOfProductSizes, getCategoryTitle, getImgsUrl, createHomePage, filterProducts} from "./Helpers";
 
 export default props => {
-    const {products, queryString, homePage, productPage} = props;
+    const {products, queryString, homePage, productPage, searchPage} = props;
     const classes = useStyles();
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('sm'));
@@ -24,9 +24,12 @@ export default props => {
     if (matches) rowElementsCount = 2;
 
     const productsGallery = useSelector(state => state.productsGallery.productsGalleryForShow);
-    let title = 'Popular Goods in this category';
+    let title = '';
+    if (productPage) title = 'Popular Goods in this category';
+    if (searchPage) title = 'Result of search';
     if (productPage && products.length === 0) title = '';
-    if (!productPage) title = productsGallery.title;
+    if (searchPage && products.length === 0) title = 'Sorry nothing found (:';
+    if (!productPage && !searchPage) title = productsGallery.title;
 
     let productCards = [];
     let productsArr = [];
@@ -78,12 +81,12 @@ export default props => {
     return (
         <>
             <Box className={classes.title} fontSize='h4.fontSize'>
-                {homePage || productPage ? title : mainTitle}
+                {homePage || productPage || searchPage ? title : mainTitle}
             </Box>
-            {!homePage && !productPage ? !matches ?
+            {!homePage && !productPage && !searchPage ? !matches ?
                 <FiltersMenu setChosenColor={setChosenColor} colors={colorsArrForTab}/> : '' : ''
             }
-            {!homePage && !productPage ?
+            {!homePage && !productPage && !searchPage ?
                 <SortMenu mobile={matches} colors={colorsArrForTab} queryString = {queryString} setChosenColor={setChosenColor} /> : ''
             }
             <Container maxWidth={false} className={classes.mainContainer}>

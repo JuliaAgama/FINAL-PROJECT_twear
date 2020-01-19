@@ -5,7 +5,7 @@ import SectionContainer from "./SectionContainer";
 import SectionTitle from "./SectionTitle";
 import {useSelector} from "react-redux";
 import PersonaDetails from "./PersonalDetails";
-import AddressBook from "./AddressBook";
+// import AddressBook from "./AddressBook";
 
 
 export default function PersonalCabinet() {
