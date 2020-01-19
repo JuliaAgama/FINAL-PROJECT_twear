@@ -28,8 +28,10 @@ export default class Orders extends Base {
     }
 
     addOrder(order) {
-        return super.post(`orders`, order)
-        .then(res => res.data)
+        // if (localStorage.getItem('token')) {
+            return super.post(`orders`, order)
+            .then(res => res.data)
+        // }
     }
 
     updateOrder(order){

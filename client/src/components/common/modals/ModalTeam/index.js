@@ -22,7 +22,9 @@ const collaborators = [
             'Admin panel: all pages for catalogue management',
             'Images upload to Cloudinary',
             'Common components: buttons, modals, messages, sliders, inputs',
+            'Footer',
             'Consumer cart component and all functionality',
+            'Checkout page',
             'Code review and troubleshooting on all components'
         ],
     },
@@ -33,21 +35,24 @@ const collaborators = [
             'Authentification routes and logics',
             'Login & Registration',
             'Header',
-            'Category page',
+            'Main page',
+            'Topcategory page',
+            'Category page and filters',
             'Products gallery and card',
             'Product page',
+            'Currency options recalculation',
             'Admin Panel: settings for home page',
         ],
     },
-    {
-        name: 'Olexandr Shaporda',
-        imgUrl: 'team/oshaporda.jpg',
-        tasks: [
-            'Footer',
-            'Topcategory page',
-            'Main page TopCats section for desktop',
-        ],
-    },
+    // {
+    //     name: 'Olexandr Shaporda',
+    //     imgUrl: 'team/oshaporda.jpg',
+    //     tasks: [
+    //         'Footer',
+    //         'Topcategory page',
+    //         'Main page TopCats section for desktop',
+    //     ],
+    // },
 ];
 
 

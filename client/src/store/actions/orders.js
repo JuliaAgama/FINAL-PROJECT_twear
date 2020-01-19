@@ -68,21 +68,46 @@ export function getOrdersByCustomerId(customerId) {
     };
 };
 
-export function getOrderItem(id) {
+// export function getOrderItem(id) {
+//     return function (dispatch) {
+//         dispatch(orderItemSendRequest());
+//         (new OrdersApi()).getOrderById(id).then(res => {
+//             return dispatch({
+//                 type: ORDERS.ORDER_GET_ORDER_ITEM,
+//                 data: res
+//             });
+//         })
+//         .catch(err => {
+//             return dispatch({
+//                 type: ORDERS.ORDER_RESPONSE_FAILED,
+//                 error: err.message
+//             })
+//         });
+//     };
+// };
+
+export function getOrderItem(orderItem) {
     return function (dispatch) {
         dispatch(orderItemSendRequest());
-        (new OrdersApi()).getOrderById(id).then(res => {
+        if (orderItem._id) {
+            (new OrdersApi()).getOrderById(orderItem._id).then(res => {
+                return dispatch({
+                    type: ORDERS.ORDER_GET_ORDER_ITEM,
+                    data: res
+                });
+            })
+            .catch(err => {
+                return dispatch({
+                    type: ORDERS.ORDER_RESPONSE_FAILED,
+                    error: err.message
+                })
+            });
+        } else {
             return dispatch({
                 type: ORDERS.ORDER_GET_ORDER_ITEM,
-                data: res
-            });
-        })
-        .catch(err => {
-            return dispatch({
-                type: ORDERS.ORDER_RESPONSE_FAILED,
-                error: err.message
+                data: orderItem
             })
-        });
+        }
     };
 };
 

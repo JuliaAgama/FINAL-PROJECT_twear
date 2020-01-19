@@ -5,6 +5,8 @@ import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 import cart from './cart';
+import orders from './orders';
+import orderItem from './orderItem';
 import topCats from './topCats';
 import topCatItem from './topCatItem';
 import categories from './categories';
@@ -34,6 +36,9 @@ const migrations = {
             cart: {
                 ...state.cart,
             },
+            orderItem: {
+                ...state.orderItem,
+            },
             loaded: {
                 ...state.loaded,
             },
@@ -48,7 +53,7 @@ const persistConfig = {
     key: 'cart',
     version: 0, //New version 0, default or previous version -1
     storage,
-    whitelist: ['cart', 'productsGallery'],
+    whitelist: ['cart', 'orderItem', 'productsGallery'],
     // stateReconciler: autoMergeLevel2
     stateReconciler: autoMergeLevel2,
     migrate: createMigrate(migrations, { debug: true }),
@@ -56,6 +61,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     cart,
+    orders,
+    orderItem,
     topCats,
     categories,
     customers,

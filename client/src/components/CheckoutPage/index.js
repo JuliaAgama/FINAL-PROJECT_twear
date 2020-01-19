@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {useSelector} from "react-redux";
-// import {useDispatch, useSelector} from "react-redux";
+// import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { useHistory } from 'react-router-dom';
+
+import * as ordersActions from '../../store/actions/orders';
 
 import { Box, Breadcrumbs} from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
@@ -34,7 +36,7 @@ export default props => {
     const [onPaymentAvailable, setOnPaymentAvailable] = useState(false);
     const [onCompleteAvailable, setOnCompleteAvailable] = useState(false);
 
-    const [formData, setFormData] = useState({subscribe: false, saveLocal: false});
+    const [formData, setFormData] = useState({subscribe: false, saveLocal: false, status: 'new'});
 
     console.log(formData);
 
@@ -68,7 +70,7 @@ export default props => {
             })
         };
         return ( () => {
-            setFormData({subscribe: false, saveLocal: false});
+            setFormData({subscribe: false, saveLocal: false, status: null});
         })
     }, [customerLoaded]);
 
