@@ -104,9 +104,7 @@ export default function Orders(props) {
                                 {open ? getProductsList(orders, currentOrder) : ''}
                             </Grid>
                             <DialogContent>
-                                <DialogContentText>
-                                    {open ? getOrderDetails(orders, currentOrder) : ''}
-                                </DialogContentText>
+                                {open ? getOrderDetails(orders, currentOrder) : ''}
                             </DialogContent>
                         </div>
                     </Fade>
