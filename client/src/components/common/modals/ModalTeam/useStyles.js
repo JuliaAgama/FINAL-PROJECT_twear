@@ -30,9 +30,10 @@ export default makeStyles(theme => (
             },
         },
         container: {
+            marginLeft: theme.spacing(3),
         },
         personContainer: {
-            textAlign: 'center',
+            // textAlign: 'center',
         },
         personTitle: {
             "&::after": {

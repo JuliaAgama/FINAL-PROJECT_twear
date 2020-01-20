@@ -96,8 +96,9 @@ export default props => {
                 <DialogContent>
                     <Grid container className={classes.container}>
                         {collaborators.map(item => (
-                            <Grid container item xs={12} md={4} className={classes.personContainer} direction="column" alignItems='center' key={Math.random()}>
-                                <Grid item container alignItems='center' justify='center' className={classes.personTitle}>
+                            <Grid container item xs={12} md={6} className={classes.personContainer} direction="column" alignItems='center' key={Math.random()}>
+                            {/* <Grid container item xs={12} md={4} className={classes.personContainer} direction="column" alignItems='center' key={Math.random()}> */}
+                                <Grid item container alignItems='center' className={classes.personTitle}>
                                     <Grid item>
                                         <Avatar alt={item.name} src={item.imgUrl} className={classes.avatar}></Avatar>
                                     </Grid>
