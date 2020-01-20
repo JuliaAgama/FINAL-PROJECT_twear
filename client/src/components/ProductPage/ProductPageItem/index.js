@@ -8,8 +8,6 @@ import {Container, Hidden, FormControl, NativeSelect, FormHelperText, Button} fr
 import useStyles from "./useStyles";
 
 import {setColors, setImgs, setSizes} from "./Helpers";
-import CarouselProductPage from './Carusel'
-import AlternativeCarousel from './AlternativeCarousel'
 import SlickCarousel from './SlickCarousel'
 import NameAndPrice from "./NameAndPrice";
 import BlackTicker from '../../common/BlackTicker'
@@ -88,8 +86,6 @@ export default () => {
                     </Container>
                 </Hidden>
 
-                {/*<CarouselProductPage imgs={imgs}/>*/}
-                {/*<AlternativeCarousel dataSource={imgs}/>*/}
                 <SlickCarousel imgs={imgs}/>
 
                 <Container maxWidth={false} className={classes.container}>

@@ -19,7 +19,7 @@ export default function SectionContainer(props) {
                     }
                     <Box className={classes.body}>
                         <div>{props.children}</div>
-                        <p>{body}</p>
+                        <p className={classes.bodyTextEmpty}>{body}</p>
                     </Box>
                 </Container>
             </Container>

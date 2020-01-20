@@ -51,6 +51,15 @@ export default function (state = initState, action) {
                     }
                 };
 
+            case ORDERS.ORDER_CLEAN_ORDER_ITEM:
+                return {
+                    ...state,
+                    ...{
+                        orderItem: initState.orderItem,
+                        loaded: false
+                    }
+                };
+
             case ORDERS.ORDER_GET_ORDER_ITEM_BY_ITEMNO:
                 return {
                     ...state,

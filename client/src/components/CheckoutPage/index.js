@@ -43,9 +43,19 @@ export default props => {
     // console.log('formData: ', formData);
 
     useEffect(() => {
+        dispatch(ordersActions.cleanOrderItem(formData));
+
         setInfoIsOpen(true);
         setShippingIsOpen(false);
         setPaymentIsOpen(false);
+
+        return ( () => {
+            // setFormData({subscribe: false, saveLocal: false, status: 'new', products: cloneDeep(cart.products), shipping: {price: 0}, paymentInfo: 'card', totalSum: subTotal});
+        })
+    },[]);
+
+
+    useEffect(() => {
         if (customerLoaded) {
             setFormData({
                 ...formData,
@@ -68,9 +78,6 @@ export default props => {
                 totalSum: shippingOptionsBase.filter(el => el.locations.some(elem => elem === localData.country))[0] ? shippingOptionsBase.filter(el => el.locations.some(elem => elem === localData.country))[0].price + subTotal : shippingOptionsBase.find(el => el._id === 'other').price + subTotal
             })
         };
-        return ( () => {
-            setFormData({subscribe: false, saveLocal: false, status: null});
-        })
     }, [customerLoaded]);
 
     useEffect (() => {
@@ -190,6 +197,7 @@ export default props => {
         history.push('/payment');
     };
 
+    console.log(formData);
     const classes = useStyles();
 
     return (

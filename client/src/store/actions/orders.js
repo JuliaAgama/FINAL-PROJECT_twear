@@ -57,6 +57,16 @@ export function getOrderItem(orderItem) {
     };
 };
 
+export function cleanOrderItem(orderItem) {
+    return function (dispatch) {
+        dispatch(orderItemSendRequest());
+        return dispatch({
+            type: ORDERS.ORDER_CLEAN_ORDER_ITEM,
+            data: orderItem
+        })
+    }
+};
+
 export function getOrderItemByItemNo(itemNo) {
     return function (dispatch) {
         dispatch(orderItemSendRequest());
