@@ -41,6 +41,8 @@ const collaborators = [
             'Products gallery and card',
             'Product page',
             'Currency options recalculation',
+            'Consumer Search',
+            'Personal CabinetPage',
             'Admin Panel: settings for home page',
         ],
     },

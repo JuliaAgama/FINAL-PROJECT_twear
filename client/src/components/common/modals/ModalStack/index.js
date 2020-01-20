@@ -25,8 +25,6 @@ const collaborators = [
 
 export default props => {
 
-    // const { modalIsOpen, closeModal } = props;
-
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const theme = useTheme();
@@ -64,15 +62,6 @@ export default props => {
                     <Grid container className={classes.container}>
                         {collaborators.map(item => (
                             <Grid container item xs={12} md={6} className={classes.personContainer} direction="column" alignItems='center' key={Math.random()}>
-                            {/* <Grid container item xs={12} md={4} className={classes.personContainer} direction="column" alignItems='center' key={Math.random()}> */}
-                                {/* <Grid item container alignItems='center' className={classes.personTitle}>
-                                    <Grid item>
-                                        <Avatar alt={item.name} src={item.imgUrl} className={classes.avatar}></Avatar>
-                                    </Grid>
-                                    <Grid item>
-                                        <Box fontSize='body1.fontSize'>{item.name}</Box>
-                                    </Grid>
-                                </Grid> */}
                                 <Grid item container direction="column" className={classes.tasksContainer}>
                                     <List>
                                         {item.techs.map(el => (
@@ -85,7 +74,6 @@ export default props => {
                                     </List>
                                 </Grid>
                             </Grid>
-
                             ))}
                     </Grid>
                 </DialogContent>

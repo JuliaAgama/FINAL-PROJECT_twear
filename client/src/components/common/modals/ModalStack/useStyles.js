@@ -4,24 +4,19 @@ import { grey } from '@material-ui/core/colors';
 export default makeStyles(theme => (
     {
         btnTeam: {
-            position: 'absolute',
-            top: '1px',
-            left: '1px',
-            width: '120px',
-            height: '20px',
+            // position: 'absolute',
+            // top: '1px',
+            // left: '1px',
+            width: '80px',
+            height: '16px',
             backgroundPosition: 'center',
-            backgroundSize: 'contain',
+            backgroundSize: 'cover',
+            // backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             [theme.breakpoints.down('sm')]: {
-                top: 0,
+                height: '12px',
+                // top: 0,
             },
-            // [theme.breakpoints.down('xs')]: {
-                // top: '50%',
-                // left: '10px',
-                // transform: 'translateY(-40%)',
-            //     width: '25px',
-            //     height: '25px',
-            // },
         },
         title: {
             [theme.breakpoints.down('xs')]: {
@@ -60,7 +55,7 @@ export default makeStyles(theme => (
             lineHeight: '1.5',
         },
         listItem: {
-            paddingTop: 0,
+            paddingTop: theme.spacing(1),
             paddingBottom: 0,
         }
     }

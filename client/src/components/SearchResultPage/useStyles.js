@@ -6,7 +6,7 @@ export default makeStyles(theme => (
             width: '100%',
         },
         Media: {
-            height: "100%",
+            // height: "100%",
             width: "100%",
             padding: "20px 0"
         },
