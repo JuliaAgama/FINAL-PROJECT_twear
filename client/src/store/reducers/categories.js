@@ -2,6 +2,7 @@ import * as CATEGORIES from '../constants/categories';
 
 const initState = {
     categories: [],
+    categoriesSearchResult: [],
     loaded: false,
     error: null,
 };
@@ -40,7 +41,7 @@ export default function (state = initState, action) {
             return {
                 ...state,
                 ...{
-                    categories: action.data,
+                    categoriesSearchResult: action.data,
                     loaded: true
                 }
             };
