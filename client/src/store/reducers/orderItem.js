@@ -1,7 +1,23 @@
 import * as ORDERS from '../constants/orders';
 
 const initState = {
-    orderItem: {},
+    orderItem: {
+        subscribe: false,
+        saveLocal: false,
+        products: null,
+        email: '',
+        deliveryInfo: {
+            firstName: '',
+            lastName: '',
+            address: '',
+            city: '',
+            country: '',
+            postal: '',
+            telephone: '',
+        },
+        shipping: null,
+        paymentInfo: null,
+    },
     loaded: false,
     error: null
 };

@@ -1,11 +1,11 @@
 # FINAL-PROJECT_twear
-DAN-IT. Full Stack course. Front End. FINAL PROJECT. E-commerce - MyShop. Julia Verchyonova &amp; Olexander Shaporda &amp;  Olexander Shtuka &amp; 
+DAN-IT. Full Stack course. Front End. FINAL PROJECT. E-commerce - twear. Julia Verchyonova,  Olexander Shtuka; 
 
 Technology Stack:
 
-React JS: Redux, Redux Persist, Hooks;
+React JS: Redux, Redux Form, Redux Persist, Hooks;
 
-React styles & libraries: Material-ui; react-sLick, react-spring; see more in package.json;
+React styles & libraries: axios, lodash, material-ui; react-sLick, react-spring, react-stripe; see more in package.json;
 
 Backend: Node.js;
 
@@ -17,61 +17,41 @@ Deployment server: Heroku server;
 
 
 
-Contributors: Julia Verchyonova & Oleksandr Shaporda & Oleksandr Shtuka 
+Contributors: Julia Verchyonova & Oleksandr Shtuka 
 
 
 Tasks & Responsibilities:
 
 
 Julia Verchyonova:
-
-Architecture of the project and app, frontend and backend;
-
-Environment setting;
-
-Database structure;
-
-Backend;
-
-REST API & Redux setting;
-
-All components of Admin Panel incl., catalogue management, styles;
-
-Images upload to Cloudinary;
-
-Common components: buttons, messages, sliders, inputs, etc.;
-
-Components of Consumer's Cart;
-
-...
-
-
+    'App architecture',
+    'Environment setting',
+    'App deployment (Heroku, Git, Cloudinary)',
+    'Database setting',
+    'Backend controllers and routes',
+    'Frontend REST API services',
+    'Redux settings, actions, reducers, persist',
+    'Admin panel: all pages for catalogue management',
+    'Images upload to Cloudinary',
+    'Common components: buttons, modals, messages, sliders, inputs',
+    'Footer',
+    'Consumer cart component and all functionality',
+    'Checkout page',
+    'Code review and troubleshooting on all components',
+    
 
 Olexandr Shtuka:
 
-Authentification routes and logics;
-
-Components: Login & Registration;
-
-Components: Header;
-
-Components: Products gallery and card;
-
-...
-
-
-
-Olexandr Shaporda:
-
-Components:
-
-Footer
-
-Topcategories & Categories page
-
-Product Page
-
-...
+  'Authentification routes and logics',
+  'Login & Registration',
+  'Header',
+  'Main page',
+  'Topcategory page',
+  'Category page and filters',
+  'Products gallery and card',
+  'Product page',
+  'Currency options recalculation',
+  'Admin Panel: settings for home page',
 
 
 

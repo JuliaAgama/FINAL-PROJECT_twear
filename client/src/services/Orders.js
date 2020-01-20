@@ -2,20 +2,25 @@ import Base from './base';
 
 export default class Orders extends Base {
 
-    getAllOrders() {
+    getAllOrders() { //by customer id (if registered)
         return super.get('orders/')
         .then(res => res.data)
     }
 
-    getOrdersByFilter(filter) {
-        return super.get(`orders/filter?`+filter)
-        .then(res => res.data)
-    }
+    // getOrdersByFilter(filter) {
+    //     return super.get(`orders/filter?`+filter)
+    //     .then(res => res.data)
+    // }
 
-    getOrdersByMatch(item) { // e.g. by customerId
-        return super.post(`orders/match`, item)
-        .then(res => res.data)
-    }
+    // getOrdersByCustomerId() { 
+    //     return super.post(`orders/match`, item)
+    //     .then(res => res.data)
+    // }
+
+    // getOrdersByMatch(item) { // e.g. by customerId
+    //     return super.post(`orders/match`, item)
+    //     .then(res => res.data)
+    // }
 
     getOrderById(id) {
         return super.get('orders/' + id)

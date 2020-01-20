@@ -28,13 +28,17 @@ export function getSetOfProductsColors(products, queryString) {
         colorSet.add(color);
         return colorSet;
     }
-    products.forEach(card => {
-        card.colors.forEach(item => {
-            if (item.color) {
-                colorSet.add(item.color.name);
+    if (products) {
+        products.forEach(card => {
+            if (card.colors) {
+                card.colors.forEach(item => {
+                    if (item.color) {
+                        colorSet.add(item.color.name);
+                    }
+                })
             }
-        })
-    });
+        });
+    }
     return colorSet;
 }
 

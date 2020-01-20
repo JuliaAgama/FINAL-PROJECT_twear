@@ -22,7 +22,9 @@ const collaborators = [
             'Admin panel: all pages for catalogue management',
             'Images upload to Cloudinary',
             'Common components: buttons, modals, messages, sliders, inputs',
+            'Footer',
             'Consumer cart component and all functionality',
+            'Checkout page',
             'Code review and troubleshooting on all components'
         ],
     },
@@ -33,21 +35,24 @@ const collaborators = [
             'Authentification routes and logics',
             'Login & Registration',
             'Header',
-            'Category page',
+            'Main page',
+            'Topcategory page',
+            'Category page and filters',
             'Products gallery and card',
             'Product page',
+            'Currency options recalculation',
             'Admin Panel: settings for home page',
         ],
     },
-    {
-        name: 'Olexandr Shaporda',
-        imgUrl: 'team/oshaporda.jpg',
-        tasks: [
-            'Footer',
-            'Topcategory page',
-            'Main page TopCats section for desktop',
-        ],
-    },
+    // {
+    //     name: 'Olexandr Shaporda',
+    //     imgUrl: 'team/oshaporda.jpg',
+    //     tasks: [
+    //         'Footer',
+    //         'Topcategory page',
+    //         'Main page TopCats section for desktop',
+    //     ],
+    // },
 ];
 
 
@@ -91,8 +96,9 @@ export default props => {
                 <DialogContent>
                     <Grid container className={classes.container}>
                         {collaborators.map(item => (
-                            <Grid container item xs={12} md={4} className={classes.personContainer} direction="column" alignItems='center' key={Math.random()}>
-                                <Grid item container alignItems='center' justify='center' className={classes.personTitle}>
+                            <Grid container item xs={12} md={6} className={classes.personContainer} direction="column" alignItems='center' key={Math.random()}>
+                            {/* <Grid container item xs={12} md={4} className={classes.personContainer} direction="column" alignItems='center' key={Math.random()}> */}
+                                <Grid item container alignItems='center' className={classes.personTitle}>
                                     <Grid item>
                                         <Avatar alt={item.name} src={item.imgUrl} className={classes.avatar}></Avatar>
                                     </Grid>
