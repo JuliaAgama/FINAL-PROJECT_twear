@@ -9,6 +9,7 @@ import useStyles from "./useStyles";
 import SectionContainer from "./SectionContainer";
 import SectionTitle from "./SectionTitle";
 import PersonaDetails from "./PersonalDetails";
+import Orders from "./Orders";
 // import AddressBook from "./AddressBook";
 
 
@@ -35,7 +36,9 @@ export default function PersonalCabinet() {
                 <SectionTitle title='ORDER'/>
                 <SectionContainer title='ORDER'
                                   description='Follow your purchases, check the delivery status of your orders, access the Return Form, and view refund information.'
-                                  body='YOU HAVE NOT PREVIOUSLY ORDERED AS A REGISTERED USER.'/>
+                                  body={orders ? '' : 'YOU HAVE NOT PREVIOUSLY ORDERED AS A REGISTERED USER.'}>
+                    <Orders orders={orders}/>
+                </SectionContainer>
                 <SectionTitle title='ADDRESS BOOK'/>
                 <SectionContainer title='ADDRESS BOOK'
                                   description='Save all your delivery details to complete the order process quickly.'
