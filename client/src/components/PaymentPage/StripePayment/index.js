@@ -18,6 +18,7 @@ export default injectStripe( () => {
     const dispatch = useDispatch();
 
     const order = useSelector(state => state.orderItem.orderItem);
+    const {customer} = useSelector(state => state.customers);
 
     const [onPayAvailable, setOnPayAvailable] = useState(false);
     const [paymentCompleted, setPaymentCompleted] = useState(false);
@@ -30,6 +31,7 @@ export default injectStripe( () => {
     }, [order]);
 
     const onToCheckout = () => {
+        dispatch(ordersActions.cleanOrderItem(order));
         history.push('/checkout');
     };
 
@@ -39,7 +41,7 @@ export default injectStripe( () => {
         setPaymentCompleted(true);
 
         (new OrdersApi).addOrder({
-            customer: order.customer || null,
+            customer: customer ? customer._id : null,
             products: order.products,
             deliveryInfo: order.deliveryInfo,
             shipping: order.shipping,
@@ -49,9 +51,10 @@ export default injectStripe( () => {
             email: order.email,
         }).then(res => {
             dispatch(ordersActions.getOrderItem(res));
-            return res;
-        }).then(res => {
             dispatch(cartActions.updateCart({products: []}));
+        if (customer.loaded) {
+            dispatch(ordersActions.getAllOrders());
+        }
             return res;
         });
         // console.log('Send e-mail');
@@ -94,10 +97,10 @@ export default injectStripe( () => {
                         </Box>
                         {order && order.orderNo && <Box fontSize="h4.fontSize" pt={3} textAlign='center'>YOUR ORDER No: {order.orderNo}</Box>}
                         <Box fontSize="h6.fontSize" pt={3} textAlign='center'>Check your email for the receipt</Box>
-                        <Link to="/" >
+                        <Link to="/" onClick={() => dispatch(ordersActions.cleanOrderItem(order))}>
                             <Box fontSize="body1.fontSize" pt={3} textAlign='center' className={classes.link}>Continue shopping</Box>
                         </Link>
-                        {order.customer && <Link to="/personalCabinet" >
+                        {order.customer && <Link to="/personalCabinet" onClick={() => dispatch(ordersActions.cleanOrderItem(order))}>
                             <Box fontSize="body1.fontSize" pt={3} textAlign='center' className={classes.link}>Check your orders on your personal page</Box>
                         </Link>}
                     </Grid>

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 import { Box, Grid } from '@material-ui/core';
@@ -68,7 +69,7 @@ export default props => {
                         <Box fontSize='h6.fontSize' textAlign='right' p={1}><Currency price={subtotal + shippingCost} /></Box>
                     </Grid>
                 </Grid>
-            </> : <Box className={classes.cartEmpty}> No products in your cart. Go shopping!</Box>
+            </> : <Box className={classes.cartEmpty}> No products in your cart. <Link to="/" >Go shopping!</Link></Box>
             }
         </Box>
     )
