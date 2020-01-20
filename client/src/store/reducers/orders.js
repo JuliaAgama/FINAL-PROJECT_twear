@@ -36,24 +36,6 @@ export default function (state = initState, action) {
                 }
             };
 
-        case ORDERS.ORDERS_GET_ORDERS_BY_FILTER:
-            return {
-                ...state,
-                ...{
-                    ordersFiltered: action.data,
-                    loaded: true
-                }
-            };
-
-        case ORDERS.ORDERS_GET_ORDERS_BY_CUSTOMER_ID:
-            return {
-                ...state,
-                ...{
-                    orders: action.data,
-                    loaded: true
-                }
-            };
-
         case ORDERS.ORDERS_ADD_ORDER:
             return {
                 ...state,

@@ -22,22 +22,24 @@ export function getImgByColor(product, color) {
 };
 
 export function getSetOfProductsColors(products, queryString) {
-    if (products) {
-        let colorSet = new Set();
-        const color = getChosenColor(queryString);
-        if (color) {
-            colorSet.add(color);
-            return colorSet;
-        }
-        products.forEach(card => {
-            card.colors.forEach(item => {
-                if (item.color) {
-                    colorSet.add(item.color.name);
-                }
-            })
-        });
+    let colorSet = new Set();
+    const color = getChosenColor(queryString);
+    if (color) {
+        colorSet.add(color);
         return colorSet;
     }
+    if (products) {
+        products.forEach(card => {
+            if (card.colors) {
+                card.colors.forEach(item => {
+                    if (item.color) {
+                        colorSet.add(item.color.name);
+                    }
+                })
+            }
+        });
+    }
+    return colorSet;
 }
 
 export function getChosenColor(queryString) {

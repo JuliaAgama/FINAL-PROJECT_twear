@@ -1,17 +1,32 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+
+import * as ordersActions from '../../store/actions/orders';
+
 import {Container} from "@material-ui/core";
 import useStyles from "./useStyles";
+
 import SectionContainer from "./SectionContainer";
 import SectionTitle from "./SectionTitle";
-import {useSelector} from "react-redux";
 import PersonaDetails from "./PersonalDetails";
 // import AddressBook from "./AddressBook";
 
 
 export default function PersonalCabinet() {
 
+    const dispatch = useDispatch();
+
     const classes = useStyles();
     const {customer}  = useSelector(state => state.customers);
+    const {orders}  = useSelector(state => state.orders);
+
+    useEffect(() => {
+        if (customer) {
+            dispatch(ordersActions.getAllOrders());
+        }
+    }, [customer]);
+
+    console.log('orders: ', orders);
 
     return (
         <React.Fragment>

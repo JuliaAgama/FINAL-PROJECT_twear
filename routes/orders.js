@@ -9,7 +9,6 @@ const {
   cancelOrder,
   deleteOrder,
   getOrders,
-  getOrdersByCustomer,
   getOrder,
   getOrderbyOrderNo
 } = require("../controllers/orders");
@@ -49,21 +48,17 @@ router.delete(
 // @route   GET /orders
 // @desc    Get all orders
 // @access  Private
-router.get("/", passport.authenticate("jwt", { session: false }), getOrders);
+router.get("/",
+passport.authenticate("jwt", { session: false }),
+getOrders);
 
-
-// by object {customer: 'df232388s9ndff3101udj3989'}
-// @route   POST /orders/match
-// @desc    POST appropriate ORDERS that contain matching objects
-// @access  Public
-router.post("/match", passport.authenticate("jwt", { session: false }), getOrdersByCustomer);
 
 // @route   GET /orders/:id
 // @desc    Get one order by id
 // @access  Private
 router.get(
   "/:id",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   getOrder
 );
 

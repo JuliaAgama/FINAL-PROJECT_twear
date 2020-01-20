@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {useSelector} from "react-redux";
-// import {useDispatch, useSelector} from "react-redux";
+// import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { useHistory } from 'react-router-dom';
+import cloneDeep from 'lodash/cloneDeep';
+
+import * as ordersActions from '../../store/actions/orders';
 
 import { Box, Breadcrumbs} from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
@@ -19,12 +22,15 @@ export default props => {
     const {calcShipping} = props;
 
     const history = useHistory();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const customerLoaded = useSelector(state => state.customers.loaded);
     const {customer} = useSelector(state => state.customers);
+
     const {cart} = useSelector(state => state.cart);
-    // const order = useSelector(state => state.orders.orderItem);
+    const subTotal = cloneDeep(cart.products).reduce((sum, el) => sum + el.product.price * el.quantity, 0);
+
+    const [formData, setFormData] = useState({subscribe: false, saveLocal: false, status: 'new', products: cloneDeep(cart.products), shipping: {price: 0}, paymentInfo: 'card', totalSum: subTotal});
 
     const [infoIsOpen, setInfoIsOpen] = useState(false);
     const [shippingIsOpen, setShippingIsOpen] = useState(false);
@@ -34,18 +40,12 @@ export default props => {
     const [onPaymentAvailable, setOnPaymentAvailable] = useState(false);
     const [onCompleteAvailable, setOnCompleteAvailable] = useState(false);
 
-    const [formData, setFormData] = useState({subscribe: false, saveLocal: false});
-
-    console.log(formData);
+    // console.log('formData: ', formData);
 
     useEffect(() => {
         setInfoIsOpen(true);
         setShippingIsOpen(false);
         setPaymentIsOpen(false);
-        setFormData({
-            ...formData,
-            products: [...cart.products]
-        });
         if (customerLoaded) {
             setFormData({
                 ...formData,
@@ -55,7 +55,7 @@ export default props => {
                     firstName: customer.firstName,
                     lastName: customer.lastName,
                     telephone: customer.telephone
-                }
+                },
             });
         };
         if (localStorage.getItem('deliveryInfoLocal')) {
@@ -64,11 +64,12 @@ export default props => {
                 ...formData,
                 email: customerLoaded ? customer.email : formData.email || '',
                 deliveryInfo: {...localData},
-                shipping: shippingOptionsBase.filter(el => el.locations.some(elem => elem === localData.country))[0] || shippingOptionsBase.find(el => el._id === 'other')
+                shipping: shippingOptionsBase.filter(el => el.locations.some(elem => elem === localData.country))[0] || shippingOptionsBase.find(el => el._id === 'other'),
+                totalSum: shippingOptionsBase.filter(el => el.locations.some(elem => elem === localData.country))[0] ? shippingOptionsBase.filter(el => el.locations.some(elem => elem === localData.country))[0].price + subTotal : shippingOptionsBase.find(el => el._id === 'other').price + subTotal
             })
         };
         return ( () => {
-            setFormData({subscribe: false, saveLocal: false});
+            setFormData({subscribe: false, saveLocal: false, status: null});
         })
     }, [customerLoaded]);
 
@@ -126,14 +127,14 @@ export default props => {
         }
     };
     const handleOnChangeCountry = value => {
-        console.log('handleOnChangeCountry value: ', value)
         setFormData({
             ...formData,
             deliveryInfo: {
                 ...formData.deliveryInfo,
                 country: value
             },
-            shipping: shippingOptionsBase.filter(el => el.locations.some(elem => elem === value))[0] || shippingOptionsBase.find(el => el._id === 'other')
+            shipping: shippingOptionsBase.filter(el => el.locations.some(elem => elem === value))[0] || shippingOptionsBase.find(el => el._id === 'other'),
+            totalSum: shippingOptionsBase.filter(el => el.locations.some(elem => elem === value))[0] ? shippingOptionsBase.filter(el => el.locations.some(elem => elem === value))[0].price + subTotal : shippingOptionsBase.find(el => el._id === 'other').price + subTotal,
         });
     };
 
@@ -144,7 +145,8 @@ export default props => {
         const handleOnChangeShipping = shipping => {
             setFormData({
                 ...formData,
-                shipping: shipping
+                shipping: shipping,
+                totalSum: shipping.price + subTotal
             });
         };
 
@@ -184,7 +186,7 @@ export default props => {
         setInfoIsOpen(false);
         setShippingIsOpen(false);
         setPaymentIsOpen(false);
-        console.log('await create order in database with formdata (status: "new") and then redirect to /payment');
+        dispatch(ordersActions.getOrderItem(formData));
         history.push('/payment');
     };
 

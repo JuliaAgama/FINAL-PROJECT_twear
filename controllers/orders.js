@@ -12,81 +12,82 @@ const uniqueRandom = require("unique-random");
 const rand = uniqueRandom(1000000, 9999999);
 
 exports.placeOrder = async (req, res, next) => {
+  // console.log('req.body: ', req.body)
   try {
     const order = _.cloneDeep(req.body);
     order.orderNo = String(rand());
-    let cartProducts = [];
+    // let cartProducts = [];
 
-    if (req.body.deliveryAddress) {
-      order.deliveryAddress = JSON.parse(req.body.deliveryAddress);
-    }
+    // if (req.body.deliveryInfo) {
+    //   order.deliveryInfo = JSON.parse(req.body.deliveryInfo);
+    // }
 
-    if (req.body.shipping) {
-      order.shipping = JSON.parse(req.body.shipping);
-    }
+    // if (req.body.shipping) {
+    //   order.shipping = JSON.parse(req.body.shipping);
+    // }
 
-    if (req.body.paymentInfo) {
-      order.paymentInfo = JSON.parse(req.body.paymentInfo);
-    }
+    // if (req.body.paymentInfo) {
+    //   order.paymentInfo = JSON.parse(req.body.paymentInfo);
+    // }
 
     if (req.body.customer) {
       order.customer = req.body.customer;
 
-      cartProducts = await subtractProductsFromCart(order.customer);
+      // cartProducts = await subtractProductsFromCart(order.customer);
     }
 
-    if (!req.body.products && cartProducts.length < 1) {
-      res
-        .status(400)
-        .json({ message: "The list of products is required, but absent!" });
-    }
+    // if (!req.body.products && cartProducts.length < 1) {
+    //   res
+    //     .status(400)
+    //     .json({ message: "The list of products is required, but absent!" });
+    // }
 
-    if (cartProducts.length > 0) {
-      order.products = _.cloneDeep(cartProducts);
-    } else {
-      order.products = JSON.parse(req.body.products);
-    }
+    // if (cartProducts.length > 0) {
+    //   order.products = _.cloneDeep(cartProducts);
+    // } else {
+    //   order.products = JSON.parse(req.body.products);
+    // }
 
-    order.totalSum = order.products.reduce(
-      (sum, cartItem) =>
-        sum + cartItem.product.currentPrice * cartItem.cartQuantity,
-      0
-    );
+    // order.totalSum = order.products.reduce(
+    //   (sum, cartItem) =>
+    //     sum + cartItem.product.currentPrice * cartItem.cartQuantity,
+    //   0
+    // );
 
-    const productAvailibilityInfo = await productAvailibilityChecker(
-      order.products
-    );
+    // const productAvailibilityInfo = await productAvailibilityChecker(
+    //   order.products
+    // );
 
-    if (!productAvailibilityInfo.productsAvailibilityStatus) {
-      res.json({
-        message: "Some of your products are unavailable for now",
-        productAvailibilityInfo
-      });
-    } else {
-      const subscriberMail = req.body.email;
-      const letterSubject = req.body.letterSubject;
-      const letterHtml = req.body.letterHtml;
+    // if (!productAvailibilityInfo.productsAvailibilityStatus) {
+    //   res.json({
+    //     message: "Some of your products are unavailable for now",
+    //     productAvailibilityInfo
+    //   });
+    // } else {
+    //   const subscriberMail = req.body.email;
+    //   const letterSubject = req.body.letterSubject;
+    //   const letterHtml = req.body.letterHtml;
 
-      const { errors, isValid } = validateOrderForm(req.body);
+    //   const { errors, isValid } = validateOrderForm(req.body);
 
-      // Check Validation
-      if (!isValid) {
-        return res.status(400).json(errors);
-      }
+      // // Check Validation
+      // if (!isValid) {
+      //   return res.status(400).json(errors);
+      // }
 
-      if (!letterSubject) {
-        return res.status(400).json({
-          message:
-            "This operation involves sending a letter to the client. Please provide field 'letterSubject' for the letter."
-        });
-      }
+      // if (!letterSubject) {
+      //   return res.status(400).json({
+      //     message:
+      //       "This operation involves sending a letter to the client. Please provide field 'letterSubject' for the letter."
+      //   });
+      // }
 
-      if (!letterHtml) {
-        return res.status(400).json({
-          message:
-            "This operation involves sending a letter to the client. Please provide field 'letterHtml' for the letter."
-        });
-      }
+      // if (!letterHtml) {
+      //   return res.status(400).json({
+      //     message:
+      //       "This operation involves sending a letter to the client. Please provide field 'letterHtml' for the letter."
+      //   });
+      // }
 
       const newOrder = new Order(order);
 
@@ -97,21 +98,22 @@ exports.placeOrder = async (req, res, next) => {
       newOrder
         .save()
         .then(async order => {
-          const mailResult = await sendMail(
-            subscriberMail,
-            letterSubject,
-            letterHtml,
-            res
-          );
+          // const mailResult = await sendMail(
+          //   subscriberMail,
+          //   letterSubject,
+          //   letterHtml,
+          //   res
+          // );
 
-          res.json({ order, mailResult });
+          // res.json({ order, mailResult });
+          res.json(order);
         })
         .catch(err =>
           res.status(400).json({
             message: `Error happened on server: "${err}" `
           })
         );
-    }
+    // }
   } catch (err) {
     res.status(400).json({
       message: `Error happened on server: "${err}" `
@@ -128,8 +130,8 @@ exports.updateOrder = (req, res, next) => {
     } else {
       const order = _.cloneDeep(req.body);
 
-      if (req.body.deliveryAddress) {
-        order.deliveryAddress = JSON.parse(req.body.deliveryAddress);
+      if (req.body.deliveryInfo) {
+        order.deliveryInfo = JSON.parse(req.body.deliveryInfo);
       }
 
       if (req.body.shipping) {
@@ -147,11 +149,11 @@ exports.updateOrder = (req, res, next) => {
       if (req.body.products) {
         order.products = JSON.parse(req.body.products);
 
-        order.totalSum = order.products.reduce(
-          (sum, cartItem) =>
-            sum + cartItem.product.currentPrice * cartItem.cartQuantity,
-          0
-        );
+        // order.totalSum = order.products.reduce(
+        //   (sum, cartItem) =>
+        //     sum + cartItem.product.currentPrice * cartItem.cartQuantity,
+        //   0
+        // );
 
         const productAvailibilityInfo = await productAvailibilityChecker(
           order.products
@@ -295,8 +297,10 @@ exports.deleteOrder = (req, res, next) => {
   });
 };
 
-exports.getOrders = (req, res, next) => { //all orders
-  Order.find()
+exports.getOrders = (req, res, next) => {
+  // console.log('req.user: ', req.user);
+  Order.find({ customer: req.user.id })
+    .populate("customer")
     .then(orders => res.json(orders))
     .catch(err =>
       res.status(400).json({
@@ -304,31 +308,6 @@ exports.getOrders = (req, res, next) => { //all orders
       })
     );
 };
-
-// //Saribeg's:
-// exports.getOrdersByUserId = (req, res, next) => {
-//   Order.find({ customer: req.user.id })
-//     .populate("customer")
-//     .then(orders => res.json(orders))
-//     .catch(err =>
-//       res.status(400).json({
-//         message: `Error happened on server: "${err}" `
-//       })
-//     );
-// };
-
-//expects {customer: '34jlsdfiuwdi39u9as9393'}
-exports.getOrdersByCustomer = async (req, res, next) => {
-  Order.find(req.body)
-    .populate("customer")
-    .then(orders => res.json(orders))
-    .catch (err =>
-      res.status(400).json({
-        message: `Error happened on server: "${err}" `
-      })
-    );
-};
-
 
 exports.getOrder = (req, res, next) => {
   Order.findOne({ _id: req.params.id })

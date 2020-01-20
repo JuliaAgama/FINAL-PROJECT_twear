@@ -32,57 +32,28 @@ export function getAllOrders() {
     };
 };
 
-export function getOrdersByFilter(filter) {
-    return function (dispatch) {
-        dispatch(ordersSendRequest());
-        (new OrdersApi()).getOrdersByFilter(filter).then(res => {
-            return dispatch({
-                type: ORDERS.ORDERS_GET_ORDERS_BY_FILTER,
-                data: res
-            });
-        })
-        .catch(err => {
-            return dispatch({
-                type: ORDERS.ORDERS_RESPONSE_FAILED,
-                error: err.message
-            })
-        });
-    };
-};
-
-export function getOrdersByCustomerId(customerId) {
-    return function (dispatch) {
-        dispatch(ordersSendRequest());
-        (new OrdersApi()).getOrdersByMatch({customer: customerId}).then(res => {
-            return dispatch({
-                type: ORDERS.ORDERS_GET_ORDERS_BY_CUSTOMER_ID,
-                data: res
-            });
-        })
-        .catch(err => {
-            return dispatch({
-                type: ORDERS.ORDERS_RESPONSE_FAILED,
-                error: err.message
-            })
-        });
-    };
-};
-
-export function getOrderItem(id) {
+export function getOrderItem(orderItem) {
     return function (dispatch) {
         dispatch(orderItemSendRequest());
-        (new OrdersApi()).getOrderById(id).then(res => {
+        if (orderItem._id) {
+            (new OrdersApi()).getOrderById(orderItem._id).then(res => {
+                return dispatch({
+                    type: ORDERS.ORDER_GET_ORDER_ITEM,
+                    data: res
+                });
+            })
+            .catch(err => {
+                return dispatch({
+                    type: ORDERS.ORDER_RESPONSE_FAILED,
+                    error: err.message
+                })
+            });
+        } else {
             return dispatch({
                 type: ORDERS.ORDER_GET_ORDER_ITEM,
-                data: res
-            });
-        })
-        .catch(err => {
-            return dispatch({
-                type: ORDERS.ORDER_RESPONSE_FAILED,
-                error: err.message
+                data: orderItem
             })
-        });
+        }
     };
 };
 

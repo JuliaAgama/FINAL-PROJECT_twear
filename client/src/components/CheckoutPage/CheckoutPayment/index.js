@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
 import { Typography, Box, Grid, FormControlLabel, FormControl, RadioGroup, Radio } from '@material-ui/core';
 
@@ -8,14 +8,8 @@ import useStyles from './useStyles';
 
 export default props => {
 
-    const {formData, infoIsOpen, shippingIsOpen, paymentIsOpen, handleOnChangePayment, onToShipping, onToPayment, onToComplete, onCompleteAvailable} = props;
-
-
-    useEffect(() => {
-
-        return (() => {
-            });
-    }, [formData]);
+    const {formData, infoIsOpen, shippingIsOpen, paymentIsOpen, onToShipping, onToPayment, onToComplete, onCompleteAvailable} = props;
+    // const {formData, infoIsOpen, shippingIsOpen, paymentIsOpen, handleOnChangePayment, onToShipping, onToPayment, onToComplete, onCompleteAvailable} = props;
 
     const classes = useStyles();
 
