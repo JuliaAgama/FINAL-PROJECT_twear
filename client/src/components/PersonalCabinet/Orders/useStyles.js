@@ -36,5 +36,14 @@ export default makeStyles(theme => (
                 padding: theme.spacing(2, 0, 3),
             },
         },
+        orderTitle : {
+            width: '800px',
+            fontSize: '16px',
+            fontWeight: '700',
+            textAlign: 'center',
+            [theme.breakpoints.down('sm')]: {
+                width: '320px',
+            },
+        }
     }
 ));

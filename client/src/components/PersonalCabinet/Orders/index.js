@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Container, Grid} from "@material-ui/core";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,32 +10,49 @@ import Paper from '@material-ui/core/Paper';
 import useStyles from "./useStyles";
 import {useDispatch} from "react-redux";
 import Dialog from "@material-ui/core/Dialog";
+import CartItem from '../../CheckoutPage/CheckoutCart/CartItem'
+import Backdrop from "@material-ui/core/Backdrop/Backdrop";
+import Fade from "@material-ui/core/Fade";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import CartItem from '../../CheckoutPage/CheckoutCart/CartItem'
-import {closeModalAction} from "../../../store/actions/modal";
-import Backdrop from "@material-ui/core/Backdrop/Backdrop";
-import Fade from "@material-ui/core/Fade";
+
+const getProductsList = (orders, orderNo) => {
+    const currentOrder = orders.find(item => item.orderNo === orderNo);
+    const productsList = currentOrder.products.map((item, index) => <CartItem key={index} item={item}/>);
+    return productsList;
+};
+
+const getOrderDetails = (orders, orderNo) => {
+    const order = orders.find(item => item.orderNo === orderNo);
+    return (
+        <>
+            <p>Delivery Info:</p>
+            <p>Name: {order.deliveryInfo.firstName + ' ' + order.deliveryInfo.lastName}</p>
+            <p>Address: {order.deliveryInfo.address + ', ' + order.deliveryInfo.city + ', ' + order.deliveryInfo.country}</p>
+            <p>Postal: {order.deliveryInfo.postal}</p>
+            <p>Telephone: {order.deliveryInfo.telephone}</p>
+        </>
+    )
+}
 
 export default function Orders(props) {
 
     const classes = useStyles();
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
+    const [currentOrder, setCurrentOrder] = useState('');
     const{orders} = props;
-    let products = [];
+
     const clickHandler = (event) => {
-        const currentOrder = orders.find(item => item.orderNo === event.target.id);
-        products = currentOrder.products.map((item, index) => <CartItem key={index} item={item}/>);
-        console.log(currentOrder)
+        setCurrentOrder(event.target.id);
         setOpen(true);
-    }
+    };
 
     const handleClose = () => {
         setOpen(false);
     };
-        // dispatch(openAddNewAddress('address'));
+
 
     let tableRows = [];
 
@@ -66,25 +83,6 @@ export default function Orders(props) {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                {/*<div>*/}
-                {/*    <Dialog*/}
-                {/*        open={open}*/}
-                {/*        onClose={handleClose}*/}
-                {/*        aria-labelledby="alert-dialog-title"*/}
-                {/*        aria-describedby="alert-dialog-description"*/}
-                {/*    >*/}
-                {/*        <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>*/}
-                {/*        <DialogContent>*/}
-                {/*            <Grid container justify="space-between" alignItems="flex-start">*/}
-                {/*                {products}*/}
-                {/*            </Grid>*/}
-                {/*            /!*<DialogContentText id="alert-dialog-description">*!/*/}
-                {/*            /!*    Let Google help apps determine location. This means sending anonymous location data to*!/*/}
-                {/*            /!*    Google, even when no apps are running.*!/*/}
-                {/*            /!*</DialogContentText>*!/*/}
-                {/*        </DialogContent>*/}
-                {/*    </Dialog>*/}
-                {/*</div>*/}
                 <Dialog
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
@@ -101,11 +99,15 @@ export default function Orders(props) {
                 >
                     <Fade in={open}>
                         <div className={classes.paper}>
+                            <DialogTitle className={classes.orderTitle}>Order details</DialogTitle>
                             <Grid container justify="space-between" alignItems="flex-start">
-                                <>
-                                    {products}
-                                </>
+                                {open ? getProductsList(orders, currentOrder) : ''}
                             </Grid>
+                            <DialogContent>
+                                <DialogContentText>
+                                    {open ? getOrderDetails(orders, currentOrder) : ''}
+                                </DialogContentText>
+                            </DialogContent>
                         </div>
                     </Fade>
                 </Dialog>
