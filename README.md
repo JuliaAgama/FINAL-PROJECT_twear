@@ -3,9 +3,9 @@ DAN-IT. Full Stack course. Front End. FINAL PROJECT. E-commerce - twear. Julia V
 
 Technology Stack:
 
-React JS: Redux, Redux Persist, Hooks;
+React JS: Redux, Redux Form, Redux Persist, Hooks;
 
-React styles & libraries: Material-ui; react-sLick, react-spring; see more in package.json;
+React styles & libraries: axios, lodash, material-ui; react-sLick, react-spring, react-stripe; see more in package.json;
 
 Backend: Node.js;
 
