@@ -12,8 +12,9 @@ export default makeStyles(theme => (
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             [theme.breakpoints.down('sm')]: {
-                width: '57px',
-                height: '57px',
+                top: '3px',
+                width: '60px',
+                height: '60px',
             },
             [theme.breakpoints.down('xs')]: {
                 top: '50%',

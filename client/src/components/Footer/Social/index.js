@@ -2,6 +2,7 @@ import React from "react";
 import useStyles from "./useStyles";
 import { Link, Grid, Box } from "@material-ui/core";
 import Hidden from "@material-ui/core/Hidden";
+import ModalStack from '../../common/modals/ModalStack';
 
 export default () => {
     const classes = useStyles();
@@ -13,8 +14,9 @@ export default () => {
                     <div style={{ display: "flex", flex: "1" }}>
                         <Link href="/" className={classes.link} >Instagram</Link>
                         <Link href="/" className={classes.link} >Facebook</Link>
+                        <div className={classes.stack}><ModalStack/></div>
                     </div>
-                        <Box fontFamily="Monospace" fontSize="h6.fontSize" m={1}>© 2019 TWEAR</Box>
+                    <Box fontFamily="Monospace" fontSize="h6.fontSize" m={1}>© 2019 TWEAR</Box>
                     <div style={{ flex: "1" }}></div>
                 </Grid>
             </Hidden>
@@ -23,6 +25,7 @@ export default () => {
                     <div>
                         <Link href="/" className={classes.linkXS} >Instagram</Link>
                         <Link href="/" className={classes.linkXS} >Facebook</Link>
+                        <div className={classes.stack}><ModalStack/></div>
                     </div>
                     <div>
                         <Box fontFamily="Monospace" fontSize="h6.fontSize" pr={2}>© 2019 TWEAR</Box>

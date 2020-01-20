@@ -4,25 +4,18 @@ import { grey } from '@material-ui/core/colors';
 export default makeStyles(theme => (
     {
         btnTeam: {
-            position: 'absolute',
-            top: '1px',
-            left: '1px',
-            width: '57px',
-            height: '57px',
+            // position: 'absolute',
+            // top: '1px',
+            // left: '1px',
+            width: '80px',
+            height: '16px',
             backgroundPosition: 'center',
-            backgroundSize: 'contain',
+            backgroundSize: 'cover',
+            // backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             [theme.breakpoints.down('sm')]: {
-                top: '3px',
-                width: '60px',
-                height: '60px',
-            },
-            [theme.breakpoints.down('xs')]: {
-                top: '50%',
-                left: '10px',
-                transform: 'translateY(-40%)',
-                width: '25px',
-                height: '25px',
+                height: '12px',
+                // top: 0,
             },
         },
         title: {
@@ -58,11 +51,11 @@ export default makeStyles(theme => (
             },
         },
         tasksContainer: {
-            fontSize: '14px',
-            lineHeight: '1.2',
+            fontSize: '22px',
+            lineHeight: '1.5',
         },
         listItem: {
-            paddingTop: 0,
+            paddingTop: theme.spacing(1),
             paddingBottom: 0,
         }
     }

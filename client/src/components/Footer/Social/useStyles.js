@@ -14,7 +14,11 @@ const useStyles = makeStyles(theme => (
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            textAlign: 'center'
+            textAlign: 'center',
+        },
+        stack: {
+            display: 'inline-block',
+            position: 'relative',
         },
         link: {
             display: 'block',
