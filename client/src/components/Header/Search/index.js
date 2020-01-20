@@ -5,14 +5,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import {  useHistory } from 'react-router-dom';
 
 import useStyles from "./useStyles";
-import {useDispatch} from "react-redux";
-import {getProductsBySearch} from "../../../store/actions/products";
-
 
 export default () => {
 
     const classes = useStyles();
-    const dispatch = useDispatch();
+
     const history = useHistory();
 
     const [isVisible, setVisibility] = useState(false);
@@ -29,18 +26,10 @@ export default () => {
     const clickHandler = (event) => {
         setVisibility(true);
         if(event.key === 'Enter') {
-            setQueryString(null);
-            // event.target.value = '';
             history.push(`/search/${queryString}`);
+            setQueryString(null);
         }
     };
-
-
-    // const searchHandler = (event) => {
-    //     console.log(queryString);
-    //     setQueryString(null);
-    //     event.target.value = '';
-    // }
 
     return (
         <React.Fragment>
