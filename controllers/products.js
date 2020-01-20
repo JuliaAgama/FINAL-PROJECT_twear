@@ -293,7 +293,7 @@ exports.searchProducts = async (req, res, next) => {
   let queryArr = query.split(" ");
 
   // Finding ALL products, that have at least one match
-  let matchedProducts = await Product.find({$text: { $search: query }})
+  let matchedProducts = await Product.find({$text: { $search: query }, enabled: true})
     .populate("categories.category")
     .populate("categories.category.topCategory")// is not populated, doesn't work this way
     .populate("gender")
@@ -303,6 +303,7 @@ exports.searchProducts = async (req, res, next) => {
     .populate("colors.sizes.size.sizeType")// is not populated, doesn't work this way
 
   res.send(matchedProducts);
+  // console.log(matchedProducts)
 };
 
   exports.matchProductsByObject = async (req, res, next) => {

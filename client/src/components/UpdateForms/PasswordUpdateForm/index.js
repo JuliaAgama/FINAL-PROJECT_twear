@@ -8,7 +8,7 @@ import useStyles from "./useStyles";
 
 import {required, password, minLength, maxLength} from '../../common/validators';
 import {renderTextField} from "../../common/inputs/inputFields";
-import {editCustomerInfo, updatePassword} from "../../../store/actions/customer";
+import {updatePassword} from "../../../store/actions/customer";
 
 
 const minLength3 = minLength(3);

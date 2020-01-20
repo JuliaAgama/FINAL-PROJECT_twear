@@ -28,6 +28,7 @@ import AdminProductsEditNew from "../components/AdminPage/AdminProducts/EditNew"
 import AdminProductsEditNewColors from "../components/AdminPage/AdminProducts/EditNewColors";
 import AdminSettings from "../components/AdminPage/AdminSettings";
 import AdminSelectedProducts from "../components/AdminPage/AdminSettings/SelectedProducts";
+import SearchResultPage from "../components/SearchResultPage";
 
 import PrivateRoute from "./PrivateRoute";
 import CustomerRoute from "./CustomerRoute";
@@ -59,6 +60,9 @@ export const Router = () => (
             />
             <Route exact path="/payment/"
                 component={props => <PaymentPage {...props}/>}
+            />
+            <Route exact path="/search/:searchQuery?"
+                   component={props => <LayoutMain {...props}><SearchResultPage {...props}/></LayoutMain>}
             />
 
             <Route exact path="/accessDenied" component={AccessDenied} />
