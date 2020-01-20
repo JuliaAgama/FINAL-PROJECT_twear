@@ -38,6 +38,7 @@ export default function TransitionsModal() {
             case 'telephone' : return <TelephoneUpdateForm />;
             case 'address' : return <NewAddressForm />;
             case 'restorePassword' : return <RestorePassword />;
+            default : return
         }
     };
 

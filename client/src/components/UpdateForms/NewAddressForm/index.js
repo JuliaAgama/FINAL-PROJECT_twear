@@ -12,7 +12,6 @@ import {editCustomerInfo} from "../../../store/actions/customer";
 
 
 const minLength2 = minLength(2);
-const minLength3 = minLength(3);
 const minLength7 = minLength(7);
 const maxLength25 = maxLength(25);
 const maxLength30 = maxLength(30);
@@ -30,8 +29,7 @@ export default reduxForm({form: 'AddNewAddress'}) (props => {
     const {customer}  = useSelector(state => state.customers);
 
 
-    const submit = values => console.log(values);
-        // dispatch(editCustomerInfo(values));
+    const submit = values => dispatch(editCustomerInfo(values));
 
 
     const classes = useStyles();

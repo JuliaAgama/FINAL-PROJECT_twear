@@ -33,6 +33,7 @@ export default () => {
         if (item.topCategory.name === topCatName && (item.gender.name === "men" || item.gender.name === "unisex") && gender === 'men') {
             return <CategoryCard name={item.name} key={item._id} image={item.img} gender={item.gender.name} />;
         }
+        return '';
     });
 
     const classes = useStyles();

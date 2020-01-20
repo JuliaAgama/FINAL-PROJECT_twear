@@ -29,6 +29,9 @@ export default makeStyles(theme => (
         },
         addInfo: {
             fontSize: '12px'
+        },
+        bodyTextEmpty: {
+            margin: '0'
         }
     }
 ));
