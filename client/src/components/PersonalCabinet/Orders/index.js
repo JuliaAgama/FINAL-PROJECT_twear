@@ -62,6 +62,7 @@ export default function Orders(props) {
                 <TableCell component="th" scope="row" id={order.orderNo}>{order.orderNo}</TableCell>
                 <TableCell align="right" id={order.orderNo}>$ {order.totalSum}</TableCell>
                 <TableCell align="right" id={order.orderNo}>{order.date.slice(0, 10)}</TableCell>
+                <TableCell align="right" id={order.orderNo}>{order.status}</TableCell>
             </TableRow>
         ))
     }
@@ -76,6 +77,7 @@ export default function Orders(props) {
                                 <TableCell>OrderNo</TableCell>
                                 <TableCell align="right">Sum</TableCell>
                                 <TableCell align="right">Date</TableCell>
+                                <TableCell align="right">Status</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
