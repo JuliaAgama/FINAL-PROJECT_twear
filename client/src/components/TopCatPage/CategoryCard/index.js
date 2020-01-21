@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Hidden } from "@material-ui/core";
+import { Grid, Hidden, Link, Box } from "@material-ui/core";
 import {useHistory} from "react-router-dom";
 
 // import useStyles from "./useStyles";
@@ -31,7 +31,14 @@ function CategoryCard(props) {
               style={{ backgroundImage: `url(${image})`, height: "50vh" }}
               onClick={() => history.push(`/categories/page=shop&gender=${gender}&category=${name}`)}
             >
-              <p className="top-cat-name-xs" >{name}</p>
+              {/* <Link href={`/categories/page=shop&gender=${gender}&category=${name}`} 
+              >
+                <Box className='category-box'
+                style={{ backgroundImage: `url(${image})`, height: "50vh" }}
+                > */}
+                  <p className="top-cat-name-xs" >{name}</p>
+                {/* </Box>
+              </Link> */}
             </Grid>
       </Hidden>
     </>

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useRef, useState, useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import { useHistory } from 'react-router-dom';
 import './imgStyle.css'
@@ -35,6 +35,17 @@ export default () => {
     const [color, setColor] = useState('Color');
     const [size, setSize] = useState('Size');
     const [isDisabled, setDisabled] = useState(true);
+    const [outOfStock, setOutOfStock] = useState(false);
+
+    useEffect(()=>{
+        if(product && product.colors && product.colors.every(el => el.sizes.every(elem => elem.quantity < 1))) {
+            setOutOfStock(true);
+        } else {
+            setOutOfStock(false);
+        }
+    },[product]);
+    console.log ('color: ', color);
+    // console.log ('Out Of Stock: ', outOfStock);
 
     if(product.imgs) {
         imgs = setImgs(product, color)
@@ -97,7 +108,7 @@ export default () => {
                     {/*Choose Color*/}
 
                     <Container maxWidth={false} className={classes.filter} >
-                        <FormControl>
+                        <FormControl disabled={outOfStock}>
                             <NativeSelect
                                 value={color}
                                 onChange={handleColorChange}
@@ -106,6 +117,7 @@ export default () => {
                                 <option value='Color'>Color</option>
                                 {colors}
                             </NativeSelect>
+                            {outOfStock && <FormHelperText>Product is NOT AVAILABLE (out of stock) </FormHelperText>}
                         </FormControl>
 
                         {/*Choose Size*/}
@@ -119,7 +131,7 @@ export default () => {
                                 <option value='Size'>Size</option>
                                 {sizes}
                             </NativeSelect>
-                            {color === 'Color' ? <FormHelperText>First choose a color</FormHelperText> : ''}
+                            {!outOfStock && color === 'Color' ? <FormHelperText>First choose a color</FormHelperText> : ''}
                         </FormControl>
                     </Container>
 

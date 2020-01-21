@@ -58,6 +58,7 @@ export default props => {
                 srcImg2={img2}
                 key={product._id}
                 borderRight={borderRight}
+                outOfStock={product && product.colors && product.colors.every(el => el.sizes.every(elem => elem.quantity < 1))}
             />;
         });
     };
