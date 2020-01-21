@@ -27,6 +27,9 @@ export default makeStyles(theme => (
             alignItems: 'center',
             justifyContent: 'center',
         },
+        productsContainer: {
+            paddingLeft: theme.spacing(2),
+        },
         paper: {
             backgroundColor: theme.palette.background.paper,
             border: '2px solid #000',

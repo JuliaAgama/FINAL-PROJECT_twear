@@ -26,6 +26,8 @@ import 'react-phone-input-2/dist/style.css'
 
 const minLength2 = minLength(2);
 const minLength3 = minLength(3);
+const minLength7 = minLength(7);
+const minLength9 = minLength(9);
 const maxLength25 = maxLength(25);
 const maxLength30 = maxLength(30);
 
@@ -84,7 +86,7 @@ export default reduxForm({form: 'Registration'}) (props => {
                             <Field name="lastName" component={renderTextField} type='text' label="Last Name*" validate={[required, name, minLength2, maxLength25]} className={classes.inputField}/>
                             <Field name="login" component={renderTextField} type='text' label="Login" validate={[required, login, minLength3, maxLength30]} className={classes.inputField}/>
                             <Field name="email" component={renderTextField} type='email' label="Email*" validate={[required, email]} className={classes.inputField}/>
-                            <Field name="password" component={renderTextField} type='password' label="Password*" validate={[required, password, minLength3, maxLength30]} className={classes.inputField} />
+                            <Field name="password" component={renderTextField} type='password' label="Password*" validate={[required, password, minLength9, maxLength30]} className={classes.inputField} />
                             <Field name="telephone" component={renderPhoneNumber} style={classes.phoneSpan}  validate={[phoneNumber]} className={classes.inputPhone}/>
                         </Box>
                         <p className={classes.text}>The data fields with an asterisk (*) must be completed in order to complete your registration

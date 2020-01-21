@@ -19,7 +19,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 
 const getProductsList = (orders, orderNo) => {
     const currentOrder = orders.find(item => item.orderNo === orderNo);
-    const productsList = currentOrder.products.map((item, index) => <CartItem key={index} item={item}/>);
+    const productsList = currentOrder.products.filter(item => item.quantity >0).map((item, index) => <CartItem key={index} item={item}/>);
     return productsList;
 };
 
@@ -102,7 +102,7 @@ export default function Orders(props) {
                     <Fade in={open}>
                         <div className={classes.paper}>
                             <DialogTitle className={classes.orderTitle}>Order details</DialogTitle>
-                            <Grid container justify="space-between" alignItems="flex-start">
+                            <Grid container justify="space-around" alignItems="flex-start" className={classes.productsContainer}>
                                 {open ? getProductsList(orders, currentOrder) : ''}
                             </Grid>
                             <DialogContent>

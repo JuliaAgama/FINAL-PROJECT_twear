@@ -33,8 +33,8 @@ export default function PersonalCabinet() {
         <React.Fragment>
             <Container maxWidth={false} className={classes.container}>
                 <SectionTitle title={`Welcome ${customer.firstName + ' ' + customer.lastName}`.toUpperCase()} mainTitle={true} />
-                <SectionTitle title='ORDER'/>
-                <SectionContainer title='ORDER'
+                <SectionTitle title='ORDERS'/>
+                <SectionContainer title='ALL OF YOUR ORDERS'
                                   description='Follow your purchases, check the delivery status of your orders, access the Return Form, and view refund information.'
                                   body={orders ? '' : 'YOU HAVE NOT PREVIOUSLY ORDERED AS A REGISTERED USER.'}>
                     <Orders orders={orders}/>

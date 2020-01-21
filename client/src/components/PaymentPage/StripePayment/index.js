@@ -75,16 +75,16 @@ export default injectStripe( () => {
                     </Grid>
                     <Grid item xs={5}>
                         <Typography component="div" className={classes.btnRegular}>
-                            <Box fontSize="body2.fontSize" onClick={onToCheckout}>Return to Checkout</Box>
+                            <Box fontSize="body2.fontSize" onClick={onToCheckout} textAlign="center" >Return to Checkout</Box>
                         </Typography>
                     </Grid>
                     <Grid item xs={7}>
                     {onPayAvailable ?
                         <Typography component="div" className={classes.btnImportant}>
-                            <Box fontSize="body2.fontSize" onClick={onPay}>Pay</Box>
+                            <Box fontSize="body2.fontSize" textAlign="center" onClick={onPay}>Pay</Box>
                         </Typography> :
                         <Typography component="div" className={classes.btnLocked}>
-                            <Box fontSize="body2.fontSize">Pay</Box>
+                            <Box fontSize="body2.fontSize" textAlign="center" >Pay</Box>
                         </Typography>
                     }
                     </Grid>

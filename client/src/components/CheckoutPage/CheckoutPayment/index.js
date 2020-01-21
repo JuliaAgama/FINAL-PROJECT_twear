@@ -43,18 +43,18 @@ export default props => {
 
                     <Grid item xs={5}>
                         <Typography component="div" className={classes.btnRegular}>
-                            <Box fontSize="body2.fontSize" onClick={onToShipping}>Return to Shipping</Box>
+                            <Box fontSize="body2.fontSize" onClick={onToShipping} textAlign="center" >Return to Shipping</Box>
                         </Typography>
                     </Grid>
                     {onCompleteAvailable ?
                     <Grid item xs={7}>
                         <Typography component="div" className={classes.btnImportant}>
-                            <Box fontSize="body2.fontSize" onClick={onToComplete}>Complete Order</Box>
+                            <Box fontSize="body2.fontSize" onClick={onToComplete} textAlign="center" >Complete Order</Box>
                         </Typography>
                     </Grid> :
                     <Grid item xs={7}>
                         <Typography component="div" className={classes.btnLocked}>
-                            <Box fontSize="body2.fontSize">Complete Order</Box>
+                            <Box fontSize="body2.fontSize" textAlign="center" >Complete Order</Box>
                         </Typography>
                     </Grid>
                     }
