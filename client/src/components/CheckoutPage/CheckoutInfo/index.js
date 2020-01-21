@@ -216,18 +216,18 @@ export default props => {
 
                     <Grid item xs={5}>
                         <Typography component="div" className={classes.btnRegular}>
-                            <Box fontSize="body2.fontSize" onClick={onToCart}>Return to Cart</Box>
+                            <Box fontSize="body2.fontSize" textAlign="center" onClick={onToCart}>Return to Cart</Box>
                         </Typography>
                     </Grid>
                     {onShipppingAvailable ?
                     <Grid item xs={7}>
                         <Typography component="div" className={classes.btnImportant}>
-                            <Box fontSize="body2.fontSize" onClick={onToShipping}>Continue to Shipping</Box>
+                            <Box fontSize="body2.fontSize" textAlign="center" onClick={onToShipping}>Continue to Shipping</Box>
                         </Typography>
                     </Grid> :
                     <Grid item xs={7}>
                         <Typography component="div" className={classes.btnLocked}>
-                            <Box fontSize="body2.fontSize" >Continue to Shipping</Box>
+                            <Box fontSize="body2.fontSize" textAlign="center" >Continue to Shipping</Box>
                         </Typography>
                     </Grid>
                     }

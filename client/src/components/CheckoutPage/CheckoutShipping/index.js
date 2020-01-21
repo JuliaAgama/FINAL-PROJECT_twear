@@ -71,18 +71,18 @@ export default props => {
                     )}
                     <Grid item xs={5}>
                         <Typography component="div" className={classes.btnRegular}>
-                            <Box fontSize="body2.fontSize" onClick={onToInfo}>Return to Information</Box>
+                            <Box fontSize="body2.fontSize" textAlign="center" onClick={onToInfo}>Return to Information</Box>
                         </Typography>
                     </Grid>
                     {onPaymentAvailable ?
                     <Grid item xs={7}>
                         <Typography component="div" className={classes.btnImportant}>
-                            <Box fontSize="body2.fontSize" onClick={onToPayment}>Continue to Payment</Box>
+                            <Box fontSize="body2.fontSize" textAlign="center" onClick={onToPayment}>Continue to Payment</Box>
                         </Typography>
                     </Grid> :
                     <Grid item xs={7}>
                         <Typography component="div" className={classes.btnLocked}>
-                            <Box fontSize="body2.fontSize" >Continue to Payment</Box>
+                            <Box fontSize="body2.fontSize" textAlign="center" >Continue to Payment</Box>
                         </Typography>
                     </Grid>
                     }
