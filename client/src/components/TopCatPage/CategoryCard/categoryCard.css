@@ -42,6 +42,10 @@
   transition: all 1.5s ease;
   height: 50vh;
 }
+.category-box {
+  width: 100%;
+  height: 50vh;
+}
 
 .category-item-home2 > a {
   font-family: "Roboto";
@@ -50,6 +54,12 @@
 }
 
 .category-item-home2:hover {
+  /* filter: grayscale(0.5); */
+  transition: all 1s ease;
+  cursor: pointer;
+}
+
+.category-item-home:hover {
   /* filter: grayscale(0.5); */
   transition: all 1s ease;
   cursor: pointer;

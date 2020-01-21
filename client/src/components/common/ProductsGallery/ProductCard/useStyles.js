@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { pink } from '@material-ui/core/colors';
+import { pink, grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => (
     {
@@ -36,6 +36,18 @@ export default makeStyles(theme => (
             maxHeight: '100%',
             maxWidth: '100%',
         },
+        imgOut: {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            objectFit: 'cover',
+            width: '100%',
+            height: '100%',
+            transform: 'translate(-50%, -50%)',
+            maxHeight: '100%',
+            maxWidth: '100%',
+            filter: 'grayscale(1)',
+        },
         textContainer: {
             fontWeight: '700',
             textTransform: 'capitalize',
@@ -44,10 +56,24 @@ export default makeStyles(theme => (
             margin: '0',
             paddingTop: '5%'
         },
+        titleOut: {
+            margin: '0',
+            paddingTop: '5%',
+            color: grey[400],
+        },
+        viewOut : {
+            color: grey[400],
+        },
         value: {
             paddingBottom: '18%',
             margin: '0',
             textTransform: 'uppercase',
+        },
+        valueOut: {
+            paddingBottom: '18%',
+            margin: '0',
+            textTransform: 'uppercase',
+            color: grey[400],
         },
         borderRight: {
             borderRight: 'none'

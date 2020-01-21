@@ -11,7 +11,7 @@ export default function ProductCard(props) {
     const classes = useStyles();
     const history = useHistory();
     const [flipped, set] = useState(false);
-    const {itemNo, name, price, sizes, srcImg1, srcImg2, borderRight} = props;
+    const {itemNo, name, price, sizes, srcImg1, srcImg2, borderRight, outOfStock} = props;
     const { transform, opacity } = useSpring({
         opacity: flipped ? 1 : 0,
         transform: `perspective(600px) rotateY(${flipped ? 180 : 0}deg)`,
@@ -34,30 +34,43 @@ export default function ProductCard(props) {
                 <a.div className={classes.anime} style={{opacity: opacity.interpolate(o => 1 - o), transform}}>
                     <div className={classes.imgContainer}>
                         <img
-                            className={classes.img}
+                            className={outOfStock ? classes.imgOut : classes.img}
                             src={srcImg1}
                             alt="NOT FOUND"/>
                     </div>
                     <div className={classes.textContainer}>
-                        <p className={classes.title}>{cutName(name, 16)}</p>
-                        <p className={classes.value}><Currency price={price}/></p>
+                        <p className={outOfStock ? classes.titleOut : classes.title}>{cutName(name, 16)}</p>
+                        <p className={outOfStock ? classes.valueOut : classes.value}><Currency price={price}/></p>
                     </div>
                 </a.div>
                 :
                 <a.div className={classes.anime} style={{opacity, transform: transform.interpolate(t => `${t} rotateY(180deg)`)}}>
                     <div className={classes.imgContainer}>
                         <img
-                            className={classes.img}
+                            className={outOfStock ? classes.imgOut : classes.img}
                             src={srcImg2}
                             alt="NOT FOUND"/>
                     </div>
                     <div className={classes.textContainer}>
-                        <p className={classes.title}>Sizes</p>
-                        <p className={classes.value}>{sizes}</p>
+                        {outOfStock ? 
+                            <>
+                                <p className={classes.titleOut}>Product is out of stock</p>
+                                <p className={classes.valueOut}>Not available</p>
+                            </> :
+                            <>
+                                <p className={classes.title}>Sizes</p>
+                                <p className={classes.value}>{sizes}</p>
+                            </>
+                        }
                     </div>
                 </a.div>
             }
-            <Link to={`/products/${itemNo}`} className={classes.link}><Box fontSize='body1.fontSize'>VIEW PRODUCT</Box></Link>
+            <Link to={`/products/${itemNo}`} className={classes.link}>
+            {outOfStock ? 
+                <Box fontSize='body1.fontSize' className={classes.viewOut}>OUT OF STOCK</Box> :
+                <Box fontSize='body1.fontSize'>VIEW PRODUCT</Box>
+            }
+            </Link>
         </Container>
     );
 };
