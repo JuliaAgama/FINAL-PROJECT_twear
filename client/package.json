@@ -12,7 +12,7 @@
     "bootstrap": "^4.3.1",
     "country-codes-list": "^1.5.3",
     "jss": "^10.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "lodash-es": "^4.17.15",
     "lodash-move": "^1.1.1",
     "lorem-ipsum": "^2.0.3",
